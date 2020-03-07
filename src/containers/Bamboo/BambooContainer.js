@@ -1,7 +1,8 @@
 import React, {useState, useCallback, useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
+import BambooTemplate from 'components/Bamboo/BambooTemplate';
+import BambooItem from 'components/Bamboo/BambooItem';
 import ProTypes from 'prop-types';
-
 
 const BambooContainer = ({ store }) => {
   const [feeds, setFeeds] = useState([]);
@@ -10,8 +11,7 @@ const BambooContainer = ({ store }) => {
     const { bamboo } = store;
     const data = await bamboo.getBambooFeed();
     
-    console.log(data);
-    
+    setFeeds(data.bamboo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
   }, []);
 
   useEffect(() => {
@@ -19,16 +19,18 @@ const BambooContainer = ({ store }) => {
   }, []);
 
   return (
-    <div>
-       
-    </div>
+    <>
+      <BambooTemplate>
+        {
+          feeds
+        }
+      </BambooTemplate>
+    </>
   );
-
-
 };
 
 BambooContainer.proTypes = {
-  store: ProTypes.object.isRequired
+  store: ProTypes.object.isRequired,
 };
 
 export default inject('store')(observer(BambooContainer));
