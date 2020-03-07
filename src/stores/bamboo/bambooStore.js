@@ -8,9 +8,8 @@ class bambooStore {
 
   @action async getBambooFeed() {
     try {
-      const { data } = await bambooRepository.getBambooFeed();
-      console.log(data);
-      
+      let { data } = await bambooRepository.getBambooFeed();
+
       return new Promise((resolve, reject) => {
         resolve(data);
       });

@@ -3,7 +3,9 @@ import BambooContainer from 'containers/Bamboo';
 
 const Bamboo = () => {
   return (
+    <>
     <BambooContainer/>
+    </>
   );
 };
 
