@@ -10,9 +10,38 @@
   justify-content: center;
 }
 
-.BambooImageModal .content {
-  background: white;
+.BambooImageModal .Content {
+  background: black;
   padding: 1rem;
-  width: 400px;
+  width: auto;
   height: auto;
+  border-radius: 17px;
+
+  &-NextImageButton {
+    width: 80px;
+    height: 700px;
+    border: none;
+    cursor: pointer;
+    background: none;
+    outline: 0;
+
+    &-ButtonImageRight {
+      margin: 100px 0px 100px 0px;
+      width: 80px;
+      height: 500px;
+      color: white;
+    }
+    &-ButtonImageLeft {
+      margin: 100px 0px 100px -15px;
+      width: 80px;
+      height: 500px;
+      color: white;
+    }
+  }
+
+  &-ModalImage {
+    width: 900px;
+    height: 700px;
+    border-radius: 17px;
+  }
 }

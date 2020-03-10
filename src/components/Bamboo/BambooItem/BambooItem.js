@@ -9,6 +9,8 @@ const BambooItem = ({ item }) => {
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
   const [isNames, setIsNames] = useState([]);
+  const [isModals, setIsModals] = useState([]);
+  const [isImage, setIsImage] = useState([]);
 
   const { contents, joinDate, allowDate, picture, name, profileImage } = item;
 
@@ -22,13 +24,14 @@ const BambooItem = ({ item }) => {
     if (picture) {
       setImages(
         <div>
-          <button className="BambooCard-Contents-ButtonStyle">
+          <button className="BambooCard-Contents-ButtonStyle" onClick={() => openModal()}>
             <img className="BambooCard-Contents-Image" src={picture[0].url}/>
           </button>
         </div>
       );
-    }
 
+      setIsImage(true);
+    }
     if (name) {
       setNames(
         <div className="BambooCard-Top-Profile-ProfileName">
@@ -36,9 +39,10 @@ const BambooItem = ({ item }) => {
         </div>
       )
     } else {
-      setNames(<div className="BambooCard-Top-Profile-ProfileName">
-        익명의 판다
-      </div>
+      setNames(
+        <div className="BambooCard-Top-Profile-ProfileName">
+          익명의 판다
+        </div>
       )
     }
 
@@ -54,8 +58,24 @@ const BambooItem = ({ item }) => {
     }
   });
 
+  const openModal = () => {
+    setIsModals(<BambooImageModal picture={picture}/>);
+  }
+
+  const closeModal = () => {
+    setIsModals(false);
+  }
+
+  const handleBambooIsImage = () => {
+    
+    setIsImage(false);
+
+    console.log({isImage});
+  }
+
   useEffect(() => {
     handleBambooImage();
+    handleBambooIsImage();
   }, [])
   
   return (
@@ -93,6 +113,9 @@ const BambooItem = ({ item }) => {
             contents
           }
         </div>
+        {
+         isModals
+        }
       </div>
       <div className="BambooCard-Contents-Bottom">
         <a href="https://www.facebook.com/dgswbambooforest/">
