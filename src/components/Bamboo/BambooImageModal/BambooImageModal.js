@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './BambooImageModal.scss';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io';
 
 let counter = 0;
 
-const BambooImageModal = ({ picture, onClose }) => {
+const BambooImageModal = ({ picture, onClose, pictureIndex }) => {
   const [images, setImages] = useState([]);
   
   const subtractCounter = () => {
@@ -13,6 +13,7 @@ const BambooImageModal = ({ picture, onClose }) => {
     if (counter < 0) {
       counter = picture.length - 1;
     }
+    
     setImages(
       <img className="Content-ModalImage" src={picture[counter].url}/>
     )
@@ -22,8 +23,9 @@ const BambooImageModal = ({ picture, onClose }) => {
     counter++;
 
     if (counter >= picture.length) {
-      counter = counter - counter;
+      counter = 0;
     }
+
 
     setImages(
       <img className="Content-ModalImage" src={picture[counter].url}/>
@@ -32,7 +34,7 @@ const BambooImageModal = ({ picture, onClose }) => {
 
   const setFirstImage = () => {
     setImages(
-      <img className="Content-ModalImage" src={picture[0].url}/>
+      <img className="Content-ModalImage" src={picture[pictureIndex].url}/>
     )
   }
 
@@ -50,8 +52,11 @@ const BambooImageModal = ({ picture, onClose }) => {
         <button className="Content-NextImageButton" onClick={() => plusCounter()}>
           <IoIosArrowForward className="Content-NextImageButton-ButtonImageRight"/>
         </button>
-      </div>
-      <div>
+        <div className="Content-CloseButtonDiv">
+          <button className="Content-CloseButton" onClick={onClose}>
+            <IoIosClose className="Content-CloseButton-CloseIcon"/>
+          </button>
+        </div>
       </div>
     </div>
   )

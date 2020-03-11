@@ -3,7 +3,6 @@ import { inject, observer } from 'mobx-react';
 import BambooTemplate from 'components/Bamboo/BambooTemplate';
 import BambooItem from 'components/Bamboo/BambooItem';
 import ProTypes from 'prop-types';
-import BambooImageModal from 'components/Bamboo/BambooImageModal';
 
 const BambooContainer = ({ store }) => {
   const [feeds, setFeeds] = useState([]);
