@@ -8,11 +8,64 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  outline: 0;
+  border: 0;
 }
 
-.BambooImageModal .content {
-  background: white;
+.BambooImageModal .Content {
+  background: black;
   padding: 1rem;
-  width: 400px;
+  width: auto;
   height: auto;
+  border-radius: 17px;
+
+  &-CloseButtonDiv {
+    display: flex;
+  }
+
+  &-CloseButton {
+    margin: -710px 0px 0px 980px;
+    width: 85px;
+    height: 85px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: 0;
+
+    &-CloseIcon {
+      margin: -25px 0px 0px -30px;
+      width: 130px;
+      height: 130px;
+      color: #868e96;
+    }
+  }
+
+  &-NextImageButton {
+    border: none;
+    margin: -50px 0px -50px 0px;
+    cursor: pointer;
+    background: none;
+    outline: 0;
+
+    &-ButtonImageRight {
+      margin: 0px 0px 100px 0px;
+      width: 80px;
+      height: 500px;
+      border: none;
+      color: white;
+    }
+    &-ButtonImageLeft {
+      margin: 100px 0px 100px -15px;
+      width: 80px;
+      height: 500px;
+      border: none;
+      color: white;
+    }
+  }
+
+  &-ModalImage {
+    width: 900px;
+    height: 700px;
+    border-radius: 17px;
+  }
 }
