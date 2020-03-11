@@ -39,7 +39,7 @@ const BambooItem = ({ item }) => {
             <img className="BambooCard-Contents-SecondImages" src={picture[1].url}></img>
           </button>
           <button className="BambooCard-Contents-PlusButton" onClick={() => openModal(0)}>
-            <p className="BambooCard-Contents-PlusImage">+{picture.length - 2}</p>
+            <p className="BambooCard-Contents-PlusImage">+{picture.length - 1}</p>
           </button>
         </div>
       )
