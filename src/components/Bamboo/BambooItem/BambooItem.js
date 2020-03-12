@@ -1,4 +1,5 @@
 import React, { Component, useState, useCallback, useEffect } from 'react';
+import dateFormat from 'dateformat';
 import 'containers/Bamboo/BambooContainer';
 import './BambooItem.scss';
 import BambooImageModal from '../BambooImageModal';
@@ -11,6 +12,9 @@ const BambooItem = ({ item }) => {
   const [isModals, setIsModals] = useState(false);
 
   const { contents, joinDate, allowDate, picture, name, profileImage } = item;
+
+  const joinDateFormat = dateFormat(joinDate, 'yyyy-mm-dd h:MM:ss');
+  const allowDateFormat = dateFormat(allowDate, 'yyyy-mm-dd h:MM:ss');
 
   const handleBambooImage = useCallback(async () => {
     // 프로필 이미지 설정
@@ -87,13 +91,13 @@ const BambooItem = ({ item }) => {
         <div className="BambooCard-Top-JoinDateStyle">
           작성날짜 :
           {
-            joinDate
+            joinDateFormat
           }
         </div>
         <div className="BambooCard-Top-AllowDateStyle">
           승인날짜 :
           {
-            allowDate
+            allowDateFormat
           }
         </div>
         <a className="BambooCard-Top-FacebookLink" href="https://www.facebook.com/dgswbambooforest/">
