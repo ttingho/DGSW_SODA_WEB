@@ -1,10 +1,13 @@
 import React from 'react';
 import BambooContainer from 'containers/Bamboo';
+import PageTemplate from 'components/Common/PageTemplate';
 
 const Bamboo = () => {
   return (
     <>
-    <BambooContainer/>
+      <PageTemplate pageType={'Bamboo'}>
+        <BambooContainer />
+      </PageTemplate>
     </>
   );
 };
