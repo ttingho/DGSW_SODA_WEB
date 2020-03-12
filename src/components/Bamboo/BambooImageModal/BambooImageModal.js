@@ -10,10 +10,10 @@ const BambooImageModal = ({ picture, onClose, pictureIndex }) => {
   const subtractCounter = () => {
     counter--;
 
-    if (counter < 0) {
+    if (counter === -1) {
       counter = picture.length - 1;
     }
-    
+
     setImages(
       <img className="Content-ModalImage" src={picture[counter].url}/>
     )

@@ -10,6 +10,11 @@ function App() {
           path='/bamboo'
           render={() => <Pages.Bamboo/>}
         />
+
+        <Route
+          path='/'
+          render={() => <Pages.Home/>}
+        />
       </Switch>
     </>
   );

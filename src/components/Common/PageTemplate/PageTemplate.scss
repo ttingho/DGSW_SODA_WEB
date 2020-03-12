@@ -1,0 +1,109 @@
+.PageTemplate {
+  align-items: center;
+  width: 99.9%;
+  height: 120px;
+
+  &-SearchInputDiv {
+    display: flex;
+
+    &-SearchInput {
+      margin: -90px 0px 0px 700px;
+      width: 600px;
+      height: 50px;
+      font-size: 20px;
+    }
+
+    &-SearchButton {
+      margin: -85px 0px 0px 0px;
+      width: 50px;
+      height: 50px;
+      border: none;
+      background-color: #50a6f2;
+      cursor: pointer;
+      outline: 0px;
+
+
+      &-SearchButtonIcon {
+        width: 40px;
+        height: 40px;
+        color: white;
+      }
+    }
+  }
+
+  &-Title {
+    width: 500px;
+    height: 120px;
+    border: none;
+
+    &-NevButton {
+      width: 80px;
+      height: 80px;
+      margin: 20px 0px 0px 30px;
+      border: none;
+      outline: 0px;
+      cursor: pointer;
+      background-color: rgba( 255, 255, 255, 0 )
+    }
+
+    &-NevImage {
+      width: 50px;
+      height: 50px;
+      color: white;
+    }
+
+    &-Image {
+      margin: 0px 0px 0px 50px;
+      width: 65px;
+      height: 55px;
+      color: white;
+    }
+
+    &-Text {
+      margin: -70px 0px 0px 240px;
+      font-size: 45px;
+      font-weight: bolder;
+      color: white;
+    }
+  }
+
+  &-Profile {
+    display: flex;
+    margin: 25px 0px 0px 1550px;
+    width: 300px;
+    height: 100px;
+  
+    &-Name {
+      margin: -105px 0px 0px 80px;
+      font-size: 25px;
+      font-weight: 500;
+      color: white;
+    }
+
+    &-Image {
+      margin: 5px 0px 0px 10px;
+      width: 40px;
+      height: 40px;
+      border: none;
+    }
+
+    &-ImageBorder {
+      margin: -115px 0px 200px 40px;
+      border-radius: 50%;
+      background-color: white;
+      width: 60px;
+      height: 60px;
+    }
+  }
+}
+
+.Bamboo {
+  border: 1px solid #49d277;
+  background-color: #49d277;
+}
+
+.Soda {
+  border: 1px solid #50a6f2;
+  background-color: #50a6f2;
+}
+
