@@ -1,7 +1,454 @@
 .PageTemplate {
+  position: relative;
   align-items: center;
   width: 99.9%;
   height: 120px;
+
+  &-NevBar {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 450px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.16);
+
+    &-Main {
+      position: fixed;
+      width: 450px;
+      height: 85px;
+
+      &-Page {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 5px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+        }
+      }
+      
+      &-HotFeed {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 10px;
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 15px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+        }
+      }
+    }
+
+    &-Bamboo {
+      position: fixed;
+      top: 210px;
+      width: 450px;
+      height: 200px;
+
+      &-Title {
+        width: 450px;
+        height: 50px;
+
+        &-Contents {
+          width: 150px;
+          height: 50px;
+          font-size: 25px;
+          font-weight: bold;
+          text-align: center;
+          line-height: 60px;
+          color: #50a6f2;
+        }
+
+        &-Line {
+          margin: -20px 0px 0px 150px;
+          text-align: center;
+          width: 280px;
+          border: 0.5px solid #50a6f2;
+        }
+      }
+
+      &-Feed {
+        display: flex;
+        margin-top: 10px;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-left: 40px;
+          width: 30px;
+          height: 20px;
+          color: #49d277;
+        }
+
+        &-Link {
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #49d277;
+          text-decoration: none;
+        }
+      }
+
+      &-Tip {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 10px;
+          margin-left: 40px;
+          width: 30px;
+          height: 20px;
+          color: #49d277;
+        }
+
+        &-Link {
+          margin-top: 10px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #49d277;
+          text-decoration: none;
+        }
+      }
+
+      &-Admin {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 20px;
+          margin-left: 40px;
+          width: 30px;
+          height: 20px;
+          color: #49d277;
+        }
+
+        &-Link {
+          margin-top: 20px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #49d277;
+          text-decoration: none;
+        }
+      }
+    }
+
+    &-Community {
+      position: fixed;
+      top: 410px;
+      width: 450px;
+      height: 300px;
+
+      &-Title {
+        width: 450px;
+        height: 50px;
+
+        &-Contents {
+          width: 150px;
+          height: 50px;
+          font-size: 25px;
+          font-weight: bold;
+          text-align: center;
+          line-height: 60px;
+          color: #50a6f2;
+        }
+
+        &-Line {
+          margin: -20px 0px 0px 150px;
+          text-align: center;
+          width: 280px;
+          border: 0.5px solid #50a6f2;
+        }
+      }
+
+      &-Develop {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 15px;
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 15px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+          background-color: white;
+          border: none;
+          outline: 0px;
+          cursor: pointer;
+        }
+      }
+
+      &-Study {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 30px;
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 30px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+          background-color: white;
+          border: none;
+          outline: 0px;
+          cursor: pointer;
+        }
+      }
+
+      &-DailyLife {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 40px;
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 40px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+          background-color: white;
+          border: none;
+          outline: 0px;
+          cursor: pointer;
+        }
+      }
+
+      &-Hobby {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 50px;
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 50px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+          background-color: white;
+          border: none;
+          outline: 0px;
+          cursor: pointer;
+        }
+      }
+
+      &-Tendinous {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 60px;
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 60px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+          background-color: white;
+          border: none;
+          outline: 0px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &-TeamBuilding {
+      position: fixed;
+      top: 730px;
+      width: 450px;
+      height: 150px;
+
+      &-Title {
+        width: 450px;
+        height: 50px;
+
+        &-Contents {
+          margin-left: -10px;
+          width: 150px;
+          height: 50px;
+          font-size: 25px;
+          font-weight: bold;
+          text-align: center;
+          line-height: 60px;
+          color: #50a6f2;
+        }
+
+        &-Line {
+          margin: -20px 0px 0px 130px;
+          text-align: center;
+          width: 300px;
+          border: 0.5px solid #50a6f2;
+        }
+      }
+
+      &-Apply {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 20px;
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 20px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+          background-color: white;
+          border: none;
+          outline: 0px;
+          cursor: pointer;
+        }
+      }
+
+      &-Interview {
+        display: flex;
+        width: 450px;
+        height: 40px;
+
+        &-Image {
+          margin-top: 30px;
+          margin-left: 40px;
+          width: 40px;
+          height: 30px;
+          color: #50a6f2;
+        }
+
+        &-Link {
+          margin-top: 30px;
+          margin-left: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          color: #50a6f2;
+          text-decoration: none;
+          background-color: white;
+          border: none;
+          outline: 0px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &-Title {
+      width: 450px;
+      height: 125px;
+      background-color: white;
+    
+        &-NevButton {
+          width: 80px;
+          height: 80px;
+          margin: 20px 0px 0px 30px;
+          border: none;
+          outline: 0px;
+          cursor: pointer;
+          background-color: rgba( 255, 255, 255, 0 )
+        }
+    
+        &-NevImage {
+          width: 50px;
+          height: 50px;
+        }
+    
+        &-Image {
+          margin: 0px 0px 0px 50px;
+          width: 65px;
+          height: 55px;
+        }
+    
+        &-Text {
+          margin: -70px 0px 0px 240px;
+          font-size: 45px;
+          font-weight: bolder;
+        }
+    }
+
+    &-Source {
+      margin: 800px 0px 0px 0px;
+      text-align: center;
+      color: #50a6f2;
+      font-weight: bold;
+    }
+  }
 
   &-SearchInputDiv {
     display: flex;
@@ -32,9 +479,8 @@
   }
 
   &-Title {
-    width: 500px;
+    width: 450px;
     height: 120px;
-    border: none;
 
     &-NevButton {
       width: 80px;
@@ -105,5 +551,15 @@
 .Soda {
   border: 1px solid #50a6f2;
   background-color: #50a6f2;
+}
+
+.NevBar {
+  &-Bamboo {
+    color: #49d277;
+  }
+
+  &-Soda {
+    color: #50a6f2;
+  }
 }
 
