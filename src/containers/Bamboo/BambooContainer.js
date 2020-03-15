@@ -33,6 +33,7 @@ const BambooContainer = ({ store }) => {
   const getMoreBambooFeeds = async () => {
     if (isObserver) {
       const { bamboo } = store;
+      // delay
       await fetch(2000);
       limit += 5;
 
