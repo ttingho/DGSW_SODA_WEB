@@ -3,7 +3,6 @@ import { inject, observer } from 'mobx-react';
 import BambooTemplate from 'components/Bamboo/BambooTemplate';
 import BambooItem from 'components/Bamboo/BambooItem';
 import './Load.scss';
-// import useIntersect from './useIntersect.js';
 
 import ProTypes from 'prop-types';
 
