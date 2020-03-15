@@ -6,9 +6,9 @@ import bambooRepository from './bambooRepository';
 class bambooStore {
   @observable bambooInfo = [];
 
-  @action async getBambooFeed() {
+  @action async getBambooFeed(page, limit) {
     try {
-      let { data } = await bambooRepository.getBambooFeed();
+      let { data } = await bambooRepository.getBambooFeed(page, limit);
 
       return new Promise((resolve, reject) => {
         resolve(data);
