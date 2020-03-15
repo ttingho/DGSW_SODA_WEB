@@ -38,6 +38,8 @@ const BambooContainer = ({ store }) => {
       limit += 5;
 
       const data = await bamboo.getBambooFeed(page, limit);
+
+      // 마지막 게시물 조회가 끝났을경우
       if (limit > data.bamboo.length) {
         setIsObserver(false);
       }
