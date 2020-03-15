@@ -25,6 +25,7 @@ const BambooContainer = ({ store }) => {
 
   // 2초 텀 두기
   const fetch = (delay) => new Promise(res => setTimeout(function(){ 
+    limit += 5;
     res(setIsLoading(false));
   }, delay));
 
@@ -34,8 +35,6 @@ const BambooContainer = ({ store }) => {
       const { bamboo } = store;
       // delay
       await fetch(2000);
-      limit += 5;
-
       const data = await bamboo.getBambooFeed(page, limit);
 
       // 마지막 게시물 조회가 끝났을경우
