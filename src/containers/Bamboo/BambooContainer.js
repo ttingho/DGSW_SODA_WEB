@@ -3,7 +3,6 @@ import { inject, observer } from 'mobx-react';
 import BambooTemplate from 'components/Bamboo/BambooTemplate';
 import BambooItem from 'components/Bamboo/BambooItem';
 import './Load.scss';
-// import useIntersect from './useIntersect.js';
 
 import ProTypes from 'prop-types';
 
@@ -12,8 +11,11 @@ let limit = 5;
 
 const BambooContainer = ({ store }) => {
   const [feeds, setFeeds] = useState([]);
-  const [state, setState ] = useState({ limit: 0,  isLoading: false});
+  const [target, setTarget] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isObserver, setIsObserver] = useState(true);
 
+  // 초기 데이터 설정
   const handleBamboo =  useCallback(async () => {
     const { bamboo } = store;
     const data = await bamboo.getBambooFeed(page, limit);
@@ -21,31 +23,40 @@ const BambooContainer = ({ store }) => {
     setFeeds(data.bamboo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
   }, []);
 
-  const fakeFetch = (delay = 1000) => new Promise(res => setTimeout(res, delay));
+  // 2초 텀 두기
+  const fetch = (delay) => new Promise(res => setTimeout(function(){ 
+    res(setIsLoading(false));
+  }, delay));
 
   // 서버로부터 추가 데이터 들고 오기
   const getMoreBambooFeeds = async () => {
-    const { bamboo } = store;
-    setIsLoading(true);
-    await fakeFetch();
-    limit += 5;
-    const data = await bamboo.getBambooFeed(page, limit);
-    setFeeds(data.bamboo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
-    setIsLoading(false);
+    if (isObserver) {
+      const { bamboo } = store;
+      // delay
+      await fetch(2000);
+      limit += 5;
+
+      const data = await bamboo.getBambooFeed(page, limit);
+
+      // 마지막 게시물 조회가 끝났을경우
+      if (limit > data.bamboo.length) {
+        setIsObserver(false);
+      }
+
+      setFeeds(data.bamboo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+    }
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-
+  // 스크롤 바닥 닿았을 경우 이벤트 처리
   const onIntersect = async ([entry], observer) => {
-    if (entry.isIntersecting) {
+    if (entry.isIntersecting && isObserver) {
       observer.unobserve(entry.target);
-      await getMoreBambooFeeds();
+      setIsLoading(true);
       observer.observe(entry.target);
     }
   };
 
-  const [target, setTarget] = useState(null);
-
+  // observer API 설정
   const setObserver = () => {
     let observer;
 	  if (target) {
@@ -58,8 +69,15 @@ const BambooContainer = ({ store }) => {
 
   useEffect(() => {
     handleBamboo();
+  }, []);
+
+  useEffect(() => {
     setObserver();
   });
+
+  useEffect(() => {
+    getMoreBambooFeeds();
+  }, [isLoading]);
 
   return (
     <>
@@ -69,7 +87,7 @@ const BambooContainer = ({ store }) => {
         }
         <div className={'Loading'} ref={setTarget}>
           {
-            isLoading && 'Loading'
+            isLoading && isObserver && 'Loading...'
           }
         </div>
       </BambooTemplate>
@@ -80,7 +98,5 @@ const BambooContainer = ({ store }) => {
 BambooContainer.proTypes = {
   store: ProTypes.object.isRequired,
 };
-
-
 
 export default inject('store')(observer(BambooContainer));
