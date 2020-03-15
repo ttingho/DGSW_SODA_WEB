@@ -12,7 +12,7 @@ const BambooItem = ({ item }) => {
   const [isModals, setIsModals] = useState(false);
 
   const { contents, joinDate, allowDate, picture, name, profileImage } = item;
-
+  
   const joinDateFormat = dateFormat(joinDate, 'yyyy-mm-dd h:MM:ss');
   const allowDateFormat = dateFormat(allowDate, 'yyyy-mm-dd h:MM:ss');
 
