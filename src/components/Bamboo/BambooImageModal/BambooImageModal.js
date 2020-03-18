@@ -16,8 +16,8 @@ const BambooImageModal = ({ picture, onClose, pictureIndex }) => {
 
     setImages(
       <img className="Content-ModalImage" src={picture[counter].url}/>
-    )
-  }
+    );
+  };
 
   const plusCounter = () => {
     counter++;
@@ -26,17 +26,16 @@ const BambooImageModal = ({ picture, onClose, pictureIndex }) => {
       counter = 0;
     }
 
-
     setImages(
       <img className="Content-ModalImage" src={picture[counter].url}/>
-    )
-  }
+    );
+  };
 
   const setFirstImage = () => {
     setImages(
       <img className="Content-ModalImage" src={picture[pictureIndex].url}/>
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     setFirstImage();
@@ -59,7 +58,7 @@ const BambooImageModal = ({ picture, onClose, pictureIndex }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default BambooImageModal;
