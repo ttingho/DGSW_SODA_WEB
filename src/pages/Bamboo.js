@@ -5,7 +5,7 @@ import PageTemplate from 'components/Common/PageTemplate';
 const Bamboo = () => {
   return (
     <>
-      <PageTemplate pageType={'Bamboo'}>
+      <PageTemplate pageType={'bamboo'}>
         <BambooContainer />
       </PageTemplate>
     </>
