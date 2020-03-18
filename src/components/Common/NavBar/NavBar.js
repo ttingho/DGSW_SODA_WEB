@@ -6,6 +6,7 @@ import { GoShield } from 'react-icons/go';
 import { GiSofa, GiSiren } from 'react-icons/gi';
 import { FaBasketballBall, FaPen } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './NavBar.scss';
@@ -13,7 +14,7 @@ import ImageIcon from '../ImageIcon';
 
 const cx = classNames.bind(style);
 
-const NavBar = ({ pageType }) => {
+const NavBar = ({ pageType, history }) => {
   const [isMenu, setIsMenu] = useState(false);
 
   return (
@@ -24,8 +25,8 @@ const NavBar = ({ pageType }) => {
           <div className={cx('NavBar-menu-box-wrap', { 'NavBar-visible': isMenu })}>
             <div className={cx('NavBar-menu-box-wrap-child')}>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <TiMessages className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>메인</span>
+                <TiMessages className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/')}>메인</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
                 <MdStarBorder className={cx('NavBar-menu-box-wrap-child-item-icon')} />
@@ -38,8 +39,8 @@ const NavBar = ({ pageType }) => {
                 <div className={cx('NavBar-menu-box-wrap-child-title-line')} />
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <MdLibraryBooks className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>대숲피드</span>
+                <MdLibraryBooks className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/bamboo')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/bamboo')}>대숲피드</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
                 <IoMdPaperPlane className={cx('NavBar-menu-box-wrap-child-item-icon')} />
@@ -94,7 +95,7 @@ const NavBar = ({ pageType }) => {
           </div>
         </div>
       </div>
-      <div className={cx('NavBar-logo', { 'NavBar-bamboo-color': isMenu && pageType === 'bamboo' }, { 'NavBar-soda-color': isMenu && pageType === 'soda' })}>
+      <div className={cx('NavBar-logo', { 'NavBar-bamboo-color': isMenu && pageType === 'bamboo' }, { 'NavBar-soda-color': isMenu && pageType === 'soda' })} onClick={() => history.push('/')}>
         <TiMessages className={cx('NavBar-logo-icon')} />SODA
       </div>
       <div className={cx('NavBar-search', { 'NavBar-visible': pageType === 'soda' })}>
@@ -113,7 +114,8 @@ NavBar.propTypes = {
   pageType: PropTypes.oneOf([
     'bamboo',
     'soda'
-  ])
+  ]),
+  history: PropTypes.object
 };
 
-export default NavBar;
+export default withRouter(NavBar);

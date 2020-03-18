@@ -3,7 +3,7 @@
 
 .PageTemplate {
   width: 100%;
-  min-width: 320px;
+  min-width: 1200px;
   min-height: 100vh;
   display: flex;
   justify-content: flex-start;
@@ -13,6 +13,7 @@
   &-header {
     position: fixed;
     width: 100%;
+    min-width: 1200px;
     height: 80px;
     margin: 0;
     padding: 0;
@@ -21,7 +22,9 @@
   }
   &-contents {
     padding-top: 80px;
-    width: 100%;
+    width: 1200px;
+    min-width: 1200px;
+    max-width: 1200px;
     min-height: 1000px;
   }
 }
