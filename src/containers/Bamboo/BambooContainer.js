@@ -25,6 +25,8 @@ const BambooContainer = ({ store }) => {
 
   // 2초 텀 두기
   const fetch = (delay) => new Promise(res => setTimeout(function(){ 
+
+    limit += 5;
     res(setIsLoading(false));
   }, delay));
 
@@ -34,10 +36,8 @@ const BambooContainer = ({ store }) => {
       const { bamboo } = store;
       // delay
       await fetch(2000);
-      limit += 5;
-
       const data = await bamboo.getBambooFeed(page, limit);
-
+      
       // 마지막 게시물 조회가 끝났을경우
       if (limit > data.bamboo.length) {
         setIsObserver(false);
@@ -49,7 +49,7 @@ const BambooContainer = ({ store }) => {
 
   // 스크롤 바닥 닿았을 경우 이벤트 처리
   const onIntersect = async ([entry], observer) => {
-    if (entry.isIntersecting && isObserver) {
+    if (entry.isIntersecting && isObserver && !isLoading) {
       observer.unobserve(entry.target);
       setIsLoading(true);
       observer.observe(entry.target);
@@ -59,6 +59,7 @@ const BambooContainer = ({ store }) => {
   // observer API 설정
   const setObserver = () => {
     let observer;
+	  // eslint-disable-next-line no-mixed-spaces-and-tabs
 	  if (target) {
 		  observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
       observer.observe(target);

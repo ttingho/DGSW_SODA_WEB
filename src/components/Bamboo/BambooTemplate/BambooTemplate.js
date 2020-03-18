@@ -10,7 +10,11 @@ const cx = classNames.bind(style);
 const BambooTemplate = ({ children }) => {
   const changeScrollPoint = () => {
     window.scrollTo(0, 0);
-  }
+  };
+
+  useEffect(() => {
+
+  }, []);
 
   return (
     <div className="BambooTemplate">
@@ -20,10 +24,10 @@ const BambooTemplate = ({ children }) => {
       </button>
     </div>
   );
-}
+};
 
 BambooTemplate.propTypes = {
   
-}
+};
 
 export default BambooTemplate;
