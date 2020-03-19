@@ -43,12 +43,12 @@ const NavBar = ({ pageType, history }) => {
                 <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/bamboo')}>대숲피드</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <IoMdPaperPlane className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>대나무 제보하기</span>
+                <IoMdPaperPlane className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/bamboo-write')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/bamboo-write')}>대나무 제보하기</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <GoShield className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>관리자</span>
+                <GoShield className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/bamboo-admin')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/bamboo-admin')}>관리자</span>
               </div>
             </div>
             <div className={cx('NavBar-menu-box-wrap-child')}>
@@ -83,12 +83,12 @@ const NavBar = ({ pageType, history }) => {
                 <div className={cx('NavBar-menu-box-wrap-child-title-line')} />
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <FaPen className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>모집 및 신청</span>
+                <FaPen className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/team-building')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/team-building')}>모집 및 신청</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <FiPhoneCall className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>온라인 면접</span>
+                <FiPhoneCall className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/team-building-interview')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/team-building-interview')}>온라인 면접</span>
               </div>
             </div>
             <span className={cx('NavBar-menu-box-wrap-info')}>Made By takeUp Team</span>
