@@ -1,0 +1,162 @@
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+.BambooWriteTemplate {
+  width: 100%;
+  height: calc(100vh - 80px);
+  min-height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  &-leftPanel {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    &-textarea {
+      width: 80%;
+      height: 50%;
+      border: none;
+      box-shadow: 0 0 8px 0 $shadow;
+      resize: none;
+      outline: none;
+      padding: 2%;
+      font-size: $font_size_4;
+      font-family: NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+      color: $black;
+      margin: auto;
+      margin-top: 15%;
+      margin-bottom: 5%;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      &::placeholder {
+        color: $gray_3;
+      }
+      &:focus::-webkit-input-placeholder {color:transparent;}
+      &:focus::-moz-placeholder {color:transparent;}
+      &:-moz-placeholder {color:transparent;}
+    }
+    &-image {
+      width: 80%;
+      height: 10%;
+      margin: auto;
+      margin-top: 2%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      &-upload {
+        width: 20%;
+        height: 60%;
+        margin: auto;
+        margin-left: 0;
+        &-label {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $font_size_3;
+          font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+          border: 1px solid $bamboo_primary;
+          border-radius: 2.5px;
+          color: $bamboo_primary;
+          background-color: $white;
+          cursor: pointer;
+          transition: ease-out .2s;
+          &:hover {
+            color: $white;
+            background-color: $bamboo_primary;
+          }
+        }
+        &-input {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip:rect(0,0,0,0);
+          border: 0;
+        }
+      }
+      &-detail {
+        font-size: $font_size_2;
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        color: $gray_3;
+        user-select: none;
+        margin: auto;
+        margin-right: 2%;
+      }
+      &-exampleContents {
+        width: 40%;
+        height: 65%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 2px solid $bamboo_primary;
+        user-select: none;
+        color: $bamboo_primary;
+        background-color: $white;
+        cursor: pointer;
+        &-icon {
+          font-size: $font_size_8;
+          margin-left: 3%;
+        }
+        &-file {
+          font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+          margin-right: 4%;
+        }
+      }
+    }
+  }
+  &-rightPanel {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    &-top {
+      width: 80%;
+      height: 5%;
+      margin: auto;
+      margin-top: 15%;
+      margin-bottom: 2%;
+      display: flex;
+    }
+    &-bottom {
+      width: 80%;
+      height: 65%;
+      margin: auto;
+      margin-top: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      &-title {
+        font-size: $font_size_5;
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        color: $black;
+        user-select: none;
+        margin: 0 auto 3% 0;
+      }
+    }
+  }
+}
+
+.radioContents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  &-gray {
+    color: $gray_3;
+    font-size: $font_size_2;
+    margin-left: 5px;
+  }
+}

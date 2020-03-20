@@ -7,6 +7,7 @@ export const color = {
   community_secondary: '#6383a8',
   bamboo_primary: '#49d277',
   bamboo_secondary: '#3ac569',
+  gray_0: '#e2e2e2',
   gray_1: '#cfd9df',
   gray_2: '#9dc8c8',
   gray_3: '#afb7c2',
@@ -15,4 +16,5 @@ export const color = {
   error: '#f67676',
   warning: '#eca95c',
   info: '#6488ff',
+  facebook: '#4196e4'
 };
