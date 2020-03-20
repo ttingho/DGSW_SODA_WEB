@@ -1,0 +1,61 @@
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+.Radio {
+  position: relative;
+  user-select: none;
+  font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+  color: $black;
+  cursor: pointer;
+  padding: 10px 10px 10px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  &-input {
+    position: absolute;
+    visibility: hidden;
+    &:checked ~ .Radio-checked:after {
+      display: block;
+    }
+  }
+  &-checked {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 1px solid;
+    &:after {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      content: "";
+      position: absolute;
+      display: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &-soda {
+      border-color: $soda_primary;
+      &:after {
+        background-color: $soda_primary;
+      }
+    }
+    &-bamboo {
+      border-color: $bamboo_primary;
+      &:after {
+        background-color: $bamboo_primary;
+      }
+    }
+    &-community {
+      border-color: $community_primary;
+      &:after {
+        background-color: $community_primary;
+      }
+    }
+  }
+}
