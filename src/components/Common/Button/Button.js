@@ -40,7 +40,14 @@ Button.propTypes = {
   ]).isRequired,
   /** 버튼 외형 타입 */
   appearance: PropTypes.oneOf([
-    'primary', 'secondary', 'tertiary', 'outline', 'outlineSecondary', 'outlineTertiary'
+    'primary',
+    'secondary',
+    'tertiary',
+    'red',
+    'outline',
+    'outlineSecondary',
+    'outlineTertiary',
+    'outlineRed'
   ]),
   /** 버튼의 width, height, 폰트 사이즈를 수정 */
   customStyle: PropTypes.shape({
@@ -75,7 +82,7 @@ Button.defaultProps = {
   },
   type: 'button',
   handleFunction: () => {},
-  edgeType: 'squre',
+  edgeType: 'round',
   isLoading: false
 };
 

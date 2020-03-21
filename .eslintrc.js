@@ -45,8 +45,11 @@ module.exports = {
 		'no-unused-vars': [
 			'off'
 		],
+		'no-useless-catch': [
+			'off'
+		],
 		'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-    'react-hooks/exhaustive-deps': 'warn' // Checks effect dependencies
+		'react-hooks/exhaustive-deps': 'off', // Checks effect dependencies
 	},
 	'parser': 'babel-eslint'
 };

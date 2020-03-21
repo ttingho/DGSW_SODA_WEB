@@ -3,8 +3,6 @@ import { SERVER } from 'config/config.json';
 
 class bambooRepository {
   async getBambooFeed(page, limit) {
-    
-    // eslint-disable-next-line no-useless-catch
     try {
       const { data } = await axios.get(`${SERVER}/bamboo/`, {
         params: {
@@ -12,6 +10,16 @@ class bambooRepository {
           limit: limit,
         }
       });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async applyBambooPost (request) {
+    try {
+      const { data } = await axios.post(`${SERVER}/bamboo`, request);
+      
       return data;
     } catch (error) {
       throw error;

@@ -1,16 +1,15 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import testRepository from './testRepository';
+import uploadRepository from './uploadRepository';
 
 @autobind
-class testStore {
-  @observable testInfo = {};
-
-  @action async getTest() {
+class uploadStore {
+  @action async uploadImage(imageForm) {
     try {
-      const { data } = await testRepository.getTest();
+      const response = await uploadRepository.uploadImage(imageForm);
+
       return new Promise((resolve, reject) => {
-        resolve(data);
+        resolve(response);
       });
     } catch (error) {
       return new Promise((resolve, reject) => {
@@ -20,4 +19,4 @@ class testStore {
   }
 }
 
-export default testStore;
+export default uploadStore;
