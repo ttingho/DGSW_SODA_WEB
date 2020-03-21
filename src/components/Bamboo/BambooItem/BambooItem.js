@@ -2,7 +2,8 @@ import React, { Component, useState, useCallback, useEffect } from 'react';
 import dateFormat from 'dateformat';
 import 'containers/Bamboo/BambooContainer';
 import './BambooItem.scss';
-import defaultProfileImage from '../../../assets/image/2019052001140_0.png';
+import PropTypes from 'prop-types';
+import defaultProfileImage from '../../../assets/image/panda.jpg';
 import facebookLogo from '../../../assets/image/994EAB4F5D2565432F.png';
 import BambooImageModal from '../BambooImageModal';
 
@@ -127,6 +128,15 @@ const BambooItem = ({ item }) => {
       </div>
     </div>
   );
+};
+
+BambooItem.propTypes = {
+  contents: PropTypes.string,
+  joinData: PropTypes.string,
+  allowDate: PropTypes.string,
+  picture: PropTypes.array,
+  name: PropTypes.string,
+  profileImage: PropTypes.object,
 };
 
 export default BambooItem;

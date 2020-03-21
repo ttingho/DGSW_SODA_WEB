@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './BambooImageModal.scss';
+import PropTypes from 'prop-types';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io';
 
 let counter = 0;
@@ -59,6 +60,12 @@ const BambooImageModal = ({ picture, onClose, pictureIndex }) => {
       </div>
     </div>
   );
+};
+
+BambooImageModal.propTypes = {
+  picture: PropTypes.array,
+  onClose: PropTypes.bool,
+  pictureIndex: PropTypes.number,
 };
 
 export default BambooImageModal;
