@@ -12,9 +12,12 @@ export const color = {
   gray_2: '#9dc8c8',
   gray_3: '#afb7c2',
   gray_4: '#707070',
+  gray_5: '#566270',
+  border_1: '#94d2fe',
   success: '#75d701',
   error: '#f67676',
   warning: '#eca95c',
   info: '#6488ff',
+  shadow: 'rgba(0, 0, 0, 0.16)',
   facebook: '#4196e4'
 };
