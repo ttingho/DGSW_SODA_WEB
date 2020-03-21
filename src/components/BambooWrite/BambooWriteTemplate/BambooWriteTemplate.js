@@ -1,4 +1,5 @@
 import React from 'react';
+import { FB_APP_ID_TEST } from 'config/config.json';
 import { MdInsertPhoto } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
@@ -6,18 +7,21 @@ import style from './BambooWriteTemplate.scss';
 import ExampleCard from '../ExampleCard';
 import Button from 'components/Common/Button/Button';
 import Radio from 'components/Common/Radio';
-import { color } from 'styles/color/color_scheme';
-import { typography } from 'styles/typography/typography_scheme';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 const cx = classNames.bind(style);
 
 const BambooWriteTemplate = ({
   profileSrc,
   name,
+  accessToken,
   contentsObj,
   imagesObj,
+  isType,
   handleIsType,
-  handleImageChange
+  handleImageChange,
+  handleFaceBookLogin,
+  handlePostRequest
 }) => {
   const customStyle = {
     width: '145px',
@@ -25,8 +29,10 @@ const BambooWriteTemplate = ({
     margin: 'auto 0 auto auto'
   };
 
-  const radioContents = <span className={cx('radioContents')}>실명 <span className={cx('radioContents-gray')}>(FaceBook 로그인 필요)</span></span>;
-  
+  const radioContents = <span className={cx('radioContents')}>
+    실명 <span className={cx('radioContents-gray')}>(FaceBook 로그인 필요)</span>
+  </span>; 
+
   const { contents, setContents } = contentsObj;
   const { images, setImages } = imagesObj;
 
@@ -48,9 +54,25 @@ const BambooWriteTemplate = ({
       </div>
       <div className={cx('BambooWriteTemplate-rightPanel')}>
         <div className={cx('BambooWriteTemplate-rightPanel-top')}>
-          <Radio color={'bamboo'} name={'bamboo-wrtie'} id={'bamboo_radio_1'} contents={'익명'} customStyle={{ margin: 'auto 3% auto 0' }} onClick={() => handleIsType('anonymous')} />
-          <Radio color={'bamboo'} name={'bamboo-wrtie'} id={'bamboo_radio_2'} contents={radioContents} customStyle={{ margin: 'auto auto auto 0' }} onClick={() => handleIsType('realname')} />
-          <Button appearance={'secondary'} edgeType={'round'} customStyle={customStyle}>대나무 제보하기</Button>
+          <Radio isRadio={isType} radioType={'anonymous'} color={'bamboo'} name={'bamboo-wrtie'} id={'bamboo_radio_1'} contents={'익명'} customStyle={{ margin: 'auto 3% auto 0' }} onChange={event => {
+            handleIsType(event);
+            if (accessToken) {
+              window.FB.logout();
+            }
+          }} />
+          <FacebookLogin
+            appId={FB_APP_ID_TEST}
+            autoLoad={false}
+            fields='name, email, picture'
+            callback={handleFaceBookLogin}
+            render={renderProps => (
+              <Radio isRadio={isType} radioType={'realname'} color={'bamboo'} name={'bamboo-wrtie'} id={'bamboo_radio_2'} contents={radioContents} customStyle={{ margin: 'auto auto auto 0' }} onChange={event => {
+                handleIsType(event);
+                renderProps.onClick();
+              }} />
+            )}
+          />
+          <Button appearance={'secondary'} edgeType={'round'} customStyle={customStyle} handleFunction={handlePostRequest}>대나무 제보하기</Button>
         </div>
         <div className={cx('BambooWriteTemplate-rightPanel-bottom')}>
           <span className={cx('BambooWriteTemplate-rightPanel-bottom-title')}>게시물 미리 보기</span>
@@ -64,10 +86,14 @@ const BambooWriteTemplate = ({
 BambooWriteTemplate.propTypes = {
   profileSrc: PropTypes.string,
   name: PropTypes.string,
+  accessToken: PropTypes.string,
   contentsObj: PropTypes.object,
   imagesObj: PropTypes.object,
+  isType: PropTypes.string,
   handleIsType: PropTypes.func,
-  handleImageChange: PropTypes.func
+  handleImageChange: PropTypes.func,
+  handleFaceBookLogin: PropTypes.func,
+  handlePostRequest: PropTypes.func
 };
 
 export default BambooWriteTemplate;

@@ -6,6 +6,7 @@ $background_color_transparent: 0.85;
 $outline_color: rgba($soda_primary, $background_color_transparent);
 $outline_secondary_color: rgba($bamboo_primary, $background_color_transparent);
 $outline_tertiary_color: rgba($community_primary, $background_color_transparent);
+$outline_red_color: rgba($error, $background_color_transparent);
 
 @mixin buttonBasic ($font_color, $background_color) {
   display: flex;
@@ -79,6 +80,11 @@ $outline_tertiary_color: rgba($community_primary, $background_color_transparent)
     @include buttonEvent($community_primary);
   }
 
+  &-red {
+    @include buttonBasic($white, rgba($error, $background_color_transparent));
+    @include buttonEvent($error);
+  }
+
   // Outline Btn
   &-outline {
     @include buttonBasic($outline_color, transparent);
@@ -98,6 +104,12 @@ $outline_tertiary_color: rgba($community_primary, $background_color_transparent)
     @include buttonBasic($outline_tertiary_color, transparent);
     @include outlineButton($outline_tertiary_color);
     @include outlineButtonEvent($outline_tertiary_color, $community_primary);
+  }
+
+  &-outlineRed {
+    @include buttonBasic($outline_red_color, transparent);
+    @include outlineButton($outline_red_color);
+    @include outlineButtonEvent($outline_red_color, $error);
   }
 
   // Button Edge Type

@@ -5,17 +5,20 @@ import style from './Radio.scss';
 
 const cx = classNames.bind(style);
 
-const Radio = ({ color, name, id, contents, customStyle, onClick }) => {
+const Radio = ({ isRadio, radioType, color, name, id, contents, customStyle, onChange }) => {
+
   return (
-    <label htmlFor={id} className={cx('Radio')} style={customStyle} onClick={() => onClick()}>
+    <label htmlFor={id} className={cx('Radio')} style={customStyle}>
       {contents}
-      <input type={'radio'} name={name} id={id} className={cx('Radio-input', { 'Radio-input-soda': color === 'soda' }, { 'Radio-input-bamboo': color === 'bamboo' }, { 'Radio-input-community': color === 'community' })} />
+      <input type={'radio'} value={radioType} name={name} id={id} onChange={event => onChange(event)} checked={(isRadio !== 'empty') && (isRadio !== undefined) ? isRadio === radioType ? true : false : false} className={cx('Radio-input', { 'Radio-input-soda': color === 'soda' }, { 'Radio-input-bamboo': color === 'bamboo' }, { 'Radio-input-community': color === 'community' })} />
       <div className={cx('Radio-checked', { 'Radio-checked-soda': color === 'soda' }, { 'Radio-checked-bamboo': color === 'bamboo' }, { 'Radio-checked-community': color === 'community' })} />
     </label>
   );
 };
 
 Radio.propTypes = {
+  isRadio: PropTypes.string,
+  radioType: PropTypes.string,
   color: PropTypes.oneOf([
     'soda',
     'bamboo',
@@ -28,12 +31,12 @@ Radio.propTypes = {
     PropTypes.element,
     PropTypes.node
   ]),
-  customStyle: PropTypes.string,
-  onClick: PropTypes.func
+  customStyle: PropTypes.object,
+  onChange: PropTypes.func
 };
 
 Radio.defaultProps = {
-  onClick: () => {}
+  onChange: () => {}
 };
 
 export default Radio;

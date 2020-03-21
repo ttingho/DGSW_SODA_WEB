@@ -1,9 +1,11 @@
-import testStore from './test';
 import bambooStore from './bamboo';
+import dialogStore from './dialog';
+import uploadStore from './upload';
 
 const stores = {
-  test: new testStore(),
-  bamboo: new bambooStore()
+  bamboo: new bambooStore(),
+  dialog: new dialogStore(),
+  upload: new uploadStore()
 };
 
 export default stores;

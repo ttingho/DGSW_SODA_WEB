@@ -31,7 +31,11 @@ const ExampleCard = ({ profileSrc, name, contents, images }) => {
       </div>
       <div className={cx('ExampleCard-contents')}>
         <p className={cx('ExampleCard-contents-text')}>
-          {contents}
+          {
+            contents.length === 0 ?
+              '옆에 대나무(이야기)를 적으면 미리 볼 수 있어요!' :
+              contents
+          }
         </p>
       </div>
     </div>
