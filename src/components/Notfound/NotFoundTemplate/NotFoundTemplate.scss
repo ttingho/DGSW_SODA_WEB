@@ -3,9 +3,8 @@
   .NotFound {
     position: fixed;
     width: 100%;
-    height: 600px;
+    height: 1080px;
     background-color: #74c0fc;
-    top: 200px;
 
     &-NotFoundImageBackground {
       width: 400px;
@@ -23,7 +22,7 @@
       color: white;
       font-weight: bold;
       text-align: center;
-      margin-top: 20px;
+      margin-top: 200px;
     }
 
     &-NotFoundText {
