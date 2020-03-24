@@ -1,0 +1,145 @@
+@media screen and (min-width: 992px) {
+
+  .NotFound {
+    position: fixed;
+    width: 100%;
+    height: 1080px;
+    background-color: #74c0fc;
+
+    &-NotFoundImageBackground {
+      width: 400px;
+      height: 300px;
+      margin: -120px auto;
+    }
+
+    &-NotFoundImageStyle {
+      width: 250px;
+      height: 250px;
+    }
+
+    &-NotFoundNumber {
+      font-size: 60px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 200px;
+    }
+
+    &-NotFoundText {
+      font-size: 30px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    &-HomePageLinkDiv {
+      width: 250px;
+      height: 70px;
+      margin: 100px 950px;
+      font-size: 30px;
+    }
+
+    &-HomePageLink {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .NotFound {
+    position: fixed;
+    width: 100%;
+    height: 1080px;
+    background-color: #74c0fc;
+    top: 0px;
+
+    &-NotFoundImageBackground {
+      width: 400px;
+      height: 300px;
+      margin: -200px auto;
+    }
+
+    &-NotFoundImageStyle {
+      width: 250px;
+      height: 250px;
+    }
+
+    &-NotFoundNumber {
+      font-size: 60px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 150px;
+    }
+
+    &-NotFoundText {
+      font-size: 30px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    &-HomePageLinkDiv {
+      width: 250px;
+      height: 70px;
+      margin: 180px 250px;
+      font-size: 30px;
+    }
+
+    &-HomePageLink {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}
+
+@media screen and (min-width : 768px) and (max-width : 991px) {
+  .NotFound {
+    position: fixed;
+    width: 100%;
+    height: 1080px;
+    background-color: #74c0fc;
+
+    &-NotFoundImageBackground {
+      width: 400px;
+      height: 300px;
+      margin: -120px auto;
+    }
+
+    &-NotFoundImageStyle {
+      width: 250px;
+      height: 250px;
+    }
+
+    &-NotFoundNumber {
+      font-size: 60px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 200px;
+    }
+
+    &-NotFoundText {
+      font-size: 30px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    &-HomePageLinkDiv {
+      width: 250px;
+      height: 70px;
+      margin: 100px 700px;
+      font-size: 30px;
+    }
+
+    &-HomePageLink {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}
