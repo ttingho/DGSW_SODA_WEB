@@ -25,5 +25,6 @@ export const typography = {
     s5: '20px', // content5
     s6: '22px', // content6
     s7: '24px', // content7
+    navbar: '40px', // navbar
   }
 };

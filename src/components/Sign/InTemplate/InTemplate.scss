@@ -1,0 +1,79 @@
+@import 'styles/typography/typography_scheme.scss';
+@import 'styles/color/color_scheme.scss';
+
+.InTemplate {
+  width: 500px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  animation-duration: .7s;
+  animation-name: slideTemplate;
+
+  &-hidden {
+    display: none;
+  }
+
+  &-idInput {
+    margin-top: 45px;
+  }
+  &-pwInput {
+    margin-top: 20px;
+  }
+
+  &-loginKeep {
+    width: 150px;
+    height: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-self: flex-end;
+
+    &>span {
+      color: $soda_primary;
+      font-size: $font_size_4;
+      font-family: $NOTO_SANS_KR_REGULAR;
+      cursor: pointer;
+    }
+    &-box {
+      width: 25px;
+      height: 25px;
+      border: 1px solid $soda_primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      &-icon {
+        &-hidden {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &-find {
+    width: 500px;
+    height: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: $gray_2;
+    font-family: $NOTO_SANS_KR_REGULAR;
+    font-size: $font_size_4;
+
+    &-id, &-pw {
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes slideTemplate {
+  from {
+    margin-bottom: 10%;
+  }
+  to {
+    margin-bottom: 0;
+  }
+}

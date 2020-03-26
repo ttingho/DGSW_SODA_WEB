@@ -1,0 +1,22 @@
+@import 'styles/typography/typography_scheme.scss';
+@import 'styles/color/color_scheme.scss';
+
+.SignInput {
+
+  &-input {
+    width: 500px;
+    height: 60px;
+    border-radius: 5px;
+    border: 1px solid $gray_1;
+    outline: none;
+    padding: 10px 10px 10px 15px;
+    font-size: $font_size_5;
+    font-family: $NOTO_SANS_KR_REGULAR;
+    transition-duration: .5s;
+    transition-property: border, box-shadow;
+  }
+  &-input:focus {
+    border: 2px solid $border_1;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1);
+  }
+}

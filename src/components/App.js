@@ -10,8 +10,17 @@ function App() {
         <Route
           exact
           path='/'
-          render={() => <Pages.Home/>}
+          // render={() => <Pages.Home/>}
+          render={() => <Pages.Bamboo/>}
         />
+        <Route
+          path='/sign'
+          component={() => <Pages.Sign/>}
+        />
+        <Route
+          path='/intro'
+          render={() => <Pages.Intro/>}>
+        </Route>
         <Route
           path='/bamboo'
           render={() => <Pages.Bamboo/>}

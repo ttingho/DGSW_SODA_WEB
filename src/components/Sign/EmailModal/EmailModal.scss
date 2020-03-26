@@ -1,0 +1,72 @@
+@import 'styles/typography/typography_scheme.scss';
+@import 'styles/color/color_scheme.scss';
+
+.EmailModal {
+  width: 800px;
+  height: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background-color: $white;
+
+  &-over {
+    position: fixed;
+    z-index: 2;
+    background-color: rgba($color: $shadow, $alpha: 0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  &-cancleWrap {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    &-cancle {
+      width: 50px;
+      height: 50px;
+      color: $gray_4;
+      cursor: pointer;
+    }
+  }
+  &-content {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    &-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: $font_size_7;
+      font-family: $NOTO_SANS_KR_MEDIUM;
+      color: $black;
+    }
+    
+    &-btn {
+      width: 200px;
+      height: 60px;
+      border: none;
+      outline: none;
+      border-radius: 2.5px;
+      box-shadow: 0 3px 6px 0 $shadow;
+      background-color: $soda_primary;
+      font-size: $font_size_5;
+      font-family: $NOTO_SANS_KR_REGULAR;
+      color: $white;
+    }
+  }
+  
+}
