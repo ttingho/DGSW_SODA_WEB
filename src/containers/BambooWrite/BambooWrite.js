@@ -16,12 +16,14 @@ const BambooWrite = ({ store }) => {
   const [accessToken, setAccessToken] = useState('');
 
   const [images, setImages] = useState([]);
-  const [previewImages, setPreviewImages] = useState([]);
+  const [imgBase64, setImgBase64] = useState([]);
+  const [imageContents, setImageContents] = useState('업로드된 이미지');
 
   // 익명 타입 : anonymous, 실명 타입 : realname
   const [isType, setIsType] = useState('empty');
 
-  const [imageContents, setImageContents] = useState('');
+  // 업로드 박스 핸들링 타입
+  const [isUpload, setIsUpload] = useState(false);
 
   const handleInitialState = () => {
     setContents('');
@@ -29,7 +31,7 @@ const BambooWrite = ({ store }) => {
     setProfileSrc(DEFAULT_PROFILE);
     setAccessToken('');
     setImages([]);
-    setPreviewImages([]);
+    setImgBase64([]);
     setIsType('empty');
   };
 
@@ -41,6 +43,22 @@ const BambooWrite = ({ store }) => {
     setIsType(type);
   };
 
+  const handlImageBase64 = async () => {
+    let newstate = [];
+    
+    const processImgBase64 = img => {
+      let url = URL.createObjectURL(img);
+
+      newstate = [...newstate, url];
+    };
+
+    for (let i = 0; i < images.length; i++) {
+      await processImgBase64(images[i]);
+    }
+
+    setImgBase64(newstate);
+  };
+
   const handleArrangeFiles = () => {
     images.forEach((data, idx) => {
       data.idx = idx;
@@ -49,15 +67,31 @@ const BambooWrite = ({ store }) => {
 
   const handleImageSetting = imageFiles => {
     const fileList = images;
-    
+
     const fileLength = imageFiles.length;
     
     let i = 0;
 
     while(i < fileLength){
       const file = imageFiles[i];
+
       fileList.push(file);
+      
       i++;
+    }
+
+    if (images.length === 0) {
+      setImageContents('업로드된 이미지');
+
+      return;
+    }
+
+    if (images.length > 1) {
+      setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
+    }
+
+    if (images.length === 1) {
+      setImageContents(images[0].name);
     }
 
     setImages(fileList);
@@ -65,24 +99,57 @@ const BambooWrite = ({ store }) => {
     handleArrangeFiles();
   };
 
-  const handleImageCancel = (canceledIdx) => {
-    images.some(data => {
+  const handleIsUpload = event => {
+    if (images.length === 0 && !isUpload) return;
+
+    event.preventDefault();
+
+    if (event.target === event.currentTarget) setIsUpload(!isUpload);
+  };
+
+  const handleImageCancel = async canceledIdx => {
+    await images.some(data => {
       const { idx } = data;
       if(idx === canceledIdx){
         images.splice(idx, 1);
-        setFiles(files);
+
+        setImages(images);
+        
         return true;
       }
     });
-    handleArrangeFiles();
+
+    if (images.length === 0) {
+      setImageContents('업로드된 이미지');
+
+      return;
+    }
+
+    if (images.length > 1) {
+      setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
+    }
+
+    if (images.length === 1) {
+      setImageContents(images[0].name);
+    }
+
+    await handleArrangeFiles();
+
+    await handlImageBase64();
+
+    setIsUpload(false);
   };
 
-  const handleImageChange = event => {
+  const handleImageChange = async event => {
     let imageFiles;
 
     imageFiles = event.target.files;
     
-    handleImageSetting(imageFiles);
+    await handleImageSetting(imageFiles);
+
+    console.log('handleImageChange');
+
+    await handlImageBase64();
   };
 
   const handleFaceBookLogin = response => {
@@ -168,8 +235,6 @@ const BambooWrite = ({ store }) => {
   };
 
   const handlePostRequest = async () => {
-    const { picture, isUploadError } = await handleImageFormData();
-
     let data;
 
     if (contents.length === 0) {
@@ -227,6 +292,8 @@ const BambooWrite = ({ store }) => {
         };
       }
     }
+
+    const { picture, isUploadError } = await handleImageFormData();
     
     if (!isUploadError) {
       await applyBambooPost(data)
@@ -279,7 +346,12 @@ const BambooWrite = ({ store }) => {
       name={name}
       accessToken={accessToken}
       contentsObj={GroupingState('contents', contents, setContents)}
-      imagesObj={GroupingState('images', images, setImages)}
+      images={images}
+      imgBase64={imgBase64}
+      imageContents={imageContents}
+      handleIsUpload={handleIsUpload}
+      handleImageCancel={handleImageCancel}
+      isUpload={isUpload}
       isType={isType}
       handleIsType={handleIsType}
       handleImageChange={handleImageChange}

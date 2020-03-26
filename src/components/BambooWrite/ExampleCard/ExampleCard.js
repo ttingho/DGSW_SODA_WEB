@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './ExampleCard.scss';
 import ImageIcon from 'components/Common/ImageIcon';
+import Pagination from 'components/Common/Pagination';
 
 const cx = classNames.bind(style);
 
 const ExampleCard = ({ profileSrc, name, contents, images }) => {
+  console.log(images);
+
   return (
     <div className={cx('ExampleCard')}>
       <div className={cx('ExampleCard-header')}>
@@ -27,7 +30,7 @@ const ExampleCard = ({ profileSrc, name, contents, images }) => {
         </div>
       </div>
       <div className={cx('ExampleCard-contents-images')}>
-        
+        <Pagination images={images} />
       </div>
       <div className={cx('ExampleCard-contents')}>
         <p className={cx('ExampleCard-contents-text')}>

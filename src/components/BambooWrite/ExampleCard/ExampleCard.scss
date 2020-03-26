@@ -17,7 +17,7 @@
   min-height: 200px;
   box-shadow: 0 0 8px 0 $shadow;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   &-header {
@@ -37,7 +37,7 @@
       justify-content: center;
       align-items: center;
       margin: auto;
-      margin-left: 1%;
+      margin-left: 3%;
       margin-right: 0;
     }
     &-info {
@@ -77,7 +77,7 @@
       align-items: center;
       margin: auto;
       margin-left: 0;
-      margin-right: 1%;
+      margin-right: 3%;
       border-radius: 50%;
       background-color: $facebook;
       cursor: pointer;
@@ -94,6 +94,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    &-images {
+      width: 100%;
+
+    }
     &-text {
       white-space: pre-wrap;
       font-size: $font_size_2;
