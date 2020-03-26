@@ -1,7 +1,9 @@
 export { default as Home } from './Home';
+export { default as Sign } from './Sign';
 export { default as Bamboo } from './Bamboo';
 export { default as BambooWrite } from './BambooWrite';
 export { default as BambooAdmin } from './BambooAdmin';
 export { default as TeamBuilding } from './TeamBuilding';
 export { default as TeamBuildingInterview } from './TeamBuildingInterview';
+export { default as Intro } from './Intro';
 export { default as NotFound } from './NotFound';

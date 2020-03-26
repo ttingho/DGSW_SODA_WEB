@@ -13,6 +13,14 @@ function App() {
           render={() => <Pages.Home/>}
         />
         <Route
+          path='/sign'
+          render={() => <Pages.Sign/>}
+        />
+        <Route
+          path='/intro'
+          render={() => <Pages.Intro/>}>
+        </Route>
+        <Route
           path='/bamboo'
           render={() => <Pages.Bamboo/>}
         />
