@@ -1,0 +1,47 @@
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+.Pagination {
+  width: 100%;
+  height: 755px;
+  &-image {
+    width: 100%;
+    height: 735px;
+    background-size: 735px 735px;
+    background-position: center;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 1%;
+    padding-right: 1%;
+    &-icon {
+      color: rgba($color: $gray_1, $alpha: .8);
+      font-size: $font_size_8;
+      cursor: pointer;
+    }
+    &-hidden {
+      visibility: collapse;
+    }
+  }
+  &-bulletWrap {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    &-bullet {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: $gray_0;
+      margin: .5%;
+      cursor: pointer;
+      &-select {
+        background-color: $soda_primary;
+      }
+    }
+  }
+}
