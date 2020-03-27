@@ -236,6 +236,7 @@ const BambooWrite = ({ store }) => {
 
   const handlePostRequest = async () => {
     let data;
+    const { picture, isUploadError } = await handleImageFormData();
 
     if (contents.length === 0) {
       modal({
@@ -292,8 +293,6 @@ const BambooWrite = ({ store }) => {
         };
       }
     }
-
-    const { picture, isUploadError } = await handleImageFormData();
     
     if (!isUploadError) {
       await applyBambooPost(data)
