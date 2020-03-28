@@ -10,8 +10,7 @@ function App() {
         <Route
           exact
           path='/'
-          // render={() => <Pages.Home/>}
-          render={() => <Pages.Bamboo/>}
+          render={() => <Pages.Home/>}
         />
         <Route
           path='/sign'
