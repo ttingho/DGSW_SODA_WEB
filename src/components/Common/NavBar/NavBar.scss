@@ -19,7 +19,7 @@ $profile_img_size: 55px;
     margin: auto 0 auto 0;
     user-select: none;
     &-icon {
-      font-size: $font_size_navbar;
+      font-size: $font_size_10;
       cursor: pointer;
       z-index: 3;
     }
@@ -123,7 +123,7 @@ $profile_img_size: 55px;
     z-index: 3;
     cursor: pointer;
     &-icon {
-      font-size: $font_size_navbar;
+      font-size: $font_size_10;
     }
   }
   &-search {
@@ -144,7 +144,7 @@ $profile_img_size: 55px;
       font-family: $NOTO_SANS_REGULAR, $NOTO_SANS_KR_REGULAR;
     }
     &-icon {
-      font-size: $font_size_navbar;
+      font-size: $font_size_10;
       user-select: none;
       cursor: pointer;
       margin-left: 2%;

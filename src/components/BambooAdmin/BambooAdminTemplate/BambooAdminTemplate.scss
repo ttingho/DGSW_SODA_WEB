@@ -1,3 +1,23 @@
-.BambooAdminTemplate {
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
 
+.BambooAdminTemplate {
+  width: 100%;
+  min-height: 800px;
+  &-empty {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+    font-size: $font_size_3;
+    font-family: $NOTO_SANS_KR_MEDIUM;
+    user-select: none;
+  }
+  &-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+  }
 }
