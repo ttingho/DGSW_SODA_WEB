@@ -103,11 +103,11 @@ const BambooAdmin = ({ store, history }) => {
   }, [pendingList]);
 
   useEffect(() => {
-    if (token === 'empty' && (userInfo === null || userInfo.auth !== 0)) {
+    if (token === 'empty' || (userInfo === null || userInfo.auth !== 0)) {
       modal({
         title: 'Warning!',
         stateType: 'warning',
-        contents: '올바른 세션 접근이 아닙니다.'
+        contents: '올바르지 못한 세션 접근 (관리자 계정으로 다시 시도해주세요!)'
       });
       
       history.goBack(1);
