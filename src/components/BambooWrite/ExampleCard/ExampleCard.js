@@ -9,8 +9,6 @@ import Pagination from 'components/Common/Pagination';
 const cx = classNames.bind(style);
 
 const ExampleCard = ({ profileSrc, name, contents, images }) => {
-  console.log(images);
-
   return (
     <div className={cx('ExampleCard')}>
       <div className={cx('ExampleCard-header')}>

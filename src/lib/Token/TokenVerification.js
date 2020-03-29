@@ -3,8 +3,8 @@
 const TokenVerification = () => {
   let isToken = 'empty';
 
-  const sessionT = sessionStorage.getItem('dodam-token');
-  const localT = localStorage.getItem('dodam-token');
+  const sessionT = sessionStorage.getItem('soda-token');
+  const localT = localStorage.getItem('soda-token');
 
   if (sessionT !== null) isToken = 'sessionT';
   
