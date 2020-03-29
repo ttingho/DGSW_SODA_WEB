@@ -1,11 +1,135 @@
-import React from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
+import SecureLS from 'secure-ls';
+import PropTypes from 'prop-types';
+import { inject, observer } from 'mobx-react';
+import BambooAdminTemplate from 'components/BambooAdmin/BambooAdminTemplate';
+import TokenVerification from 'lib/Token/TokenVerification';
+import { withRouter } from 'react-router-dom';
+import usePending from 'lib/HookState/usePending';
+import RefreshToken from 'lib/Token/RefreshToken';
+import BambooAdminCard from 'components/BambooAdmin/BambooAdminCard';
 
-const BambooAdmin = () => {
-  return (
-    <>
+const BambooAdmin = ({ store, history }) => {
+  const { modal } = store.dialog;
+
+  const { pendingList, getPendingList, requestBambooPost } = store.admin;
+
+  const ls = new SecureLS({ encodingType: 'aes' });
+
+  const userInfo = ls.get('user-info');
+
+  const token = TokenVerification();
+
+  const [pendingItemList, setPendingItemList] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const requestInitialData = async () => {
+    await getPendingList()
+      .catch(error => {
+        const { status } = error.response;
+
+        if (status === 410) {
+          RefreshToken(modal, status, () => getPendingList());
+        }
+      });
+  };
+
+  const handleRequestBambooPost = (isAllow, idx) => {
+    setIsLoading(true);
+
+    const data = {
+      idx,
+      isAllow
+    };
+
+    requestBambooPost(data)
+      .then(async response => {
+        setIsLoading(false);
+
+        const { status } = response;
+
+        if (status === 200 && isAllow === 0) {
+          modal({
+            title: 'Success!',
+            stateType: 'success',
+            contents: '대나무(이야기) 거절에 성공했습니다.'
+          });
+        }
+
+        if (status === 200 && isAllow === 1) {
+          modal({
+            title: 'Success!',
+            stateType: 'success',
+            contents: '대나무(이야기) 승인에 성공했습니다.'
+          });
+        }
+      })
+      .catch(error => {
+        setIsLoading(false);
+
+        const { status } = error.response;
+
+        if (status === 410) {
+          RefreshToken(modal, status, () => requestBambooPost(isAllow, idx));
+        }
+
+        if (status === 403) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '권한 없음.'
+          });
+        }
+
+        if (status === 500) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '대나무가 상했어요..ㅠㅠ 기다려주세요!'
+          });
+        }
+      });
+  };
+
+  const [isPending, getFunction] = usePending(requestInitialData);
+
+  useEffect(() => {
+    if (pendingList) {
+      setPendingItemList(pendingList.map((data, index) => {
+        return <BambooAdminCard key={index} item={data} isLoading={isLoading} handleRequestBambooPost={handleRequestBambooPost} />;
+      }));
+    }
+  }, [pendingList]);
+
+  useEffect(() => {
+    if (token === 'empty' && (userInfo === null || userInfo.auth !== 0)) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '올바른 세션 접근이 아닙니다.'
+      });
       
-    </>
+      history.goBack(1);
+
+      return;
+    }
+
+    getFunction();
+  }, []);
+
+  return (
+    <BambooAdminTemplate isPending={isPending}>
+      {
+        pendingItemList
+      }
+    </BambooAdminTemplate>
   );
 };
 
-export default BambooAdmin;
+BambooAdmin.propTypes = {
+  store: PropTypes.object,
+  history: PropTypes.object
+};
+
+export default inject('store')(observer(withRouter(BambooAdmin)));

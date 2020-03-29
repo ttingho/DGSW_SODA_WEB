@@ -28,8 +28,6 @@ const BambooWriteTemplate = ({
   handleFaceBookLogin,
   handlePostRequest
 }) => {
-  console.log(imgBase64);
-
   const customStyle = {
     width: '145px',
     height: '45px',

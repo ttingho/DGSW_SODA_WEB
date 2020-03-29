@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import defaultProfileImage from '../../../assets/image/panda.jpg';
 import facebookLogo from '../../../assets/image/994EAB4F5D2565432F.png';
 import BambooImageModal from '../BambooImageModal';
+import Pagination from 'components/Common/Pagination';
 
 // eslint-disable-next-line react/prop-types
 const BambooItem = ({ item }) => {
@@ -28,33 +29,17 @@ const BambooItem = ({ item }) => {
     } else {
       setProfileImages(<img className="BambooCard-Top-Profile-ProfileImage" src={defaultProfileImage}/>);  
     }
-    // 게시물 이미지가 하나 일 경우
-    // eslint-disable-next-line react/prop-types
-    if (picture && picture.length === 1) {
-      setImages(
-        <div>
-          <button className="BambooCard-Contents-ImageButton" onClick={() => openModal(0)}>
-            <img className="BambooCard-Contents-Image" src={picture[0].url}/>
-          </button>
-        </div>
-      );
-    // 게시물 이미지가 여러개 일 경우  
-    // eslint-disable-next-line react/prop-types
-    } else if (picture && picture.length >= 1) {
-      setImages(
-        <div className="BambooCard-Contents-ImageBackground">
-          <button className="BambooCard-Contents-FirstImageButton" onClick={() => openModal(0)}>
-            <img className="BambooCard-Contents-FirstImages" src={picture[0].url}/>
-          </button>
-          <button className="BambooCard-Contents-SecondImageButton" onClick={() => openModal(1)}>
-            <img className="BambooCard-Contents-SecondImages" src={picture[1].url}></img>
-          </button>
-          <button className="BambooCard-Contents-PlusButton" onClick={() => openModal(0)}>
-            <p className="BambooCard-Contents-PlusImage">+{picture.length}</p>
-          </button>
-        </div>
-      );
+
+    if (picture && picture.length !== 0) {
+      const list  = [];
+
+      for (let i = 0; i < picture.length; i++) {
+        list.push(picture[i].url);
+      }
+
+      setImages(list);
     }
+
     if (name) {
       setNames(
         <div className="BambooCard-Top-Profile-ProfileName">
@@ -69,15 +54,6 @@ const BambooItem = ({ item }) => {
       );
     }
   });
-
-  const openModal = (imageIndex) => {
-    setIsModals(true);
-    setPictureIndex(imageIndex);
-  };
-
-  const closeModal = () => {
-    setIsModals(false);
-  };
 
   useEffect(() => {
     handleBambooImage();
@@ -114,29 +90,19 @@ const BambooItem = ({ item }) => {
         </div>
       </div>
       <div className="BambooCard-Contents">
-        {images}
+        <Pagination images={images} />
         <div className="BambooCard-FontStyle">
           {
             contents
           }
         </div>
-        {
-          isModals && (
-            <BambooImageModal picture={picture} onClose={() => closeModal()} pictureIndex={pictureIndex}/>
-          )
-        }
       </div>
     </div>
   );
 };
 
 BambooItem.propTypes = {
-  contents: PropTypes.string,
-  joinData: PropTypes.string,
-  allowDate: PropTypes.string,
-  picture: PropTypes.array,
-  name: PropTypes.string,
-  profileImage: PropTypes.object,
+  item: PropTypes.object
 };
 
 export default BambooItem;

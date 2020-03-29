@@ -147,8 +147,6 @@ const BambooWrite = ({ store }) => {
     
     await handleImageSetting(imageFiles);
 
-    console.log('handleImageChange');
-
     await handlImageBase64();
   };
 
