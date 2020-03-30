@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
+import { withRouter } from 'react-router-dom';
 import { TiMessages } from 'react-icons/ti';
 import Button from 'components/Common/Button';
 import { typography } from 'styles/typography/typography_scheme';
@@ -9,7 +10,7 @@ import style from './SignTemplate.scss';
 const cx = classnames.bind(style);
 const { size } = typography;
 
-const SignTemplate = ({ children, signType, changeSign }) => {
+const SignTemplate = ({ children, signType, changeSign, history }) => {
 
   return (
     <div className={cx('SignTemplate')}>
@@ -21,8 +22,7 @@ const SignTemplate = ({ children, signType, changeSign }) => {
           {children}
         </div>
         <div className={cx('SignTemplate-left-otherBtn')}>
-          <span className={cx('SignTemplate-left-otherBtn-guest')}>게스트 로그인</span>
-          {/* <button className={cx('SignTemplate-left-otherBtn-signUp')} onClick={() => changeSign()}>{signType ? '회원가입 하기' : '로그인 하기'}</button> */}
+          <span className={cx('SignTemplate-left-otherBtn-guest')} onClick={() => history.push('/bamboo')}>게스트 로그인</span>
           <Button
             customStyle={{width: '210px', height: '55px', fontSize: size.s5}}
             edgeType={'round'}
@@ -65,6 +65,7 @@ SignTemplate.propTypes = {
   children: PropTypes.any,
   signType: PropTypes.bool,
   changeSign: PropTypes.func,
+  history: PropTypes.object
 };
 
-export default SignTemplate;
+export default withRouter(SignTemplate);
