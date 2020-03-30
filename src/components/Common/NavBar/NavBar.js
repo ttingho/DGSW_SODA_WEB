@@ -7,6 +7,8 @@ import { GiSofa, GiSiren } from 'react-icons/gi';
 import { FaBasketballBall, FaPen } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
 import { withRouter } from 'react-router-dom';
+import SecureLS from 'secure-ls';
+import TokenVerification from 'lib/Token/TokenVerification';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './NavBar.scss';
@@ -16,6 +18,8 @@ import { inject, observer } from 'mobx-react';
 const cx = classNames.bind(style);
 
 const NavBar = ({ pageType, url, store, history }) => {
+  const isLogin = TokenVerification() !== 'empty' ? true : false;
+  
   const { modal } = store.dialog;
 
   const [isMenu, setIsMenu] = useState(false);
@@ -32,6 +36,23 @@ const NavBar = ({ pageType, url, store, history }) => {
     }
     
     history.push(propUrl);
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('soda-token');
+    localStorage.removeItem('soda-reToken');
+    sessionStorage.removeItem('soda-token');
+    sessionStorage.removeItem('soda-reToken');
+    
+    const ls = new SecureLS({ encodingType: 'aes' });
+
+    ls.removeAll();
+
+    history.push('/sign');
+  };
+
+  const handleLogin = () => {
+    history.push('/sign');
   };
 
   return (
@@ -107,6 +128,13 @@ const NavBar = ({ pageType, url, store, history }) => {
                 <FiPhoneCall className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/team-building-interview', 'soda')} />
                 <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/team-building-interview', 'soda')}>온라인 면접</span>
               </div>
+            </div>
+            <div className={cx('NavBar-menu-box-wrap-logout')}>
+              {isLogin ? 
+                <span onClick={() => handleLogout()}>로그아웃</span>  
+                :
+                <span onClick={() => handleLogin()}>로그인</span>
+              }
             </div>
             <span className={cx('NavBar-menu-box-wrap-info')}>Made By takeUp Team</span>
           </div>

@@ -35,17 +35,18 @@ const SignInContainer = ({
       id,
       pw: sha512(pw)
     };
-    console.log(signInObj.pw);
+    
     setIsLoading(true);
 
     handleSignIn(signInObj)
       .then(async response => {
-        console.log(response);
         if (response.status === 200) {
           if (keepLogin) {
             localStorage.setItem('soda-token', response.data.token);
+            localStorage.setItem('soda-reToken', response.data.refreshToken);
           } else {
             sessionStorage.setItem('soda-token', response.data.token);
+            sessionStorage.setItem('soda-reToken', response.data.refreshToken);
           }
 
           const ls = new SecureLS({ encodingType: 'aes' }); // user info 저장
@@ -54,41 +55,40 @@ const SignInContainer = ({
 
           setIsLoading(false);
 
-          history.push('/');
+          history.push('/bamboo');
         }
       })
       .catch(error => {
         setIsLoading(false);
-        console.log(error);
 
-        // const { status } = error.response.data;
+        const { status } = error.response.data;
 
-        // localStorage.removeItem('soda-token');
-        // localStorage.removeItem('soda-reToken');
-        // sessionStorage.removeItem('soda-token');
-        // sessionStorage.removeItem('soda-reToken');
+        localStorage.removeItem('soda-token');
+        localStorage.removeItem('soda-reToken');
+        sessionStorage.removeItem('soda-token');
+        sessionStorage.removeItem('soda-reToken');
         
         // id 또는 pw가 맞지 않은 경우
-        // if (status === 403) {
-        //   modal({
-        //     title: 'Error!',
-        //     stateType: 'error',
-        //     contents: 'id 또는 password가 맞지 않습니다.'
-        //   });
+        if (status === 403) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: 'id 또는 password가 맞지 않습니다.'
+          });
 
-        //   return;
-        // }
+          return;
+        }
 
-        // // 서버 에러
-        // if (status === 500) {
-        //   modal({
-        //     title: 'Error!',
-        //     stateType: 'error',
-        //     contents: 'Server Error..'
-        //   });
+        // 서버 에러
+        if (status === 500) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: 'Server Error..'
+          });
 
-        //   return;
-        // }
+          return;
+        }
       });
   };
 
