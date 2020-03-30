@@ -3,7 +3,7 @@ import PageTemplate from 'components/Common/PageTemplate';
 
 const TeamBuildingInterview = () => {
   return (
-    <PageTemplate pageType={'soda'}>
+    <PageTemplate pageType={'soda'} url={'team-building-interview'}>
       
     </PageTemplate>
   );

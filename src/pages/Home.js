@@ -4,7 +4,7 @@ import PageTemplate from 'components/Common/PageTemplate';
 const Home = () => {
   return (
     <>
-      <PageTemplate pageType='soda'>
+      <PageTemplate pageType='soda' url={''}>
       </PageTemplate>
     </>
   );

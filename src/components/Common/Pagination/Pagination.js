@@ -20,18 +20,22 @@ const Pagination = ({ images }) => {
       {
         images.length === 0 ?
           <></> :
-          <div className={cx('Pagination')}>
+          <div className={cx('Pagination', { 'Pagination-single': images.length === 1 }, { 'Pagination-multiple': images.length > 1 })}>
             <div className={cx('Pagination-image')} style={{ backgroundImage: `url(${images[imageIndex]})` }}>
               <FaArrowCircleLeft onClick={() => handleIndex(imageIndex - 1)} className={cx('Pagination-image-icon', { 'Pagination-image-hidden': imageIndex === 0 })} />
               <FaArrowCircleRight onClick={() => handleIndex(imageIndex + 1)} className={cx('Pagination-image-icon', { 'Pagination-image-hidden': imageIndex === (images.length - 1) })} />
             </div>
-            <div className={cx('Pagination-bulletWrap')}>
-              {
-                images.map((data, index) => {
-                  return <div onClick={() => handleIndex(index)} key={index} className={cx('Pagination-bulletWrap-bullet', { 'Pagination-bulletWrap-bullet-select': index === imageIndex })} />;
-                })
-              }
-            </div>
+            {
+              images.length === 1 ?
+                <></> :
+                <div className={cx('Pagination-bulletWrap')}>
+                  {
+                    images.map((data, index) => {
+                      return <div onClick={() => handleIndex(index)} key={index} className={cx('Pagination-bulletWrap-bullet', { 'Pagination-bulletWrap-bullet-select': index === imageIndex })} />;
+                    })
+                  }
+                </div>
+            }
           </div>
       }
     </>
