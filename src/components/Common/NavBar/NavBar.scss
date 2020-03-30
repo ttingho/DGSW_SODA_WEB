@@ -95,6 +95,21 @@ $profile_img_size: 55px;
             color: $community_primary;
           }
         }
+        &-logout {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          >span {
+            font-size: $font_size_3;
+            font-family: $NOTO_SANS_KR_REGULAR;
+            color: $soda_primary;
+            border-bottom: 1px solid $soda_primary;
+            cursor: pointer;
+          }
+        }
         &-info {
           color: $soda_primary;
           font-size: $font_size_3;
