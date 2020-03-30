@@ -3,7 +3,7 @@ import PageTemplate from 'components/Common/PageTemplate';
 
 const TeamBuilding = () => {
   return (
-    <PageTemplate pageType={'soda'}>
+    <PageTemplate pageType={'soda'} url={'team-buiding'}>
       
     </PageTemplate>
   );

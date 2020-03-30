@@ -4,7 +4,7 @@ import BambooWriteContainer from 'containers/BambooWrite';
 
 const BambooWrite = () => {
   return (
-    <PageTemplate pageType={'bamboo'}>
+    <PageTemplate pageType={'bamboo'} url={'bamboo-write'}>
       <BambooWriteContainer />
     </PageTemplate>
   );

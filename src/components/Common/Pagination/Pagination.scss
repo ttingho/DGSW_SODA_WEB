@@ -3,7 +3,12 @@
 
 .Pagination {
   width: 100%;
-  height: 535px;
+  &-single {
+    height: 500px;
+  }
+  &-multiple {
+    height: 535px;
+  }
   &-image {
     width: 100%;
     height: 500px;// 735px;
