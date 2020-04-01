@@ -110,9 +110,16 @@
           margin-left: 3%;
         }
         &-file {
+          width: calc(90% - 26px);
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
           font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
           margin: auto;
           margin-right: 4%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         &-fileList {
           width: 100%;
@@ -133,7 +140,11 @@
             border: 1px solid $bamboo_primary;
             margin-bottom: 3%;
             &-name {
+              width: 80%;
               margin-left: 3%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
             &-icon {
               margin-right: 4%;

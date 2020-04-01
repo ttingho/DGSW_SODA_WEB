@@ -4,7 +4,7 @@ import BambooAdminContainer from 'containers/BambooAdmin';
 
 const BambooAdmin = () => {
   return (
-    <PageTemplate pageType={'bamboo'}>
+    <PageTemplate pageType={'bamboo'} url={'bamboo-admin'}>
       <BambooAdminContainer />
     </PageTemplate>
   );

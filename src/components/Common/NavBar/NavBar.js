@@ -13,13 +13,30 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './NavBar.scss';
 import ImageIcon from '../ImageIcon';
+import { inject, observer } from 'mobx-react';
 
 const cx = classNames.bind(style);
 
-const NavBar = ({ pageType, history }) => {
+const NavBar = ({ pageType, url, store, history }) => {
+  const isLogin = TokenVerification() !== 'empty' ? true : false;
+  
+  const { modal } = store.dialog;
+
   const [isMenu, setIsMenu] = useState(false);
 
-  const isLogin = TokenVerification() !== 'empty' ? true : false;
+  const handleUrl = (propUrl, propPageType) => {
+    if (propPageType === 'soda') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '좋은 서비스를 위해 준비 중입니다. (잠시만 기다려주세요!)'
+      });
+
+      return;
+    }
+    
+    history.push(propUrl);
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('soda-token');
@@ -31,11 +48,11 @@ const NavBar = ({ pageType, history }) => {
 
     ls.removeAll();
 
-    location.href = '/sign';
+    history.push('/sign');
   };
 
   const handleLogin = () => {
-    location.href = '/sign';
+    history.push('/sign');
   };
 
   return (
@@ -46,12 +63,16 @@ const NavBar = ({ pageType, history }) => {
           <div className={cx('NavBar-menu-box-wrap', { 'NavBar-visible': isMenu })}>
             <div className={cx('NavBar-menu-box-wrap-child')}>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <TiMessages className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/')}>메인</span>
+                <TiMessages className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/', 'soda')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/', 'soda')}>메인</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <MdStarBorder className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>이번주 핫한 게시물</span>
+                <MdStarBorder className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/', 'soda')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/', 'soda')}>이번주 핫한 게시물</span>
+              </div>
+              <div className={cx('NavBar-menu-box-wrap-child-item')}>
+                <GiSiren className={cx('NavBar-menu-box-wrap-child-item-icon')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>서비스 문의 / 버그 신고</span>
               </div>
             </div>
             <div className={cx('NavBar-menu-box-wrap-child')}>
@@ -60,16 +81,16 @@ const NavBar = ({ pageType, history }) => {
                 <div className={cx('NavBar-menu-box-wrap-child-title-line')} />
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <MdLibraryBooks className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/bamboo')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/bamboo')}>대숲피드</span>
+                <MdLibraryBooks className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/bamboo', 'bamboo')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/bamboo', 'bamboo')}>대숲피드</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <IoMdPaperPlane className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/bamboo-write')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/bamboo-write')}>대나무 제보하기</span>
+                <IoMdPaperPlane className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/bamboo-write', 'bamboo')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/bamboo-write', 'bamboo')}>대나무 제보하기</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <GoShield className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/bamboo-admin')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/bamboo-admin')}>관리자</span>
+                <GoShield className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/bamboo-admin', 'bamboo')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/bamboo-admin', 'bamboo')}>관리자</span>
               </div>
             </div>
             <div className={cx('NavBar-menu-box-wrap-child')}>
@@ -78,24 +99,20 @@ const NavBar = ({ pageType, history }) => {
                 <div className={cx('NavBar-menu-box-wrap-child-title-line')} />
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <IoIosLaptop className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>개발</span>
+                <IoIosLaptop className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/', 'soda')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/', 'soda')}>개발</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <TiPencil className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>학업</span>
+                <TiPencil className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/', 'soda')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/', 'soda')}>학업</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <GiSofa className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>일상</span>
+                <GiSofa className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/', 'soda')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/', 'soda')}>일상</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <FaBasketballBall className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>취미</span>
-              </div>
-              <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <GiSiren className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>건의</span>
+                <FaBasketballBall className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/', 'soda')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/', 'soda')}>취미</span>
               </div>
             </div>
             <div className={cx('NavBar-menu-box-wrap-child')}>
@@ -104,12 +121,12 @@ const NavBar = ({ pageType, history }) => {
                 <div className={cx('NavBar-menu-box-wrap-child-title-line')} />
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <FaPen className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/team-building')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/team-building')}>모집 및 신청</span>
+                <FaPen className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/team-building', 'soda')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/team-building', 'soda')}>모집 및 신청</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <FiPhoneCall className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => history.push('/team-building-interview')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => history.push('/team-building-interview')}>온라인 면접</span>
+                <FiPhoneCall className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/team-building-interview', 'soda')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/team-building-interview', 'soda')}>온라인 면접</span>
               </div>
             </div>
             <div className={cx('NavBar-menu-box-wrap-logout')}>
@@ -123,7 +140,11 @@ const NavBar = ({ pageType, history }) => {
           </div>
         </div>
       </div>
-      <div className={cx('NavBar-logo', { 'NavBar-bamboo-color': isMenu && pageType === 'bamboo' }, { 'NavBar-soda-color': isMenu && pageType === 'soda' })} onClick={() => history.push('/')}>
+      <div className={cx('NavBar-logo', { 'NavBar-bamboo-color': isMenu && pageType === 'bamboo' }, { 'NavBar-soda-color': isMenu && pageType === 'soda' })} onClick={() => {
+        history.push(`/${url}`);
+        
+        window.scrollTo(0, 0);
+      }}>
         <TiMessages className={cx('NavBar-logo-icon')} />SODA
       </div>
       <div className={cx('NavBar-search', { 'NavBar-visible': pageType === 'soda' })}>
@@ -143,7 +164,9 @@ NavBar.propTypes = {
     'bamboo',
     'soda'
   ]),
+  url: PropTypes.string,
+  store: PropTypes.object,
   history: PropTypes.object
 };
 
-export default withRouter(NavBar);
+export default inject('store')(observer(withRouter(NavBar)));
