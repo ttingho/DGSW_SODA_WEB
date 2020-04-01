@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Prompt, withRouter } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import Template from 'components/BambooWrite/BambooWriteTemplate';
 import GroupingState from 'lib/HookState/GroupingState';
 import DEFAULT_PROFILE from 'assets/image/panda.jpg';
 
-const BambooWrite = ({ store }) => {
+const BambooWrite = ({ store, history }) => {
+  const maxImageSize = 4 * 1024 * 1024;
+
   const { modal } = store.dialog;
   const { applyBambooPost } = store.bamboo;
   const { uploadImage } = store.upload;
@@ -18,12 +21,54 @@ const BambooWrite = ({ store }) => {
   const [images, setImages] = useState([]);
   const [imgBase64, setImgBase64] = useState([]);
   const [imageContents, setImageContents] = useState('업로드된 이미지');
+  const [imageSize, setImageSize] = useState(0);
 
-  // 익명 타입 : anonymous, 실명 타입 : realname
-  const [isType, setIsType] = useState('empty');
+  // 익명 타입 : anonymous, 실명 타입 : realname, 기본값 : empty
+  const [isType, setIsType] = useState('anonymous');
 
   // 업로드 박스 핸들링 타입
   const [isUpload, setIsUpload] = useState(false);
+
+  // Prompt 제어 state
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  
+  // Component Will Mount, Component Did Mount
+  const useComponentDidMount = func => useEffect(func, []);
+
+  const useComponentWillMount = func => {
+    const willMount = useRef(true);
+  
+    if (willMount.current) {
+      func();
+    }
+  
+    useComponentDidMount(() => {
+      willMount.current = false;
+    });
+  };
+
+  const navigate = path => {
+    history.push(path);
+  };
+
+  const handleBlockedNavigation = nextLocation => {
+    if (!isConfirmed) {  
+      modal({
+        modalType: 'basic',
+        title: 'Warning!',
+        contents: '작성된 내용이 사라질 수 있습니다. 이동하시겠습니까?',
+        confirmFunc: async () => {
+          await setIsConfirmed(true);
+
+          await navigate(nextLocation.pathname);
+        }
+      });
+
+      return false;
+    }
+
+    return true;
+  };
 
   const handleInitialState = () => {
     setContents('');
@@ -33,6 +78,8 @@ const BambooWrite = ({ store }) => {
     setImages([]);
     setImgBase64([]);
     setIsType('empty');
+    setImageSize(0);
+    setImageContents('업로드된 이미지');
   };
 
   const handleIsType = event => {
@@ -41,6 +88,18 @@ const BambooWrite = ({ store }) => {
     if (type === isType) return;
     
     setIsType(type);
+  };
+
+  const handleImageSize = () => {
+    let fileSize = 0;
+
+    for (let i = 0; i < images.length; i++) {
+      const file = images[i];
+
+      fileSize += file.size;  
+    }
+
+    setImageSize(fileSize);
   };
 
   const handlImageBase64 = async () => {
@@ -70,14 +129,10 @@ const BambooWrite = ({ store }) => {
 
     const fileLength = imageFiles.length;
     
-    let i = 0;
-
-    while(i < fileLength){
+    for (let i = 0; i < fileLength; i++) {
       const file = imageFiles[i];
 
       fileList.push(file);
-      
-      i++;
     }
 
     if (images.length === 0) {
@@ -110,6 +165,7 @@ const BambooWrite = ({ store }) => {
   const handleImageCancel = async canceledIdx => {
     await images.some(data => {
       const { idx } = data;
+
       if(idx === canceledIdx){
         images.splice(idx, 1);
 
@@ -121,6 +177,10 @@ const BambooWrite = ({ store }) => {
 
     if (images.length === 0) {
       setImageContents('업로드된 이미지');
+
+      setImages([]);
+
+      setImgBase64([]);
 
       return;
     }
@@ -135,31 +195,44 @@ const BambooWrite = ({ store }) => {
 
     await handleArrangeFiles();
 
+    await handleImageSize();
+
     await handlImageBase64();
 
     setIsUpload(false);
   };
 
-  const handleImageChange = async event => {
+  const handleImageChange = event => {
+    setIsUpload(false);
+
     let imageFiles;
 
     imageFiles = event.target.files;
     
-    await handleImageSetting(imageFiles);
+    handleImageSetting(imageFiles);
 
-    await handlImageBase64();
+    handleImageSize();
+
+    handlImageBase64();
+
+    event.target.value = null;
   };
 
   const handleFaceBookLogin = response => {
     if (response.status === 'connected') return;
+
     setName(response.name);
+    
     setProfileSrc(response.picture.data.url);
+    
     setAccessToken(response.accessToken);
   };
 
   const handleImageName = (imageFileName) => {
     let splitedName = '';
+
     const typeName = imageFileName[imageFileName.length - 1];
+    
     if(imageFileName.length > 2){
       for(let i = 0; i < imageFileName.length; i++){
         if(i === imageFileName.length - 2){
@@ -173,35 +246,49 @@ const BambooWrite = ({ store }) => {
     } else {
       splitedName = imageFileName[0];
     }
+
     return { splitedName, typeName };
   };
 
   const handleImageRandomedName = () => {
     const uploadName = 'SB_IMG_';
+
     const randomName =  (Math.floor(Math.random() * 100000000000) + 10000).toString();
+    
     return uploadName.concat(randomName);
   };
 
   const handleImageFormData = async() => {
     let picture = [];
+
     let isUploadError = false;
+
+    if (imageSize > maxImageSize) {
+      
+      return { picture: [], isUploadError: true };
+    }
 
     for(let image of images){
       const formData = new FormData();
+
       const { name, type, isDefault, originalName, uploadName  } = image;
+      
       const isImg = type.split('/');
 
       if(isImg[0] !== 'image'){
         isUploadError = true;
+       
         modal({
           title: 'Error',
           stateType: 'error',
           contents: '이미지만 올려주세요.'
         });
+        
         break;
       }
 
       const { splitedName, typeName } = handleImageName(name.split('.'));
+      
       const randomedName = handleImageRandomedName();
 
       formData.append('img', image);
@@ -217,13 +304,16 @@ const BambooWrite = ({ store }) => {
           picture = [...picture, data];
         }).catch(error => {
           const { status } = error.response;
+          
           isUploadError = true;
+          
           if(status === 400){
             modal({
               title: 'Error',
               stateType: 'error',
               contents: '이미지가 아닙니다.'
             });
+            
             return true;
           }
         });
@@ -234,7 +324,18 @@ const BambooWrite = ({ store }) => {
 
   const handlePostRequest = async () => {
     let data;
+    
     const { picture, isUploadError } = await handleImageFormData();
+
+    if (isType === 'empty') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '게시물 타입을 지정해 주세요!'
+      });
+
+      return;
+    }
 
     if (contents.length === 0) {
       modal({
@@ -246,11 +347,11 @@ const BambooWrite = ({ store }) => {
       return;
     }
 
-    if (isType === 'empty') {
+    if (imageSize > maxImageSize) {
       modal({
         title: 'Warning!',
         stateType: 'warning',
-        contents: '게시물 타입을 지정해 주세요!'
+        contents: '이미지 파일 크기를 지켜주세요! (총 4MB 이하로 업로드 가능)'
       });
 
       return;
@@ -329,37 +430,60 @@ const BambooWrite = ({ store }) => {
     }
   };
 
+  useComponentWillMount(() => {
+    if (handleBlockedNavigation) {
+      window.onbeforeunload = () => true;
+    } else {
+      window.onbeforeunload = undefined;
+    }
+  });
+
   useEffect(() => {
     if (isType === 'anonymous') {
       setName('익명의 판다');
+      
       setProfileSrc(DEFAULT_PROFILE);
+      
       setAccessToken('');
     }
   }, [isType]);
 
+  useEffect(() => {
+    return () => {
+      onbeforeunload = null;
+    };
+  }, []);
+
   return (
-    <Template
-      profileSrc={profileSrc}
-      name={name}
-      accessToken={accessToken}
-      contentsObj={GroupingState('contents', contents, setContents)}
-      images={images}
-      imgBase64={imgBase64}
-      imageContents={imageContents}
-      handleIsUpload={handleIsUpload}
-      handleImageCancel={handleImageCancel}
-      isUpload={isUpload}
-      isType={isType}
-      handleIsType={handleIsType}
-      handleImageChange={handleImageChange}
-      handleFaceBookLogin={handleFaceBookLogin}
-      handlePostRequest={handlePostRequest}
-    />
+    <>
+      <Prompt
+        when={true}
+        message={handleBlockedNavigation}
+      />
+      <Template
+        profileSrc={profileSrc}
+        name={name}
+        accessToken={accessToken}
+        contentsObj={GroupingState('contents', contents, setContents)}
+        images={images}
+        imgBase64={imgBase64}
+        imageContents={imageContents}
+        handleIsUpload={handleIsUpload}
+        handleImageCancel={handleImageCancel}
+        isUpload={isUpload}
+        isType={isType}
+        handleIsType={handleIsType}
+        handleImageChange={handleImageChange}
+        handleFaceBookLogin={handleFaceBookLogin}
+        handlePostRequest={handlePostRequest}
+      />
+    </>
   );
 };
 
 BambooWrite.propTypes = {
-  store: PropTypes.object
+  store: PropTypes.object,
+  history: PropTypes.object
 };
 
-export default inject('store')(observer(BambooWrite));
+export default inject('store')(observer(withRouter(BambooWrite)));
