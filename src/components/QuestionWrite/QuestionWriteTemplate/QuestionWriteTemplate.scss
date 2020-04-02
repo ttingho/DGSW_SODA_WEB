@@ -12,30 +12,30 @@
 
   &-TitleDiv {
     width: 700px;
-    height: 50px;
+    height: 60px;
+    margin-top: 5%;
 
     &-Title {
-      width: 700px;
-      height: 60px;
+      width: 100%;
+      height: 100%;
       padding: 2%;
       font-size: 20px;
-      margin: auto;
       font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
       box-shadow: 0 0 8px 0 $shadow;
       resize: none;
       border: none;
       outline: 0;
-      margin-top: 15%;
     }
   }
 
   &-ContentsDiv {
     width: 700px;
-    height: 50px;
+    height: 500px;
+    margin-top: 1%;
 
     &-Contents {
-      width: 700px;
-      height: 500px;
+      width: 100%;
+      height: 100%;
       padding: 2%;
       border: none;
       resize: none;
@@ -43,7 +43,6 @@
       font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
       box-shadow: 0 0 8px 0 $shadow;
       outline: 0;
-      margin-top: 20%;
     }
 
     &-preViewImage {
@@ -53,25 +52,21 @@
     }
   }
 
+  &-buttons {
+    width: 700px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 2%;
+  }
+
   &-postButtonDiv {
     display: flex;
-    width: 150px;
+    width: 700px;
     height: 50px;
-    margin: 0px 0 auto 530px;
-
-    &-postButton {
-      width: 150px;
-      height: 50px;
-
-      border: none;
-      background-color: $soda_primary;
-      font-size: 20px;
-      border-radius: 5px;
-      font-weight: 600;
-      color: white;
-      cursor: pointer;
-      outline: 0;
-    }
+    margin-top: 2%;
   }
 
   &-uploadButtonDiv {
@@ -79,7 +74,6 @@
     height: 50px;
     border: 2px solid $soda_primary;
     border-radius: 5px;
-    margin: 610px 0 auto -570px;
     align-items: center;
     &-Label {
       display: flex;
@@ -109,6 +103,8 @@
     width: 300px;
     height: 50px;
     border: 1px solid black;
+    position: absolute;
+    bottom: 100%; // calc(100% + 간견px);
   }
 
   &-hidden {
@@ -121,14 +117,18 @@
     height: 50px;
     border: 2px solid $soda_primary;
     border-radius: 5px;
-    margin: -90px 0 auto -90px;
     justify-content: center;
     align-items: center;
     align-items: center;
+    position: relative;
     &-ImageHandleButton {
       display: flex;
       width: 295px;
       height: 45px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: row;
       border: none;
       background-color: white;
       outline: 0px;
@@ -144,8 +144,6 @@
         justify-content: flex-end;
         align-items: center;
         font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
-        margin: auto;
-        margin-right: 4%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -156,7 +154,6 @@
   }
 
   &-CategoryBox {
-    margin: -90px 0 auto 470px;
     min-width: 200px;
     height: 50px;
     border: 2px solid $soda_primary;

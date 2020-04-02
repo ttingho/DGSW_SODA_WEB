@@ -60,39 +60,41 @@ const QuestionWriteTemplate = ({
       <div className={cx('QuestionWriteTemplate-ContentsDiv')}>
         <textarea className={cx('QuestionWriteTemplate-ContentsDiv-Contents')} placeholder={'궁금한 점 이나 버그신고는 여기에 작성해 주세요...'} value={contents} onChange={event => setContents(event.target.value)}/>
       </div>
-      <div className={cx('QuestionWriteTemplate-uploadButtonDiv')}>
-        <label className={cx('QuestionWriteTemplate-uploadButtonDiv-Label')} htmlFor={'image_upload'}>사진 업로드</label>
-        <input id={'image_upload'} className={'QuestionWriteTemplate-uploadButtonDiv-uploadButton'} type={'file'} accept={'image/gif, image/jpeg, image/jpg, image/png'} onChange={handleImageChange} multiple={'multiple'}></input>
-      </div>
-      <div className={cx('QuestionWriteTemplate-ImageContentsCard', { 'QuestionWriteTemplate-ImageContentsCard-hidden': !isUpload })}>
-        {
-          images.map((data, index) => {
-            return <div key={index}>
-              <span>{data.name}</span>
-              <MdClose/>
-            </div>;
-          })
-        }
-      </div>
-      <div className={cx('QuestionWriteTemplate-ImageHandleButtonDiv')}>
-        <button className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton')} onClick={event => handleIsUpload(event)}>
-          <MdInsertPhoto className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton-ButtonIcon')}/>
-          <span className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton-ImageContents')}>
+      <div className={cx('QuestionWriteTemplate-buttons')}>
+        <div className={cx('QuestionWriteTemplate-uploadButtonDiv')}>
+          <label className={cx('QuestionWriteTemplate-uploadButtonDiv-Label')} htmlFor={'image_upload'}>사진 업로드</label>
+          <input id={'image_upload'} className={'QuestionWriteTemplate-uploadButtonDiv-uploadButton'} type={'file'} accept={'image/gif, image/jpeg, image/jpg, image/png'} onChange={handleImageChange} multiple={'multiple'}></input>
+        </div>
+        <div className={cx('QuestionWriteTemplate-ImageHandleButtonDiv')}>
+          <div className={cx('QuestionWriteTemplate-ImageContentsCard', { 'QuestionWriteTemplate-ImageContentsCard-hidden': !isUpload })}>
             {
-              imageContents
+              images.map((data, index) => {
+                return <div key={index}>
+                  <span>{data.name}</span>
+                  <MdClose/>
+                </div>;
+              })
             }
-          </span>
-        </button>
+          </div>
+          <button className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton')} onClick={event => handleIsUpload(event)}>
+            <MdInsertPhoto className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton-ButtonIcon')}/>
+            <span className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton-ImageContents')}>
+              {
+                imageContents
+              }
+            </span>
+          </button>
+        </div>
+        <select className={cx('QuestionWriteTemplate-CategoryBox')} value={category} onChange={handleCategory}>
+          <option value={'NotSelect'}>카테고리 유형을 선택해 주세요!</option>
+          <option value={'BambooServiceBug'}>대숲 서비스 관련 버그 신고</option>
+          <option value={'SodaServiceBug'}>소다 서비스 관련 버그 신고</option>
+          <option value={'AdminQuestion'}>관리자한테 궁금 한거</option>
+          <option value={'Etc'}>기타</option>
+        </select>
       </div>
-      <select className={cx('QuestionWriteTemplate-CategoryBox')} value={category} onChange={handleCategory}>
-        <option value={'NotSelect'}>카테고리 유형을 선택해 주세요!</option>
-        <option value={'BambooServiceBug'}>대숲 서비스 관련 버그 신고</option>
-        <option value={'SodaServiceBug'}>소다 서비스 관련 버그 신고</option>
-        <option value={'AdminQuestion'}>관리자한테 궁금 한거</option>
-        <option value={'Etc'}>기타</option>
-      </select>
       <div className={cx('QuestionWriteTemplate-postButtonDiv')}>
-        <Button className={cx('QuestionWriteTemplate-postButtonDiv-postButton')} handleFunction={handleQuestionWrite}>문의 하기</Button>
+        <Button customStyle={{ width: '150px', height: '100%', margin: 'auto 0 auto auto' }} handleFunction={handleQuestionWrite}>문의 하기</Button>
       </div>
     </div>
   );
