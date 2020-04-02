@@ -7,3 +7,4 @@ export { default as TeamBuilding } from './TeamBuilding';
 export { default as TeamBuildingInterview } from './TeamBuildingInterview';
 export { default as Intro } from './Intro';
 export { default as NotFound } from './NotFound';
+export { default as QuestionWrite } from './QuestionWrite';

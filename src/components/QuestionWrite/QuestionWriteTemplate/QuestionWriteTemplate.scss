@@ -1,0 +1,177 @@
+
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+
+.QuestionWriteTemplate {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &-TitleDiv {
+    width: 700px;
+    height: 50px;
+
+    &-Title {
+      width: 700px;
+      height: 60px;
+      padding: 2%;
+      font-size: 20px;
+      margin: auto;
+      font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+      box-shadow: 0 0 8px 0 $shadow;
+      resize: none;
+      border: none;
+      outline: 0;
+      margin-top: 15%;
+    }
+  }
+
+  &-ContentsDiv {
+    width: 700px;
+    height: 50px;
+
+    &-Contents {
+      width: 700px;
+      height: 500px;
+      padding: 2%;
+      border: none;
+      resize: none;
+      font-size: 20px;
+      font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+      box-shadow: 0 0 8px 0 $shadow;
+      outline: 0;
+      margin-top: 20%;
+    }
+
+    &-preViewImage {
+      width: 100px;
+      height: 50px;
+      border: 1px solid black;
+    }
+  }
+
+  &-postButtonDiv {
+    display: flex;
+    width: 150px;
+    height: 50px;
+    margin: 0px 0 auto 530px;
+
+    &-postButton {
+      width: 150px;
+      height: 50px;
+
+      border: none;
+      background-color: $soda_primary;
+      font-size: 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      outline: 0;
+    }
+  }
+
+  &-uploadButtonDiv {
+    width: 130px;
+    height: 50px;
+    border: 2px solid $soda_primary;
+    border-radius: 5px;
+    margin: 610px 0 auto -570px;
+    align-items: center;
+    &-Label {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      color: $soda_primary;
+      justify-content: center;
+      align-items: center;
+      font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+      font-weight: 600;
+      cursor: pointer;
+      transition: ease-out .2s;
+      &:hover {
+        color: $white;
+        background-color: $soda_primary;
+      }
+    }
+
+    &-uploadButton {
+      width: 0px;
+      height: 0px;
+      overflow: hidden;
+    }
+  }
+
+  &-ImageContentsCard {
+    width: 300px;
+    height: 50px;
+    border: 1px solid black;
+  }
+
+  &-hidden {
+    visibility: hidden;
+  }
+
+  &-ImageHandleButtonDiv {
+    display: flex;
+    width: 300px;
+    height: 50px;
+    border: 2px solid $soda_primary;
+    border-radius: 5px;
+    margin: -90px 0 auto -90px;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    &-ImageHandleButton {
+      display: flex;
+      width: 295px;
+      height: 45px;
+      border: none;
+      background-color: white;
+      outline: 0px;
+      cursor: pointer;
+      &-ButtonIcon {
+        width: 30px;
+        height: 30px;
+        color: $soda_primary;
+      }
+      &-ImageContents {
+        width: calc(90% - 26px);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        margin: auto;
+        margin-right: 4%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 15px;
+        color: $soda_primary;
+      }
+    }
+  }
+
+  &-CategoryBox {
+    margin: -90px 0 auto 470px;
+    min-width: 200px;
+    height: 50px;
+    border: 2px solid $soda_primary;
+    font-weight: 600;
+    font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+    color: $soda_primary;
+    padding-left: 10px;
+    padding-right: 10px;
+    outline: 0px;
+    cursor: pointer;
+    transition: ease-out .2s;
+    &:hover {
+      color: $white;
+      background-color: $soda_primary;
+    }
+  }
+
+}
