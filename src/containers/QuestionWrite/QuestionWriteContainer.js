@@ -214,6 +214,8 @@ const QuestionWriteContainer = ({ store, history }) => {
           stateType: 'success',
           contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.'
         });
+
+        history.goBack(1);
       })
       .catch(async (error) => {
         const { status } = error.response;
