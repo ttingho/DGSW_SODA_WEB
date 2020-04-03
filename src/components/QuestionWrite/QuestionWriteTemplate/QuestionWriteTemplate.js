@@ -14,43 +14,19 @@ const QuestionWriteTemplate = ({
   handleQuestionWrite,
   imageContents,
   handleImageChange,
-  imageBase64,
-  handleIsUpload,
-  isUpload,
   images,
- }) => {
+  handleImageCancel,
+}) => {
 
   const { contents, setContents } = contentsObj;
   const { title, setTitle } = titleObj;
   const { category, setCategory } = categoryObj;
 
-  const [previewImage, setPreviewImage] = useState([]);
+  const [isImage, setIsImage] = useState(false);
 
   const handleCategory = (e) => {
     setCategory(e.target.value);
   };
-
-  const previewImageSetting = () => {
-    
-    if (imageBase64.length !== 0 && imageBase64.length === 1) {
-      setPreviewImage(
-        <div>
-          <img src={imageBase64[0]}/>
-        </div>
-      );
-    }
-    else {
-      setPreviewImage(
-        <div className={cx('QuestionWriteTemplate-ContentsDiv-preViewImage')}>
-        
-        </div>
-      );
-    }
-  };
-
-  useEffect(() => {
-    previewImageSetting();
-  }, [imageBase64]);
 
   return (
     <div className={cx('QuestionWriteTemplate')}>
@@ -66,17 +42,19 @@ const QuestionWriteTemplate = ({
           <input id={'image_upload'} className={'QuestionWriteTemplate-uploadButtonDiv-uploadButton'} type={'file'} accept={'image/gif, image/jpeg, image/jpg, image/png'} onChange={handleImageChange} multiple={'multiple'}></input>
         </div>
         <div className={cx('QuestionWriteTemplate-ImageHandleButtonDiv')}>
-          <div className={cx('QuestionWriteTemplate-ImageContentsCard', { 'QuestionWriteTemplate-ImageContentsCard-hidden': !isUpload })}>
+          <div className={cx('QuestionWriteTemplate-ImageCardDiv')}>
             {
-              images.map((data, index) => {
+              isImage && images.map((data, index) => {
                 return <div key={index}>
-                  <span>{data.name}</span>
-                  <MdClose/>
+                  <div className={cx('QuestionWriteTemplate-ImageCardDiv-ImageContentsCard')}>
+                    <span className={cx('QuestionWriteTemplate-ImageCardDiv-ImageContentsCard-ImageContents')}>{data.name}</span>
+                    <MdClose className={cx('QuestionWriteTemplate-ImageCardDiv-ImageContentsCard-ImageCancelButton')} onClick={() => handleImageCancel(data.idx)}/>
+                  </div>
                 </div>;
               })
             }
           </div>
-          <button className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton')} onClick={event => handleIsUpload(event)}>
+          <button className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton')} onClick={() => setIsImage(!isImage)}>
             <MdInsertPhoto className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton-ButtonIcon')}/>
             <span className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton-ImageContents')}>
               {
@@ -94,6 +72,9 @@ const QuestionWriteTemplate = ({
         </select>
       </div>
       <div className={cx('QuestionWriteTemplate-postButtonDiv')}>
+        <span className={cx('QuestionWriteTemplate-postButtonDiv-UploadGuide')}>
+          * 사진은 최대 5장 까지만 업로드 가능 합니다.
+        </span>
         <Button customStyle={{ width: '150px', height: '100%', margin: 'auto 0 auto auto' }} handleFunction={handleQuestionWrite}>문의 하기</Button>
       </div>
     </div>
@@ -101,7 +82,16 @@ const QuestionWriteTemplate = ({
 };
 
 QuestionWriteTemplate.propTypes = {
-
-}
+  titleObj: PropTypes.object,
+  contentsObj: PropTypes.object,
+  categoryObj: PropTypes.object,
+  handleQuestionWrite: PropTypes.func,
+  imageContents: PropTypes.string,
+  handleImageChange: PropTypes.func,
+  images: PropTypes.array,
+  handleImageCancel: PropTypes.func,
+  category: PropTypes.string,
+  handleCategory: PropTypes.func
+};
 
 export default QuestionWriteTemplate;

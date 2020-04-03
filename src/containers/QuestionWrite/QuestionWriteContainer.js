@@ -7,17 +7,15 @@ import { withRouter } from 'react-router-dom';
 import QuestionTemplate from 'components/QuestionWrite/QuestionWriteTemplate';
 import GroupingState from 'lib/HookState/GroupingState';
 
-const QuestionWriteContainer = ({ store }) => {
+const QuestionWriteContainer = ({ store, history }) => {
   const maxImageSize = 4 * 1024 * 1024;
 
   const [contents, setContents] = useState('');
-  const [contentsCard, setContentsCard] = useState([]);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('NotSelect');
   const [isUpload, setIsUpload] = useState(false);
 
   const [images, setImages] = useState([]);
-  const [imageBase64, setImageBase64] = useState([]);
   const [imageContents, setImageContents] = useState('업로드 된 이미지');
   const [imageSize, setImageSize] = useState(0);
 
@@ -31,30 +29,33 @@ const QuestionWriteContainer = ({ store }) => {
 
   const token = TokenVerification();
 
+  // 업로드할 사진 취소
+  const handleImageCancel = async imageIdx => {
+    await images.some(data => {
+      const { idx } = data;
 
-  const handleIsUpload = event => {
-    if (images.length ===0 && !isUpload) return;
+      if(idx === imageIdx){
+        images.splice(idx, 1);
 
-    if (images.length !== 0 && isUpload) {
-          
-    }
-  };
+        setImages(images);
+        
+        return true;
+      }
+    });
 
-  // 사진 미리보기 용 이미지 url 값 설정
-  const handlImageBase64 = async () => {
-    let newState = [];
+    if (images.length === 0) {
+      setImageContents('업로드된 이미지');
 
-    const processImgBase64 = img => {
-      let url = URL.createObjectURL(img);
-
-      newState = [...newState, url];
-    };
-
-    for (let i = 0; i < images.length; i++) {
-      await processImgBase64(images[i]);
+      return;
     }
 
-    setImageBase64(newState);
+    if (images.length === 1) {
+      setImageContents(images[0].name);
+    }
+
+    if (images.length > 1) {
+      setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
+    }
   };
 
   // 사진 크기 설정
@@ -74,26 +75,45 @@ const QuestionWriteContainer = ({ store }) => {
   const handleImageSetting = imageFiles => {
     const fileList = images;
     const fileLength = imageFiles.length;
+    
+    if (imageFiles.length > 5) {
+      modal({
+        title: 'Error',
+        stateType: 'error',
+        contents: '이미지는 최대 5장 까지 입니다!!!!.'
+      });
 
+      return;
+    }
+
+    if (images.length + imageFiles.length > 5 && isUpload) {
+      modal({
+        title: 'Error',
+        stateType: 'error',
+        contents: '이미지는 최대 5장 까지 입니다!!!!.'
+      });
+
+      return;
+    }
+    
     // url 값 변수 저장 && contents card 데이터 저장
     for (let i = 0; i < fileLength; i++) {
       const file = imageFiles[i];
-      
-      contentsCard.push(file.name);
+
       fileList.push(file);
     }
     
-    if (fileLength === 0) {
+    if (images.length === 0) {
       setImageContents('업로드된 이미지');
 
       return;
     }
 
-    if (fileLength === 1) {
-      setImageContents(`${images[0].name}`);
+    if (images.length === 1) {
+      setImageContents(images[0].name);
     }
 
-    if (fileLength > 1) {
+    if (images.length > 1) {
       setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
     }
 
@@ -106,8 +126,6 @@ const QuestionWriteContainer = ({ store }) => {
     const imageFiles = event.target.files;
 
     handleImageSetting(imageFiles);
-
-    handlImageBase64();
     
     event.target.value = null;
   };
@@ -118,8 +136,7 @@ const QuestionWriteContainer = ({ store }) => {
 
     for(let image of images) {
       const formData = new FormData();
-      console.log(images);
-      
+
       formData.append('img', image);
 
       await uploadImage(formData)
@@ -197,6 +214,10 @@ const QuestionWriteContainer = ({ store }) => {
           stateType: 'success',
           contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.'
         });
+
+        setTimeout(function() {
+          history.goBack(1);
+        }, 2000);
       })
       .catch(async (error) => {
         const { status } = error.response;
@@ -230,6 +251,10 @@ const QuestionWriteContainer = ({ store }) => {
         stateType: 'warning',
         contents: '건의사항 작성은 로그인 후 이용 가능 합니다!',
       });
+
+      history.goBack(1);
+
+      return;
     }
   };
 
@@ -245,13 +270,15 @@ const QuestionWriteContainer = ({ store }) => {
       handleQuestionWrite={handleQuestionWrite}
       imageContents={imageContents}
       handleImageChange={handleImageChange}
-      imageBase64={imageBase64}
-      handleIsUpload={handleIsUpload}
-      isUpload={isUpload}
-      contentsCard={contentsCard}
       images={images}
+      handleImageCancel={handleImageCancel}
     />
   );
+};
+
+QuestionWriteContainer.propTypes = {
+  store: PropTypes.object,
+  history: PropTypes.object
 };
 
 export default inject('store')(observer(withRouter(QuestionWriteContainer)));
