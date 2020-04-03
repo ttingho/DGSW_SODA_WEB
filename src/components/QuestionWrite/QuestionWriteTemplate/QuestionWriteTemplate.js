@@ -16,7 +16,7 @@ const QuestionWriteTemplate = ({
   handleImageChange,
   images,
   handleImageCancel,
- }) => {
+}) => {
 
   const { contents, setContents } = contentsObj;
   const { title, setTitle } = titleObj;
@@ -26,14 +26,6 @@ const QuestionWriteTemplate = ({
 
   const handleCategory = (e) => {
     setCategory(e.target.value);
-  };
-
-  const handleIsImageData = () => {
-    if (isImage === false) {
-      setIsImage(true);
-    } else if (isImage === true) {
-      setIsImage(false);
-    }
   };
 
   return (
@@ -62,7 +54,7 @@ const QuestionWriteTemplate = ({
               })
             }
           </div>
-          <button className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton')} onClick={() => handleIsImageData()}>
+          <button className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton')} onClick={() => setIsImage(!isImage)}>
             <MdInsertPhoto className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton-ButtonIcon')}/>
             <span className={cx('QuestionWriteTemplate-ImageHandleButtonDiv-ImageHandleButton-ImageContents')}>
               {
