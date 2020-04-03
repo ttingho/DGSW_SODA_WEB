@@ -90,7 +90,16 @@ const QuestionWriteTemplate = ({
 };
 
 QuestionWriteTemplate.propTypes = {
-
-}
+  titleObj: PropTypes.object,
+  contentsObj: PropTypes.object,
+  categoryObj: PropTypes.object,
+  handleQuestionWrite: PropTypes.func,
+  imageContents: PropTypes.string,
+  handleImageChange: PropTypes.func,
+  images: PropTypes.array,
+  handleImageCancel: PropTypes.func,
+  category: PropTypes.string,
+  handleCategory: PropTypes.func
+};
 
 export default QuestionWriteTemplate;

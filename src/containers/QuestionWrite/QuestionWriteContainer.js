@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import QuestionTemplate from 'components/QuestionWrite/QuestionWriteTemplate';
 import GroupingState from 'lib/HookState/GroupingState';
 
-const QuestionWriteContainer = ({ store }) => {
+const QuestionWriteContainer = ({ store, history }) => {
   const maxImageSize = 4 * 1024 * 1024;
 
   const [contents, setContents] = useState('');
@@ -247,6 +247,10 @@ const QuestionWriteContainer = ({ store }) => {
         stateType: 'warning',
         contents: '건의사항 작성은 로그인 후 이용 가능 합니다!',
       });
+
+      history.goBack(1);
+
+      return;
     }
   };
 
@@ -266,6 +270,11 @@ const QuestionWriteContainer = ({ store }) => {
       handleImageCancel={handleImageCancel}
     />
   );
+};
+
+QuestionWriteContainer.propTypes = {
+  store: PropTypes.object,
+  history: PropTypes.object
 };
 
 export default inject('store')(observer(withRouter(QuestionWriteContainer)));
