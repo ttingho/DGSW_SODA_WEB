@@ -1,12 +1,12 @@
 import React from 'react';
 import PageTemplate from 'components/Common/PageTemplate';
-import QuestionWriteContainer from 'containers/QuestionWrite/QuestionWriteContainer';
+import QuestionDetailContainer from 'containers/QuestionDetail/QuestionDetail';
 
 const QuestionWrite = () => {
   return (
     <>
       <PageTemplate pageType={'bamboo'}>
-        <QuestionWriteContainer />
+        <QuestionDetailContainer />
       </PageTemplate>
     </>
   );

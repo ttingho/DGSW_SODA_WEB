@@ -65,10 +65,10 @@ const QuestionWriteTemplate = ({
         </div>
         <select className={cx('QuestionWriteTemplate-CategoryBox')} value={category} onChange={handleCategory}>
           <option value={'NotSelect'}>카테고리 유형을 선택해 주세요!</option>
-          <option value={'BambooServiceBug'}>대숲 서비스 관련 버그 신고</option>
-          <option value={'SodaServiceBug'}>소다 서비스 관련 버그 신고</option>
-          <option value={'AdminQuestion'}>관리자한테 궁금 한거</option>
-          <option value={'Etc'}>기타</option>
+          <option value={'대숲 버그 신고'}>대숲 서비스 관련 버그 신고</option>
+          <option value={'소다 버그 신고'}>소다 서비스 관련 버그 신고</option>
+          <option value={'관리자 문의'}>관리자한테 궁금 한거</option>
+          <option value={'기타 문의'}>기타</option>
         </select>
       </div>
       <div className={cx('QuestionWriteTemplate-postButtonDiv')}>
