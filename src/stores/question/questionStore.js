@@ -1,9 +1,10 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { autobind } from 'core-decorators';
 import questionRepository from './questionRepository';
 
 @autobind
 class questionStore {
+  @observable detailQuestion = {};
 
   @action
   async postQuestionWrite (request) {
@@ -26,6 +27,8 @@ class questionStore {
   async getQuestionDetail (idx) {
     try {
       const response = await questionRepository.getQuestionDetail(idx);
+      
+      this.detailQuestion = response.data;
       
       return new Promise((resolve, reject) => {
         resolve(response);
