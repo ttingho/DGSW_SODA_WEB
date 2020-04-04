@@ -1,0 +1,12 @@
+.AnswerWriteTemplate {
+  width: 100%;
+  height: calc(100vh - 80px);
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+  &-TitleDiv {
+
+  }
+}
