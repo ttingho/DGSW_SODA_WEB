@@ -8,15 +8,15 @@ import Pagination from 'components/Common/Pagination';
 
 const cx = classNames.bind(style);
 
-const QuestionDetailTemplate = ({ qnaData }) => {
-  const { question, answer } = qnaData;
+const QuestionDetailTemplate = ({ question, answer }) => {
+  console.log(question, answer);
+
   const { title, contents, memberId, joinDate, category, isComplate, picture } = question;
  
   const joinDateFormat = dateFormat(joinDate, 'yyyy-mm-dd h:MM:ss');
 
   const [complateContents, setComplateContents] = useState('');
   const [images, setImages] = useState([]);
-  console.log(question, answer);
 
   const setpitureDataComplateData = useCallback(async () => {
     if (picture && picture.length !== 0) {
@@ -78,23 +78,38 @@ const QuestionDetailTemplate = ({ qnaData }) => {
 };
 
 QuestionDetailTemplate.defaultProps = {
-  qnaData: {
-    question: [],
-    answer: {},
-  },
   question: {
-    title: '',
-    category: '',
-    contents: '',
-    picture: [],
-    memberId: '',
-    joinDate: '',
-    isComplate: 0
+    idx: 5,
+    title: 'asdfadsf',
+    contents: 'adsf?',
+    memberId: 'test',
+    isComplate: 0,
+    joinDate: '2020-03-28T05:52:56.000Z',
+    category: 'string',
+    picture: [
+      {
+        idx: 1,
+        questionIdx: 1,
+        type: 'jpg',
+        uploadName: '129482949.jpg',
+        url: 'https://takeup.co.kr:8000/image/jpg/129482949.jpg.jpg'
+      }
+    ]
+  },
+  answer: {
+    idx: 1,
+    title: 'test',
+    contents: 'test',
+    memberId: 'test',
+    questionIdx: 5,
+    joinDate: '2020-02-01T15:00:00.000Z',
+    category: 'string'
   }
 };
 
 QuestionDetailTemplate.propTypes = {
-
+  question: PropTypes.object,
+  answer: PropTypes.object
 };
 
 export default QuestionDetailTemplate;
