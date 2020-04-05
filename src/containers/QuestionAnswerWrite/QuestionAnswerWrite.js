@@ -7,10 +7,11 @@ import ProTypes from 'prop-types';
 import GroupingState from 'lib/HookState/GroupingState';
 
 const QuestionAnswerWrite = ({ store }) => {
-  const [title, setTitle] = useState('');
-  const [contents, setContents] = useState('');
+  const [answerTitle, setAnswerTitle] = useState('');
+  const [answerContents, setAnswerContents] = useState('');
   const [questionData, setQuestionData] = useState({});
-  const idx = 1;
+  const { detailAnswerQuestion, getQuestionDetail } = store.question;
+  const idx = 2;
 
   const { modal } = store.dialog;
   const { postQuestionAnswer } = store.question;
@@ -21,20 +22,25 @@ const QuestionAnswerWrite = ({ store }) => {
 
   const token = TokenVerification();
 
-  const getQuestionData = useCallback(async () => {
-    console.log('test');
-    
-    const { question } = store;
+  useEffect(() => {
+    async function fetchData() {
+      await getQuestionDetail(idx);
+    }
 
-    const data = await question.getQuestionDetail(idx);
-    setQuestionData(data.data.question[0]);
+    fetchData();
   }, []);
 
 
   const handleQuesionAnswer = async () => {
     let data;
 
-    if (contents.length === 0 || title.length === 0) {
+    data = {
+      title: answerTitle,
+      contents: answerContents,
+      questionIdx: idx,
+    }
+
+    if (answerContents.length === 0 || answerTitle.length === 0) {
       await modal({
         title: 'Error!',
         stateType: 'error',
@@ -64,6 +70,16 @@ const QuestionAnswerWrite = ({ store }) => {
 
           return;
         }
+
+        if (status === 403) {
+          await modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '이미 답변이 작성되었어요!'
+          });
+
+          return;
+        }
         
         if (status === 500) {
           await modal({
@@ -79,11 +95,11 @@ const QuestionAnswerWrite = ({ store }) => {
 
 
   const checkAdminAuth = async () => {
-    if (token ==='empty' || userInfo === null) {
+    if (token ==='empty' || userInfo === null || userInfo.auth !== 0) {
       modal({
         title: 'Warning!',
         stateType: 'warning',
-        contents: '건의사항 작성은 로그인 후 이용 가능 합니다!',
+        contents: '답변 작성은 관리자만 작성가능 합니다!',
       });
 
       history.goBack(1);
@@ -94,16 +110,15 @@ const QuestionAnswerWrite = ({ store }) => {
 
   useEffect(() => {
     checkAdminAuth();
-    getQuestionData();
   }, []);
   
   return (
     <AnswerWriteTemplate 
-      contentsObj={GroupingState('contents', contents, setContents)}
-      titleObj={GroupingState('title', title, setTitle)}
+      contentsObj={GroupingState('answerContents', answerContents, setAnswerContents)}
+      titleObj={GroupingState('answerTitle', answerTitle, setAnswerTitle)}
       idx={idx}
       handleQuesionAnswer={handleQuesionAnswer}
-      questionData={questionData}
+      questionData={detailAnswerQuestion}
     />
   );
 }

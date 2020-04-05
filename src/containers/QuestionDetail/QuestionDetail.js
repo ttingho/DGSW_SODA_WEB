@@ -6,8 +6,7 @@ import PropTypes from 'prop-types';
 const QuestionDetail = ({ store }) => {
   const { detailQuestion, getQuestionDetail } = store.question;
 
-  const [DetailTemplate, setDetailTemplate] = useState([]);
-  const idx = 1;
+  const idx = 2;
   
   useEffect(() => {
     async function fetchData() {
