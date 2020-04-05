@@ -41,7 +41,7 @@ class questionRepository {
     const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
 
     try {
-      const { data } = await axios.get(`${SERVER}/question/answer`,request, {
+      const { data } = await axios.post(`${SERVER}/question/answer`,request, {
         headers: {
           'x-access-token' : token,
         },

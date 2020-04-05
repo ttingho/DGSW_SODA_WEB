@@ -5,6 +5,7 @@ import questionRepository from './questionRepository';
 @autobind
 class questionStore {
   @observable detailQuestion = {};
+  @observable detailAnswerQuestion = {};
 
   @action
   async postQuestionWrite (request) {
@@ -29,6 +30,7 @@ class questionStore {
       const response = await questionRepository.getQuestionDetail(idx);
       
       this.detailQuestion = response.data;
+      this.detailAnswerQuestion = response.data.question;
       
       return new Promise((resolve, reject) => {
         resolve(response);
