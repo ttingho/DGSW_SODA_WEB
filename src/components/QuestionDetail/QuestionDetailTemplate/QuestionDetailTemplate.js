@@ -143,7 +143,6 @@ QuestionDetailTemplate.defaultProps = {
     joinDate: '2020-03-28T05:52:56.000Z',
     category: '관리자 문의',
   },
-
   answer: {
     idx: 5,
     title: 'asdfadsf',

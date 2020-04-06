@@ -7,15 +7,13 @@
   min-height: 800px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
 
   &-AnswerTop {
     width: 50px;
     height: 50px;
     position: relative;
-    top: 25px;
+    top: 75px;
     right: 25px;
 
     &-Icon {
@@ -61,7 +59,7 @@
     align-items: center;
     box-shadow: 0 0 8px 0 $shadow;
     flex-direction: column;
-    margin-top: 0px;
+    margin-top: 50px;
     
     &-TitleBox {
       display: flex;
