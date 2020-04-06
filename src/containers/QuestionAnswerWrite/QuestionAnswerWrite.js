@@ -2,11 +2,12 @@ import React, {useState, useCallback, useEffect, useRef } from 'react';
 import AnswerWriteTemplate from 'components/AnswerWrite/AnswerWriteTemplate/AnswerWriteTemplate.js';
 import { inject, observer } from 'mobx-react';
 import TokenVerification from 'lib/Token/TokenVerification';
+import { withRouter } from 'react-router-dom';
 import SecureLS from 'secure-ls';
-import ProTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import GroupingState from 'lib/HookState/GroupingState';
 
-const QuestionAnswerWrite = ({ store }) => {
+const QuestionAnswerWrite = ({ store, history }) => {
   const [answerTitle, setAnswerTitle] = useState('');
   const [answerContents, setAnswerContents] = useState('');
   const [questionData, setQuestionData] = useState({});
@@ -22,15 +23,6 @@ const QuestionAnswerWrite = ({ store }) => {
 
   const token = TokenVerification();
 
-  useEffect(() => {
-    async function fetchData() {
-      await getQuestionDetail(idx);
-    }
-
-    fetchData();
-  }, []);
-
-
   const handleQuesionAnswer = async () => {
     let data;
 
@@ -38,7 +30,7 @@ const QuestionAnswerWrite = ({ store }) => {
       title: answerTitle,
       contents: answerContents,
       questionIdx: idx,
-    }
+    };
 
     if (answerContents.length === 0 || answerTitle.length === 0) {
       await modal({
@@ -91,7 +83,7 @@ const QuestionAnswerWrite = ({ store }) => {
           return;
         }
       });
-  }
+  };
 
 
   const checkAdminAuth = async () => {
@@ -101,15 +93,24 @@ const QuestionAnswerWrite = ({ store }) => {
         stateType: 'warning',
         contents: '답변 작성은 관리자만 작성가능 합니다!',
       });
+      
 
       history.goBack(1);
 
       return;
     }
-  }
+  };
 
   useEffect(() => {
     checkAdminAuth();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      await getQuestionDetail(idx);
+    }
+
+    fetchData();
   }, []);
   
   return (
@@ -121,10 +122,11 @@ const QuestionAnswerWrite = ({ store }) => {
       questionData={detailAnswerQuestion}
     />
   );
-}
-
-QuestionAnswerWrite.proTypes = {
-  store: ProTypes.object.isRequired,
 };
 
-export default inject('store')(observer(QuestionAnswerWrite));
+QuestionAnswerWrite.propTypes = {
+  store: PropTypes.object,
+  history: PropTypes.object
+};
+
+export default inject('store')(observer(withRouter(QuestionAnswerWrite)));
