@@ -38,15 +38,15 @@ $imageSize: 150px;
     &-idWrap {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-evenly;
       width: 100%;
       height: 115px;      
       
       &-idCheck {
-        width: 310px;
+        width: 250px;
         height: 42px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         align-self: flex-end;
   
@@ -54,18 +54,74 @@ $imageSize: 150px;
           font-size: $font_size_3;
           font-family: $NOTO_SANS_KR_REGULAR;
           color: $gray_2;
+          margin-right: 4px;
         }
-        &>button {
-          width: 100px;
-          height: 40px;
-          border-radius: 5px;
+        &-success {
+          width: 24px;
+          height: 24px;
+          color: $success;
+        }
+        &-error {
+          width: 24px;
+          height: 24px;
+          color: $error;
+        }
+        // &>button {
+        //   width: 100px;
+        //   height: 40px;
+        //   border-radius: 5px;
+        //   font-size: $font_size_3;
+        //   font-family: $NOTO_SANS_KR_REGULAR;
+        //   color: $gray_2;
+        //   border: 1px solid $gray_1;
+        //   background-color: $white;
+        //   cursor: pointer;
+        // }
+      }
+    }
+    &-checkPwWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      height: 115px;      
+      
+      &-checkPw {
+        width: 250px;
+        height: 42px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        align-self: flex-end;
+        margin-top: 10px;
+  
+        &>span {
           font-size: $font_size_3;
           font-family: $NOTO_SANS_KR_REGULAR;
           color: $gray_2;
-          border: 1px solid $gray_1;
-          background-color: $white;
-          cursor: pointer;
+          margin-right: 4px;
         }
+        &-success {
+          width: 24px;
+          height: 24px;
+          color: $success;
+        }
+        &-error {
+          width: 24px;
+          height: 24px;
+          color: $error;
+        }
+        // &>button {
+        //   width: 100px;
+        //   height: 40px;
+        //   border-radius: 5px;
+        //   font-size: $font_size_3;
+        //   font-family: $NOTO_SANS_KR_REGULAR;
+        //   color: $gray_2;
+        //   border: 1px solid $gray_1;
+        //   background-color: $white;
+        //   cursor: pointer;
+        // }
       }
     }
     &-idWrap, &-nextBtn {
@@ -115,10 +171,15 @@ $imageSize: 150px;
           font-family: $NOTO_SANS_KR_REGULAR;
           color: $gray_2;
         }
+        &-success {
+          width: 24px;
+          height: 24px;
+          color: $success;
+        }
         &>button {
           width: 100px;
           height: 40px;
-          border-radius: 2.5px;
+          border-radius: 5px;
           font-size: $font_size_3;
           font-family: $NOTO_SANS_KR_REGULAR;
           color: $gray_2;
@@ -126,6 +187,9 @@ $imageSize: 150px;
           background-color: $white;
           cursor: pointer;
         }
+      }
+      &-emailChecked {
+        width: 200px;
       }
     }
     

@@ -48,11 +48,19 @@
 
     &-title {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
       font-size: $font_size_7;
       font-family: $NOTO_SANS_KR_MEDIUM;
       color: $black;
+
+      &-subTitle {
+        margin-top: 4px;
+        font-size: $font_size_3;
+        font-family: $NOTO_SANS_KR_REGULAR;
+        color: $gray_5;
+      }
     }
     
     &-btn {
@@ -66,6 +74,7 @@
       font-size: $font_size_5;
       font-family: $NOTO_SANS_KR_REGULAR;
       color: $white;
+      cursor: pointer;
     }
   }
   

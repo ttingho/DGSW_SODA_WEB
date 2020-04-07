@@ -1,15 +1,15 @@
 
 const SignUpFormCheck = (data, pageType) => {
   if (pageType === 1) {
-    const { id, pw, pwCheck } = data;
+    const { id, idCheck, pw, checkPw } = data;
 
-    if (!(!!id && !!pw && !!pwCheck)) {
+    if (!(!!id && !!pw && !!checkPw)) {
       return {
         isFormCheck: false,
         text: '양식이 비어있습니다.',
         type: 'warning'
       };
-    } else if (!(/^[a-zA-Z0-9]{5,20}$/).test(id)) {
+    } else if (!(/^[a-zA-Z0-9]{4,20}$/).test(id)) {
       return {
         isFormCheck: false,
         text: '아이디 형식을 지켜주세요.',
@@ -21,17 +21,23 @@ const SignUpFormCheck = (data, pageType) => {
         text: '비밀번호 형식을 지켜주세요.',
         type: 'warning'
       };
-    } else if (!(pw === pwCheck)) {
+    } else if (!(pw === checkPw)) {
       return {
         isFormCheck: false,
         text: '비밀번호가 일치하지 않습니다.',
         type: 'warning'
       };
+    } else if (idCheck === 2) {
+      return {
+        isFormCheck: false,
+        text: '이미 존재하는 아이디입니다.',
+        type: 'warning'
+      };
     }
   } else if (pageType === 2) {
-    const { email, phone, name } = data;
+    const { email, nickName, name, isCheckedEmail } = data;
 
-    if (!(!!email && !!phone && !!name)) {
+    if (!(!!email && !!nickName && !!name)) {
       return {
         isFormCheck: false,
         text: '양식이 비어있습니다.',
@@ -43,16 +49,22 @@ const SignUpFormCheck = (data, pageType) => {
         text: '이메일 형식을 지켜주세요.',
         type: 'warning'
       };
-    } else if (!(/^\d{3}\d{4}\d{4}$/).test(phone)) {
+    } else if (!(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{2,12}$/).test(nickName)) {
       return {
         isFormCheck: false,
-        text: '전화번호 형식을 지켜주세요.',
+        text: '닉네임 형식을 지켜주세요.',
         type: 'warning'
       };
     } else if (!(/^[a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ]{2,12}$/).test(name)) {
       return {
         isFormCheck: false,
         text: '이름 형식을 지켜주세요.',
+        type: 'warning'
+      };
+    } else if (isCheckedEmail !== true) {
+      return {
+        isFormCheck: false,
+        text: '이메일을 검증 해주세요.',
         type: 'warning'
       };
     }

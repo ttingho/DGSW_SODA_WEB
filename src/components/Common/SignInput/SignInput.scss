@@ -14,9 +14,19 @@
     font-family: $NOTO_SANS_KR_REGULAR;
     transition-duration: .5s;
     transition-property: border, box-shadow;
+
+    &-readOnly {
+      transition: none;
+      cursor: initial;
+    }
+    
   }
   &-input:focus {
     border: 2px solid $border_1;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1);
+  }
+  &-input-readOnly:focus {
+    border: 1px solid $gray_1;
+    box-shadow: none;
   }
 }

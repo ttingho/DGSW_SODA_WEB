@@ -2,23 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EmailModal from 'components/Sign/EmailModal';
 
-const EmailModalContainer = ({ emailCodeObj, setIsEmailModal, modal }) => {
-      
-  let textParts = text.split(':'); // 암호화된 코드로 부터 iv길이 할당 text == 암호
-  let iva = Buffer.from(textParts.shift(), 'hex');// 암호화된 코드로 부터 iv길이 할당 ASCII CODE
-  let encryptedText = Buffer.from(textParts.join(':'), 'hex');// 암호화 된 코드 가져오기 ASCII CODE
-  let decipher = crypto.createDecipheriv('aes-256-ctr', Buffer.from(emailSecretCode), iva); // 복호화
-  let decrypted = decipher.update(encryptedText); // 복호화 
+const EmailModalContainer = ({ emailCodeObj, setIsCheckedEmail, setIsEmailModal, email, handleEmailCode, modal }) => {
+  const { emailCode } = emailCodeObj;  
 
-  decrypted = Buffer.concat([decrypted, decipher.final()]); // Buffer 형식 바꾸기
+  const handleCertification = async() => {
+    let data = {
+      code: emailCode,
+      email: email
+    };
 
-  const code = decrypted.toString(); // 복호화 된 암호 코드
+    await handleEmailCode(data)
+      .then((response) => {
+        if (response.status === 200) {
+          setIsCheckedEmail(true);
+          setIsEmailModal(false);
+          modal({
+            title: 'Success!',
+            stateType: 'success',
+            contents: '이메일 검증에 성공했습니다.',
+          });
+        }
+      }).catch((error) => {
+        const { status } = error.response.data;
+
+        if (status === 400) {
+          modal({
+            title: 'Warning!',
+            stateType: 'warning',
+            contents: '코드를 입력해주세요.'
+          });
+          return;
+        } 
+        if (status === 403) {
+          modal({
+            title: 'Warning!',
+            stateType: 'warning',
+            contents: '올바른 검증 코드를 입력해주세요.'
+          });
+          return;
+        }
+      });
+  };
 
   return (
     <>
       <EmailModal 
         emailCodeObj={emailCodeObj}
         setIsEmailModal={setIsEmailModal}
+        handleCertification={handleCertification}
       />
     </>
   );
@@ -26,7 +57,10 @@ const EmailModalContainer = ({ emailCodeObj, setIsEmailModal, modal }) => {
 
 EmailModalContainer.propTypes = {
   emailCodeObj: PropTypes.object,
+  setIsCheckedEmail: PropTypes.func,
   setIsEmailModal: PropTypes.func,
+  email: PropTypes.string,
+  handleEmailCode: PropTypes.func,
   modal: PropTypes.func
 };
 
