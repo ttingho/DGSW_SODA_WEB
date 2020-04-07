@@ -1,0 +1,29 @@
+@import 'styles/typography/typography_scheme.scss';
+@import 'styles/color/color_scheme.scss';
+
+.InquiryPageTemplate {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+
+  &-header {
+    width: 100%;
+    min-width: 1140px;
+    height: 80px;
+    background-color: $white;
+    border-top: 3px solid $soda_primary;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    box-shadow: 0 1px 6px 0 $shadow;
+  }
+  &-contents {
+    width: 100%;
+    min-width: 1140px;
+    max-width: 1140px;
+    min-height: 100vh;
+  }
+}

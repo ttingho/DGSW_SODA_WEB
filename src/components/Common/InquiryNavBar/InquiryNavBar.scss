@@ -1,0 +1,34 @@
+@import 'styles/typography/typography_scheme.scss';
+@import 'styles/color/color_scheme.scss';
+
+.InquiryNavBar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-wrap {
+    max-width: 1140px;
+    min-width: 1140px;
+    height: 100%;
+
+    &-header {
+      width: 140px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: $font_size_9;
+      font-family: $NOTO_SANS_BOLD;
+      color: $soda_primary;
+
+      >span {
+        cursor: pointer;
+      }
+    }
+    &-content {
+
+    }
+  }
+}

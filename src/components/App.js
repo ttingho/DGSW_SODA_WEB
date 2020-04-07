@@ -37,6 +37,10 @@ function App() {
           render={() => <Pages.TeamBuilding/>}
         />
         <Route
+          path='/inquiry'
+          render={() => <Pages.Inquiry/>}
+        />
+        <Route
           path='/question-write'
           render={() => <Pages.QuestionWrite/>}
         />
