@@ -6,7 +6,19 @@ import { MdDone, MdClose } from 'react-icons/md';
 
 const cx = classNames.bind(style);
 
-const SignInput = ({ customStyle, customClass, signType, isCorrect, value, setValue, inputType, placeholder, handleEnterFunc }) => {
+const SignInput = ({
+  customStyle,
+  customClass,
+  signType,
+  isCorrect,
+  value,
+  setValue,
+  inputType,
+  placeholder,
+  handleEnterFunc,
+  handleFocusOut,
+  isReadOnly
+}) => {
   const handleEnter = event => {
     if (event.keyCode === 13) handleEnterFunc();
   };
@@ -14,13 +26,15 @@ const SignInput = ({ customStyle, customClass, signType, isCorrect, value, setVa
   return (
     <div className={cx('SignInput')}>
       <input
-        className={cx('SignInput-input', customClass)}
+        className={cx('SignInput-input', customClass, {'SignInput-input-readOnly': isReadOnly})}
         style={{ width: customStyle.width, height: customStyle.height, margin: customStyle.margin }}
         type={inputType}
         placeholder={placeholder}
         value={value}
         onChange={e => setValue(e.target.value)}
         onKeyDown={e => handleEnter(e)}
+        onBlur={e => handleFocusOut(e)}
+        readOnly={isReadOnly}
       />
       {
         signType === 'up'
@@ -42,7 +56,9 @@ SignInput.propTypes = {
   setValue: PropTypes.func,
   inputType: PropTypes.string,
   placeholder: PropTypes.string,
-  handleEnterFunc: PropTypes.func
+  handleEnterFunc: PropTypes.func,
+  handleFocusOut: PropTypes.func,
+  isReadOnly: PropTypes.bool,
 };
 
 SignInput.defaultProps = {
@@ -58,7 +74,9 @@ SignInput.defaultProps = {
   setValue: () => {},
   inputType: 'text',
   placeholder: '',
-  handleEnterFunc: () => {}
+  handleEnterFunc: () => {},
+  handleFocusOut: () => {},
+  isReadOnly: false,
 };
 
 export default SignInput;

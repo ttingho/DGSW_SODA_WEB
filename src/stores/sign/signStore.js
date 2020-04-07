@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { observable, action } from 'mobx';
 import { autobind } from 'core-decorators';
 import signRepository from './signRepository';
 
@@ -14,8 +14,6 @@ class signStore {
         resolve(response);
       });
     } catch (error) {
-      console.error(error);
-      
       return new Promise((resolve, reject) => {
         reject(error);
       });
@@ -31,8 +29,51 @@ class signStore {
         resolve(response);
       });
     } catch (error) {
-      console.error(error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action
+  async handleIdCheck (request) {
+    try {
+      const response = await signRepository.handleIdCheck(request);
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action 
+  async handleEmail (request) {
+    try {
+      const response = await signRepository.handleEmail(request);
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action
+  async handleEmailCode (request) {
+    try {
+      const response = await signRepository.handleEmailCode(request);
       
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
       return new Promise((resolve, reject) => {
         reject(error);
       });

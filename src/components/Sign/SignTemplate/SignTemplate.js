@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import { withRouter } from 'react-router-dom';
 import { TiMessages } from 'react-icons/ti';
+import TokenVerification from 'lib/Token/TokenVerification';
 import Button from 'components/Common/Button';
 import { typography } from 'styles/typography/typography_scheme';
 import style from './SignTemplate.scss';
@@ -11,6 +12,11 @@ const cx = classnames.bind(style);
 const { size } = typography;
 
 const SignTemplate = ({ children, signType, changeSign, history }) => {
+  useEffect(() => {
+    if (TokenVerification() !== 'empty') {
+      history.goBack(1);
+    }
+  }, []);
 
   return (
     <div className={cx('SignTemplate')}>
@@ -27,7 +33,7 @@ const SignTemplate = ({ children, signType, changeSign, history }) => {
             customStyle={{width: '210px', height: '55px', fontSize: size.s5}}
             edgeType={'round'}
             appearance={'secondary'}
-            // handleFunction={changeSign}
+            handleFunction={changeSign}
           >
             {signType ? '회원가입 하기' : '로그인 하기'}
           </Button>
