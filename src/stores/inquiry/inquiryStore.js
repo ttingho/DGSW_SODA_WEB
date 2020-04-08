@@ -1,23 +1,20 @@
 import { action, observable } from 'mobx';
 import { autobind } from 'core-decorators';
-import questionRepository from './questionRepository';
+import inquiryRepository from './inquiryRepository';
 
 @autobind
 class questionStore {
-  @observable detailQuestion = {};
-  @observable detailAnswerQuestion = {};
+  @observable inquiryDetail = {};
 
   @action
-  async postQuestionWrite (request) {
+  async requestInquiryWrite (request) {
     try {
-      const response = await questionRepository.postQuestionWrite(request);
+      const response = await inquiryRepository.requestInquiryWrite(request);
 
       return new Promise((resolve, reject) => {
         resolve(response);
       });
     } catch (error) {
-      console.error(error);
-
       return new Promise((resolve, reject) => {
         reject(error);
       });
@@ -25,19 +22,14 @@ class questionStore {
   }
 
   @action
-  async getQuestionDetail (idx) {
+  async requestInquiryAnswer (request) {
     try {
-      const response = await questionRepository.getQuestionDetail(idx);
-      
-      this.detailQuestion = response.data;
-      this.detailAnswerQuestion = response.data.question;
+      const response = await inquiryRepository.requestInquiryAnswer(request);
       
       return new Promise((resolve, reject) => {
         resolve(response);
       });
     } catch (error) {
-      console.error(error);
-
       return new Promise((resolve, reject) => {
         reject(error);
       });
@@ -45,16 +37,16 @@ class questionStore {
   }
 
   @action
-  async postQuestionAnswer (request) {
+  async getInquiryDetail (idx) {
     try {
-      const response = await questionRepository.postQuestionAnswer(request);
+      const response = await inquiryRepository.getInquiryDetail(idx);
+      
+      this.inquiryDetail = response.data;
       
       return new Promise((resolve, reject) => {
         resolve(response);
       });
     } catch (error) {
-      console.error(error);
-
       return new Promise((resolve, reject) => {
         reject(error);
       });

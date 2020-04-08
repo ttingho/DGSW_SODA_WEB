@@ -128,10 +128,10 @@ $outline_red_color: rgba($error, $background_color_transparent);
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     &-spin {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1.2rem;
+      height: 1.2rem;
       border-radius: 50%;
       border:dashed 0.1rem;
       animation-name: spin;
@@ -151,6 +151,9 @@ $outline_red_color: rgba($error, $background_color_transparent);
     &-content {
       margin-left: 0.5em;
       font-size: 1.05rem;
+      &-textType {
+        margin: auto !important;
+      }
     }
   }
 }
