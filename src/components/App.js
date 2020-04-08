@@ -45,12 +45,8 @@ function App() {
           render={() => <Pages.QuestionWrite/>}
         />
         <Route
-          path='/question-write-answer'
-          render={() => <Pages.QuestionAnswerWrite/>}
-        />
-        <Route
-          path='/question-detail'
-          render={() => <Pages.QuestionDetail/>}
+          path='/inquiry-detail'
+          render={() => <Pages.InquiryDetail/>}
         />
         <Route
           path='/team-building-interview'

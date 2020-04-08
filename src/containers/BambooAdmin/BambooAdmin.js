@@ -100,7 +100,7 @@ const BambooAdmin = ({ store, history }) => {
         return <BambooAdminCard key={index} item={data} isLoading={isLoading} handleRequestBambooPost={handleRequestBambooPost} />;
       }));
     }
-  }, [pendingList]);
+  }, [pendingList, isLoading]);
 
   useEffect(() => {
     if (token === 'empty' || (userInfo === null || userInfo.auth !== 0)) {

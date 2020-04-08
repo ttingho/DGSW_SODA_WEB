@@ -5,7 +5,7 @@ import style from './Button.scss';
 
 const cx = classNames.bind(style);
 
-const Button = ({ handleFunction, appearance, customStyle, type, edgeType, isLoading, children }) => {
+const Button = ({ handleFunction, appearance, customStyle, type, edgeType, isLoading, loadingType, children }) => {
   const handleButtonClick = () => {
     if (isLoading) return;
     handleFunction();
@@ -19,8 +19,12 @@ const Button = ({ handleFunction, appearance, customStyle, type, edgeType, isLoa
       {
         isLoading ?
           <div className={cx('button-loadingWrap')}>
-            <div className={cx('button-loadingWrap-spin')}></div>
-            <span className={cx('button-loadingWrap-content')}>Loading</span>
+            {
+              loadingType === 'basic' ?
+                <div className={cx('button-loadingWrap-spin')}></div> :
+                <></>
+            }
+            <span className={cx('button-loadingWrap-content', { 'button-loadingWrap-content-textType': loadingType === 'text' })} style={{fontSize: customStyle.fontSize}}>Loading</span>
           </div> :
           <div className={cx('button-content')} style={{fontSize: customStyle.fontSize}}>
             {children}
@@ -68,7 +72,11 @@ Button.propTypes = {
     'square'
   ]),
   /** 로딩 상태 */
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  loadingType: PropTypes.oneOf([
+    'text',
+    'basic'
+  ])
 };
 
 Button.defaultProps = {
@@ -83,7 +91,8 @@ Button.defaultProps = {
   type: 'button',
   handleFunction: () => {},
   edgeType: 'round',
-  isLoading: false
+  isLoading: false,
+  loadingType: 'basic'
 };
 
 export default Button;

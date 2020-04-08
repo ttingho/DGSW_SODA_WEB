@@ -3,7 +3,7 @@ import dialogStore from './dialog';
 import uploadStore from './upload';
 import signStore from './sign';
 import adminStore from './admin';
-import questionStore from './question';
+import inquiryStore from './inquiry';
 
 const stores = {
   bamboo: new bambooStore(),
@@ -11,7 +11,7 @@ const stores = {
   upload: new uploadStore(),
   sign: new signStore(),
   admin: new adminStore(),
-  question: new questionStore()
+  inquiry: new inquiryStore()
 };
 
 export default stores;
