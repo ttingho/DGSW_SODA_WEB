@@ -50,9 +50,8 @@ const SignInContainer = ({
           }
 
           const ls = new SecureLS({ encodingType: 'aes' }); // user info 저장
-
           ls.set('user-info', response.data.member);  // user-info라는 이름으로 저장
-
+          
           setIsLoading(false);
 
           history.push('/bamboo');

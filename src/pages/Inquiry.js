@@ -5,7 +5,7 @@ import InquiryContainer from 'containers/Inquiry';
 const Inquiry = () => {
   return (
     <>
-      <InquiryPageTemplate>
+      <InquiryPageTemplate pageType={'inquiry'}>
         <InquiryContainer />
       </InquiryPageTemplate>
     </>
