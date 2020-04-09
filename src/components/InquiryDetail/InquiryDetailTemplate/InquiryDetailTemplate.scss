@@ -64,6 +64,7 @@
       height: 60px;
       font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
       color: #868e96;
+      user-select: none;
       &-MemberId {
         margin: 10px auto auto 25px;
       }
@@ -134,6 +135,7 @@
       height: 60px;
       font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
       color: #868e96;
+      user-select: none;
       &-MemberId {
         margin: 10px auto auto 25px;
       }
@@ -157,5 +159,37 @@
         margin-bottom: 30px;
       }
     }
+  }
+
+  &-input {
+    width: 80%;
+    border: none;
+    outline: none;
+    font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    font-size: $font_size_3;
+    &::placeholder {
+      color: $gray_3;
+    }
+    &:focus::-webkit-input-placeholder {color:transparent;}
+    &:focus::-moz-placeholder {color:transparent;}
+    &:-moz-placeholder {color:transparent;}
+  }
+
+  &-textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    font-size: $font_size_2;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &::placeholder {
+      color: $gray_3;
+    }
+    &:focus::-webkit-input-placeholder {color:transparent;}
+    &:focus::-moz-placeholder {color:transparent;}
+    &:-moz-placeholder {color:transparent;}
   }
 }

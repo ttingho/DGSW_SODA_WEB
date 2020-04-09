@@ -26,6 +26,8 @@ class questionStore {
     try {
       const response = await inquiryRepository.requestInquiryAnswer(request);
       
+      // await this.getInquiryDetail(request.questionIdx);
+
       return new Promise((resolve, reject) => {
         resolve(response);
       });

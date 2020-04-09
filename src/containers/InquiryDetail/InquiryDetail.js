@@ -12,7 +12,7 @@ import PageLoading from 'components/Common/PageLoading';
 const InquiryDetail = ({ store, history }) => {
   const ls = new SecureLS({ encodingType: 'aes' });
 
-  const idx = 5;
+  const idx = 3;
 
   // 토큰 검사
   const token = TokenVerification();
@@ -33,6 +33,33 @@ const InquiryDetail = ({ store, history }) => {
   const [answerTitle, setAnswerTitle] = useState('');
   const [answerContents, setAnswerContents] = useState('');
 
+  const handleInitialState = () => {
+    if (inquiryDetail.question !== null) {
+      setInquiryTitle(inquiryDetail.question.title);
+      setInquiryContents(inquiryDetail.question.contents);
+
+      if (inquiryDetail.question.picture && inquiryDetail.question.picture.length !== 0) {
+        const list  = [];
+
+        for (let i = 0; i < inquiryDetail.question.picture.length; i++) {
+          list.push(inquiryDetail.question.picture[i].url);
+        }
+
+        setImages(list);
+      }
+    }
+    
+    if (inquiryDetail.answer !== null) {
+      setAnswerTitle(inquiryDetail.answer.title);
+      setAnswerContents(inquiryDetail.answer.contents);
+    }
+
+    if (inquiryDetail.answer === null) {
+      setAnswerTitle('');
+      setAnswerContents('');
+    }
+  };
+
   const requestInitialData = async () => {
     await getInquiryDetail(idx)
       .then(response => {
@@ -41,7 +68,7 @@ const InquiryDetail = ({ store, history }) => {
       });
   };
 
-  const handleQuesionAnswer = async () => {
+  const handleAnswer = () => {
     const data = {
       title: answerTitle,
       contents: answerContents,
@@ -49,7 +76,7 @@ const InquiryDetail = ({ store, history }) => {
     };
 
     if (answerContents.length === 0 || answerTitle.length === 0) {
-      await modal({
+      modal({
         title: 'Error!',
         stateType: 'error',
         contents: '빈칸을 채워 주세요!'
@@ -58,19 +85,21 @@ const InquiryDetail = ({ store, history }) => {
       return;
     }
 
-    await postQuestionAnswer(data).
+    requestInquiryAnswer(data).
       then(async (response) => {
-        await modal({
+        modal({
           title: 'Success!',
           stateType: 'success',
           contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.'
         });
+
+        await getInquiryDetail(idx);
       })
-      .catch(async (error) => {
+      .catch((error) => {
         const { status } = error.response;
 
         if (status === 400) {
-          await modal({
+          modal({
             title: 'Error!',
             stateType: 'error',
             contents: '양식이 맞지 않아요!'
@@ -80,7 +109,7 @@ const InquiryDetail = ({ store, history }) => {
         }
 
         if (status === 403) {
-          await modal({
+          modal({
             title: 'Error!',
             stateType: 'error',
             contents: '이미 답변이 작성되었어요!'
@@ -90,7 +119,7 @@ const InquiryDetail = ({ store, history }) => {
         }
         
         if (status === 500) {
-          await modal({
+          modal({
             title: 'Error!',
             stateType: 'error',
             contents: '홀리 쉣 서버 에러네요 조금만 기다려 주세요. (__)'
@@ -104,6 +133,26 @@ const InquiryDetail = ({ store, history }) => {
   const [isLoading, getData] = usePending(requestInitialData);
 
   useEffect(() => {
+    var isEmpty = function(value){
+      if( value == '' || value == null || value == undefined || ( value != null && typeof value == 'object' && !Object.keys(value).length ) ){
+        return true;
+      }else{
+        return false;
+      }
+    };
+
+    if (!isEmpty(inquiryDetail)) {
+      handleInitialState();
+    }
+  }, [inquiryDetail]);
+
+  useEffect(() => {
+    if (token === 'empty') {
+      history.goBack(1);
+      
+      return;
+    }
+
     getData();
   }, []);
   
@@ -116,6 +165,10 @@ const InquiryDetail = ({ store, history }) => {
             question={inquiryDetail.question}
             answer={inquiryDetail.answer}
             userType={userInfo.auth}
+            memberId={userInfo.memberId}
+            answerTitleObj={GroupingState('answerTitle', answerTitle, setAnswerTitle)}
+            answerContentsObj={GroupingState('answerContents', answerContents, setAnswerContents)}
+            handleAnswer={handleAnswer}
           />
       }
     </>
