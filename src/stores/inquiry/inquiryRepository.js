@@ -51,6 +51,55 @@ class inquiryRepository {
       throw error;
     }
   }
+
+  async getInquiry (limit, page) {
+    try {
+      const { data } = await axios.get(`${SERVER}/question?limit=${limit}&page=${page}`);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAdminInquiry (limit, page) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.get(`${SERVER}/question/admin?limit=${limit}&page=${page}`, {
+        headers: {
+          'x-access-token': token,
+        }
+      });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCategoryInquiry (category, limit, page) {
+    try {
+      const { data } = await axios.get(`${SERVER}/question/category?category=${category}&limit=${limit}&page=${page}`);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAdminCategoryInquiry (category, limit, page) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.get(`${SERVER}/question/admin/category?category=${category}&limit=${limit}&page=${page}`, {
+        headers: {
+          'x-access-token': token
+        }
+      });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export default new inquiryRepository();

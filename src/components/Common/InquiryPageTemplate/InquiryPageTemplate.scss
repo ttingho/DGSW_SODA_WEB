@@ -8,6 +8,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  position: relative;  
 
   &-header {
     width: 100%;
@@ -21,9 +22,17 @@
     box-shadow: 0 1px 6px 0 $shadow;
   }
   &-contents {
-    width: 100%;
     min-width: 1140px;
     max-width: 1140px;
-    min-height: 100vh;
+    min-height: 889px;
+    padding-bottom: 210px;
+  }
+  &-footer {
+    position: absolute;
+    width: 100%;
+    min-width: 1200px;
+    height: 160px;
+    bottom: 0;
+    box-shadow: 0 1px 6px 0 $shadow;
   }
 }

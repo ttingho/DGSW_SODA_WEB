@@ -1,0 +1,23 @@
+@import 'styles/typography/typography_scheme.scss';
+@import 'styles/color/color_scheme.scss';
+
+.IndexItem {
+  width: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $gray_4;
+  font-size: $font_size_5;
+  font-family: $NOTO_SANS_KR_REGULAR;
+  user-select: none;
+  cursor: pointer;
+  margin: 0 1%;
+  &:hover {
+    text-decoration: underline;
+  }
+  &-select {
+    font-family: $NOTO_SANS_KR_BOLD;
+    color: $soda_primary !important;
+    text-decoration: underline;
+  }
+}
