@@ -12,9 +12,10 @@
     max-width: 1140px;
     min-width: 1140px;
     height: 100%;
+    display: flex;
 
     &-header {
-      width: 140px;
+      width: 100px;
       height: 100%;
       display: flex;
       justify-content: center;
@@ -25,10 +26,92 @@
 
       >span {
         cursor: pointer;
+        padding: 0 12%;
+        border-right: 1px solid $gray_4;
       }
     }
     &-content {
+      width: 1040px;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
+      &-category {
+        position: relative;
+        width: 130px;
+        height: 40px;
+        display: flex;
+        // flex-direction: column;
+        // justify-content: center;
+        align-items: center;
+        margin-left: 6px;
+
+        &-btn {
+          width: 100px;
+          height: 30px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          background-color: transparent;
+          border: none;
+          // outline: none;
+          cursor: pointer;
+          font-size: $font_size_2;
+          font-family: $NOTO_SANS_KR_MEDIUM;
+
+          >.down_icon {
+            width: 15px;
+            height: 15px;
+          }
+        }
+        &-ul {
+          position: absolute;
+          top: 100%;
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          font-size: $font_size_2;
+          font-family: $NOTO_SANS_KR_MEDIUM;
+          box-shadow: 0 2px 6px 0 $shadow;
+          z-index: 1000;
+
+          &-li {
+            width: 150px;
+            height: 40px;
+            padding: 5% 10%;
+            display: flex;
+            align-items: center;
+            background-color: $white;
+            cursor: pointer;
+            
+            &-clicked {
+              background-color: $gray_3;
+            }
+            &-clicked:hover {
+              background-color: $gray_3 !important;
+            }
+          }
+          &-li:hover {
+            background-color: $gray_0;
+          }
+
+          &-hidden {
+            display: none;
+          }
+        }
+      }
+
+      &-inquiryBtn {
+        width: 140px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: $font_size_3;
+        font-family: $NOTO_SANS_KR_MEDIUM;
+      }
     }
   }
 }

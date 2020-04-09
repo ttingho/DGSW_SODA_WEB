@@ -6,20 +6,24 @@ import InquiryNavBar from '../InquiryNavBar';
 
 const cx = classNames.bind(style);
 
-const InquiryPageTemplate = ({ children }) => {
+const InquiryPageTemplate = ({ pageType, children }) => {
   return (
     <div className={cx('InquiryPageTemplate')}>
       <div className={cx('InquiryPageTemplate-header')}>
-        <InquiryNavBar/>
+        <InquiryNavBar pageType={pageType}/>
       </div>
       <div className={cx('InquiryPageTemplate-contents')}>
         {children}
+      </div>
+      <div className={cx('InquiryPageTemplate-footer')}>
+        
       </div>
     </div>
   );
 };
 
 InquiryPageTemplate.propTypes = {
+  pageType: PropTypes.string,
   children: PropTypes.any
 };
 
