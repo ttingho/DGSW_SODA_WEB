@@ -4,7 +4,9 @@ import inquiryRepository from './inquiryRepository';
 
 @autobind
 class questionStore {
-  @observable inquiryDetail = {};
+  @observable inquiry = {};
+  @observable answer = {};
+  @observable isComplate = 0;
 
   @observable category = '전체';
   @observable inquiryList = [];
@@ -107,11 +109,62 @@ class questionStore {
   }
 
   @action
+  async requestPutInquiryWrite (request) {
+    try {
+      const response = await inquiryRepository.requestPutInquiryWrite(request);
+      
+      await this.getInquiryDetail(request.idx);
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action
+  async requestDeleteInquiryWrite (idx) {
+    try {
+      const response = await inquiryRepository.requestDeleteInquiryWrite(idx);
+      
+      localStorage.removeItem('inquiry_idx');
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action
   async requestInquiryAnswer (request) {
     try {
       const response = await inquiryRepository.requestInquiryAnswer(request);
       
-      // await this.getInquiryDetail(request.questionIdx);
+      await this.getInquiryDetail(request.questionIdx);
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action
+  async requestPutInquiryAnswer (request) {
+    try {
+      const response = await inquiryRepository.requestPutInquiryAnswer(request);
+      
+      await this.getInquiryDetail(request.idx);
 
       return new Promise((resolve, reject) => {
         resolve(response);
@@ -128,8 +181,12 @@ class questionStore {
     try {
       const response = await inquiryRepository.getInquiryDetail(idx);
       
-      this.inquiryDetail = response.data;
+      this.inquiry = response.data.question;
       
+      this.answer = response.data.answer;
+
+      this.isComplate = response.data.question.isComplate;
+
       return new Promise((resolve, reject) => {
         resolve(response);
       });

@@ -25,12 +25,11 @@ const InquiryDetailTemplate = ({
   memberId,
   answerTitleObj,
   answerContentsObj,
-  handleAnswer
+  handleAnswer,
+  handleDeleteInquiry
 }) => {
   const { answerTitle, setAnswerTitle } = answerTitleObj;
   const { answerContents, setAnswerContents } = answerContentsObj;
-
-  console.log(question.isComplate);
 
   return (
     <div className={cx('InquiryDetailTemplate')}>
@@ -56,9 +55,12 @@ const InquiryDetailTemplate = ({
           }
           {
             question.isComplate === 0 && userType === 1 && memberId === question.memberId ?
-              <Button loadingType={'text'} customStyle={btnStyle}>수정하기</Button> :
+              <>
+                <Button loadingType={'text'} customStyle={btnStyle}>수정하기</Button>
+                <Button handleFunction={handleDeleteInquiry} loadingType={'text'} customStyle={btnStyle} appearance={'red'}>삭제하기</Button>
+              </> :
               (question.isComplate === 1 || question.isComplate === 0) && userType === 0 ?
-                <Button loadingType={'text'} customStyle={btnStyle} appearance={'red'}>삭제하기</Button> :
+                <Button handleFunction={handleDeleteInquiry} loadingType={'text'} customStyle={btnStyle} appearance={'red'}>삭제하기</Button> :
                 <></>
           }
         </div>
@@ -167,7 +169,8 @@ InquiryDetailTemplate.propTypes = {
   memberId: PropTypes.string,
   answerTitleObj: PropTypes.object,
   answerContentsObj: PropTypes.object,
-  handleAnswer: PropTypes.func
+  handleAnswer: PropTypes.func,
+  handleDeleteInquiry: PropTypes.func
 };
 
 InquiryDetailTemplate.defaultProps = {

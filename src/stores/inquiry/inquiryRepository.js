@@ -18,6 +18,36 @@ class inquiryRepository {
       throw error;
     }
   }
+
+  async requestPutInquiryWrite (request) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.put(`${SERVER}/question`, request, {
+        headers: {
+          'x-access-token' : token,
+        },
+      });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async requestDeleteInquiryWrite (idx) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.delete(`${SERVER}/question?idx=${idx}`, {
+        headers: {
+          'x-access-token' : token,
+        },
+      });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
   
   async requestInquiryAnswer (request) {
     const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
@@ -33,6 +63,22 @@ class inquiryRepository {
       throw error;
     }
   }
+
+  async requestPutInquiryAnswer (request) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.put(`${SERVER}/question/answer`,request, {
+        headers: {
+          'x-access-token' : token,
+        },
+      });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
   async getInquiryDetail (idx) {
     const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
