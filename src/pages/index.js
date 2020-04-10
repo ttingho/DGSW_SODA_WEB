@@ -8,5 +8,6 @@ export { default as TeamBuildingInterview } from './TeamBuildingInterview';
 export { default as Intro } from './Intro';
 export { default as NotFound } from './NotFound';
 export { default as Inquiry } from './Inquiry';
+export { default as InquiryAdmin } from './InquiryAdmin'
 export { default as InquiryDetail } from './InquiryDetail';
 export { default as QuestionWrite } from './QuestionWrite';
