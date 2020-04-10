@@ -63,7 +63,7 @@ const InquiryContainer = ({ store, history }) => {
       if (category === '전체') {  // 전체 조회
         await getInquiry(10, pageIndex)
           .then((response) => {
-            setItemList(response.questionAll.map((data, index) => {
+            setItemList(response.question.map((data, index) => {
               return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
             }));
           });
