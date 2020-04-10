@@ -160,11 +160,28 @@ class questionStore {
   }
 
   @action
-  async requestPutInquiryAnswer (request) {
+  async requestPutInquiryAnswer (idx, request) {
     try {
       const response = await inquiryRepository.requestPutInquiryAnswer(request);
       
-      await this.getInquiryDetail(request.idx);
+      await this.getInquiryDetail(idx);
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action
+  async requestDeleteInquiryAnswer (idx, answerIdx) {
+    try {
+      const response = await inquiryRepository.requestDeleteInquiryAnswer(answerIdx);
+      
+      await this.getInquiryDetail(idx);
 
       return new Promise((resolve, reject) => {
         resolve(response);

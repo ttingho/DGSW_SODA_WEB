@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import SecureLS from 'secure-ls';
 import PropTypes from 'prop-types';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import TokenVerification from 'lib/Token/TokenVerification';
 import GroupingState from 'lib/HookState/GroupingState';
 import InquiryDetailTemplate from 'components/InquiryDetail/InquiryDetailTemplate';
 import usePending from 'lib/HookState/usePending';
 import PageLoading from 'components/Common/PageLoading';
+import useStores from 'lib/HookState/useStore';
 
-const InquiryDetail = ({ store, history }) => {
+const InquiryDetail = observer(({ history }) => {
+  const { store } = useStores();
+
   const ls = new SecureLS({ encodingType: 'aes' });
 
   const idx = localStorage.getItem('inquiry_idx');
@@ -22,7 +25,7 @@ const InquiryDetail = ({ store, history }) => {
 
   const { modal } = store.dialog;
 
-  const { inquiry, answer, isComplate, getInquiryDetail, requestInquiryAnswer, requestDeleteInquiryWrite } = store.inquiry;
+  const { inquiry, answer, isComplate, getInquiryDetail, requestInquiryAnswer, requestDeleteInquiryWrite, requestPutInquiryWrite, requestPutInquiryAnswer, requestDeleteInquiryAnswer } = store.inquiry;
 
   // Inquiry State
   const [inquiryTitle, setInquiryTitle] = useState('');
@@ -128,6 +131,111 @@ const InquiryDetail = ({ store, history }) => {
       });
   };
 
+  const handlePutInquiry = () => {
+    const data = {
+      idx,
+      title: inquiryTitle,
+      contents: inquiryContents,
+      picture: null
+    };
+
+    requestPutInquiryWrite(data)
+      .then(async (response) => {
+        if (response.status === 200) {
+          await modal({
+            title: 'Success!',
+            stateType: 'success',
+            contents: '해당 문의가 수정되었습니다.',
+          });
+        }
+      })
+      .catch((error) => {
+        const { status } = error.response;
+
+        if (status === 400) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '존재하지 않는 문의이거나 잘못된 양식입니다.'
+          });
+
+          return;
+        }
+
+        if (status === 403) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '권한 없음.'
+          });
+
+          return;
+        }
+        
+        if (status === 500) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: 'Server Error..'
+          });
+
+          return;
+        }
+      });
+  };
+
+  const handlePutAnswer = () => {
+    const data = {
+      idx: answer.idx,
+      title: answerTitle,
+      contents: answerContents,
+    };
+
+    requestPutInquiryAnswer(idx, data)
+      .then(async (response) => {
+        if (response.status === 200) {
+          await modal({
+            title: 'Success!',
+            stateType: 'success',
+            contents: '해당 답변이 수정되었습니다.',
+          });
+        }
+      })
+      .catch((error) => {
+        const { status } = error.response;
+
+        if (status === 400) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '존재하지 않는 답변이거나 잘못된 양식입니다.'
+          });
+
+          return;
+        }
+
+        if (status === 403) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '권한 없음.'
+          });
+
+          return;
+        }
+        
+        if (status === 500) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: 'Server Error..'
+          });
+
+          return;
+        }
+      });
+  };
+
   const handleDeleteInquiry = () => {
     requestDeleteInquiryWrite(idx)
       .then(async (response) => {
@@ -175,6 +283,54 @@ const InquiryDetail = ({ store, history }) => {
       });
   };
 
+  const handleDeleteAnswer = () => {
+    if (answer === null) return;
+
+    requestDeleteInquiryAnswer(idx, answer.idx)
+      .then(async (response) => {
+        if (response.status === 200) {
+          await modal({
+            title: 'Success!',
+            stateType: 'success',
+            contents: '해당 답변이 삭제되었습니다.'
+          });
+        }
+      })
+      .catch((error) => {
+        const { status } = error.response;
+
+        if (status === 400) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '존재하지 않는 답변입니다.'
+          });
+
+          return;
+        }
+
+        if (status === 403) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '권한 없음.'
+          });
+
+          return;
+        }
+        
+        if (status === 500) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: 'Server Error..'
+          });
+
+          return;
+        }
+      });
+  };
+
   const [isLoading, getData] = usePending(requestInitialData);
 
   useEffect(() => {
@@ -189,7 +345,7 @@ const InquiryDetail = ({ store, history }) => {
     if (!isEmpty(inquiry) || !isEmpty(answer)) {
       handleInitialState();
     }
-  }, [isComplate]);
+  }, [inquiry, answer, isComplate]);
 
   useEffect(() => {
     if (token === 'empty') {
@@ -217,19 +373,25 @@ const InquiryDetail = ({ store, history }) => {
             answer={answer}
             userType={userInfo.auth}
             memberId={userInfo.memberId}
+            inquiryTitleObj={GroupingState('inquiryTitle', inquiryTitle, setInquiryTitle)}
+            inquiryContentsObj={GroupingState('inquiryContents', inquiryContents, setInquiryContents)}
             answerTitleObj={GroupingState('answerTitle', answerTitle, setAnswerTitle)}
             answerContentsObj={GroupingState('answerContents', answerContents, setAnswerContents)}
+            images={images}
             handleAnswer={handleAnswer}
+            handlePutInquiry={handlePutInquiry}
+            handlePutAnswer={handlePutAnswer}
             handleDeleteInquiry={handleDeleteInquiry}
+            handleDeleteAnswer={handleDeleteAnswer}
           />
       }
     </>
   );
-};
+});
 
 InquiryDetail.propTypes = {
   store: PropTypes.object,
   history: PropTypes.object
 };
 
-export default inject('store')(withRouter(observer(InquiryDetail)));
+export default withRouter(InquiryDetail);

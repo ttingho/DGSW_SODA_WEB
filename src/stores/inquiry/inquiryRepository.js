@@ -79,6 +79,21 @@ class inquiryRepository {
     }
   }
 
+  async requestDeleteInquiryAnswer (idx) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.delete(`${SERVER}/question/answer?idx=${idx}`, {
+        headers: {
+          'x-access-token' : token,
+        },
+      });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
   async getInquiryDetail (idx) {
     const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');

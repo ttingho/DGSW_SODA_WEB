@@ -71,8 +71,8 @@ const NavBar = ({ pageType, url, store, history }) => {
                 <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/', 'soda')}>이번주 핫한 게시물</span>
               </div>
               <div className={cx('NavBar-menu-box-wrap-child-item')}>
-                <GiSiren className={cx('NavBar-menu-box-wrap-child-item-icon')} />
-                <span className={cx('NavBar-menu-box-wrap-child-item-contents')}>서비스 문의 / 버그 신고</span>
+                <GiSiren className={cx('NavBar-menu-box-wrap-child-item-icon')} onClick={() => handleUrl('/inquiry', 'bamboo')} />
+                <span className={cx('NavBar-menu-box-wrap-child-item-contents')} onClick={() => handleUrl('/inquiry', 'bamboo')}>서비스 문의 / 버그 신고</span>
               </div>
             </div>
             <div className={cx('NavBar-menu-box-wrap-child')}>

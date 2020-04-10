@@ -23,11 +23,22 @@ const InquiryDetailTemplate = ({
   answer,
   userType,
   memberId,
+  inquiryTitleObj,
+  inquiryContentsObj,
   answerTitleObj,
   answerContentsObj,
+  images,
   handleAnswer,
-  handleDeleteInquiry
+  handlePutInquiry,
+  handlePutAnswer,
+  handleDeleteInquiry,
+  handleDeleteAnswer
 }) => {
+  // Inquiry State
+  const { inquiryTitle, setInquiryTitle } = inquiryTitleObj;
+  const { inquiryContents, setInquiryContents } = inquiryContentsObj;
+
+  // Answer State
   const { answerTitle, setAnswerTitle } = answerTitleObj;
   const { answerContents, setAnswerContents } = answerContentsObj;
 
@@ -48,7 +59,7 @@ const InquiryDetailTemplate = ({
         <div className={cx('InquiryDetailTemplate-QuestionCardDiv-TitleBox')}>
           {
             question.isComplate === 0 && userType === 1 && memberId === question.memberId ?
-              <input value={question.title} type={'text'} placeholder={'제목'} className={cx('InquiryDetailTemplate-input')} /> :
+              <input value={inquiryTitle} onChange={event => setInquiryTitle(event.target.value)} type={'text'} placeholder={'제목'} className={cx('InquiryDetailTemplate-input')} /> :
               <span className={cx('InquiryDetailTemplate-QuestionCardDiv-TitleBox-Title')}>
                 {question.title}
               </span>
@@ -56,7 +67,7 @@ const InquiryDetailTemplate = ({
           {
             question.isComplate === 0 && userType === 1 && memberId === question.memberId ?
               <>
-                <Button loadingType={'text'} customStyle={btnStyle}>수정하기</Button>
+                <Button handleFunction={handlePutInquiry} loadingType={'text'} customStyle={btnStyle}>수정하기</Button>
                 <Button handleFunction={handleDeleteInquiry} loadingType={'text'} customStyle={btnStyle} appearance={'red'}>삭제하기</Button>
               </> :
               (question.isComplate === 1 || question.isComplate === 0) && userType === 0 ?
@@ -67,12 +78,12 @@ const InquiryDetailTemplate = ({
         <div className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox')}>
           <div className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox-Image')}>
             { 
-              // isImages && <Pagination images={images}/>
+              images && <Pagination images={images}/>
             }
           </div>
           {
             question.isComplate === 0 && userType === 1 && memberId === question.memberId ?
-              <textarea value={question.contents} type={'text'} placeholder={'답변 내용'} className={cx('InquiryDetailTemplate-textarea')} /> :
+              <textarea value={inquiryContents} onChange={event => setInquiryContents(event.target.value)} type={'text'} placeholder={'답변 내용'} className={cx('InquiryDetailTemplate-textarea')} /> :
               <span className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox-Contents')}>
                 {question.contents}
               </span>
@@ -101,7 +112,10 @@ const InquiryDetailTemplate = ({
                     question.isComplate === 0 ?
                       <Button loadingType={'text'} handleFunction={handleAnswer} customStyle={btnStyle}>작성하기</Button> :
                       question.isComplate === 1 ?
-                        <Button loadingType={'text'} customStyle={btnStyle}>수정하기</Button> :
+                        <>
+                          <Button handleFunction={handlePutAnswer} loadingType={'text'} customStyle={btnStyle}>수정하기</Button>
+                          <Button handleFunction={handleDeleteAnswer} loadingType={'text'} customStyle={btnStyle} appearance={'red'}>삭제하기</Button>
+                        </> :
                         <></>
                   }
                 </div>
@@ -110,10 +124,20 @@ const InquiryDetailTemplate = ({
                 </div>
                 <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox')}>
                   <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-MemberId')}>
-                    작성자 : {memberId}
+                    작성자 : 
+                    {
+                      question.isComplate === 1 && answer !== null ?
+                        answer.memberId :
+                        memberId
+                    }
                   </span>
                   <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-Date')}>
-                    작성날짜 : {moment().format('YYYY-MM-DD HH:mm:ss')}
+                    작성날짜 : 
+                    {
+                      question.isComplate === 1 && answer !== null ?
+                        moment.parseZone(answer.joinDate).format('YYYY-MM-DD HH:mm:ss') :
+                        moment().format('YYYY-MM-DD HH:mm:ss')
+                    }
                   </span>
                 </div>
               </> :
@@ -167,10 +191,16 @@ InquiryDetailTemplate.propTypes = {
   answer: PropTypes.object,
   userType: PropTypes.number,
   memberId: PropTypes.string,
+  inquiryTitleObj: PropTypes.object,
+  inquiryContentsObj: PropTypes.object,
   answerTitleObj: PropTypes.object,
   answerContentsObj: PropTypes.object,
+  images: PropTypes.array,
   handleAnswer: PropTypes.func,
-  handleDeleteInquiry: PropTypes.func
+  handlePutInquiry: PropTypes.func,
+  handlePutAnswer: PropTypes.func,
+  handleDeleteInquiry: PropTypes.func,
+  handleDeleteAnswer: PropTypes.func
 };
 
 InquiryDetailTemplate.defaultProps = {
