@@ -47,7 +47,7 @@ const InquiryContainer = ({ store, history }) => {
       if (category === '전체') {  // 전체 조회
         await getAdminInquiry(10, pageIndex)
           .then((response) => {
-            setItemList(response.allQuestion.map((data, index) => {
+            setItemList(response.question.map((data, index) => {
               return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
             }));
           });
@@ -63,7 +63,7 @@ const InquiryContainer = ({ store, history }) => {
       if (category === '전체') {  // 전체 조회
         await getInquiry(10, pageIndex)
           .then((response) => {
-            setItemList(response.question.map((data, index) => {
+            setItemList(response.questionAll.map((data, index) => {
               return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
             }));
           });
