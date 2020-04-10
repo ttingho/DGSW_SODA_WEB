@@ -43,7 +43,7 @@ class questionStore {
     try {
       const response = await inquiryRepository.getAdminInquiry(limit, page);
 
-      this.adminInquiryList = response.data.allQuestion;
+      this.adminInquiryList = response.data.question;
       this.totalPage = response.data.totalPage;
 
       return new Promise((resolve, reject) => {
