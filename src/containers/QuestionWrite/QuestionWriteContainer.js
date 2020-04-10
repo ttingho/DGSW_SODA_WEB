@@ -21,7 +21,7 @@ const QuestionWriteContainer = ({ store, history }) => {
 
   const { modal } = store.dialog;
   const { uploadImage } = store.upload;
-  const { postQuestionWrite } = store.question;
+  const { requestInquiryWrite } = store.inquiry;
 
   const ls = new SecureLS({ encodingType: 'aes' });
 
@@ -207,7 +207,7 @@ const QuestionWriteContainer = ({ store, history }) => {
       return;
     }
 
-    await postQuestionWrite(data).
+    await requestInquiryWrite(data).
       then(async (response) => {
         await modal({
           title: 'Success!',

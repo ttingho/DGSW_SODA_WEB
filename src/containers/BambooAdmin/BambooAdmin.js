@@ -44,7 +44,7 @@ const BambooAdmin = ({ store, history }) => {
     };
 
     requestBambooPost(data)
-      .then(async response => {
+      .then(response => {
         setIsLoading(false);
 
         const { status } = response;
