@@ -8,18 +8,16 @@ import InquiryItem from 'components/Inquiry/InquiryItem';
 import IndexItem from 'components/Inquiry/IndexItem';
 import usePending from 'lib/HookState/usePending';
 
-const InquiryContainer = ({ store, history }) => {
+const InquiryAdminContainer = ({ store, history }) => {
   const { 
     category,
-    getInquiry, 
-    getAdminInquiry, 
-    getCategoryInquiry, 
+    getAdminInquiry,
     getAdminCategoryInquiry,
     totalPage
   } = store.inquiry;
-  
-  // const ls = new SecureLS({ encodingType: 'aes' });
-  // const { auth } = ls.get('user-info');  // 어드민인지 사용자인지
+
+  const ls = new SecureLS({ encodingType: 'aes' });
+  const { auth } = ls.get('user-info');  // 어드민인지 사용자인지
 
   const [itemList, setItemList] = useState([]);
   const [indexItemList, setIndexItemList] = useState([]);
@@ -43,42 +41,32 @@ const InquiryContainer = ({ store, history }) => {
   };
 
   async function fetchData() {
-    // if (auth === 0) { // 어드민 조회
-    //   if (category === '전체') {  // 전체 조회
-    //     await getAdminInquiry(10, pageIndex)
-    //       .then((response) => {
-    //         setItemList(response.question.map((data, index) => {
-    //           return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
-    //         }));
-    //       });
-    //   } else {  // 카테고리 별 조회
-    //     await getAdminCategoryInquiry(10, pageIndex)
-    //       .then((response) => {
-    //         setItemList(response.question.map((data, index) => {
-    //           return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
-    //         }));
-    //       });
-    //   }
-    // } else {  // 유저 조회
-    if (category === '전체') {  // 전체 조회
-      await getInquiry(10, pageIndex)
-        .then((response) => {
-          setItemList(response.question.map((data, index) => {
-            return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
-          }));
-        });
-    } else {  // 카테고리 별 조회
-      await getCategoryInquiry(10, pageIndex)
-        .then((response) => {
-          setItemList(response.question.map((data, index) => {
-            return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
-          }));
-        });
+    if (auth === 0) { // 어드민 조회
+      if (category === '전체') {  // 전체 조회
+        await getAdminInquiry(10, pageIndex)
+          .then((response) => {
+            setItemList(response.question.map((data, index) => {
+              return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
+            }));
+          });
+      } else {  // 카테고리 별 조회
+        await getAdminCategoryInquiry(10, pageIndex)
+          .then((response) => {
+            setItemList(response.question.map((data, index) => {
+              return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
+            }));
+          });
+      }
     }
-    // }
   }
 
   const [isLoading, getData] = usePending(fetchData);
+
+  useEffect(() => { // 관리자 아니일 때, 예외처리
+    if (auth === 1) {
+      history.goBack(1);
+    }
+  }, [auth]);
 
   useEffect(() => {
     getData();
@@ -117,9 +105,9 @@ const InquiryContainer = ({ store, history }) => {
   );
 };
 
-InquiryContainer.propTypes = {
+InquiryAdminContainer.propTypes = {
   store: PropTypes.object,
   history: PropTypes.object
 };
 
-export default withRouter(inject('store')(observer(InquiryContainer)));
+export default withRouter(inject('store')(observer(InquiryAdminContainer)));
