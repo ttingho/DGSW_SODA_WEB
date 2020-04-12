@@ -3,92 +3,110 @@
 
 .InquiryItem {
   width: 100%;
-  height: 150px;
+  // height: calc(100% / 20);
+  height: 60px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid $shadow;
-  padding: 1.5% 2%;
-  
-  &-top {
-    height: 30%;
+  padding: 0 1%;
 
-    >span {
-      font-size: $font_size_5;
-      font-family: $NOTO_SANS_KR_BOLD;
+  &-left {
+    width: 65%;
+
+    &-title {
+      font-size: $font_size_4;
+      font-family: $NOTO_SANS_KR_MEDIUM;
       cursor: pointer;
-    }
-    >span:hover {
-      color: $soda_primary;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+  
+      >span:hover {
+        color: $soda_primary;
+      }
     }
   }
-  &-mid {
-    width: 100%;
-    height: 45%;
+  &-right {
+    width: 20%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    
 
     &-wrap {
-      width: 85%;
-      display: -webkit-box;
-      overflow: hidden;
-      vertical-align: top;
-      text-overflow: ellipsis;
-      word-break: break-all;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-
-      >span {
-        font-size: $font_size_3;
-        font-family: $NOTO_SANS_KR_DEMILIGHT;
-      }
-    }
-    &-state {
-      width: 12%;
-      height: 100%;
-      font-size: $font_size_2;
-      font-family: $NOTO_SANS_KR_REGULAR;
+      width: calc(100% / 2);
       display: flex;
       justify-content: center;
-      align-items: center;
+      // align-items: center;
 
-      &-wrap {
-        display: flex;
-        align-items: center;
-
-        >.wait {
-          width: 15px;
-          height: 15px;
-          color: $warning;
-          margin-right: 4px;
-        }
-        >.success {
-          width: 15px;
-          height: 15px;
-          color: $success;
-          margin-right: 4px;
-        }
+      >span {
+        font-size: $font_size_2;
+        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
       }
+
     }
-  }
-  &-bottom {
-    >span {
-      font-size: $font_size_2;
-      font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
-    }
-    >span:nth-child(1) {
-      padding-right: 6px;
+    &-wrap:nth-child(1) {
       border-right: 1px solid $shadow;
     }
-    >span:nth-child(2) {
-      padding-left: 6px;
-      padding-right: 6px;
-      border-right: 1px solid $shadow;
-    }
-    >span:nth-child(3) {
-      padding-left: 6px;
-    }
+    // &-wrap:nth-child(2) {
+    //   border-right: 1px solid $shadow;
+    // }
   }
+  
+  
+  // &-mid {
+  //   width: 100%;
+  //   height: 25%;
+  //   display: flex;
+  //   flex-direction: row;
+  //   justify-content: space-between;
+    
+
+    
+  //   &-state {
+  //     width: 12%;
+  //     height: 100%;
+  //     font-size: $font_size_2;
+  //     font-family: $NOTO_SANS_KR_REGULAR;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+
+  //     &-wrap {
+  //       display: flex;
+  //       align-items: center;
+
+  //       >.wait {
+  //         width: 15px;
+  //         height: 15px;
+  //         color: $warning;
+  //         margin-right: 4px;
+  //       }
+  //       >.success {
+  //         width: 15px;
+  //         height: 15px;
+  //         color: $success;
+  //         margin-right: 4px;
+  //       }
+  //     }
+  //   }
+  // }
+  // &-bottom {
+  //   >span {
+  //     font-size: $font_size_2;
+  //     font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+  //   }
+  //   >span:nth-child(1) {
+  //     padding-right: 6px;
+  //     border-right: 1px solid $shadow;
+  //   }
+  //   >span:nth-child(2) {
+  //     padding-left: 6px;
+  //     padding-right: 6px;
+  //     border-right: 1px solid $shadow;
+  //   }
+  //   >span:nth-child(3) {
+  //     padding-left: 6px;
+  //   }
+  // }
 }

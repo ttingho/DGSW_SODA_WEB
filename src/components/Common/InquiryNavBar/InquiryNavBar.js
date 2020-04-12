@@ -6,13 +6,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './InquiryNavBar.scss';
 import { IoIosArrowDown } from 'react-icons/io';
+import { GiBamboo } from 'react-icons/gi';
 import TokenVerification from 'lib/Token/TokenVerification';
 
 const cx = classNames.bind(style);
 
 const InquiryNavBar = ({ store, pageType, history }) => {
   /* category: 현재 클릭 된 카테고리 handleCategory: 카테고리를 바꿔주는 함수 */
-  const { category, handleCategory } = store.inquiry;
+  const { category, handleCategory, handlePageIndex } = store.inquiry;
   
   /* 카테고리를 눌렀는지 true false */
   const [isClickedCategory, setIsClickedCategory] = useState(false);
@@ -26,6 +27,7 @@ const InquiryNavBar = ({ store, pageType, history }) => {
     }
     handleCategory(category);
     setIsClickedCategory(!isClickedCategory);
+    handlePageIndex(1); // 다른 카테고리 클릭 시 페이지 초기화
   };
 
   useEffect(() => {
@@ -75,6 +77,7 @@ const InquiryNavBar = ({ store, pageType, history }) => {
           </div>
           <div className={cx('InquiryNavBar-wrap-content-btns')}>
             <button className={cx('InquiryNavBar-wrap-content-btns-inquiry')} onClick={() => history.push('/question-write')}>문의하기</button>
+            <button className={cx('InquiryNavBar-wrap-content-btns-bamboo')} onClick={() => history.push('/bamboo')}>대나무숲</button>
             {
               isLogin ?
                 <button className={cx('InquiryNavBar-wrap-content-btns-logout')} onClick={() => handleLogout()}>로그아웃</button>

@@ -9,6 +9,7 @@ class questionStore {
   @observable isComplate = 0;
 
   @observable category = '전체';
+  @observable pageIndex = 1;
   @observable inquiryList = [];
   @observable categoryInquiryList = [];
   @observable adminInquiryList = [];
@@ -16,8 +17,14 @@ class questionStore {
   @observable totalPage = 1;
 
   @action
+  handlePageIndex (pageIndex) {
+    this.pageIndex = pageIndex;
+  }
+
+  @action
   handleCategory (category) {
     this.category = category;
+    this.initialPageIndex = 1;
   }
 
   @action
