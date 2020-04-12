@@ -47,7 +47,7 @@
 
       &-category {
         position: relative;
-        width: 130px;
+        width: 100px;
         height: 40px;
         display: flex;
         // flex-direction: column;
@@ -111,13 +111,13 @@
       }
 
       &-btns {
-        width: 150px;
+        width: 250px;
         height: 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        &-inquiry, &-login, &-logout {
+        &-inquiry, &-login, &-logout, &-bamboo {
           background-color: transparent;
           border: none;
           outline: none;

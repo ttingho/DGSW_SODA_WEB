@@ -19,14 +19,14 @@ const InquiryTemplate = ({ category, handlePrev, handleNext, totalPage, indexIte
             <div className={cx('InquiryTemplate-content')}>
               {children}
             </div>
-            <div className={cx('InquiryTemplate-footer', {'InquiryTemplate-hidden': totalPage <= 1})}>
-              <span className={cx('InquiryTemplate-footer-prev', { 'InquiryTemplate-hidden': itemIndex === 1 })} onClick={() => handlePrev()}>이전</span>
+            <div className={cx('InquiryTemplate-pagination', { 'InquiryTemplate-hidden': indexItemList.length === 0})}>
+              <span className={cx('InquiryTemplate-pagination-prev', { 'InquiryTemplate-hidden': itemIndex === 1 })} onClick={() => handlePrev()}>이전</span>
               {
                 indexItemList.length > 7 ?
                   indexItemList.slice(itemIndex, itemIndex + 7) :
                   indexItemList
               }
-              <span className={cx('InquiryTemplate-footer-next', { 'InquiryTemplate-hidden': itemIndex === totalPage })} onClick={() => handleNext()}>다음</span>
+              <span className={cx('InquiryTemplate-pagination-next', { 'InquiryTemplate-hidden': itemIndex === totalPage })} onClick={() => handleNext()}>다음</span>
             </div>
           </div>
       }

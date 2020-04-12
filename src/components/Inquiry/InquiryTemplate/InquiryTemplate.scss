@@ -2,8 +2,7 @@
 @import 'styles/color/color_scheme.scss';
 
 .InquiryTemplate {
-  width: 100%;
-  height: 100%;
+  width: 100%;  
 
   &-header {
     width: 100%;
@@ -18,14 +17,14 @@
   }
   &-content {
     width: 100%;
-    height: 84%;
+    min-height: 539px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
   }
-  &-footer {
+  &-pagination {
     width: 100%;
-    height: 4%;
-    margin-top: 36px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;

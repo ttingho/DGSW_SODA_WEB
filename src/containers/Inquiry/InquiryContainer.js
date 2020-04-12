@@ -11,9 +11,11 @@ import usePending from 'lib/HookState/usePending';
 const InquiryContainer = ({ store, history }) => {
   const { 
     category,
-    getInquiry, 
-    getAdminInquiry, 
-    getCategoryInquiry, 
+    pageIndex,
+    handlePageIndex,
+    getInquiry,
+    getAdminInquiry,
+    getCategoryInquiry,
     getAdminCategoryInquiry,
     totalPage
   } = store.inquiry;
@@ -23,18 +25,18 @@ const InquiryContainer = ({ store, history }) => {
 
   const [itemList, setItemList] = useState([]);
   const [indexItemList, setIndexItemList] = useState([]);
-  const [pageIndex, setPageIndex] = useState(1);
+  // const [pageIndex, setPageIndex] = useState(initialPageIndex);
   
   const handlePage = page => {
-    setPageIndex(page);
+    handlePageIndex(page);
   };
 
   const handleNext = () => {
-    setPageIndex(pageIndex + 1);
+    handlePageIndex(pageIndex + 1);
   };
 
   const handlePrev = () => {
-    setPageIndex(pageIndex - 1);
+    handlePageIndex(pageIndex - 1);
   };
 
   const handleDetail = idx => {

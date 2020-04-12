@@ -12,32 +12,38 @@ const InquiryItem = ({ item, handleDetail }) => {
 
   return (
     <div className={cx('InquiryItem')}>
-      <div className={cx('InquiryItem-top')}>
-        <span onClick={() => handleDetail(idx)}>{title}</span>
-      </div>
-      <div className={cx('InquiryItem-mid')}>
-        <div className={cx('InquiryItem-mid-wrap')}>
-          <span>{contents}</span>
+      <div className={cx('InquiryItem-left')}>
+        <div className={cx('InquiryItem-left-title')}>
+          <span onClick={() => handleDetail(idx)}>{title}</span>
         </div>
-        <div className={cx('InquiryItem-mid-state')}>
+        {/* <div className={cx('InquiryItem-left-content')}>
+          <span>{contents}</span>
+        </div> */}
+      </div>
+      <div className={cx('InquiryItem-right')}>
+        {/* <div className={cx('InquiryItem-right-state')}>
           {isComplate === 0
             ? 
-            <div className={cx('InquiryItem-mid-state-wrap')}>
+            <div className={cx('InquiryItem-right-state-wrap')}>
               <FaRegQuestionCircle className="wait"/>
               답변 기다리는중
             </div>
             :
-            <div className={cx('InquiryItem-mid-state-wrap')}>
+            <div className={cx('InquiryItem-right-state-wrap')}>
               <FaRegCheckCircle className="success"/>
               답변 완료
             </div>
           }
+        </div> */}
+        <div className={cx('InquiryItem-right-wrap')}>
+          <span>{category}</span>
         </div>
-      </div>
-      <div className={cx('InquiryItem-bottom')}>
-        <span>{category}</span>
-        <span>{DateFormat(joinDate, 'YYYY-MM-DD')}</span>
-        <span>작성자: {memberId}</span>
+        <div className={cx('InquiryItem-right-wrap')}>
+          <span>{DateFormat(joinDate, 'YYYY-MM-DD')}</span>
+        </div>
+        {/* <div className={cx('InquiryItem-right-wrap')}>
+          <span>작성자: {memberId}</span>
+        </div> */}
       </div>
     </div>
   );
