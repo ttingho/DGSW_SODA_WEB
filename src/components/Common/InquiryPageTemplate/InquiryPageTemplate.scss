@@ -12,7 +12,7 @@
 
   &-header {
     width: 100%;
-    min-width: 1140px;
+    min-width: 1080px;
     height: 80px;
     background-color: $white;
     border-top: 3px solid $soda_primary;
@@ -22,8 +22,8 @@
     box-shadow: 0 1px 6px 0 $shadow;
   }
   &-contents {
-    min-width: 1140px;
-    max-width: 1140px;
+    min-width: 1080px;
+    max-width: 1080px;
     min-height: 889px;
     padding-bottom: 190px;
   }
