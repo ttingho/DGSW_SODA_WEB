@@ -2,7 +2,8 @@
 @import 'styles/color/color_scheme.scss';
 
 .IndexItem {
-  width: 18px;
+  min-width: calc(100% / 7);
+  max-width: calc(100% / 7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +12,8 @@
   font-family: $NOTO_SANS_KR_REGULAR;
   user-select: none;
   cursor: pointer;
-  margin: 0 1%;
+  // margin: 0 10px;
+
   &:hover {
     text-decoration: underline;
   }
