@@ -6,212 +6,118 @@ $profile_img_size: 55px;
 .NavBar {
   width: 100%;
   height: 100%;
-  color: $white;
-  font-size: $font_size_8;
   display: flex;
   flex-direction: row;
-  &-menu {
-    width: 90px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto 0 auto 0;
-    user-select: none;
-    &-icon {
-      font-size: $font_size_10;
+  align-items: center;
+  justify-content: center;
+  border-top: 3px solid $bamboo_primary;
+  box-shadow: 0 0 8px 0 $shadow;
+  &-MainButtonBox {
+    width: 100px;
+    height: 50px;
+    margin: auto 50px auto auto;
+    &-MainButton {
+      width: 100%;
+      height: 100%;
+      font-size: 25px;
+      font-weight: 700;
       cursor: pointer;
-      z-index: 3;
+      background-color: white;
+      color: $bamboo_primary;
+      outline: 0px;
+      border: none;
     }
-    &-box {
-      position: fixed;
-      width: 0;
-      height: 100vh;
-      background-color: $white;
-      top: 0;
-      left: 0;
-      transition: width 0.3s;
-      box-shadow: 2px 0 8px 0 $shadow;
-      &-select {
-        width: 280px;
-      }
-      &-wrap {
+  }
+  &-ButtonsBox {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto 400px auto auto;
+    &-BambooFeedButtonBox {
+      width: 100px;
+      height: 50px;
+      &-BambooFeedButton {
         width: 100%;
         height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding-top: 80px;
-        visibility: hidden;
-        transition: hidden 0;
-        &-child {
-          width: 100%;
-          margin-top: 3%;
-          margin-bottom: 3%;
-          &-title {
-            width: 100%;
-            height: 35px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: row;
-            &-contents {
-              width: 32%;
-              font-size: $font_size_5;
-              font-family: $NOTO_SANS_MEDIUM, $NOTO_SANS_KR_MEDIUM;
-              color: $soda_primary;
-            }
-            &-line {
-              width: 55%;
-              height: 1px;
-              background-color: $soda_primary;
-            }
-          }
-          &-item {
-            width: 100%;
-            height: 50px;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            flex-direction: row;
-            font-size: $font_size_3;
-            &-icon {
-              font-size: $font_size_8;
-              margin-left: 10%;
-              margin-right: 5%;
-              cursor: pointer;
-            }
-            &-contents {
-              font-family: $NOTO_SANS_REGULAR, $NOTO_SANS_KR_REGULAR;
-              cursor: pointer;
-            }
-          }
-          &:nth-child(1) {
-            color: $soda_primary;
-          }
-          &:nth-child(2) {
-            color: $bamboo_primary;
-          }
-          &:nth-child(3), &:nth-child(4) {
-            color: $community_primary;
-          }
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        background-color: white;
+        outline: 0px;
+        color: gray;
+        transition: ease-out .1s;
+        &:hover {
+          font-size: 15px;
+          color: black;
         }
-        &-logout {
-          width: 100%;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          >span {
-            font-size: $font_size_3;
-            font-family: $NOTO_SANS_KR_REGULAR;
-            color: $soda_primary;
-            border-bottom: 1px solid $soda_primary;
-            cursor: pointer;
-          }
+      }
+    }
+    &-BambooWriteButtonBox {
+      width: 110px;
+      height: 50px;
+      &-BambooWriteButton {
+        width: 100%;
+        height: 100%;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        background-color: white;
+        outline: 0px;
+        color: gray;
+        transition: ease-out .2s;
+        &:hover {
+          font-size: 15px;
+          color: black;
         }
-        &-info {
-          color: $soda_primary;
-          font-size: $font_size_3;
-          font-family: $NOTO_SANS_REGULAR;
-          margin: auto;
-          margin-bottom: 8%;
-          cursor: pointer;
-          user-select: none;
-          &:hover {
-            text-decoration: underline;
-          }
+      }
+    }
+    &-QuestionWriteButtonBox {
+      width: 100px;
+      height: 50px;
+      &-QuestionWriteButton {
+        width: 100%;
+        height: 100%;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        color: gray;
+        background-color: white;
+        outline: 0px;
+        transition: ease-out .2s;
+        &:hover {
+          font-size: 15px;
+          color: black;
+        }
+      }
+    }
+    &-AdminButtonBox {
+      width: 100px;
+      height: 50px;
+      &-AdminButton {
+        width: 100%;
+        height: 100%;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        background-color: white;
+        outline: 0px;
+        color: gray;
+        transition: ease-out .2s;
+        &:hover {
+          font-size: 15px;
+          color: black;
         }
       }
     }
   }
-  &-logo {
-    width: 150px;
-    height: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: row;
-    font-family: $NOTO_SANS_BOLD;
-    user-select: none;
-    margin: auto auto auto 0;
-    z-index: 3;
-    cursor: pointer;
-    &-icon {
-      font-size: $font_size_10;
-    }
-  }
-  &-search {
-    width: 640px;
-    height: 100%;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    visibility: hidden;
-    &-input {
-      width: 70%;
-      height: 40%;
-      border: none;
-      padding: 2%;
-      outline: none;
-      font-family: $NOTO_SANS_REGULAR, $NOTO_SANS_KR_REGULAR;
-    }
-    &-icon {
-      font-size: $font_size_10;
-      user-select: none;
-      cursor: pointer;
-      margin-left: 2%;
-    }
-  }
-  &-profile {
-    width: 150px;
-    height: 100%;
-    margin: auto 0 auto auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: row;
-    user-select: none;
-    &-name {
-      font-size: $font_size_3;
-      font-family: $NOTO_SANS_REGULAR, $NOTO_SANS_KR_REGULAR;
-      cursor: pointer;
-    }
-    &-img {
-      width: $profile_img_size;
-      min-width: $profile_img_size;
-      max-width: $profile_img_size;
-      height: $profile_img_size;
-      min-height: $profile_img_size;
-      max-height: $profile_img_size;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      cursor: pointer;
-    }
-  }
-  &-bamboo {
-    &-bg {
-      background-color: $bamboo_primary;
-    }
-    &-color {
-      color: $bamboo_primary;
-    }
-  }
-  &-soda {
-    &-bg {
-      background-color: $soda_primary;
-    }
-    &-color {
-      color: $soda_primary;
-    }
-  }
-  &-visible {
-    visibility: visible;
-    transition-delay: .3s;
+
+  &-ButtonContents {
+    color: black;
+    font-size: 15px;
   }
 }
