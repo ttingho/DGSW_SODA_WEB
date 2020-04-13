@@ -19,7 +19,7 @@ $profile_img_size: 55px;
     &-MainButton {
       width: 100%;
       height: 100%;
-      font-size: 25px;
+      font-size: 24px;
       font-weight: 700;
       cursor: pointer;
       background-color: white;
@@ -35,12 +35,12 @@ $profile_img_size: 55px;
     justify-content: space-between;
     margin: auto 400px auto auto;
     &-BambooFeedButtonBox {
-      width: 100px;
+      width: 110px;
       height: 50px;
       &-BambooFeedButton {
         width: 100%;
         height: 100%;
-        font-size: 12px;
+        font-size: 15px;
         font-weight: 600;
         cursor: pointer;
         border: none;
@@ -49,18 +49,18 @@ $profile_img_size: 55px;
         color: gray;
         transition: ease-out .1s;
         &:hover {
-          font-size: 15px;
+          font-size: 18px;
           color: black;
         }
       }
     }
     &-BambooWriteButtonBox {
-      width: 110px;
+      width: 130px;
       height: 50px;
       &-BambooWriteButton {
         width: 100%;
         height: 100%;
-        font-size: 12px;
+        font-size: 15px;
         font-weight: 600;
         cursor: pointer;
         border: none;
@@ -69,7 +69,7 @@ $profile_img_size: 55px;
         color: gray;
         transition: ease-out .2s;
         &:hover {
-          font-size: 15px;
+          font-size: 18px;
           color: black;
         }
       }
@@ -80,7 +80,7 @@ $profile_img_size: 55px;
       &-QuestionWriteButton {
         width: 100%;
         height: 100%;
-        font-size: 12px;
+        font-size: 15px;
         font-weight: 600;
         cursor: pointer;
         border: none;
@@ -89,7 +89,7 @@ $profile_img_size: 55px;
         outline: 0px;
         transition: ease-out .2s;
         &:hover {
-          font-size: 15px;
+          font-size: 18px;
           color: black;
         }
       }
@@ -100,7 +100,7 @@ $profile_img_size: 55px;
       &-AdminButton {
         width: 100%;
         height: 100%;
-        font-size: 12px;
+        font-size: 15px;
         font-weight: 600;
         cursor: pointer;
         border: none;
@@ -109,7 +109,7 @@ $profile_img_size: 55px;
         color: gray;
         transition: ease-out .2s;
         &:hover {
-          font-size: 15px;
+          font-size: 18px;
           color: black;
         }
       }
@@ -118,6 +118,6 @@ $profile_img_size: 55px;
 
   &-ButtonContents {
     color: black;
-    font-size: 15px;
+    font-size: 18px;
   }
 }
