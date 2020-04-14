@@ -16,6 +16,7 @@ const QuestionWriteTemplate = ({
   handleImageChange,
   images,
   handleImageCancel,
+  goBackFunction,
 }) => {
 
   const { contents, setContents } = contentsObj;
@@ -75,6 +76,7 @@ const QuestionWriteTemplate = ({
         <span className={cx('QuestionWriteTemplate-postButtonDiv-UploadGuide')}>
           * 사진은 최대 5장 까지만 업로드 가능 합니다.
         </span>
+        <Button customStyle={{ width: '150px', height: '100%', margin: 'auto 0 auto auto' }} handleFunction={goBackFunction}>돌아가기</Button>
         <Button customStyle={{ width: '150px', height: '100%', margin: 'auto 0 auto auto' }} handleFunction={handleQuestionWrite}>문의 하기</Button>
       </div>
     </div>
@@ -91,7 +93,8 @@ QuestionWriteTemplate.propTypes = {
   images: PropTypes.array,
   handleImageCancel: PropTypes.func,
   category: PropTypes.string,
-  handleCategory: PropTypes.func
+  handleCategory: PropTypes.func,
+  goBackFunction: PropTypes.func
 };
 
 export default QuestionWriteTemplate;

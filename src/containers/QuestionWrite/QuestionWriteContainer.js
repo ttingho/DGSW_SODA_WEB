@@ -8,8 +8,6 @@ import QuestionTemplate from 'components/QuestionWrite/QuestionWriteTemplate';
 import GroupingState from 'lib/HookState/GroupingState';
 
 const QuestionWriteContainer = ({ store, history }) => {
-  const maxImageSize = 4 * 1024 * 1024;
-
   const [contents, setContents] = useState('');
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('NotSelect');
@@ -17,7 +15,6 @@ const QuestionWriteContainer = ({ store, history }) => {
 
   const [images, setImages] = useState([]);
   const [imageContents, setImageContents] = useState('업로드 된 이미지');
-  const [imageSize, setImageSize] = useState(0);
 
   const { modal } = store.dialog;
   const { uploadImage } = store.upload;
@@ -28,6 +25,12 @@ const QuestionWriteContainer = ({ store, history }) => {
   const userInfo = ls.get('user-info');
 
   const token = TokenVerification();
+
+  const goBackFunction = () => {
+    history.goBack(1);
+
+    return;
+  };
 
   // 업로드할 사진 취소
   const handleImageCancel = async imageIdx => {
@@ -56,19 +59,6 @@ const QuestionWriteContainer = ({ store, history }) => {
     if (images.length > 1) {
       setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
     }
-  };
-
-  // 사진 크기 설정
-  const handleImageSize = () => {
-    let fileSize = 0;
-
-    for (let i = 0; i < images.length; i++) {
-      const file = images[i];
-
-      fileSize += file.size;
-    }
-
-    setImageSize(fileSize);
   };
 
   // images url 값 설정
@@ -272,6 +262,7 @@ const QuestionWriteContainer = ({ store, history }) => {
       handleImageChange={handleImageChange}
       images={images}
       handleImageCancel={handleImageCancel}
+      goBackFunction={goBackFunction}
     />
   );
 };
