@@ -12,7 +12,6 @@
   font-family: $NOTO_SANS_KR_REGULAR;
   user-select: none;
   cursor: pointer;
-  // margin: 0 10px;
 
   &:hover {
     text-decoration: underline;
@@ -20,6 +19,5 @@
   &-select {
     font-family: $NOTO_SANS_KR_BOLD;
     color: $soda_primary !important;
-    text-decoration: underline;
   }
 }

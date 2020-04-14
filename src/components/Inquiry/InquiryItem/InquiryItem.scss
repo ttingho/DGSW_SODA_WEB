@@ -13,6 +13,24 @@
 
   &-left {
     width: 65%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    &-front {
+      display: flex;
+      justify-content: center;
+      // align-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+      background-color: $gray_2;
+      color: $black;
+      margin-right: 10px;
+      font-family: $NOTO_SANS_MEDIUM;
+      font-size: $font_size_3;
+    }
 
     &-title {
       font-size: $font_size_3;
@@ -36,16 +54,19 @@
       width: calc(100% / 2);
       display: flex;
       justify-content: center;
-      // align-items: center;
+      font-size: $font_size_2;
+      font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
 
-      >span {
-        font-size: $font_size_2;
-        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+      >div {
+        width: 90px;
+        display: flex;
+        justify-content: flex-end;
       }
 
     }
     &-wrap:nth-child(1) {
       border-right: 1px solid $shadow;
+      justify-content: flex-start;
     }
     // &-wrap:nth-child(2) {
     //   border-right: 1px solid $shadow;
