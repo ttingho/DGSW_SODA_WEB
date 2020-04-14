@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import SecureLS from 'secure-ls';
+import TokenVerification from 'lib/Token/TokenVerification';
 import styled, { css }from 'styled-components';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
@@ -21,8 +22,12 @@ const NavBar = ({ pageType, url, store, history }) => {
 
   const userInfo = ls.get('user-info');
 
+  const token = TokenVerification();
+
   const setUserInfo = () => {
-    if (userInfo && userInfo.auth === 0) {
+    if (!token && !userInfo) {
+      setAdminAuth(false);
+    } else if (userInfo && userInfo.auth === 0) {
       setAdminAuth(true);
     }
   };
@@ -56,6 +61,8 @@ const NavBar = ({ pageType, url, store, history }) => {
     // }
 
     if (propUrl === '/bamboo-admin') {
+      console.log(propUrl);
+      
       if (!adminAuth) {
         modal({
           title: 'Warning!',
