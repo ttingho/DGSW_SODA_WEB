@@ -63,7 +63,7 @@ const InquiryAdminContainer = ({ store, history }) => {
   const [isLoading, getData] = usePending(fetchData);
 
   useEffect(() => { // 관리자 아니일 때, 예외처리
-    if (auth === 1) {
+    if (auth !== 0) {
       history.goBack(1);
     }
   }, [auth]);

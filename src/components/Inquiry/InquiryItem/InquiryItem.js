@@ -13,6 +13,7 @@ const InquiryItem = ({ item, handleDetail }) => {
   return (
     <div className={cx('InquiryItem')}>
       <div className={cx('InquiryItem-left')}>
+        {/* <div className={cx('InquiryItem-left-front')}>Q</div> */}
         <div className={cx('InquiryItem-left-title')}>
           <span onClick={() => handleDetail(idx)}>{title}</span>
         </div>
@@ -36,7 +37,7 @@ const InquiryItem = ({ item, handleDetail }) => {
           }
         </div> */}
         <div className={cx('InquiryItem-right-wrap')}>
-          <span>{category}</span>
+          <div>{category}</div>
         </div>
         <div className={cx('InquiryItem-right-wrap')}>
           <span>{DateFormat(joinDate, 'YYYY-MM-DD')}</span>
