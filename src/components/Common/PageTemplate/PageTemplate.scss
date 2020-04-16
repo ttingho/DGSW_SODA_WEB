@@ -14,16 +14,35 @@
     position: fixed;
     width: 100%;
     min-width: 1200px;
-    height: 80px;
+    height: 150px;
     margin: 0;
     padding: 0;
     top: 0;
     z-index: 2;
   }
   &-contents {
-    padding-top: 80px;
+    padding-top: 150px;
     width: 100%;
     min-width: 1200px;
     min-height: 100vh;
+
+    &-inquiry {
+      min-width: 1080px;
+      max-width: 1080px;
+      min-height: 889px;
+      padding-bottom: 190px;
+    }
+  }
+  &-footer {
+    position: absolute;
+    width: 100%;
+    min-width: 1200px;
+    height: 160px;
+    bottom: 0;
+    box-shadow: 0 1px 6px 0 $shadow;
+
+    &-hidden {
+      display: none;
+    }
   }
 }

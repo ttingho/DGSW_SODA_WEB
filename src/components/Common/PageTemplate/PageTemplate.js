@@ -21,8 +21,11 @@ const PageTemplate = ({ pageType, url, children, history }) => {
       <div className={cx('PageTemplate-header')}>
         <NavBar pageType={pageType} url={url} />
       </div>
-      <div className={cx('PageTemplate-contents')}>
+      <div className={cx('PageTemplate-contents', {'PageTemplate-contents-inquiry': pageType === 'inquiry'})}>
         {children}
+      </div>
+      <div className={cx('PageTemplate-footer', {'PageTemplate-footer-hidden': pageType === 'bamboo'})}>
+        
       </div>
     </div>
   );
@@ -31,7 +34,7 @@ const PageTemplate = ({ pageType, url, children, history }) => {
 PageTemplate.propTypes = {
   pageType: PropTypes.oneOf([
     'bamboo',
-    'soda'
+    'inquiry'
   ]),
   url: PropTypes.string,
   children: PropTypes.node,
