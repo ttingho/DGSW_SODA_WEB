@@ -30,7 +30,7 @@ const InquiryTemplate = ({
   };
 
   useEffect(() => {
-    handleCategory('');
+    handleCategory('전체');
     handlePageIndex(1);
   }, []);
 
