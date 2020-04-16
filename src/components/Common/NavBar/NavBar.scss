@@ -3,122 +3,219 @@
 
 $profile_img_size: 55px;
 
+// 대숲 페이지
 .NavBar {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
+  flex-direction: column;
+  background-color: $white;
   border-top: 3px solid $bamboo_primary;
-  box-shadow: 0 0 8px 0 $shadow;
-  &-MainButtonBox {
-    width: 100px;
-    height: 50px;
-    margin: auto 50px auto auto;
-    &-MainButton {
-      width: 100%;
-      height: 100%;
-      font-size: 24px;
-      font-weight: 700;
-      cursor: pointer;
-      background-color: white;
-      color: $bamboo_primary;
-      outline: 0px;
-      border: none;
-    }
+  box-shadow: 0 1px 1px 0 $shadow;
+
+  &-inquiry {
+    border-top: 3px solid $soda_primary;
   }
-  &-ButtonsBox {
-    width: 500px;
+
+  &-top {
+    width: 100%;
+    height: 87.5px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: auto 400px auto auto;
-    &-BambooFeedButtonBox {
-      width: 110px;
-      height: 50px;
-      &-BambooFeedButton {
-        width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid $shadow;
+
+    &-wrap {
+      max-width: 1100px;
+      min-width: 1100px;
+      height: 100%;
+      display: flex;
+  
+      &-header {
+        width: 100px;
         height: 100%;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        background-color: white;
-        outline: 0px;
-        color: gray;
-        transition: ease-out .1s;
-        &:hover {
-          font-size: 18px;
-          color: black;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: $font_size_8;
+        font-family: $NOTO_SANS_KR_BOLD;
+        color: $bamboo_primary;
+
+        &-title {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          >span {
+            cursor: pointer;
+          }
+        }
+
+        &-inquiry {
+          color: $soda_primary;
         }
       }
-    }
-    &-BambooWriteButtonBox {
-      width: 130px;
-      height: 50px;
-      &-BambooWriteButton {
-        width: 100%;
+      &-content {
+        width: 1000px;
         height: 100%;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        background-color: white;
-        outline: 0px;
-        color: gray;
-        transition: ease-out .2s;
-        &:hover {
-          font-size: 18px;
-          color: black;
-        }
-      }
-    }
-    &-QuestionWriteButtonBox {
-      width: 100px;
-      height: 50px;
-      &-QuestionWriteButton {
-        width: 100%;
-        height: 100%;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        color: gray;
-        background-color: white;
-        outline: 0px;
-        transition: ease-out .2s;
-        &:hover {
-          font-size: 18px;
-          color: black;
-        }
-      }
-    }
-    &-AdminButtonBox {
-      width: 100px;
-      height: 50px;
-      &-AdminButton {
-        width: 100%;
-        height: 100%;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        background-color: white;
-        outline: 0px;
-        color: gray;
-        transition: ease-out .2s;
-        &:hover {
-          font-size: 18px;
-          color: black;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+  
+        &-btns {
+          width: 300px;
+          height: 40px;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+  
+          &-login {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            color: $bamboo_primary;
+            font-size: $font_size_4;
+            font-family: $NOTO_SANS_KR_MEDIUM;
+
+            &-inquiry {
+              color: $soda_primary;
+            }
+            >span {
+              color: $black;
+            }
+          }
         }
       }
     }
   }
 
-  &-ButtonContents {
-    color: black;
-    font-size: 18px;
+  &-bottom {
+    width: 100%;
+    height: 62.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-wrap {
+      max-width: 1100px;
+      min-width: 1100px;
+      height: 100%;
+      display: flex;
+
+      &-content {
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+  
+        &-btns {
+          width: 400px;
+          height: 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+  
+          &-button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            color: $gray_3;
+            font-size: $font_size_4;
+            font-family: $NOTO_SANS_KR_MEDIUM;
+            padding: 0;
+          }
+          &-button:hover {
+            border-bottom: 1px solid $gray_3;
+          }
+          // &-bamboo, &-inquiry, &-bambooWrite, &-bambooAdmin {
+          //   background-color: transparent;
+          //   border: none;
+          //   outline: none;
+          //   cursor: pointer;
+          //   color: $gray_3;
+          //   font-size: $font_size_4;
+          //   font-family: $NOTO_SANS_KR_MEDIUM;
+          //   padding: 0;
+          // }
+          // &-bamboo:hover, &-inquiry:hover, &-bambooWrite:hover, &-bambooAdmin:hover {
+          //   border-bottom: 1px solid $gray_3;
+          // }
+        }
+      }
+    }
+  }
+
+  &-clicked {
+    color: $black;
+  }
+  &-clicked:hover {
+    border: none;
+  }
+}
+
+// 문의 페이지
+.InquiryNavBar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 3px solid $soda_primary;
+  box-shadow: 0 1px 8px 0 $shadow;
+
+  &-wrap {
+    max-width: 1100px;
+    min-width: 1100px;
+    height: 100%;
+    display: flex;
+
+    &-header {
+      width: 100px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: $font_size_9;
+      font-family: $NOTO_SANS_BOLD;
+      color: $soda_primary;
+
+      &-title {
+        width: 100%;
+        height: 38px;
+        display: flex;
+        justify-content: center;
+
+        >span {
+          cursor: pointer;
+        }
+      }
+    }
+    &-content {
+      width: 1000px;
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      &-btns {
+        width: 300px;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-inquiry, &-login, &-logout, &-bamboo {
+          background-color: transparent;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          color: $gray_3;
+          font-size: $font_size_4;
+          font-family: $NOTO_SANS_KR_MEDIUM;
+        }
+      }
+    }
   }
 }

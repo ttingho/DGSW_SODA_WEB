@@ -11,12 +11,11 @@ import usePending from 'lib/HookState/usePending';
 const InquiryContainer = ({ store, history }) => {
   const { 
     category,
+    handleCategory,
     pageIndex,
     handlePageIndex,
     getInquiry,
-    getAdminInquiry,
     getCategoryInquiry,
-    getAdminCategoryInquiry,
     totalPage
   } = store.inquiry;
   
@@ -84,6 +83,8 @@ const InquiryContainer = ({ store, history }) => {
     <>
       <InquiryTemplate
         category={category}
+        handleCategory={handleCategory}
+        handlePageIndex={handlePageIndex}
         handlePrev={handlePrev}
         handleNext={handleNext}
         totalPage={totalPage.length === 0 ? 0 : totalPage}

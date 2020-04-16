@@ -3,6 +3,7 @@ import PropTypes  from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './InquiryPageTemplate.scss';
 import InquiryNavBar from '../InquiryNavBar';
+import NavBar from '../NavBar';
 
 const cx = classNames.bind(style);
 

@@ -7,6 +7,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 3px solid $soda_primary;
+  box-shadow: 0 1px 8px 0 $shadow;
 
   &-wrap {
     max-width: 1140px;

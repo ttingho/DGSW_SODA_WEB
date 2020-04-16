@@ -1,13 +1,14 @@
 import React from 'react';
-import InquiryPageTemplate from 'components/Common/InquiryPageTemplate';
+// import InquiryPageTemplate from 'components/Common/InquiryPageTemplate';
+import PageTemplate from 'components/Common/PageTemplate';
 import InquiryAdminContainer from 'containers/InquiryAdmin';
 
 const Inquiry = () => {
   return (
     <>
-      <InquiryPageTemplate pageType={'inquiry'}>
+      <PageTemplate pageType={'inquiry'} url={'inquiry-admin'}>
         <InquiryAdminContainer />
-      </InquiryPageTemplate>
+      </PageTemplate>
     </>
   );
 };
