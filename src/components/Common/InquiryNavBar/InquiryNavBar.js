@@ -16,7 +16,7 @@ const InquiryNavBar = ({ store, pageType, history }) => {
   const { category, handleCategory, handlePageIndex } = store.inquiry;
   
   /* 카테고리를 눌렀는지 true false */
-  const [isClickedCategory, setIsClickedCategory] = useState(false);
+  const [isClickedCategory, setIsClickedCategory] = useState(true);
 
   /* 로그인되어 있는지 유무 */
   const isLogin = TokenVerification() !== 'empty' ? true : false;
@@ -62,7 +62,7 @@ const InquiryNavBar = ({ store, pageType, history }) => {
         <div className={cx('InquiryNavBar-wrap-content')}>
           <div className={cx('InquiryNavBar-wrap-content-category')}>
             <button className={cx('InquiryNavBar-wrap-content-category-btn')} 
-              onClick={() => setIsClickedCategory(!isClickedCategory)}
+              onClick={() => setIsClickedCategory(isClickedCategory)}
             >
               카테고리
               <IoIosArrowDown className="down_icon"/>
