@@ -13,8 +13,8 @@ const BambooItem = ({ item }) => {
   const [profileImages, setProfileImages] = useState([]);
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
-  const [pictureIndex, setPictureIndex] = useState(0);
-  const [isModals, setIsModals] = useState(false);
+  // const [pictureIndex, setPictureIndex] = useState(0);
+  // const [isModals, setIsModals] = useState(false);
 
   // eslint-disable-next-line react/prop-types
   const { contents, joinDate, allowDate, picture, name, profileImage } = item;
