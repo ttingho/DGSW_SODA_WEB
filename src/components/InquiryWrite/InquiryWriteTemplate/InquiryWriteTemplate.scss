@@ -1,0 +1,138 @@
+
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+
+.QuestionWriteTemplate {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 80px);
+  flex-direction: column;
+  align-items: center;
+
+  &-contentsTopBox {
+    display: flex;
+    width: 730px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+
+    &-categoryBox {
+      width: 230px;
+      height: 50px;
+      border: none;
+      outline: 0px;
+      padding-left: 10px;
+      font-size: 14px;
+      color: $gray_4;
+      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    }
+
+    &-uploadButtonDiv {
+      width: 150px;
+      height: 50px;
+      cursor: pointer;
+      margin: auto -100px auto auto;
+      &-label {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: $font_size_3;
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        border: 2px solid $soda_primary;
+        border-radius: 2.5px;
+        color: $soda_primary;
+        background-color: $white;
+        cursor: pointer;
+        transition: ease-out .2s;
+        &:hover {
+          color: $white;
+          background-color: $soda_primary;
+        }
+      }
+
+      &-uploadButton {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip:rect(0,0,0,0);
+        border: 0;
+      }
+    }
+  }
+
+  &-contentsBox {
+    display: flex;
+    width: 730px;
+    min-height: 200px;
+    margin-top: 10px;
+    box-shadow: 0 0 8px 0 $shadow;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    // &-imageList {
+    //   width: 730px;
+    //   border: 1px solid black;
+    // }
+
+    &-titleBox {
+      display: flex;
+      width: 700px;
+      height: 70px;
+      border-bottom: 1px solid $gray_3;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+
+      &-titleDiv {
+        width: 600px;
+        height: 60px;
+        margin: auto 50px auto auto;
+        &-title {
+          width: 600px;
+          height: 60px;
+          margin-right: 0px;
+          border: none;
+          font-size: 15px;
+          font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+          outline: 0px;
+        }
+      }
+
+      &-qIconDiv {
+        width: 30px;
+        height: 30px;
+        margin: auto;
+
+        &-qIcon {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    &-contents {
+      width: 700px;
+      height: 200px;
+
+      &-text {
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+        font-size: 14px;
+        color: $gray_4;
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        outline: 0px;
+        border: none;
+        resize: none;
+      }
+    }
+  }
+}
