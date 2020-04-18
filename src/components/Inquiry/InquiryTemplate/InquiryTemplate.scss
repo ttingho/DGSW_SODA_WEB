@@ -12,8 +12,7 @@
     align-items: flex-end;
     font-size: $font_size_8;
     font-family: $NOTO_SANS_KR_REGULAR;
-    
-    border-bottom: 1px solid $shadow;
+    border-bottom: 2px solid $shadow;
     padding-bottom: 18.5px;
 
     >span {
@@ -38,7 +37,7 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
-        font-size: $font_size_2;
+        font-size: $font_size_3;
         font-family: $NOTO_SANS_KR_MEDIUM;
         color: $black;
 
@@ -101,8 +100,9 @@
     align-items: center;
 
     &-prev, &-next {
-      font-size: $font_size_4;
+      font-size: $font_size_2;
       font-family: $NOTO_SANS_KR_MEDIUM;
+      color: $gray_3;
       cursor: pointer;
       width: 40px;
       text-align: center;

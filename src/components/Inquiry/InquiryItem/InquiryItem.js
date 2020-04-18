@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import style from './InquiryItem.scss';
 import DateFormat from 'lib/Common/DateFormat';
-import { FaRegCheckCircle, FaRegQuestionCircle } from 'react-icons/fa';
 
 const cx = classnames.bind(style);
 
@@ -13,7 +12,7 @@ const InquiryItem = ({ item, handleDetail }) => {
   return (
     <div className={cx('InquiryItem')}>
       <div className={cx('InquiryItem-left')}>
-        {/* <div className={cx('InquiryItem-left-front')}>Q</div> */}
+        <div className={cx('InquiryItem-left-front')}>Q.</div>
         <div className={cx('InquiryItem-left-title')}>
           <span onClick={() => handleDetail(idx)}>{title}</span>
         </div>

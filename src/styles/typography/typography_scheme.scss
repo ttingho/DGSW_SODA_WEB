@@ -1,5 +1,6 @@
 $NOTO_SANS_URL: '../../assets/font/NotoSans/NotoSans';
 $NOTO_SANS_KR_URL: '../../assets/font/NotoSansKR/NotoSansKR';
+$CAFE24_OH_SQUARE_URL: '../../assets/font/Cafe24Ohsquare/Cafe24Ohsquare';
 
 @mixin font_face($name, $url) {
   font-family: $name;
@@ -69,6 +70,12 @@ $NOTO_SANS_KR_BLACK: 'Noto Sans KR Black';
 }
 @font-face {
   @include font_face($NOTO_SANS_KR_BLACK, $NOTO_SANS_KR_URL + '-Black');
+}
+
+$CAFE24_OH_SQUARE: 'Cafe24 Oh Square';
+
+@font-face {
+  @include font_face($CAFE24_OH_SQUARE, $CAFE24_OH_SQUARE_URL);
 }
 
 /* js에서 font-size를 적용하려면 typography_scheme.js를

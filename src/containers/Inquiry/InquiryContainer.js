@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import SecureLS from 'secure-ls';
+import TokenVerification from 'lib/Token/TokenVerification';
 import InquiryTemplate from 'components/Inquiry/InquiryTemplate';
 import InquiryItem from 'components/Inquiry/InquiryItem';
 import IndexItem from 'components/Inquiry/IndexItem';
@@ -18,13 +18,12 @@ const InquiryContainer = ({ store, history }) => {
     getCategoryInquiry,
     totalPage
   } = store.inquiry;
-  
-  // const ls = new SecureLS({ encodingType: 'aes' });
-  // const { auth } = ls.get('user-info');  // 어드민인지 사용자인지
+
+  const { modal } = store.dialog;
 
   const [itemList, setItemList] = useState([]);
   const [indexItemList, setIndexItemList] = useState([]);
-  // const [pageIndex, setPageIndex] = useState(initialPageIndex);
+  const token = TokenVerification();
   
   const handlePage = page => {
     handlePageIndex(page);
@@ -39,20 +38,29 @@ const InquiryContainer = ({ store, history }) => {
   };
 
   const handleDetail = idx => {
+    if (token === 'empty') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '상세내용은 로그인 후 이용 가능 합니다!'
+      });
+      
+      return;
+    }
     localStorage.setItem('inquiry_idx', idx);
     history.push('/inquiry-detail');
   };
 
   async function fetchData() {
     if (category === '전체') {  // 전체 조회
-      await getInquiry(14, pageIndex)
+      await getInquiry(10, pageIndex)
         .then((response) => {
           setItemList(response.question.map((data, index) => {
             return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
           }));
         });
     } else {  // 카테고리 별 조회
-      await getCategoryInquiry(14, pageIndex)
+      await getCategoryInquiry(10, pageIndex)
         .then((response) => {
           setItemList(response.question.map((data, index) => {
             return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;

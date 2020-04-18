@@ -45,14 +45,14 @@ const InquiryAdminContainer = ({ store, history }) => {
   async function fetchData() {
     if (auth === 0) { // 어드민 조회
       if (category === '전체') {  // 전체 조회
-        await getAdminInquiry(14, pageIndex)
+        await getAdminInquiry(10, pageIndex)
           .then((response) => {
             setItemList(response.question.map((data, index) => {
               return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
             }));
           });
       } else {  // 카테고리 별 조회
-        await getAdminCategoryInquiry(14, pageIndex)
+        await getAdminCategoryInquiry(10, pageIndex)
           .then((response) => {
             setItemList(response.question.map((data, index) => {
               return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
