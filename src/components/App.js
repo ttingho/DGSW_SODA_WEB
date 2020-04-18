@@ -45,7 +45,7 @@ function App() {
           render={() => <Pages.InquiryAdmin/>}
         />
         <Route
-          path='/question-write'
+          path='/inquiry-write'
           render={() => <Pages.InquiryWrite/>}
         />
         <Route
