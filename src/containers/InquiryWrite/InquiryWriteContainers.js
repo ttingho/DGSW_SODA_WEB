@@ -4,16 +4,17 @@ import SecureLS from 'secure-ls';
 import { inject, observer } from 'mobx-react';
 import TokenVerification from 'lib/Token/TokenVerification';
 import { withRouter } from 'react-router-dom';
-import QuestionTemplate from 'components/QuestionWrite/QuestionWriteTemplate';
+import QuestionTemplate from 'components/InquiryWrite/InquiryWriteTemplate';
 import GroupingState from 'lib/HookState/GroupingState';
 
-const QuestionWriteContainer = ({ store, history }) => {
+const InquiryWriteContainers = ({ store, history }) => {
   const [contents, setContents] = useState('');
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('NotSelect');
   const [isUpload, setIsUpload] = useState(false);
 
   const [images, setImages] = useState([]);
+  const [imgBase64, setImgBase64] = useState([]);
   const [imageContents, setImageContents] = useState('업로드 된 이미지');
 
   const { modal } = store.dialog;
@@ -26,6 +27,24 @@ const QuestionWriteContainer = ({ store, history }) => {
 
   const token = TokenVerification();
 
+  // 프리뷰 이미지 url 설정 함수
+  const handlImageBase64 = async () => {
+    let newstate = [];
+    
+    const processImgBase64 = img => {
+      let url = URL.createObjectURL(img);
+
+      newstate = [...newstate, url];
+    };
+
+    for (let i = 0; i < images.length; i++) {
+      await processImgBase64(images[i]);
+    }
+
+    setImgBase64(newstate);
+  };
+
+  // 돌아가기 버튼 함수
   const goBackFunction = () => {
     history.goBack(1);
 
@@ -117,6 +136,8 @@ const QuestionWriteContainer = ({ store, history }) => {
 
     handleImageSetting(imageFiles);
     
+    handlImageBase64();
+
     event.target.value = null;
   };
 
@@ -261,16 +282,17 @@ const QuestionWriteContainer = ({ store, history }) => {
       imageContents={imageContents}
       handleImageChange={handleImageChange}
       images={images}
+      imgBase64={imgBase64}
       handleImageCancel={handleImageCancel}
       goBackFunction={goBackFunction}
     />
   );
 };
 
-QuestionWriteContainer.propTypes = {
+InquiryWriteContainers.propTypes = {
   store: PropTypes.object,
   history: PropTypes.object
 };
 
-export default inject('store')(observer(withRouter(QuestionWriteContainer)));
+export default inject('store')(observer(withRouter(InquiryWriteContainers)));
 
