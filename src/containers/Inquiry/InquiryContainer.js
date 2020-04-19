@@ -16,6 +16,7 @@ const InquiryContainer = ({ store, history }) => {
     handlePageIndex,
     getInquiry,
     getCategoryInquiry,
+    getMyInquiry,
     totalPage
   } = store.inquiry;
 
@@ -59,6 +60,13 @@ const InquiryContainer = ({ store, history }) => {
             return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
           }));
         });
+    } else if (category === '내가 작성한 문의') {   // 내가 작성한 문의 조회
+      await getMyInquiry(10, pageIndex)
+        .then((response) => {
+          setItemList(response.question.map((data, index) => {
+            return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
+          }));
+        });
     } else {  // 카테고리 별 조회
       await getCategoryInquiry(10, pageIndex)
         .then((response) => {
@@ -90,6 +98,7 @@ const InquiryContainer = ({ store, history }) => {
   return (
     <>
       <InquiryTemplate
+        isAdmin={false}
         category={category}
         handleCategory={handleCategory}
         handlePageIndex={handlePageIndex}

@@ -14,6 +14,7 @@ class questionStore {
   @observable categoryInquiryList = [];
   @observable adminInquiryList = [];
   @observable adminCategoryInquiryList = [];
+  @observable myInquiryList = [];
   @observable totalPage = 1;
 
   @action
@@ -99,6 +100,23 @@ class questionStore {
     }
   }
 
+  @action
+  async getMyInquiry (limit, page) {
+    try {
+      const response = await inquiryRepository.getMyInquiry(limit, page);
+      
+      this.myInquiryList = response.data.question;
+      this.totalPage = response.data.totalPage;
+
+      return new Promise((resolve, reject) => {
+        resolve(response.data);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
 
   @action
   async requestInquiryWrite (request) {
