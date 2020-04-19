@@ -57,7 +57,7 @@ const InquiryWriteTemplate = ({
             <input value={title} onChange={event => setTitle(event.target.value)} className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv-title')} type={'text'} placeholder={'문의 제목은 여기 작성 해주세요...'}/>
           </div>
         </div>
-        <div className={cx('QuestionWriteTemplate-contentsTopBox-imageList')}>
+        <div className={cx('QuestionWriteTemplate-contentsBox-imageList')}>
           {
             images && <Pagination images={imgBase64}/>
           }

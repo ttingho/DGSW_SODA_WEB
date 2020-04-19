@@ -24,7 +24,7 @@
       border: none;
       outline: 0px;
       padding-left: 10px;
-      font-size: 14px;
+      font-size: $font_size_2;
       color: $gray_4;
       font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
     }
@@ -40,7 +40,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: $font_size_3;
+        font-size: $font_size_2;
         font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
         border: 2px solid $soda_primary;
         border-radius: 2.5px;
@@ -94,25 +94,27 @@
       &-titleDiv {
         width: 600px;
         height: 60px;
-        margin: auto 50px auto auto;
+        margin: auto 60px auto auto;
         &-title {
           width: 600px;
           height: 60px;
           margin-right: 0px;
           border: none;
-          font-size: 15px;
+          font-size: $font_size_3;
           font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
           outline: 0px;
         }
       }
 
       &-qIconDiv {
+        display: flex;
         width: 30px;
         height: 30px;
-        margin: auto;
+        justify-content: center;
+        align-items: center;
 
         &-qIcon {
-          font-size: 30px;
+          font-size: $font_size_4;
           color: $soda_primary;
           font-family: $CAFE24_OH_SQUARE;
         }
@@ -127,7 +129,7 @@
         width: 100%;
         height: 100%;
         padding: 15px;
-        font-size: 14px;
+        font-size: $font_size_2;
         color: $gray_4;
         font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
         outline: 0px;
