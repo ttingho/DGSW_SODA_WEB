@@ -1,3 +1,8 @@
+
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+
 .BambooCard {
   margin: 30px auto;
   width: 750px;
@@ -84,7 +89,7 @@
         margin: -45px 0px 0px 630px;
         line-height: 40px;
         text-align: center;
-        font-size: 12px;
+        font-size: $font_size_1;
         font-weight: bolder;
         border-radius: 17px;
         border: 1px solid #adb5bd;
@@ -106,13 +111,13 @@
 
     &-AllowDateStyle {
       margin: -45px 0px 0px 480px;
-      font-size: 13px;
+      font-size: $font_size_2;
       color: #afb7c2;
     }
       
     &-JoinDateStyle {
       margin: -20px 0px 0px 480px;
-      font-size: 13px;
+      font-size: $font_size_2;
       color: #afb7c2;
     }
 
@@ -149,14 +154,14 @@
   
       &-ProfileName {
         margin: -65px 0px 0px 100px;
-        font-size: 20px;
+        font-size: $font_size_5;
         font-weight: bold;
         color: #49d277;
       }
 
       &-Subject {
         margin: 5px 0px 0px 100px;
-        font-size: 15px;
+        font-size: $font_size_3;
         color: #49d277;
       }
     }
