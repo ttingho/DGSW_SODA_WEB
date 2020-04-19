@@ -5,7 +5,7 @@ import InquiryWriteContainer from 'containers/InquiryWrite/InquiryWriteContainer
 const QuestionWrite = () => {
   return (
     <>
-      <PageTemplate url={'inquiry-write'} pageType={'bamboo'}>
+      <PageTemplate url={'inquiry-write'} pageType={'inquiry'}>
         <InquiryWriteContainer/>
       </PageTemplate>
     </>

@@ -3,13 +3,11 @@
 
 .InquiryItem {
   width: 100%;
-  height: calc(100% / 14);
+  height: calc(100% / 10);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid $shadow;
-  padding: 0 1%;
 
   &-left {
     width: 65%;
@@ -19,29 +17,22 @@
     align-items: center;
 
     &-front {
-      display: flex;
-      justify-content: center;
-      // align-items: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 5px;
-      background-color: $gray_2;
       color: $black;
       margin-right: 10px;
-      font-family: $NOTO_SANS_MEDIUM;
+      font-family: $CAFE24_OH_SQUARE;
       font-size: $font_size_3;
     }
 
     &-title {
-      font-size: $font_size_3;
-      font-family: $NOTO_SANS_KR_MEDIUM;
+      font-size: $font_size_2;
+      font-family: $NOTO_SANS_KR_REGULAR;
       overflow:hidden;
       text-overflow:ellipsis;
       white-space:nowrap;
   
       >span:hover {
+        text-decoration: underline;
         cursor: pointer;
-        color: $soda_primary;
       }
     }
   }
@@ -53,24 +44,11 @@
     &-wrap {
       width: calc(100% / 2);
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       font-size: $font_size_2;
       font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
-
-      >div {
-        width: 90px;
-        display: flex;
-        justify-content: flex-end;
-      }
-
+      color: $gray_3;
     }
-    &-wrap:nth-child(1) {
-      border-right: 1px solid $shadow;
-      justify-content: flex-start;
-    }
-    // &-wrap:nth-child(2) {
-    //   border-right: 1px solid $shadow;
-    // }
   }
   
   

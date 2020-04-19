@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import SecureLS from 'secure-ls';
 import TokenVerification from 'lib/Token/TokenVerification';
-import styled, { css }from 'styled-components';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './NavBar.scss';
@@ -13,9 +12,6 @@ const cx = classNames.bind(style);
 const NavBar = ({ pageType, url, store, history }) => {  
   const { modal } = store.dialog;
 
-  // const [bambooFeedStyle, setBambooFeedStyle] = useState('');
-  // const [bambooWriteStyle, setBambooWriteStyle] = useState('');
-  // const [bambooAdminStyle, setBambooAdminStyle] = useState('');
   const [adminAuth, setAdminAuth] = useState(false);
 
   const ls = new SecureLS({ encodingType: 'aes' });
@@ -32,26 +28,6 @@ const NavBar = ({ pageType, url, store, history }) => {
     }
   };
 
-  // const setButtonStyle = () => {
-  //   switch (url) {
-  //   case 'bamboo':
-  //     setBambooFeedStyle('NavBar-ButtonContents');
-  //     break;
-  //   case 'bamboo-write':
-  //     setBambooWriteStyle('NavBar-ButtonContents');
-  //     break;
-  //   case 'inquiry':
-  //     setBambooAdminStyle('NavBar-ButtonContents');
-  //     break;
-  //   case 'bamboo-admin':
-  //     setBambooAdminStyle('NavBar-ButtonContents');
-  //     break;
-  //   default:
-  //     break;
-  //   }
-  // };
-
-
   const handleUrl = (propUrl) => {
     if (propUrl === '/bamboo-admin' || propUrl === '/inquiry-admin') {
       if (!adminAuth) {
@@ -59,6 +35,16 @@ const NavBar = ({ pageType, url, store, history }) => {
           title: 'Warning!',
           stateType: 'warning',
           contents: '접근 권한 없음! (관리자 계정으로 다시 시도 해주세요!)'
+        });
+  
+        return;
+      }
+    } else if (propUrl === '/inquiry-write') {
+      if (token === 'empty') {
+        modal({
+          title: 'Warning!',
+          stateType: 'warning',
+          contents: '문의 작성은 로그인 후 이용 가능 합니다!'
         });
   
         return;
@@ -86,7 +72,7 @@ const NavBar = ({ pageType, url, store, history }) => {
           <div className={cx('NavBar-bottom-wrap-content-btns')}>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo'})} onClick={() => handleUrl('/bamboo')}>대숲 게시글</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry'})} onClick={() => handleUrl('/inquiry')}>문의</button>
-            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'question-write'})} onClick={() => handleUrl('/question-write')}>문의하기</button>
+            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-write'})} onClick={() => handleUrl('/inquiry-write')}>문의하기</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-admin'})} onClick={() => handleUrl('/inquiry-admin')}>어드민</button>
           </div>
         </div>

@@ -30,16 +30,57 @@
       min-width: 1080px;
       max-width: 1080px;
       min-height: 889px;
-      padding-bottom: 190px;
+      padding-bottom: 170px;
     }
   }
   &-footer {
     position: absolute;
     width: 100%;
     min-width: 1200px;
-    height: 160px;
+    height: 100px;
     bottom: 0;
     box-shadow: 0 1px 6px 0 $shadow;
+    background-color: $navBar_background;
+    font-size: $font_size_2;
+    font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+    color: $gray_3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-wrap {
+      min-width: 1080px;
+      max-width: 1080px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-left {
+        width: 180px;
+        display: flex;
+        justify-content: space-between;
+        // align-items: center;
+      }
+      &-right {
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+
+        &-team:hover, &-inquiry:hover, &-sign:hover, &-gitHub:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
+        &-gitHub {
+          display: flex;
+          align-items: center;
+
+          >svg {
+            color: $black;
+          }
+        }
+      }
+    }
 
     &-hidden {
       display: none;
