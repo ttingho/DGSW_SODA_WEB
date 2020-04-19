@@ -223,12 +223,9 @@ const InquiryWriteContainers = ({ store, history }) => {
         await modal({
           title: 'Success!',
           stateType: 'success',
-          contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.'
+          contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.',
+          closeFunc: () => history.goBack(1)
         });
-
-        setTimeout(function() {
-          history.goBack(1);
-        }, 2000);
       })
       .catch(async (error) => {
         const { status } = error.response;
