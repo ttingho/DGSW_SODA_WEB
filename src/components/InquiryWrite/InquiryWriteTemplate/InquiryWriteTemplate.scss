@@ -77,10 +77,10 @@
     align-items: center;
     justify-content: center;
 
-    // &-imageList {
-    //   width: 730px;
-    //   border: 1px solid black;
-    // }
+    &-imageList {
+      width: 100%;
+      margin-bottom: 30px;
+    }
 
     &-titleBox {
       display: flex;
@@ -112,8 +112,9 @@
         margin: auto;
 
         &-qIcon {
-          width: 100%;
-          height: 100%;
+          font-size: 30px;
+          color: $soda_primary;
+          font-family: $CAFE24_OH_SQUARE;
         }
       }
     }
