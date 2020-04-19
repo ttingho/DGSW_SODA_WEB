@@ -16,10 +16,10 @@ const NotFoundTemplate = () => {
         The page was not found
       </div>
       <div className={cx('NotFound-HomePageLinkDiv')}>
-        <a className={cx('NotFound-HomePageLink')} href={'https://takeup.co.kr'}> Home Page</a>
+        <a className={cx('NotFound-HomePageLinkDiv-HomePageLink')} href={'https://takeup.co.kr'}> Home Page</a>
       </div>
       <div className={cx('NotFound-NotFoundImageBackground')}>
-        <img className={cx('NotFound-NotFoundImageStyle')} src={boat}/>
+        <img className={cx('NotFound-NotFoundImageBackground-NotFoundImageStyle')} src={boat}/>
       </div>
     </div>
   );
