@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import style from './InquiryWriteTemplate.scss';
 import Button from 'components/Common/Button';
 import { MdInsertPhoto, MdClose } from 'react-icons/md';
-import qIcon from 'assets/image/symbol_q.png';
 import classNames from 'classnames';
 import Pagination from 'components/Common/Pagination';
 
@@ -52,10 +51,10 @@ const InquiryWriteTemplate = ({
       <div className={cx('QuestionWriteTemplate-contentsBox')}>
         <div className={cx('QuestionWriteTemplate-contentsBox-titleBox')}>
           <div className={cx('QuestionWriteTemplate-contentsBox-titleBox-qIconDiv')}>
-            <img className={cx('QuestionWriteTemplate-contentsBox-titleBox-qIconDiv-qIcon')} src={qIcon}/>
+            <span className={cx('QuestionWriteTemplate-contentsBox-titleBox-qIconDiv-qIcon')}>Q</span>
           </div>
           <div className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv')}>
-            <input className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv-title')} placeholder={'문의 제목은 여기 작성 해주세요...'}  value={title} onChange={event => setTitle(event.target.value)}/>
+            <input value={title} onChange={event => setTitle(event.target.value)} className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv-title')} type={'text'} placeholder={'문의 제목은 여기 작성 해주세요...'}/>
           </div>
         </div>
         <div className={cx('QuestionWriteTemplate-contentsTopBox-imageList')}>

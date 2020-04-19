@@ -12,12 +12,13 @@
     width: 50px;
     height: 50px;
     position: relative;
-    top: 75px;
-    right: 25px;
+    top: 80px;
+    right: 15px;
 
     &-Icon {
-      width: 100%;
-      height: 100%;
+      font-size: 30px;
+      color: $soda_primary;
+      font-family: $CAFE24_OH_SQUARE;
     }
   }
 
@@ -25,12 +26,14 @@
     width: 50px;
     height: 50px;
     position: relative;
-    top: 20px;
-    right: 350px;
+    top: 30px;
+    right: 340px;
+    margin: auto;
 
     &-Icon {
-      width: 100%;
-      height: 100%;
+      font-size: 30px;
+      color: $soda_primary;
+      font-family: $CAFE24_OH_SQUARE;
     }
   }
 

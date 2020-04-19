@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import QIconImage from 'assets/image/q-character-alphabet-letter-32868.png';
-import AIconImage from 'assets/image/AIcon.png';
+// import QIconImage from 'assets/image/q-character-alphabet-letter-32868.png';
+// import AIconImage from 'assets/image/AIcon.png';
 import style from './InquiryDetailTemplate.scss';
 import Pagination from 'components/Common/Pagination';
 import moment from 'moment';
@@ -53,7 +53,7 @@ const InquiryDetailTemplate = ({
         </div>
       </div>
       <div className={cx('InquiryDetailTemplate-Top')}>
-        <img className={cx('InquiryDetailTemplate-Top-Icon')} src={QIconImage}/>
+        <span className={cx('InquiryDetailTemplate-Top-Icon')}>Q</span>
       </div>
       <div className={cx('InquiryDetailTemplate-QuestionCardDiv')}>
         <div className={cx('InquiryDetailTemplate-QuestionCardDiv-TitleBox')}>
@@ -100,7 +100,7 @@ const InquiryDetailTemplate = ({
       </div>
       <div>
         <div className={cx('InquiryDetailTemplate-AnswerTop')}>
-          <img className={cx('InquiryDetailTemplate-AnswerTop-Icon')} src={AIconImage}/>
+          <span className={cx('InquiryDetailTemplate-AnswerTop-Icon')}>A</span>
         </div>
         <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv')}>
           {
