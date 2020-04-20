@@ -95,7 +95,6 @@ const NavBar = ({ pageType, url, store, history }) => {
 
   useEffect(() => {
     setUserInfo();
-    // setButtonStyle();
   });
 
   return (

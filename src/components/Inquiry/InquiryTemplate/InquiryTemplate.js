@@ -47,7 +47,7 @@ const InquiryTemplate = ({
                 <button className={cx('InquiryTemplate-header-category-btn')} 
                   onClick={() => setIsClickedCategory(!isClickedCategory)}
                 >
-                  카테고리
+                  {category}
                   <IoIosArrowDown className="down_icon"/>
                 </button>
                 <ul className={cx('InquiryTemplate-header-category-ul', {'InquiryTemplate-header-category-ul-hidden': !isClickedCategory})}>

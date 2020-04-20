@@ -126,9 +126,6 @@ $profile_img_size: 55px;
             font-family: $NOTO_SANS_KR_MEDIUM;
             padding: 0;
           }
-          &-button:hover {
-            border-bottom: 1px solid $gray_3;
-          }
         }
       }
     }
@@ -136,8 +133,5 @@ $profile_img_size: 55px;
 
   &-clicked {
     color: $black;
-  }
-  &-clicked:hover {
-    border: none;
   }
 }

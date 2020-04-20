@@ -25,7 +25,7 @@ const PageTemplate = ({ pageType, url, children, history }) => {
       <div className={cx('PageTemplate-contents', {'PageTemplate-contents-inquiry': pageType === 'inquiry'})}>
         {children}
       </div>
-      <div className={cx('PageTemplate-footer', {'PageTemplate-footer-hidden': pageType === 'bamboo'})}>
+      <div className={cx('PageTemplate-footer')}>
         <div className={cx('PageTemplate-footer-wrap')}>
           <div className={cx('PageTemplate-footer-wrap-left')}>
             <span className={cx('PageTemplate-footer-wrap-left-version')}>version S.0415</span>
