@@ -1,11 +1,10 @@
 import React, { Component, useState, useCallback, useEffect } from 'react';
-import dateFormat from 'dateformat';
+import moment from 'moment';
 import 'containers/Bamboo/BambooContainer';
 import './BambooItem.scss';
 import PropTypes from 'prop-types';
 import defaultProfileImage from '../../../assets/image/panda.jpg';
 import facebookLogo from '../../../assets/image/994EAB4F5D2565432F.png';
-import BambooImageModal from '../BambooImageModal';
 import Pagination from 'components/Common/Pagination';
 
 // eslint-disable-next-line react/prop-types
@@ -13,14 +12,12 @@ const BambooItem = ({ item }) => {
   const [profileImages, setProfileImages] = useState([]);
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
-  // const [pictureIndex, setPictureIndex] = useState(0);
-  // const [isModals, setIsModals] = useState(false);
 
   // eslint-disable-next-line react/prop-types
   const { contents, joinDate, allowDate, picture, name, profileImage } = item;
 
-  const joinDateFormat = dateFormat(joinDate, 'yyyy-mm-dd h:MM:ss');
-  const allowDateFormat = dateFormat(allowDate, 'yyyy-mm-dd h:MM:ss');
+  const joinDateFormat = moment(joinDate).format('YYYY-MM-DD HH:mm:ss');
+  const allowDateFormat =  moment(allowDate).format('YYYY-MM-DD HH:mm:ss');
 
   const handleBambooImage = useCallback(async () => {
     // 프로필 이미지 설정
