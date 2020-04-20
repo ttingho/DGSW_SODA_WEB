@@ -68,6 +68,7 @@
 
         &-team:hover, &-inquiry:hover, &-sign:hover, &-gitHub:hover {
           cursor: pointer;
+          text-decoration: underline;
         }
 
         &-gitHub {

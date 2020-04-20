@@ -23,13 +23,13 @@
 
     &-category {
       position: relative;
-      width: 100px;
+      // width: 100px;
       height: 40px;
       display: flex;
       align-items: center;
 
       &-btn {
-        width: 100px;
+        // width: 100px;
         height: 30px;
         display: flex;
         justify-content: space-around;
@@ -44,6 +44,7 @@
         >.down_icon {
           width: 15px;
           height: 15px;
+          margin-left: 8px;
         }
       }
       &-ul {
