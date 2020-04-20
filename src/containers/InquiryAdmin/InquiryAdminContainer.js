@@ -89,6 +89,7 @@ const InquiryAdminContainer = ({ store, history }) => {
   return (
     <>
       <InquiryTemplate
+        isAdmin={true}
         category={category}
         handleCategory={handleCategory}
         handlePageIndex={handlePageIndex}

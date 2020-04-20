@@ -8,6 +8,7 @@ import PageLoading from 'components/Common/PageLoading';
 const cx = classnames.bind(style);
 
 const InquiryTemplate = ({
+  isAdmin,
   category,
   handleCategory,
   handlePageIndex,
@@ -33,7 +34,7 @@ const InquiryTemplate = ({
     handleCategory('전체');
     handlePageIndex(1);
   }, []);
-
+  
   return (
     <>
       {
@@ -55,6 +56,9 @@ const InquiryTemplate = ({
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '소다 버그 신고'})} onClick={() => clickCategory('소다 버그 신고')}>소다 버그 신고</li>
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '관리자 문의'})} onClick={() => clickCategory('관리자 문의')}>관리자 문의</li>
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '기타 문의'})} onClick={() => clickCategory('기타 문의')}>기타 문의</li>
+                  {isAdmin ? <></>
+                    : <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '내가 작성한 문의'})} onClick={() => clickCategory('내가 작성한 문의')}>내가 작성한 문의</li>
+                  }
                 </ul>
               </div>
             </div>
@@ -82,6 +86,7 @@ const InquiryTemplate = ({
 };
 
 InquiryTemplate.propTypes = {
+  isAdmin: PropTypes.bool,
   category: PropTypes.string,
   handleCategory: PropTypes.func,
   handlePageIndex: PropTypes.func,

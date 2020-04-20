@@ -37,7 +37,7 @@ $profile_img_size: 55px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        font-size: $font_size_8;
+        font-size: $font_size_7;
         font-family: $NOTO_SANS_KR_BOLD;
         color: $bamboo_primary;
 
@@ -129,19 +129,6 @@ $profile_img_size: 55px;
           &-button:hover {
             border-bottom: 1px solid $gray_3;
           }
-          // &-bamboo, &-inquiry, &-bambooWrite, &-bambooAdmin {
-          //   background-color: transparent;
-          //   border: none;
-          //   outline: none;
-          //   cursor: pointer;
-          //   color: $gray_3;
-          //   font-size: $font_size_4;
-          //   font-family: $NOTO_SANS_KR_MEDIUM;
-          //   padding: 0;
-          // }
-          // &-bamboo:hover, &-inquiry:hover, &-bambooWrite:hover, &-bambooAdmin:hover {
-          //   border-bottom: 1px solid $gray_3;
-          // }
         }
       }
     }

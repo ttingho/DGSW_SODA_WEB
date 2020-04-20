@@ -161,6 +161,20 @@ class inquiryRepository {
     }
   }
 
+  async getMyInquiry (limit, page) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.get(`${SERVER}/question/my?limit=${limit}&page=${page}`, {
+        headers: {
+          'x-access-token': token,
+        }
+      });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new inquiryRepository();
