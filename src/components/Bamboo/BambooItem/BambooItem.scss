@@ -110,19 +110,21 @@
     border-bottom: 1px solid #e9ecef;
 
     &-AllowDateStyle {
-      margin: -45px 0px 0px 480px;
-      font-size: $font_size_2;
+      margin: -40px 0px 0px 500px;
+      font-size: $font_size_1;
+      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
       color: #afb7c2;
     }
       
     &-JoinDateStyle {
-      margin: -20px 0px 0px 480px;
-      font-size: $font_size_2;
+      margin: -20px 0px 0px 500px;
+      font-size: $font_size_1;
+      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
       color: #afb7c2;
     }
 
     &-FacebookLinkImage {
-      margin: -20px 0px 0px 0px;
+      margin: -23px 0px 0px 0px;
       width: 50px;
       height: 50px;
       border: none;
@@ -153,16 +155,17 @@
       }
   
       &-ProfileName {
-        margin: -65px 0px 0px 100px;
-        font-size: $font_size_5;
+        margin: -55px 0px 0px 100px;
+        font-size: $font_size_2;
+        font-family: $NOTO_SANS_KR_THIN, $NOTO_SANS_MEDIUM;
         font-weight: bold;
-        color: #49d277;
       }
 
       &-Subject {
         margin: 5px 0px 0px 100px;
-        font-size: $font_size_3;
+        font-size: $font_size_1;
         color: #49d277;
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
       }
     }
   }

@@ -10,18 +10,40 @@
   flex-direction: column;
   align-items: center;
 
+  &-guideDiv {
+    display: flex;
+    width: 730px;
+    height: 30px;
+    align-items: center;
+    justify-content: flex-end;
+
+    &-title { 
+      font-size: $font_size_1;
+      color: black;
+      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    }
+
+    &-guide {
+      font-size: $font_size_1;
+      color: $gray_3;
+      padding-left: 5px;
+      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    }
+  }
+
   &-contentsTopBox {
     display: flex;
     width: 730px;
     height: 70px;
     align-items: center;
-    justify-content: center;
     margin-top: 5%;
+    justify-content: center;
 
     &-categoryBox {
       width: 230px;
       height: 50px;
       border: none;
+      cursor: pointer;
       outline: 0px;
       padding-left: 10px;
       font-size: $font_size_2;
@@ -79,7 +101,6 @@
 
     &-imageList {
       width: 100%;
-      margin-bottom: 30px;
     }
 
     &-titleBox {
@@ -123,12 +144,12 @@
 
     &-contents {
       width: 700px;
-      height: 200px;
+      height: 100px;
 
       &-text {
         width: 100%;
         height: 100%;
-        padding: 15px;
+        padding: 30px;
         font-size: $font_size_2;
         color: $gray_4;
         font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;

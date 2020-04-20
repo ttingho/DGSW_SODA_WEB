@@ -66,6 +66,10 @@ const InquiryWriteTemplate = ({
           <textarea className={cx('QuestionWriteTemplate-contentsBox-contents-text')} placeholder={'문의 내용은 여기 작성 해주세요...'} value={contents} onChange={event => setContents(event.target.value)}/>
         </div>
       </div>
+      <div className={cx('QuestionWriteTemplate-guideDiv')}>
+        <span className={cx('QuestionWriteTemplate-guideDiv-title')}>참고:</span>
+        <span className={cx('QuestionWriteTemplate-guideDiv-guide')}>사진은 최대 5장 첨부 가능합니다!</span>
+      </div>
     </div>
   );
 };
