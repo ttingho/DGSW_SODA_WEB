@@ -2,23 +2,21 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import AOS from 'aos';
-import { SectionsContainer, Section, Header, Footer } from 'react-fullpage';
 import { withRouter } from 'react-router-dom';
-import { TiMessages } from 'react-icons/ti';
-import { FaPen, FaFacebookSquare, FaQuestion } from 'react-icons/fa';
-import { MdPeople, MdPersonOutline, MdChat, MdPublic, MdThumbsUpDown } from 'react-icons/md';
-import { FiPlus, FiArrowRight } from 'react-icons/fi';
-import { TiSocialYoutubeCircular } from 'react-icons/ti';
-import { IoMdShare } from 'react-icons/io';
-import { typography } from 'styles/typography/typography_scheme.js';
+import { typography } from 'styles/typography/typography_scheme';
+import { color } from 'styles/color/color_scheme';
 import style from './Intro.scss';
-import Button from 'components/Common/Button';
-import Bamboo1 from 'assets/image/bamboo1.png';
-import Bamboo2 from 'assets/image/bamboo2.png';
+import Footer from 'components/Common/Footer';
+import Image1 from 'assets/image/intro/intro_image1.png';
+import Image2 from 'assets/image/intro/intro_image2.png';
+import Panda from 'assets/image/intro/panda.png';
+import Feed from 'assets/image/intro/soda_feed.png';
+import Inquiry from 'assets/image/intro/soda_inquiry.png';
+import Member1 from 'assets/image/intro/member_intro1.png';
+import Member2 from 'assets/image/intro/member_intro2.png';
+import Member3 from 'assets/image/intro/member_intro3.png';
 import 'aos/dist/aos.css';
 
-
-const { size } = typography;
 const cx = classNames.bind(style);
 
 const Intro = ({ history }) => {
@@ -30,431 +28,117 @@ const Intro = ({ history }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  // const options = {
-  //   activeClass : 'active' , //  섹션 링크에 추가 된 클래스
-  //   anchors : ['first', 'second', 'third'] , //  각 섹션의 앵커               
-  //   arrowNavigation : true , //  화살표 키 사용       
-  //   // className : ' SectionContainer ' , //  섹션 컨테이너의 클래스 이름             
-  //   delay : 600 , //  스크롤 애니메이션 속도                 
-  //   navigation : true , //  내비게이션 사용            
-  //   scrollBar : false , //  브라우저 기본 스크롤바 사용             
-  //   sectionClassName : ' Section ' , //  섹션 클래스 이름      
-  //   sectionPaddingTop : ' 0 ' , //  섹션 상단 패딩     
-  //   sectionPaddingBottom : ' 0 ' , //  섹션 하단 패딩  
-  //   verticalAlign : false //  각 섹션의 내용을 세로로 정렬 
-  // };
-
   return (
-    // <SectionsContainer {...options}>
-    //   <Section className={'Intro-page1'}>
-    //     <div className={cx('Intro-page1')}>
-    //       <div className={cx('Intro-page1-left')} data-aos={'fade-right'}>
-    //         <div className={cx('Intro-page1-left-title')}>
-    //           대구소프트웨어고등학교<span>대나무 숲</span>
-    //         </div>
-    //         <div className={cx('Intro-page1-left-content1')}>
-    //           <div className={cx('Intro-page1-left-content1-line1')}>
-    //             <span>Facebook</span>을 통한 대소고인들과의 소통
-    //           </div>
-    //           <div className={cx('Intro-page1-left-content1-line2')}>
-    //             <span>Facebook API</span>로 대나무 숲 전용 페이지에 게시물을 올릴 수 있어요!
-    //           </div>
-    //           <div className={cx('Intro-page1-left-content1-line3')}>
-    //             <FaFacebookSquare className={cx('Intro-page1-left-content1-line3-facebook')}/>
-    //             <div className="circle1"/>
-    //             <div className="circle1"/>
-    //             <div className="circle2"/>
-    //             <div className="circle2"/>
-    //             <div className={cx('Intro-page1-left-content1-line3-write')}>
-    //               <FaPen className="icon"/>
-    //             </div>
-    //           </div>
-    //         </div>
-    //         <div className={cx('Intro-page1-left-content2')}>
-    //           <div className={cx('Intro-page1-left-content2-line1')}>
-    //             <span>실명</span>과 <span>익명</span>으로 쉽게 전달
-    //           </div>
-    //           <div className={cx('Intro-page1-left-content2-line2')}>
-    //             게시물을 작성할 때 실명과 익명 중에 하나를 선택해 쉽게 접근할 수 있어요!
-    //           </div>
-    //           <div className={cx('Intro-page1-left-content2-line3')}>
-    //             <div className={cx('Intro-page1-left-content2-line3-item1')}>
-    //               <MdPersonOutline className="icon"/>
-    //             </div>
-    //             <FiPlus className={cx('Intro-page1-left-content2-line3-item2')}/>
-    //             <div className={cx('Intro-page1-left-content2-line3-item3')}>
-    //               <MdPersonOutline className="icon"/>
-    //               <FaQuestion className="icon2"/>
-    //             </div>
-    //           </div>
-    //         </div>
-    //         <Button
-    //           customStyle={{width:'300px', height:'100px', fontSize: size.s6}}
-    //           appearance={'secondary'}
-    //           handleFunction={() => history.push('/bamboo')}       
-    //         >
-    //           대나무 숲 둘러보기
-    //         </Button>
-    //       </div>
-    //       <div className={cx('Intro-page1-right')} data-aos="fade-left">
-    //         <div className={cx('Intro-page1-right-top')}>
-    //           <span className={cx('Intro-page1-right-top-ment')}>
-    //             대소고 소통의 다리
-    //           </span>
-    //           <div className={cx('Intro-page1-right-top-title')}>
-    //             <TiMessages className={cx('Intro-page1-right-top-title-icon')}/>
-    //             <span className={cx('Intro-page1-right-top-title-text')}>
-    //               SODA
-    //             </span>
-    //           </div>
-    //         </div>
-    //         <div className={cx('Intro-page1-right-bottom')}>
-    //           <div className={cx('Intro-page1-right-bottom-box1')}>
-    //             <img src={Bamboo1} all={'img'} className={'image'}/>
-    //           </div>
-    //           <div className={cx('Intro-page1-right-bottom-box2')}>
-    //             <img src={Bamboo2} all={'img'} className={'image'}/>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </Section>
-    //   <Section className={'Intro-page2'}>
-    //     <div className={cx('Intro-page2')}>
-    //       <div className={cx('Intro-page2-left')} data-aos={'fade-right'}>
-    //         <div className={cx('Intro-page2-left-title')}>
-    //           대구소프트웨어고등학교<span>커뮤니티</span>
-    //         </div>
-    //         <div className={cx('Intro-page2-left-content1')}>
-    //           <div className={cx('Intro-page2-left-content1-line1')}>
-    //             <span>다양한 컨텐츠</span>들을 쉽고 편리하게 전달
-    //           </div>
-    //           <div className={cx('Intro-page2-left-content1-line2')}>
-    //             자신의 관심 분야에 해당하는 컨텐츠들을 공유하고 소통할 수 있어요!
-    //           </div>
-    //           <div className={cx('Intro-page2-left-content1-line3')}>
-    //             <div className={cx('Intro-page2-left-content1-line3-item1')}>
-    //               <div className={cx('Intro-page2-left-content1-line3-item1-top')}>
-    //                 <MdPeople className="people1"/>
-    //                 <MdPeople className="people2"/>
-    //                 <MdPeople className="people3"/>
-    //               </div>
-    //               <div className={cx('Intro-page2-left-content1-line3-item1-bottom')}>
-    //                 <MdChat className="chat"/>
-    //               </div>
-    //             </div>
-    //             <FiArrowRight className={cx('Intro-page2-left-content1-line3-item2')}/>
-    //             <MdPublic className={cx('Intro-page2-left-content1-line3-item3')}/>
-    //           </div>
-    //         </div>
-    //         <div className={cx('Intro-page2-left-content2')}>
-    //           <div className={cx('Intro-page2-left-content2-line1')}>
-    //             <span>Youtube API</span>를 이용한 영상 공유
-    //           </div>
-    //           <div className={cx('Intro-page2-left-content2-line2')}>
-    //             <span className="span1">Youtube API</span>로 자신이 추천하는 <span className="span2">Youtube</span> 동영상을 공유할 수 있어요!
-    //           </div>
-    //           <div className={cx('Intro-page2-left-content2-line3')}>
-    //             <TiSocialYoutubeCircular className={cx('Intro-page2-left-content2-line3-item1')}/>
-    //             <MdThumbsUpDown className={cx('Intro-page2-left-content2-line3-item2')}/>
-    //             <IoMdShare className={cx('Intro-page2-left-content2-line3-item3')}/>
-    //           </div>
-    //         </div>
-    //         <Button
-    //           customStyle={{width:'300px', height:'100px', fontSize: size.s6}}
-    //           appearance={'tertiary'}
-    //           handleFunction={() => history.push('/bamboo')}
-    //         >
-    //           커뮤니티 둘러보기
-    //         </Button>
-    //       </div>
-    //       <div className={cx('Intro-page2-right')} data-aos={'fade-left'}>
-    //         <div className={cx('Intro-page2-right-bottom')}>
-    //           <div className={cx('Intro-page2-right-bottom-box1')}>
-    //             참고사진
-    //           </div>
-    //           <div className={cx('Intro-page2-right-bottom-box2')}>
-    //             참고사진
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </Section>
-    //   <Section className={'Intro-page3'}>
-    //     <div className={cx('Intro-page3')}>
-    //       <div className={cx('Intro-page3-top')}>
-    //         <div className={cx('Intro-page3-top-left')} data-aos={'fade-right'}>
-    //           <div className={cx('Intro-page3-top-left-title')}>
-    //             대구소프트웨어고등학교<span>팀빌딩</span>
-    //           </div>
-    //           <div className={cx('Intro-page3-top-left-content1')}>
-    //             <div className={cx('Intro-page3-top-left-content1-line1')}>
-    //               <span>싱글</span>들을 위한 간편한 팀빌딩 서비스
-    //             </div>
-    //             <div className={cx('Intro-page3-top-left-content1-line2')}>
-    //               여러명에서 같이 하고싶으면 팀원 모집 또는 신청을 할 수 있어요!
-    //             </div>
-    //             <div className={cx('Intro-page3-top-left-content1-line3')}>
-    //               <div className={cx('Intro-page3-top-left-content1-line3-item1')}>
-    //                 <div className={cx('Intro-page3-top-left-content1-line3-item1-top')}>
-    //                   <MdPeople className="people1"/>
-    //                   <MdPeople className="people2"/>
-    //                   <MdPeople className="people3"/>
-    //                 </div>
-    //                 <div className={cx('Intro-page3-top-left-content1-line3-item1-bottom')}>
-    //                   <MdChat className="chat"/>
-    //                 </div>
-    //               </div>
-    //               <FiArrowRight className={cx('Intro-page3-top-left-content1-line3-item2')}/>
-    //               <MdPublic className={cx('Intro-page3-top-left-content1-line3-item3')}/>
-    //             </div>
-    //           </div>
-    //           <div className={cx('Intro-page3-top-left-content2')}>
-    //             <div className={cx('Intro-page3-top-left-content2-line1')}>
-    //               <span>온라인 면접</span>을 이용한 인재 착취
-    //             </div>
-    //             <div className={cx('Intro-page3-top-left-content2-line2')}>
-    //               <span className="span1">온라인 면접</span>으로 자신이 원하는 <span className="span2">인재</span>를 구할 수 있어요!
-    //             </div>
-    //             <div className={cx('Intro-page3-top-left-content2-line3')}>
-    //               <TiSocialYoutubeCircular className={cx('Intro-page3-top-left-content2-line3-item1')}/>
-    //               <MdThumbsUpDown className={cx('Intro-page3-top-left-content2-line3-item2')}/>
-    //               <IoMdShare className={cx('Intro-page3-top-left-content2-line3-item3')}/>
-    //             </div>
-    //           </div>
-    //           <Button
-    //             customStyle={{width:'300px', height:'100px', fontSize: size.s6}}
-    //             appearance={'tertiary'}
-    //             handleFunction={() => history.push('/bamboo')}
-    //           >
-    //             팀빌딩 둘러보기
-    //           </Button>
-    //         </div>
-    //         <div className={cx('Intro-page3-top-right')} data-aos={'fade-left'}>
-    //           <div className={cx('Intro-page3-top-right-bottom')}>
-    //             <div className={cx('Intro-page3-top-right-bottom-box1')}>
-    //               참고사진
-    //             </div>
-    //             <div className={cx('Intro-page3-top-right-bottom-box2')}>
-    //               참고사진
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div className={cx('Intro-page3-bottom')} data-aos={'fade-down'} data-aos-duration={'800'}>
-    //         <Button
-    //           customStyle={{width:'300px', height:'100px', fontSize: size.s6}}
-    //           appearance={'outline'}
-    //           handleFunction={() => history.push('/sign')}
-    //         >
-    //           SODA 로그인하기
-    //         </Button>
-    //       </div>
-    //     </div>
-    //   </Section>
-    // </SectionsContainer>
     <div className={cx('Intro')}>
       <div className={cx('Intro-page1')}>
-        <div className={cx('Intro-page1-left')} data-aos={'fade-right'}>
-          <div className={cx('Intro-page1-left-title')}>
-            대구소프트웨어고등학교<span>대나무 숲</span>
-          </div>
-          <div className={cx('Intro-page1-left-content1')}>
-            <div className={cx('Intro-page1-left-content1-line1')}>
-              <span>Facebook</span>을 통한 대소고인들과의 소통
+        <div className={cx('Intro-page1-wrap')}>
+          <div className={cx('Intro-page1-wrap-left')}>
+            <div className={cx('Intro-page1-wrap-left-header')}>
+              <span onClick={() => history.push('/')}>SODA</span>
             </div>
-            <div className={cx('Intro-page1-left-content1-line2')}>
-              <span>Facebook API</span>로 대나무 숲 전용 페이지에 게시물을 올릴 수 있어요!
-            </div>
-            <div className={cx('Intro-page1-left-content1-line3')}>
-              <FaFacebookSquare className={cx('Intro-page1-left-content1-line3-facebook')}/>
-              <div className="circle1"/>
-              <div className="circle1"/>
-              <div className="circle2"/>
-              <div className="circle2"/>
-              <div className={cx('Intro-page1-left-content1-line3-write')}>
-                <FaPen className="icon"/>
+            <div className={cx('Intro-page1-wrap-left-subtitle')} data-aos='fade-right'>
+              <span>대구 소프트웨어 고등학교</span>
+              <div className={cx('Intro-page1-wrap-left-subtitle-highlight')}>
+                <span style={{color: color.soda_primary}}>소</span>
+                <span style={{color: color.black}}>통</span>
+                <span style={{color: color.black}}>의</span>&nbsp;
+                <span style={{color: color.soda_primary}}>다</span>
+                <span style={{color: color.black}}>리</span>
               </div>
             </div>
-          </div>
-          <div className={cx('Intro-page1-left-content2')}>
-            <div className={cx('Intro-page1-left-content2-line1')}>
-              <span>실명</span>과 <span>익명</span>으로 쉽게 전달
-            </div>
-            <div className={cx('Intro-page1-left-content2-line2')}>
-              게시물을 작성할 때 실명과 익명 중에 하나를 선택해 쉽게 접근할 수 있어요!
-            </div>
-            <div className={cx('Intro-page1-left-content2-line3')}>
-              <div className={cx('Intro-page1-left-content2-line3-item1')}>
-                <MdPersonOutline className="icon"/>
-              </div>
-              <FiPlus className={cx('Intro-page1-left-content2-line3-item2')}/>
-              <div className={cx('Intro-page1-left-content2-line3-item3')}>
-                <MdPersonOutline className="icon"/>
-                <FaQuestion className="icon2"/>
-              </div>
+            <div className={cx('Intro-page1-wrap-left-content')} data-aos='fade-right'>
+              현재 대구 소프트웨어 고등학교의 소통을 담당하고 있는 서비스입니다.
+              <br/>
+              공부를 하기 위해 시작한 서비스로 아직 미흡한 점이 많지만, 계속 발전해 나가겠습니다.
             </div>
           </div>
-          <Button
-            customStyle={{width:'300px', height:'100px', fontSize: size.s6}}
-            appearance={'secondary'}
-            handleFunction={() => history.push('/bamboo')}       
-          >
-            대나무 숲 둘러보기
-          </Button>
-        </div>
-        <div className={cx('Intro-page1-right')} data-aos="fade-left">
-          <div className={cx('Intro-page1-right-top')}>
-            <span className={cx('Intro-page1-right-top-ment')}>
-              대소고 소통의 다리
-            </span>
-            <div className={cx('Intro-page1-right-top-title')}>
-              <TiMessages className={cx('Intro-page1-right-top-title-icon')}/>
-              <span className={cx('Intro-page1-right-top-title-text')}>
-                SODA
-              </span>
-            </div>
-          </div>
-          <div className={cx('Intro-page1-right-bottom')}>
-            <div className={cx('Intro-page1-right-bottom-box1')}>
-              <img src={Bamboo1} all={'img'} className={'image'}/>
-            </div>
-            <div className={cx('Intro-page1-right-bottom-box2')}>
-              <img src={Bamboo2} all={'img'} className={'image'}/>
-            </div>
+          <div className={cx('Intro-page1-wrap-right')}>
+            <img className={cx('Intro-page1-wrap-right-img')} src={Image1} data-aos='fade-left'/>
           </div>
         </div>
       </div>
       <div className={cx('Intro-page2')}>
-        <div className={cx('Intro-page2-left')} data-aos={'fade-right'}>
-          <div className={cx('Intro-page2-left-title')}>
-            대구소프트웨어고등학교<span>커뮤니티</span>
+        <div className={cx('Intro-page2-wrap')}>
+          <div className={cx('Intro-page2-wrap-left')}>
+            <img className={cx('Intro-page2-wrap-left-img')} src={Image2} data-aos='fade-right' data-aos-delay='1000'/>
           </div>
-          <div className={cx('Intro-page2-left-content1')}>
-            <div className={cx('Intro-page2-left-content1-line1')}>
-              <span>다양한 컨텐츠</span>들을 쉽고 편리하게 전달
+          <div className={cx('Intro-page2-wrap-right')} data-aos='fade-left' data-aos-delay='1000'>
+            <div className={cx('Intro-page2-wrap-right-subtitle')}>
+              <span>맨처음의 시작?</span>
             </div>
-            <div className={cx('Intro-page2-left-content1-line2')}>
-              자신의 관심 분야에 해당하는 컨텐츠들을 공유하고 소통할 수 있어요!
+            <div className={cx('Intro-page2-wrap-right-content')}>
+              대구 소프트웨어 고등학교 졸업생이자 저희의 선배님께서 맨 처음 개발을 하시게 되었습니다.
+              <br/>
+              1인 개발로 모두가 쉽고 재밌게 이용할 수 있도록 서비스를 운영하시게 되었습니다.
+              <br/>
+              현재는 3인이 모여서 개발을 진행하고 있으며, 각자 자신의 역할을 열심히 수행하고 있습니다.
             </div>
-            <div className={cx('Intro-page2-left-content1-line3')}>
-              <div className={cx('Intro-page2-left-content1-line3-item1')}>
-                <div className={cx('Intro-page2-left-content1-line3-item1-top')}>
-                  <MdPeople className="people1"/>
-                  <MdPeople className="people2"/>
-                  <MdPeople className="people3"/>
-                </div>
-                <div className={cx('Intro-page2-left-content1-line3-item1-bottom')}>
-                  <MdChat className="chat"/>
-                </div>
-              </div>
-              <FiArrowRight className={cx('Intro-page2-left-content1-line3-item2')}/>
-              <MdPublic className={cx('Intro-page2-left-content1-line3-item3')}/>
-            </div>
-          </div>
-          <div className={cx('Intro-page2-left-content2')}>
-            <div className={cx('Intro-page2-left-content2-line1')}>
-              <span>Youtube API</span>를 이용한 영상 공유
-            </div>
-            <div className={cx('Intro-page2-left-content2-line2')}>
-              <span className="span1">Youtube API</span>로 자신이 추천하는 <span className="span2">Youtube</span> 동영상을 공유할 수 있어요!
-            </div>
-            <div className={cx('Intro-page2-left-content2-line3')}>
-              <TiSocialYoutubeCircular className={cx('Intro-page2-left-content2-line3-item1')}/>
-              <MdThumbsUpDown className={cx('Intro-page2-left-content2-line3-item2')}/>
-              <IoMdShare className={cx('Intro-page2-left-content2-line3-item3')}/>
-            </div>
-          </div>
-          <Button
-            customStyle={{width:'300px', height:'100px', fontSize: size.s6}}
-            appearance={'tertiary'}
-            handleFunction={() => history.push('/bamboo')}
-          >
-            커뮤니티 둘러보기
-          </Button>
-        </div>
-        <div className={cx('Intro-page2-right')} data-aos={'fade-left'}>
-          <div className={cx('Intro-page2-right-bottom')}>
-            <div className={cx('Intro-page2-right-bottom-box1')}>
-              참고사진
-            </div>
-            <div className={cx('Intro-page2-right-bottom-box2')}>
-              참고사진
+            <div className={cx('Intro-page2-wrap-right-detail')}>
+              <span>자세한 내용 보기</span>
             </div>
           </div>
         </div>
       </div>
       <div className={cx('Intro-page3')}>
-        <div className={cx('Intro-page3-top')}>
-          <div className={cx('Intro-page3-top-left')} data-aos={'fade-right'}>
-            <div className={cx('Intro-page3-top-left-title')}>
-              대구소프트웨어고등학교<span>팀빌딩</span>
+        <div className={cx('Intro-page3-wrap')}>
+          <div className={cx('Intro-page3-wrap-left')} data-aos='fade-right'>
+            <div className={cx('Intro-page3-wrap-left-subtitle')}>
+              <span>대나무 숲?</span>
+              <img className={cx('Intro-page3-wrap-left-subtitle-img')} src={Panda}/>
             </div>
-            <div className={cx('Intro-page3-top-left-content1')}>
-              <div className={cx('Intro-page3-top-left-content1-line1')}>
-                <span>싱글</span>들을 위한 간편한 팀빌딩 서비스
-              </div>
-              <div className={cx('Intro-page3-top-left-content1-line2')}>
-                여러명에서 같이 하고싶으면 팀원 모집 또는 신청을 할 수 있어요!
-              </div>
-              <div className={cx('Intro-page3-top-left-content1-line3')}>
-                <div className={cx('Intro-page3-top-left-content1-line3-item1')}>
-                  <div className={cx('Intro-page3-top-left-content1-line3-item1-top')}>
-                    <MdPeople className="people1"/>
-                    <MdPeople className="people2"/>
-                    <MdPeople className="people3"/>
-                  </div>
-                  <div className={cx('Intro-page3-top-left-content1-line3-item1-bottom')}>
-                    <MdChat className="chat"/>
-                  </div>
-                </div>
-                <FiArrowRight className={cx('Intro-page3-top-left-content1-line3-item2')}/>
-                <MdPublic className={cx('Intro-page3-top-left-content1-line3-item3')}/>
-              </div>
+            <div className={cx('Intro-page3-wrap-left-content')}>
+              저희는 현재 이용하고 있는 이 서비스를 대숲 (대나무 숲)이라고 부릅니다.
+              <br/>
+              현재 이 서비스는 페이스북 API를 통해 사용자가 간편하게 실명과 익명으로 게시글을 올릴 수 있습니다.
+              <br/>
+              다같이 소식들을 공유하고 의견을 나누며, 때로는 서로 웃으면서 학교 생활을 보낼 수 있습니다.
             </div>
-            <div className={cx('Intro-page3-top-left-content2')}>
-              <div className={cx('Intro-page3-top-left-content2-line1')}>
-                <span>온라인 면접</span>을 이용한 인재 착취
-              </div>
-              <div className={cx('Intro-page3-top-left-content2-line2')}>
-                <span className="span1">온라인 면접</span>으로 자신이 원하는 <span className="span2">인재</span>를 구할 수 있어요!
-              </div>
-              <div className={cx('Intro-page3-top-left-content2-line3')}>
-                <TiSocialYoutubeCircular className={cx('Intro-page3-top-left-content2-line3-item1')}/>
-                <MdThumbsUpDown className={cx('Intro-page3-top-left-content2-line3-item2')}/>
-                <IoMdShare className={cx('Intro-page3-top-left-content2-line3-item3')}/>
-              </div>
-            </div>
-            <Button
-              customStyle={{width:'300px', height:'100px', fontSize: size.s6}}
-              appearance={'tertiary'}
-              handleFunction={() => history.push('/bamboo')}
-            >
-              팀빌딩 둘러보기
-            </Button>
-          </div>
-          <div className={cx('Intro-page3-top-right')} data-aos={'fade-left'}>
-            <div className={cx('Intro-page3-top-right-bottom')}>
-              <div className={cx('Intro-page3-top-right-bottom-box1')}>
-                참고사진
-              </div>
-              <div className={cx('Intro-page3-top-right-bottom-box2')}>
-                참고사진
-              </div>
+            <div className={cx('Intro-page3-wrap-left-bamboo')}  onClick={() => history.push('/')}>
+              <span>대나무숲</span>&nbsp;보러가기
             </div>
           </div>
+          <div className={cx('Intro-page3-wrap-right')} data-aos='fade-left'>
+            <img className={cx('Intro-page3-wrap-right-feed')} src={Feed} />
+            <img className={cx('Intro-page3-wrap-right-inquiry')} src={Inquiry} />
+          </div>
         </div>
-        <div className={cx('Intro-page3-bottom')} data-aos={'fade-down'} data-aos-duration={'800'}>
-          <Button
-            customStyle={{width:'300px', height:'100px', fontSize: size.s6}}
-            appearance={'outline'}
-            handleFunction={() => history.push('/sign')}
-          >
-            SODA 로그인하기
-          </Button>
-        </div>
-        
       </div>
+      <div className={cx('Intro-page4')}>
+        <div className={cx('Intro-page4-wrap')}>
+          <div className={cx('Intro-page4-wrap-top')}>
+            <div className={cx('Intro-page4-wrap-top-subtitle')}>
+              <span>DEVELOPER</span>
+              <span>개발자 소개</span>
+            </div>
+          </div>
+          <div className={cx('Intro-page4-wrap-bottom')}>
+            <div className={cx('Intro-page4-wrap-bottom-member')} data-aos='fade-up'>
+              <img className={cx('Intro-page4-wrap-bottom-member-img')} src={Member1} />
+              <div className={cx('Intro-page4-wrap-bottom-member-info')}>
+                <span>추명호</span>
+                <span>웹 프런트 개발</span>
+                <span>디자인</span>
+              </div>
+            </div>
+            <div className={cx('Intro-page4-wrap-bottom-member')} data-aos='fade-up' data-aos-delay='200'>
+              <img className={cx('Intro-page4-wrap-bottom-member-img')} src={Member2} />
+              <div className={cx('Intro-page4-wrap-bottom-member-info')}>
+                <span>오해성</span>
+                <span>웹 프런트 개발</span>
+                <span>서버 개발</span>
+              </div>
+            </div>
+            <div className={cx('Intro-page4-wrap-bottom-member')} data-aos='fade-up' data-aos-delay='400'>
+              <img className={cx('Intro-page4-wrap-bottom-member-img')} src={Member3} />
+              <div className={cx('Intro-page4-wrap-bottom-member-info')}>
+                <span>최석준</span>
+                <span>웹 프런트 개발</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer/>
     </div>
   );
 };

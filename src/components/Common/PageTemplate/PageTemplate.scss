@@ -24,7 +24,7 @@
     padding-top: 150px;
     width: 100%;
     min-width: 1200px;
-    min-height: 889px;
+    min-height: 969px;
     padding-bottom: 100px;
 
     &-inquiry {
@@ -34,56 +34,8 @@
   }
   &-footer {
     position: absolute;
-    width: 100%;
-    min-width: 1200px;
+    width: 100%;  
     height: 100px;
     bottom: 0;
-    box-shadow: 0 1px 6px 0 $shadow;
-    background-color: $gray_0;
-    font-size: $font_size_2;
-    font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
-    color: $gray_3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &-wrap {
-      min-width: 1080px;
-      max-width: 1080px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-      -webkit-user-select: none;
-
-      &-left {
-        width: 180px;
-        display: flex;
-        justify-content: space-between;
-      }
-      &-right {
-        width: 300px;
-        display: flex;
-        justify-content: space-between;
-
-        &-team:hover, &-inquiry:hover, &-sign:hover, &-gitHub:hover {
-          cursor: pointer;
-          text-decoration: underline;
-        }
-
-        &-gitHub {
-          display: flex;
-          align-items: center;
-
-          >svg {
-            color: $gray_4;
-          }
-        }
-      }
-    }
-
-    &-hidden {
-      display: none;
-    }
   }
 }
