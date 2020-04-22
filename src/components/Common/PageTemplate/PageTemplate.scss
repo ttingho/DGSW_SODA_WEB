@@ -24,13 +24,12 @@
     padding-top: 150px;
     width: 100%;
     min-width: 1200px;
-    min-height: 100vh;
+    min-height: 889px;
+    padding-bottom: 100px;
 
     &-inquiry {
       min-width: 1080px;
       max-width: 1080px;
-      min-height: 889px;
-      padding-bottom: 170px;
     }
   }
   &-footer {
@@ -40,7 +39,7 @@
     height: 100px;
     bottom: 0;
     box-shadow: 0 1px 6px 0 $shadow;
-    background-color: $navBar_background;
+    background-color: $gray_0;
     font-size: $font_size_2;
     font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
     color: $gray_3;
@@ -54,12 +53,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      user-select: none;
+      -webkit-user-select: none;
 
       &-left {
         width: 180px;
         display: flex;
         justify-content: space-between;
-        // align-items: center;
       }
       &-right {
         width: 300px;
@@ -76,7 +76,7 @@
           align-items: center;
 
           >svg {
-            color: $black;
+            color: $gray_4;
           }
         }
       }

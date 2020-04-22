@@ -21,7 +21,7 @@ const NavBar = ({ pageType, url, store, history }) => {
   const token = TokenVerification();
 
   const setUserInfo = () => {
-    if (!token && !userInfo) {
+    if (token === 'empty' && !userInfo) {
       setAdminAuth(false);
     } else if (userInfo && userInfo.auth === 0) {
       setAdminAuth(true);
@@ -30,7 +30,7 @@ const NavBar = ({ pageType, url, store, history }) => {
 
   const handleUrl = (propUrl) => {
     if (propUrl === '/bamboo-admin' || propUrl === '/inquiry-admin') {
-      if (!adminAuth) {
+      if (adminAuth === false || token === 'empty') {
         modal({
           title: 'Warning!',
           stateType: 'warning',
@@ -61,8 +61,8 @@ const NavBar = ({ pageType, url, store, history }) => {
           <div className={cx('NavBar-bottom-wrap-content-btns')}>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo'})} onClick={() => handleUrl('/bamboo')}>대숲 게시글</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo-write'})} onClick={() => handleUrl('/bamboo-write')}>작성하기</button>
-            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo-inquiry'})} onClick={() => handleUrl('/inquiry')}>문의</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo-admin'})} onClick={() => handleUrl('/bamboo-admin')}>어드민</button>
+            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo-inquiry'})} onClick={() => handleUrl('/inquiry')}>고객센터</button>
           </div>
         </div>
       );
@@ -70,10 +70,10 @@ const NavBar = ({ pageType, url, store, history }) => {
       return (
         <div className={cx('NavBar-bottom-wrap-content')}>
           <div className={cx('NavBar-bottom-wrap-content-btns')}>
-            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo'})} onClick={() => handleUrl('/bamboo')}>대숲 게시글</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry'})} onClick={() => handleUrl('/inquiry')}>문의</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-write'})} onClick={() => handleUrl('/inquiry-write')}>문의하기</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-admin'})} onClick={() => handleUrl('/inquiry-admin')}>어드민</button>
+            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo'})} onClick={() => handleUrl('/bamboo')}>대나무 숲</button>
           </div>
         </div>
       );
@@ -105,6 +105,10 @@ const NavBar = ({ pageType, url, store, history }) => {
             <div className={cx('NavBar-top-wrap-header', {'NavBar-top-wrap-header-inquiry': pageType === 'inquiry'})}>
               <div className={cx('NavBar-top-wrap-header-title')}>
                 <span onClick={() => history.push('/')}>SODA</span> 
+                {pageType === 'bamboo'
+                  ? <span className={cx('NavBar-top-wrap-header-title-bamboo')}>대나무 숲</span>
+                  : <span className={cx('NavBar-top-wrap-header-title-inquiry')}>고객센터</span>
+                }
               </div>
             </div>
             <div className={cx('NavBar-top-wrap-content')}>
