@@ -1,6 +1,8 @@
 @import 'styles/color/color_scheme.scss';
 @import 'styles/typography/typography_scheme.scss';
 
+$width_size: 735px;
+
 .BambooWriteTemplate {
   width: 100%;
   min-height: 800px;
@@ -10,7 +12,7 @@
   align-items: center;
   flex-direction: column;
   &-header {
-    width: 735px;
+    width: $width_size;
     height: 100px;
     display: flex;
     justify-content: center;
@@ -51,10 +53,10 @@
     }
   }
   &-contents {
-    width: 735px;
+    width: $width_size;
   }
   &-footer {
-    width: 735px;
+    width: $width_size;
     height: 50px;
     display: flex;
     justify-content: flex-end;
