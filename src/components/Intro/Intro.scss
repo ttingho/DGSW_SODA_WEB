@@ -1,7 +1,247 @@
 @import 'styles/typography/typography_scheme.scss';
 @import 'styles/color/color_scheme.scss';
 
+@mixin pageStyle($height, $backgroundColor) {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: $height;
+  background-color: $backgroundColor;
+}
+
+@mixin wrapStyle {
+  display: flex;
+  flex-direction: row;
+  min-width: 1100px;
+  max-width: 1100px;
+  height: 100%;
+}
+
+@mixin flexStyle($flexDirection, $justifyContent, $alignItmes) {
+  display: flex;
+  flex-direction: $flexDirection;
+  justify-content: $justifyContent;
+  align-items: $alignItmes;
+}
 
 .Intro {
+  width: 100%;
+  -webkit-user-select: none;
+  user-select: none;
   
+  &-page1 {
+    @include pageStyle(450px, $soda_primary);
+
+    &-wrap {
+      @include wrapStyle();
+
+      &-left {
+        @include flexStyle(column, space-between, stretch);
+        width: 70%;
+        height: 330px;
+        color: $white;
+        font-family: $NOTO_SANS_KR_REGULAR;
+        font-size: $font_size_3;
+
+        &-header {
+          margin-top: 3.4%;
+          
+          >span {
+            font-family: $NOTO_SANS_KR_BOLD;
+            font-size: $font_size_7;
+            color: $white;
+            cursor: pointer;
+          }
+        }
+        &-subtitle {
+          @include flexStyle(row, flex-start, center);
+          font-size: $font_size_7;
+          font-family: $NOTO_SANS_KR_BOLD;
+          margin-top: 70px;
+
+          &-highlight {
+            @include flexStyle(row, center, center);
+            width: 150px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: $white;
+            margin-left: 10px;
+          }
+        } 
+        &-content {
+          line-height: 60px;
+        }       
+      }
+      &-right {
+        width: 30%;
+        @include flexStyle(row, center, center);
+
+        &-img {
+          width: 300px;
+        }
+      }
+    }
+  }
+  &-page2 {
+    @include pageStyle(500px, $gray_0);
+
+    &-wrap {
+      @include wrapStyle();
+
+      &-left {
+        @include flexStyle(row, center, center);
+        width: 30%;
+
+        &-img {
+          width: 300px;
+        }
+      }
+      &-right {
+        @include flexStyle(column, center, flex-end);
+        width: 70%;
+        font-size: $font_size_3;
+        font-family: $NOTO_SANS_KR_REGULAR;
+        color: $black;
+
+        &-subtitle {
+          font-family: $NOTO_SANS_KR_BOLD;
+          font-size: $font_size_7;
+          margin-bottom: 20px;
+        }
+        &-content {
+          line-height: 60px;
+          text-align: right;
+        }
+        &-detail {
+          font-size: $font_size_4;
+          font-family: $NOTO_SANS_KR_BOLD;
+          color: $soda_primary;
+          cursor: pointer;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  &-page3 {
+    @include pageStyle(450px, $bamboo_primary);
+
+    &-wrap {
+      @include wrapStyle();
+
+      &-left {
+        @include flexStyle(column, center, stretch);
+        width: 70%;
+        color: $white;
+        font-family: $NOTO_SANS_KR_REGULAR;
+        font-size: $font_size_3;
+
+        &-subtitle {
+          @include flexStyle(row, flex-start, center);
+          font-size: $font_size_7;
+          font-family: $NOTO_SANS_KR_BOLD;
+
+          &-img {
+            width: 60px;
+          }
+        }
+        &-content {
+          line-height: 60px;
+        }
+        &-bamboo {
+          @include flexStyle(row, center, center);
+          width: 150px;
+          height: 30px;
+          border-radius: 5px;
+          background-color: $white;
+          font-size: $font_size_3;
+          font-family: $NOTO_SANS_KR_BOLD;
+          color: $black;
+          margin-top: 25px;
+          cursor: pointer;
+
+          >span {
+            color: $bamboo_primary;
+          }
+        }
+      }
+      &-right {
+        width: 30%;
+        @include flexStyle(column, space-evenly, center);
+
+        &-feed {
+          width: 265px;
+          box-shadow: 0 0 10px 0 $shadow;
+          transform: rotate(-6deg);
+          margin-right: 60px;
+        }
+        &-inquiry {
+          width: 265px;
+          box-shadow: 0 0 10px 0 $shadow;
+          transform: rotate(6deg);
+          margin-left: 60px;
+        }
+      }
+    }
+  }
+  &-page4 {
+    @include pageStyle(500px, $white);
+
+    &-wrap {
+      @include flexStyle(column, initial, initial);
+      min-width: 1100px;
+      max-width: 1100px;
+      height: 100%;
+
+      &-top {
+        @include flexStyle(row, flex-end, flex-end);
+        width: 100%;
+        height: 18%;
+
+        &-subtitle {
+          @include flexStyle(row, flex-start, flex-end);
+
+          >span:nth-child(1) {
+            font-size: $font_size_3;
+            font-family: $NOTO_SANS_MEDIUM;
+            color: $gray_3;
+          }
+          >span:nth-child(2) {          
+            font-size: $font_size_7;
+            font-family: $NOTO_SANS_KR_BOLD;
+            color: $black;
+            margin-left: 15px;
+          }
+        }
+      }
+      &-bottom {
+        @include flexStyle(row, space-around, center);
+        width: 100%;
+        height: 70%;
+
+        &-member {
+          @include flexStyle(column, space-between, center);
+          height: 80%;
+         
+          &-img {
+            width: 180px;
+          }
+          &-info {
+            @include flexStyle(column, flex-start, stretch);
+            width: 50%;
+            height: 25%;
+            font-size: $font_size_2;
+            font-family: $NOTO_SANS_KR_REGULAR;
+            color: $gray_4;
+
+            >span:nth-child(1) {
+              font-size: $font_size_3;
+              font-family: $NOTO_SANS_KR_MEDIUM;
+              color: $black;
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
