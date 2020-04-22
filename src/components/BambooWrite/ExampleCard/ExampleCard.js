@@ -1,4 +1,5 @@
 import React from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
 import { FaFacebookF } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
@@ -8,7 +9,9 @@ import Pagination from 'components/Common/Pagination';
 
 const cx = classNames.bind(style);
 
-const ExampleCard = ({ profileSrc, name, contents, images }) => {
+const ExampleCard = ({ profileSrc, name, contentsObj, images }) => {
+  const { contents, setContents } = contentsObj;
+
   return (
     <div className={cx('ExampleCard')}>
       <div className={cx('ExampleCard-header')}>
@@ -27,18 +30,15 @@ const ExampleCard = ({ profileSrc, name, contents, images }) => {
           <FaFacebookF className={cx('ExampleCard-header-facebook-icon')} />
         </div>
       </div>
-      <div className={cx('ExampleCard-contents-images')}>
+      <div className={cx('ExampleCard-images')}>
         <Pagination images={images} />
       </div>
-      <div className={cx('ExampleCard-contents')}>
-        <p className={cx('ExampleCard-contents-text')}>
-          {
-            contents.length === 0 ?
-              '옆에 대나무(이야기)를 적으면 미리 볼 수 있어요!' :
-              contents
-          }
-        </p>
-      </div>
+      <TextareaAutosize
+        value={contents}
+        onChange={event => setContents(event.target.value)}
+        className={cx('ExampleCard-contents')}
+        placeholder={'여기에 당신의 대나무(이야기)를 적어주세요!'}
+      />
     </div>
   );
 };
@@ -46,7 +46,7 @@ const ExampleCard = ({ profileSrc, name, contents, images }) => {
 ExampleCard.propTypes = {
   profileSrc: PropTypes.string,
   name: PropTypes.string,
-  contents: PropTypes.string,
+  contentsObj: PropTypes.object,
   images: PropTypes.array
 };
 

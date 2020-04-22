@@ -3,205 +3,70 @@
 
 .BambooWriteTemplate {
   width: 100%;
-  height: calc(100vh - 80px);
   min-height: 800px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  flex-direction: row;
-  &-leftPanel {
-    width: calc(90% - 735px);
-    height: 100%;
+  flex-direction: column;
+  &-header {
+    width: 735px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    &-textarea {
-      width: 80%;
-      height: 50%;
-      border: none;
-      box-shadow: 0 0 8px 0 $shadow;
-      resize: none;
-      outline: none;
-      padding: 2%;
-      font-size: $font_size_4;
-      font-family: NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
-      color: $black;
-      margin: auto;
-      margin-top: 15%;
-      margin-bottom: 5%;
-      z-index: 1;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-      &::placeholder {
-        color: $gray_3;
-      }
-      &:focus::-webkit-input-placeholder {color:transparent;}
-      &:focus::-moz-placeholder {color:transparent;}
-      &:-moz-placeholder {color:transparent;}
-    }
-    &-image {
-      width: 80%;
-      height: 10%;
-      margin: auto;
-      margin-top: 2%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: row;
-      &-upload {
-        width: 20%;
-        height: 60%;
-        margin: auto;
-        margin-left: 0;
-        &-label {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: $font_size_3;
-          font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
-          border: 1px solid $bamboo_primary;
-          border-radius: 2.5px;
-          color: $bamboo_primary;
-          background-color: $white;
-          cursor: pointer;
-          transition: ease-out .2s;
-          &:hover {
-            color: $white;
-            background-color: $bamboo_primary;
-          }
-        }
-        &-input {
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          padding: 0;
-          margin: -1px;
-          overflow: hidden;
-          clip:rect(0,0,0,0);
-          border: 0;
-        }
-      }
-      &-detail {
+    flex-direction: row;
+    &-upload {
+      width: 15%;
+      height: 40%;
+      &-label {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: $font_size_2;
         font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
-        color: $gray_3;
-        user-select: none;
-        margin: auto;
-        margin-right: 2%;
-      }
-      &-exampleContents {
-        width: 40%;
-        height: 65%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        border: 2px solid $bamboo_primary;
-        user-select: none;
+        border: 1px solid $bamboo_primary;
+        border-radius: 2.5px;
         color: $bamboo_primary;
         background-color: $white;
         cursor: pointer;
-        &-icon {
-          font-size: $font_size_8;
-          margin-left: 3%;
+        transition: ease-out .2s;
+        &:hover {
+          color: $white;
+          background-color: $bamboo_primary;
         }
-        &-file {
-          width: calc(90% - 26px);
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
-          margin: auto;
-          margin-right: 4%;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        &-fileList {
-          width: 100%;
-          position: absolute;
-          bottom: calc(100% + 5px);
-          z-index: 2;
-          cursor: default;
-          display: flex;
-          flex-direction: column-reverse;
-          &-item {
-            width: 100%;
-            padding-top: 5%;
-            padding-bottom: 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: $white;
-            border: 1px solid $bamboo_primary;
-            margin-bottom: 3%;
-            &-name {
-              width: 80%;
-              margin-left: 3%;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-            &-icon {
-              margin-right: 4%;
-              cursor: pointer;
-            }
-          }
-        }
+      }
+      &-input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip:rect(0,0,0,0);
+        border: 0;
       }
     }
   }
-  &-rightPanel {
+  &-contents {
     width: 735px;
-    height: auto;
+  }
+  &-footer {
+    width: 735px;
+    height: 50px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 7%;
-    padding-bottom: 3%;
-    &-top {
-      width: 100%;
-      height: 50px;
-      margin-bottom: 2%;
-      display: flex;
+    flex-direction: row;
+    font-size: $font_size_1;
+    font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    &-title {
+      color: $gray_4;
+      margin-right: 1%;
     }
-    &-bottom {
-      width: 100%;
-      height: auto;
-      margin: auto;
-      margin-top: 0;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      flex-direction: column;
-      &-title {
-        font-size: $font_size_5;
-        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
-        color: $black;
-        user-select: none;
-        margin: 0 auto 3% 0;
-      }
+    &-contents {
+      color: $gray_3;
     }
-  }
-  &-hidden {
-    visibility: hidden;
-  }
-}
-
-.radioContents {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  &-gray {
-    color: $gray_3;
-    font-size: $font_size_2;
-    margin-left: 5px;
   }
 }
