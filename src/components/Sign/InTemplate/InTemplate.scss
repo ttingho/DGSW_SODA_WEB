@@ -46,6 +46,8 @@
       cursor: pointer;
 
       &-icon {
+        color: $soda_primary;
+        
         &-hidden {
           display: none;
         }

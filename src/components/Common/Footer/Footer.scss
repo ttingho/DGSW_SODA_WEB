@@ -1,0 +1,51 @@
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+.Footer {  
+  width: 100%;
+  min-width: 1200px;
+  height: 100px;
+  bottom: 0;
+  background-color: $gray_0;
+  font-size: $font_size_2;
+  font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+  color: $gray_3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-wrap {
+    min-width: 1080px;
+    max-width: 1080px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    -webkit-user-select: none;
+
+    &-left {
+      width: 180px;
+      display: flex;
+      justify-content: space-between;
+    }
+    &-right {
+      width: 300px;
+      display: flex;
+      justify-content: space-between;
+
+      &-team:hover, &-inquiry:hover, &-sign:hover, &-gitHub:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      &-gitHub {
+        display: flex;
+        align-items: center;
+
+        >svg {
+          color: $gray_4;
+        }
+      }
+    }
+  }
+}
