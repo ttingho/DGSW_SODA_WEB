@@ -12,6 +12,8 @@ $profile_img_size: 55px;
   background-color: $white;
   border-top: 3px solid $bamboo_primary;
   box-shadow: 0 1px 1px 0 $shadow;
+  -webkit-user-select: none;
+  user-select: none;
 
   &-inquiry {
     border-top: 3px solid $soda_primary;
@@ -32,7 +34,7 @@ $profile_img_size: 55px;
       display: flex;
   
       &-header {
-        width: 100px;
+        width: 120px;
         height: 100%;
         display: flex;
         justify-content: flex-start;
@@ -42,12 +44,27 @@ $profile_img_size: 55px;
         color: $bamboo_primary;
 
         &-title {
+          width: 100%;
           display: flex;
-          justify-content: flex-start;
+          justify-content: space-between;
           align-items: center;
 
-          >span {
+          >span:nth-child(1) {
             cursor: pointer;
+            // margin-right: 4px;
+          }
+          >span:nth-child(2) {
+            align-self: flex-end;
+            font-size: $font_size_1;
+            font-family: $NOTO_SANS_KR_REGULAR;
+            margin-bottom: 4px;
+          }
+
+          &-bamboo {
+            color: $bamboo_primary;
+          }
+          &-inquiry {
+            color: $soda_primary;
           }
         }
 
@@ -56,7 +73,7 @@ $profile_img_size: 55px;
         }
       }
       &-content {
-        width: 1000px;
+        width: 980px;
         height: 100%;
         display: flex;
         justify-content: flex-end;
