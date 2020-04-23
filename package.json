@@ -24,6 +24,7 @@
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "react-textarea-autosize": "^7.1.2",
     "secure-ls": "^1.2.6",
     "styled-components": "^5.0.1",
     "union-value": "^2.0.1"
