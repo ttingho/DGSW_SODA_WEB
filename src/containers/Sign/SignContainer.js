@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import TokenVerification from 'lib/Token/TokenVerification';
 import SignTemplate from 'components/Sign/SignTemplate';
 import SignInContainer from 'containers/Sign/SignIn';
 import SignUpContainer from 'containers/Sign/SignUp';
 import EmailModalContainer from 'containers/Sign/SignUp/EmailModal';
 import GroupingState from 'lib/HookState/GroupingState';
 
-const SignContainer = ({ store }) => {
-
+const SignContainer = ({ store, history }) => {
   const { handleSignIn, handleSignUp, handleIdCheck, handleEmail, handleEmailCode } = store.sign;
   const { uploadImage } = store.upload;
   const { modal } = store.dialog;
+
+  useEffect(() => {
+    if (TokenVerification() !== 'empty') {
+      history.goBack(1);
+    }
+  }, []);
 
   /* Sign Inputs */
   const [id, setId] = useState('');
@@ -118,7 +125,8 @@ const SignContainer = ({ store }) => {
 };
 
 SignContainer.propTypes = {
-  store: PropTypes.any
+  store: PropTypes.any,
+  history: PropTypes.object
 };
 
-export default inject('store')(observer(SignContainer));
+export default withRouter(inject('store')(observer(SignContainer)));
