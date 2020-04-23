@@ -11,3 +11,4 @@ export { default as Inquiry } from './Inquiry';
 export { default as InquiryAdmin } from './InquiryAdmin';
 export { default as InquiryDetail } from './InquiryDetail';
 export { default as InquiryWrite } from './InquiryWrite';
+export { default as MyInfo } from './MyInfo';

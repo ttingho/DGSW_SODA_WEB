@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import * as Pages from '../pages';
 import Modal from 'containers/Common/Modal';
+import TokenVerification from 'lib/Token/TokenVerification';
 
 function App() {
   return (
@@ -51,6 +52,10 @@ function App() {
         <Route
           path='/inquiry-detail'
           render={() => <Pages.InquiryDetail/>}
+        />
+        <Route
+          path='/myinfo'
+          render={() => TokenVerification() !== 'empty' ? <Pages.MyInfo/> : <Redirect to={'/'} />}
         />
         <Route
           path='/team-building-interview'

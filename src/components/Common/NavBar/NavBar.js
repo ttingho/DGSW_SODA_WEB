@@ -123,6 +123,7 @@ const NavBar = ({ pageType, url, store, history }) => {
                 <button className={cx('NavBar-top-wrap-content-btns-login', {'NavBar-top-wrap-content-btns-login-inquiry': pageType === 'inquiry'})}
                   onClick={() => {
                     if (token === 'empty') history.push('/sign');
+                    else history.push('/myinfo');
                   }}
                 >
                   {token === 'empty' ?

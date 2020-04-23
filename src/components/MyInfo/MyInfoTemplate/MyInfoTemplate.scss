@@ -1,0 +1,168 @@
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+$imageSize: 120px;
+
+@mixin fixedSize($width, $height) {
+  min-width: $width;
+  max-width: $width;
+  min-height: $height;
+  max-height: $height;
+}
+
+@mixin infoStyle1() {
+  font-size: $font_size_2;
+  font-family: $NOTO_SANS_KR_MEDIUM;
+  color: $gray_2;
+}
+
+@mixin infoStyle2() {
+  font-size: $font_size_3;
+  font-family: $NOTO_SANS_KR_MEDIUM;
+  color: $black;
+  margin-left: 15px;
+}
+
+@mixin modifyBtn() {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: solid 1px $gray_2;
+  background-color: $white;
+  font-size: $font_size_1;
+  font-family: $NOTO_SANS_KR_REGULAR;
+  color: $gray_2;
+  cursor: pointer;
+}
+
+.MyInfoTemplate {
+  width: 100%;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+
+  &-wrap {
+    min-width: 700px;
+    max-width: 700px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    &-line1 {
+      width: 100%;
+      height: 120px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+
+      &-imageWrap {
+        @include fixedSize($imageSize, $imageSize);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+        border: 2px solid $shadow;
+        overflow: hidden;
+        cursor: pointer;
+  
+        .isDefault {
+          width: 100%;
+          height: 100%;
+        }
+  
+        &-iconWrap {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 30px;
+          height: 30px;
+          bottom: 4%;
+          left: 12%;
+          background-color: $white;
+          border: 1px solid $shadow;
+          border-radius: 100%;
+          cursor: pointer;
+  
+          &>.icon {
+            color: $gray_4;
+            width: 20px;
+            height: 20px;
+          }
+        }
+  
+        &>input {
+          display: none;
+        }
+      }
+      &-logout {
+        font-size: $font_size_2;
+        font-family: $NOTO_SANS_KR_MEDIUM;
+        color: $soda_primary;
+        cursor: pointer;
+      }
+    }
+    &-line2 {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include infoStyle1();
+
+      &-name {
+        >span {
+          @include infoStyle2();
+        }
+      }
+    }
+    &-line3 {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include infoStyle1();
+
+      &-nickName {
+        >span {
+          @include infoStyle2();
+        }
+      }
+      &-btn {
+        @include modifyBtn();
+      }
+    }
+    &-line4 {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include infoStyle1();
+
+      &-email {
+        >span {
+          @include infoStyle2();
+        }
+      }
+      &-btn {
+        @include modifyBtn();
+      }
+    }
+    &-line5 {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 20px;
+
+      &-btn {
+        @include modifyBtn();
+      }
+    }
+  }
+}
