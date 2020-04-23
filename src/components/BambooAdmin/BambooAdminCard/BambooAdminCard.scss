@@ -33,19 +33,20 @@
     &-info {
       display: flex;
       justify-content: center;
-      align-items: flex-end;
+      align-items: flex-start;
       flex-direction: column;
       margin: auto;
       margin-left: 2%;
-      color: $bamboo_primary;
       user-select: none;
       &-name {
         font-size: $font_size_2;
         font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        color: $black;
       }
       &-title {
         font-size: $font_size_1;
         font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+        color: $bamboo_primary;
       }
     }
     &-time {
@@ -91,13 +92,13 @@
     }
     &-text {
       white-space: pre-wrap;
-      font-size: $font_size_2;
+      font-size: $font_size_1;
       font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
     }
   }
   &-footer {
     width: 100%;
-    height: 80px;
+    height: 60px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

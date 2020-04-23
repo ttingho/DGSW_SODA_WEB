@@ -12,8 +12,8 @@ const cx = classNames.bind(style);
 
 const BambooAdminCard = ({ item, isLoading, handleRequestBambooPost }) => {
   const customStyle = {
-    width: '20%',
-    height: '50%'
+    width: '15%',
+    height: '60%'
   };
 
   const [images, setImages] = useState([]);

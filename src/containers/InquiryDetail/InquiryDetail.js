@@ -31,10 +31,14 @@ const InquiryDetail = observer(({ history }) => {
   const [inquiryTitle, setInquiryTitle] = useState('');
   const [inquiryContents, setInquiryContents] = useState('');
   const [images, setImages] = useState([]);
+  const [isInquiryMore, setIsInquiryMore] = useState(false);
+  const [isInquiryType, setIsInquiryType] = useState('READ_ONLY');
 
   // Answer State
   const [answerTitle, setAnswerTitle] = useState('');
   const [answerContents, setAnswerContents] = useState('');
+  const [isAnswerMore, setIsAnswerMore] = useState(false);
+  const [isAnswerType, setIsAnswerType] = useState('READ_ONLY');
 
   const handleInitialState = () => {
     if (inquiry !== null) {
@@ -71,7 +75,25 @@ const InquiryDetail = observer(({ history }) => {
       });
   };
 
-  const handleAnswer = () => {
+  const handleIsMore = prop => {
+    if (prop === 'inquiry') setIsInquiryMore(!isInquiryMore);
+
+    if (prop === 'answer') setIsAnswerMore(!isAnswerMore);
+  };
+
+  const handleIsType = (type, prop) => {
+    if (type === 'inquiry') {
+      setIsInquiryType(prop);
+      setIsInquiryMore(false);
+    }
+
+    if (type === 'answer') {
+      setIsAnswerType(prop);
+      setIsAnswerMore(false);
+    }
+  };
+
+  const handleAnswer = async () => {
     const data = {
       title: answerTitle,
       contents: answerContents,
@@ -88,13 +110,19 @@ const InquiryDetail = observer(({ history }) => {
       return;
     }
 
-    requestInquiryAnswer(data).
+    await requestInquiryAnswer(data).
       then(async (response) => {
-        modal({
-          title: 'Success!',
-          stateType: 'success',
-          contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.'
-        });
+        if (response.status === 200) {
+          modal({
+            title: 'Success!',
+            stateType: 'success',
+            contents: '답변을 작성했습니다.'
+          });
+
+          setIsAnswerType('READ_ONLY');
+          
+          setIsAnswerMore(false);
+        }
       })
       .catch((error) => {
         const { status } = error.response;
@@ -131,7 +159,7 @@ const InquiryDetail = observer(({ history }) => {
       });
   };
 
-  const handlePutInquiry = () => {
+  const handlePutInquiry = async () => {
     const data = {
       idx,
       title: inquiryTitle,
@@ -139,7 +167,7 @@ const InquiryDetail = observer(({ history }) => {
       picture: null
     };
 
-    requestPutInquiryWrite(data)
+    await requestPutInquiryWrite(data)
       .then(async (response) => {
         if (response.status === 200) {
           await modal({
@@ -147,6 +175,10 @@ const InquiryDetail = observer(({ history }) => {
             stateType: 'success',
             contents: '해당 문의가 수정되었습니다.',
           });
+
+          setIsInquiryType('READ_ONLY');
+
+          setIsInquiryMore(false);
         }
       })
       .catch((error) => {
@@ -184,14 +216,14 @@ const InquiryDetail = observer(({ history }) => {
       });
   };
 
-  const handlePutAnswer = () => {
+  const handlePutAnswer = async () => {
     const data = {
       idx: answer.idx,
       title: answerTitle,
       contents: answerContents,
     };
 
-    requestPutInquiryAnswer(idx, data)
+    await requestPutInquiryAnswer(idx, data)
       .then(async (response) => {
         if (response.status === 200) {
           await modal({
@@ -199,6 +231,10 @@ const InquiryDetail = observer(({ history }) => {
             stateType: 'success',
             contents: '해당 답변이 수정되었습니다.',
           });
+
+          setIsAnswerType('READ_ONLY');
+
+          setIsAnswerMore(false);
         }
       })
       .catch((error) => {
@@ -236,8 +272,8 @@ const InquiryDetail = observer(({ history }) => {
       });
   };
 
-  const handleDeleteInquiry = () => {
-    requestDeleteInquiryWrite(idx)
+  const handleDeleteInquiry = async () => {
+    await requestDeleteInquiryWrite(idx)
       .then(async (response) => {
         if (response.status === 200) {
           await modal({
@@ -283,10 +319,10 @@ const InquiryDetail = observer(({ history }) => {
       });
   };
 
-  const handleDeleteAnswer = () => {
+  const handleDeleteAnswer = async () => {
     if (answer === null) return;
 
-    requestDeleteInquiryAnswer(idx, answer.idx)
+    await requestDeleteInquiryAnswer(idx, answer.idx)
       .then(async (response) => {
         if (response.status === 200) {
           await modal({
@@ -294,6 +330,8 @@ const InquiryDetail = observer(({ history }) => {
             stateType: 'success',
             contents: '해당 답변이 삭제되었습니다.'
           });
+
+          setIsAnswerMore(false);
         }
       })
       .catch((error) => {
@@ -377,12 +415,19 @@ const InquiryDetail = observer(({ history }) => {
             inquiryContentsObj={GroupingState('inquiryContents', inquiryContents, setInquiryContents)}
             answerTitleObj={GroupingState('answerTitle', answerTitle, setAnswerTitle)}
             answerContentsObj={GroupingState('answerContents', answerContents, setAnswerContents)}
+            isInquiryMore={isInquiryMore}
+            isInquiryType={isInquiryType}
+            isAnswerMore={isAnswerMore}
+            isAnswerType={isAnswerType}
             images={images}
             handleAnswer={handleAnswer}
             handlePutInquiry={handlePutInquiry}
             handlePutAnswer={handlePutAnswer}
             handleDeleteInquiry={handleDeleteInquiry}
             handleDeleteAnswer={handleDeleteAnswer}
+            handleIsMore={handleIsMore}
+            handleIsType={handleIsType}
+            isComplate={isComplate}
           />
       }
     </>

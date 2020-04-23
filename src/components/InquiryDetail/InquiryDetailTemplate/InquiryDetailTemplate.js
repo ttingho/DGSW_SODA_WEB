@@ -26,12 +26,19 @@ const InquiryDetailTemplate = ({
   inquiryContentsObj,
   answerTitleObj,
   answerContentsObj,
+  isInquiryMore,
+  isInquiryType,
+  isAnswerMore,
+  isAnswerType,
   images,
   handleAnswer,
   handlePutInquiry,
   handlePutAnswer,
   handleDeleteInquiry,
-  handleDeleteAnswer
+  handleDeleteAnswer,
+  handleIsMore,
+  handleIsType,
+  isComplate
 }) => {
   // Inquiry State
   const { inquiryTitle, setInquiryTitle } = inquiryTitleObj;
@@ -55,32 +62,57 @@ const InquiryDetailTemplate = ({
         <div className={cx('InquiryDetailTemplate-QuestionCardDiv-TitleBox')}>
           <span className={cx('InquiryDetailTemplate-QuestionCardDiv-TitleBox-icon')}>Q.</span>
           {
-            question.isComplate === 0 && userType === 1 && memberId === question.memberId ?
+            isInquiryType === 'MODIFY' ?
               <input value={inquiryTitle} onChange={event => setInquiryTitle(event.target.value)} type={'text'} placeholder={'제목'} className={cx('InquiryDetailTemplate-input')} /> :
               <span className={cx('InquiryDetailTemplate-QuestionCardDiv-TitleBox-Title')}>
                 {question.title}
               </span>
           }
           {
-            question.isComplate === 0 && userType === 1 && memberId === question.memberId ?
-              <>
-                <Button handleFunction={handlePutInquiry} loadingType={'text'} customStyle={btnStyle}>수정하기</Button>
-                <Button handleFunction={handleDeleteInquiry} loadingType={'text'} customStyle={btnStyle} appearance={'red'}>삭제하기</Button>
-              </> :
-              (question.isComplate === 1 || question.isComplate === 0) && userType === 0 ?
-                <></> : // <Button handleFunction={handleDeleteInquiry} loadingType={'text'} customStyle={btnStyle} appearance={'red'}>삭제하기</Button>
-                <></>
+            isInquiryType === 'MODIFY' ?
+              <Button handleFunction={handlePutInquiry} loadingType={'text'} customStyle={btnStyle}>수정하기</Button> :
+              <></>
           }
-          <MdMoreVert className={cx('InquiryDetailTemplate-menuIcon')} />
+          {
+            (isComplate === 0 && userType === 1 && memberId === question.memberId) || ((isComplate === 1 || isComplate === 0) && userType === 0) ?
+              <MdMoreVert className={cx('InquiryDetailTemplate-menuIcon')} onClick={() => handleIsMore('inquiry')} /> :
+              <></>
+          }
+          <div className={cx('InquiryDetailTemplate-QuestionCardDiv-menuBox', { 'InquiryDetailTemplate-hidden': !isInquiryMore })}>
+            {
+              isComplate === 0 && userType === 1 && memberId === question.memberId ?
+                <>
+                  <span
+                    className={cx('InquiryDetailTemplate-QuestionCardDiv-menuBox-child1')}
+                    onClick={() => {
+                      if (isInquiryType === 'READ_ONLY') handleIsType('inquiry', 'MODIFY');
+
+                      if (isInquiryType === 'MODIFY') handleIsType('inquiry', 'READ_ONLY');
+                    }}
+                  >
+                    {
+                      isInquiryType === 'READ_ONLY' ?
+                        '수정하기' :
+                        'Read Only'
+                    }
+                  </span>
+                  <div className={cx('InquiryDetailTemplate-QuestionCardDiv-menuBox-line')} />
+                  <span className={cx('InquiryDetailTemplate-QuestionCardDiv-menuBox-child2')} onClick={handleDeleteInquiry}>삭제하기</span>
+                </> :
+                (isComplate === 1 || isComplate === 0) && userType === 0 ?
+                  <span className={cx('InquiryDetailTemplate-QuestionCardDiv-menuBox-child2')} onClick={handleDeleteInquiry}>삭제하기</span> :
+                  <></>
+            }
+          </div>
         </div>
         <div className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox')}>
-          <div className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox-Image')}>
+          <div className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox-Image', { 'InquiryDetailTemplate-hidden': images.length === 0 })}>
             { 
               images && <Pagination images={images}/>
             }
           </div>
           {
-            question.isComplate === 0 && userType === 1 && memberId === question.memberId ?
+            isInquiryType === 'MODIFY' ?
               <textarea value={inquiryContents} onChange={event => setInquiryContents(event.target.value)} type={'text'} placeholder={'답변 내용'} className={cx('InquiryDetailTemplate-textarea')} /> :
               <span className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox-Contents')}>
                 {question.contents}
@@ -89,7 +121,7 @@ const InquiryDetailTemplate = ({
         </div>
         <div className={cx('InquiryDetailTemplate-QuestionCardDiv-ProfileBox')}>
           <span className={cx('InquiryDetailTemplate-QuestionCardDiv-ProfileBox-MemberId')}>
-            {'작성자 : ' + question.memberId }
+            {'작성자 : ' + question.memberId}
           </span>
           <span className={cx('InquiryDetailTemplate-QuestionCardDiv-ProfileBox-Date')}>
             {'작성날짜 : ' + moment.parseZone(question.joinDate).format('YYYY-MM-DD HH:mm:ss')}
@@ -103,33 +135,66 @@ const InquiryDetailTemplate = ({
               <>
                 <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox')}>
                   <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-icon')}>A.</span>
-                  <input value={answerTitle} onChange={event => setAnswerTitle(event.target.value)} type={'text'} placeholder={'제목'} className={cx('InquiryDetailTemplate-input')} />
                   {
-                    question.isComplate === 0 ?
+                    isAnswerType === 'MODIFY' || !isComplate ?
+                      <input value={answerTitle} onChange={event => setAnswerTitle(event.target.value)} type={'text'} placeholder={'제목'} className={cx('InquiryDetailTemplate-input')} /> :
+                      <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-Title')}>{answer.title}</span>
+                  }
+                  {
+                    !isComplate ?
                       <Button loadingType={'text'} handleFunction={handleAnswer} customStyle={btnStyle}>작성하기</Button> :
-                      question.isComplate === 1 ?
-                        <>
-                          <Button handleFunction={handlePutAnswer} loadingType={'text'} customStyle={btnStyle}>수정하기</Button>
-                          <Button handleFunction={handleDeleteAnswer} loadingType={'text'} customStyle={btnStyle} appearance={'red'}>삭제하기</Button>
-                        </> :
+                      isAnswerType === 'MODIFY' && isComplate ?
+                        <Button handleFunction={handlePutAnswer} loadingType={'text'} customStyle={btnStyle}>수정하기</Button> :
                         <></>
                   }
-                  <MdMoreVert className={cx('InquiryDetailTemplate-menuIcon')} />
+                  {
+                    isComplate ?
+                      <MdMoreVert className={cx('InquiryDetailTemplate-menuIcon')} onClick={() => handleIsMore('answer')} /> :
+                      <></>
+                  }
+                  <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox', { 'InquiryDetailTemplate-hidden': !isAnswerMore })}>
+                    {
+                      isComplate ?
+                        <>
+                          <span
+                            className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-child1')}
+                            onClick={() => {
+                              if (isAnswerType === 'READ_ONLY') handleIsType('answer', 'MODIFY');
+
+                              if (isAnswerType === 'MODIFY') handleIsType('answer', 'READ_ONLY');
+                            }}
+                          >
+                            {
+                              isAnswerType === 'READ_ONLY' ?
+                                '수정하기' :
+                                'Read Only'
+                            }
+                          </span>
+                          <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-line')} />
+                          <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-child2')} onClick={handleDeleteAnswer}>삭제하기</span>
+                        </> :
+                        <></>
+                    }
+                  </div>
                 </div>
                 <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ContentsBox')}>
-                  <textarea value={answerContents} onChange={event => setAnswerContents(event.target.value)} type={'text'} placeholder={'답변 내용'} className={cx('InquiryDetailTemplate-textarea')} />
+                  {
+                    isAnswerType === 'MODIFY' || isComplate === 0 ?
+                      <textarea value={answerContents} onChange={event => setAnswerContents(event.target.value)} type={'text'} placeholder={'답변 내용'} className={cx('InquiryDetailTemplate-textarea')} /> :
+                      <span>{answer.contents}</span>
+                  }
                 </div>
                 <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox')}>
                   <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-MemberId')}>
                     {
-                      question.isComplate === 1 && answer !== null ?
+                      isComplate === 1 && answer !== null ?
                         '작성자 : ' + answer.memberId :
                         '작성자 : ' + memberId
                     }
                   </span>
                   <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-Date')}>
                     {
-                      question.isComplate === 1 && answer !== null ?
+                      isComplate === 1 && answer !== null ?
                         '작성날짜 : ' + moment.parseZone(answer.joinDate).format('YYYY-MM-DD HH:mm:ss') :
                         '작성날짜 : ' + moment().format('YYYY-MM-DD HH:mm:ss')
                     }
@@ -189,12 +254,25 @@ InquiryDetailTemplate.propTypes = {
   inquiryContentsObj: PropTypes.object,
   answerTitleObj: PropTypes.object,
   answerContentsObj: PropTypes.object,
+  isInquiryMore: PropTypes.bool,
+  isInquiryType: PropTypes.oneOf([
+    'READ_ONLY',
+    'MODIFY'
+  ]),
+  isAnswerMore: PropTypes.bool,
+  isAnswerType: PropTypes.oneOf([
+    'READ_ONLY',
+    'MODIFY'
+  ]),
   images: PropTypes.array,
   handleAnswer: PropTypes.func,
   handlePutInquiry: PropTypes.func,
   handlePutAnswer: PropTypes.func,
   handleDeleteInquiry: PropTypes.func,
-  handleDeleteAnswer: PropTypes.func
+  handleDeleteAnswer: PropTypes.func,
+  handleIsMore: PropTypes.func,
+  handleIsType: PropTypes.func,
+  isComplate: PropTypes.number
 };
 
 InquiryDetailTemplate.defaultProps = {
