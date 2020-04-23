@@ -117,6 +117,27 @@ class questionStore {
       });
     }
   }
+  
+  @action
+  async getInquiryDetail (idx) {
+    try {
+      const response = await inquiryRepository.getInquiryDetail(idx);
+      
+      this.inquiry = response.data.question;
+      
+      this.answer = response.data.answer;
+
+      this.isComplate = response.data.question.isComplate;
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
 
   @action
   async requestInquiryWrite (request) {
@@ -205,29 +226,10 @@ class questionStore {
   async requestDeleteInquiryAnswer (idx, answerIdx) {
     try {
       const response = await inquiryRepository.requestDeleteInquiryAnswer(answerIdx);
-      
+
+      if (response.status === 200) this.isComplate = 0;
+
       await this.getInquiryDetail(idx);
-
-      return new Promise((resolve, reject) => {
-        resolve(response);
-      });
-    } catch (error) {
-      return new Promise((resolve, reject) => {
-        reject(error);
-      });
-    }
-  }
-
-  @action
-  async getInquiryDetail (idx) {
-    try {
-      const response = await inquiryRepository.getInquiryDetail(idx);
-      
-      this.inquiry = response.data.question;
-      
-      this.answer = response.data.answer;
-
-      this.isComplate = response.data.question.isComplate;
 
       return new Promise((resolve, reject) => {
         resolve(response);

@@ -42,6 +42,7 @@ $card_width_size: 735px;
     flex-direction: column;
     align-items: center;
     box-shadow: 0 0 8px 0 $shadow;
+    position: relative;
 
     &-TitleBox {
       display: flex;
@@ -86,6 +87,48 @@ $card_width_size: 735px;
       }
     }
 
+    &-menuBox {
+      width: 100px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: $white;
+      box-shadow: 0 0 5px 0 $shadow;
+      top: 0;
+      left: calc(100% + 15px);
+      &-child1 {
+        width: 100%;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+        font-size: $font_size_1;
+        color: $soda_primary;
+        cursor: pointer;
+        user-select: none;
+      }
+      &-child2 {
+        width: 100%;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+        font-size: $font_size_1;
+        color: $error;
+        cursor: pointer;
+        user-select: none;
+      }
+      &-line {
+        width: 90%;
+        height: 1px;
+        background-color: $gray_1;
+      }
+    }
+
     &-ContentsBox {
       width: 100%;
       height: 100%;
@@ -109,6 +152,7 @@ $card_width_size: 735px;
     display: flex;
     width: $card_width_size;
     min-height: 300px;
+    position: relative;
     margin-bottom: 50px;
     justify-content: center;
     align-items: center;
@@ -159,6 +203,48 @@ $card_width_size: 735px;
       }
     }
 
+    &-menuBox {
+      width: 100px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: $white;
+      box-shadow: 0 0 5px 0 $shadow;
+      top: 0;
+      left: calc(100% + 15px);
+      &-child1 {
+        width: 100%;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+        font-size: $font_size_1;
+        color: $soda_primary;
+        cursor: pointer;
+        user-select: none;
+      }
+      &-child2 {
+        width: 100%;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+        font-size: $font_size_1;
+        color: $error;
+        cursor: pointer;
+        user-select: none;
+      }
+      &-line {
+        width: 90%;
+        height: 1px;
+        background-color: $gray_1;
+      }
+    }
+
     &-ContentsBox {
       width: 100%;
       height: 100%;
@@ -178,6 +264,8 @@ $card_width_size: 735px;
     outline: none;
     font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
     font-size: $font_size_3;
+    margin: auto;
+    margin-left: 0;
     &::placeholder {
       color: $gray_3;
     }
@@ -208,5 +296,10 @@ $card_width_size: 735px;
     color: $gray_2;
     font-size: $font_size_7;
     cursor: pointer;
+    user-select: none;
+  }
+
+  &-hidden {
+    display: none;
   }
 }
