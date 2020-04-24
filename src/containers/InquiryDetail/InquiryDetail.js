@@ -11,6 +11,8 @@ import PageLoading from 'components/Common/PageLoading';
 import useStores from 'lib/HookState/useStore';
 
 const InquiryDetail = observer(({ history }) => {
+  const blank_pattern = /^\s+|\s+$/g;
+
   const { store } = useStores();
 
   const ls = new SecureLS({ encodingType: 'aes' });
@@ -91,6 +93,8 @@ const InquiryDetail = observer(({ history }) => {
       setIsAnswerType(prop);
       setIsAnswerMore(false);
     }
+
+    handleInitialState();
   };
 
   const handleAnswer = async () => {
@@ -100,11 +104,21 @@ const InquiryDetail = observer(({ history }) => {
       questionIdx: idx,
     };
 
-    if (answerContents.length === 0 || answerTitle.length === 0) {
+    if (answerTitle.length === 0 || answerContents.length === 0) {
       modal({
-        title: 'Error!',
-        stateType: 'error',
-        contents: '빈칸을 채워 주세요!'
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '입력 칸이 비워있습니다.'
+      });
+
+      return;
+    }
+
+    if (answerTitle.replace( blank_pattern, '' ) === '' || answerContents.replace( blank_pattern, '' ) === '') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '공백만 입력되었습니다.'
       });
 
       return;
@@ -167,6 +181,26 @@ const InquiryDetail = observer(({ history }) => {
       picture: null
     };
 
+    if (inquiryTitle.length === 0 || inquiryContents.length === 0) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '입력 칸이 비워있습니다.'
+      });
+
+      return;
+    }
+
+    if (inquiryTitle.replace( blank_pattern, '' ) === '' || inquiryContents.replace( blank_pattern, '' ) === '') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '공백만 입력되었습니다.'
+      });
+
+      return;
+    }
+
     await requestPutInquiryWrite(data)
       .then(async (response) => {
         if (response.status === 200) {
@@ -222,6 +256,26 @@ const InquiryDetail = observer(({ history }) => {
       title: answerTitle,
       contents: answerContents,
     };
+
+    if (answerTitle.length === 0 || answerContents.length === 0) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '입력 칸이 비워있습니다.'
+      });
+
+      return;
+    }
+
+    if (answerTitle.replace( blank_pattern, '' ) === '' || answerContents.replace( blank_pattern, '' ) === '') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '공백만 입력되었습니다.'
+      });
+
+      return;
+    }
 
     await requestPutInquiryAnswer(idx, data)
       .then(async (response) => {
