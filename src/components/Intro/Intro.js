@@ -49,7 +49,7 @@ const Intro = ({ history }) => {
             <div className={cx('Intro-page1-wrap-left-content')} data-aos='fade-right'>
               현재 대구 소프트웨어 고등학교의 소통을 담당하고 있는 서비스입니다.
               <br/>
-              공부를 하기 위해 시작한 서비스로 아직 미흡한 점이 많지만, 계속 발전해 나가겠습니다.
+              아직 미흡한 점이 많지만, 더 다양한 서비스를 제공하기 위해 계속 발전해 나가겠습니다.
             </div>
           </div>
           <div className={cx('Intro-page1-wrap-right')}>
