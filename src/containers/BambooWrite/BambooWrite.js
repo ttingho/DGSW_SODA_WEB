@@ -7,6 +7,7 @@ import GroupingState from 'lib/HookState/GroupingState';
 import DEFAULT_PROFILE from 'assets/image/panda.jpg';
 
 const BambooWrite = ({ store, history }) => {
+  const blank_pattern = /^\s+|\s+$/g;
   const maxImageSize = 4 * 1024 * 1024;
 
   const { modal } = store.dialog;
@@ -77,7 +78,7 @@ const BambooWrite = ({ store, history }) => {
     setAccessToken('');
     setImages([]);
     setImgBase64([]);
-    setIsType('empty');
+    setIsType('anonymous');
     setImageSize(0);
     setImageContents('업로드된 이미지');
   };
@@ -324,6 +325,8 @@ const BambooWrite = ({ store, history }) => {
 
   const handlePostRequest = async () => {
     let data;
+
+    contents.trim();
     
     const { picture, isUploadError } = await handleImageFormData();
 
@@ -342,6 +345,16 @@ const BambooWrite = ({ store, history }) => {
         title: 'Warning!',
         stateType: 'warning',
         contents: '대나무(이야기)가 비어있습니다!'
+      });
+
+      return;
+    }
+
+    if (contents.replace( blank_pattern, '' ) === '') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '공백만 입력되었습니다.'
       });
 
       return;

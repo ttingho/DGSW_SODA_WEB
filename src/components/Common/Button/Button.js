@@ -17,7 +17,7 @@ const Button = ({ handleFunction, appearance, customStyle, type, edgeType, isLoa
       handleButtonClick();
     }} style={{ width: customStyle.width, height: customStyle.height, margin: customStyle.margin }}>
       {
-        isLoading ?
+        isLoading && loadingType !== 'none' ?
           <div className={cx('button-loadingWrap')}>
             {
               loadingType === 'basic' ?
@@ -75,7 +75,8 @@ Button.propTypes = {
   isLoading: PropTypes.bool,
   loadingType: PropTypes.oneOf([
     'text',
-    'basic'
+    'basic',
+    'none'
   ])
 };
 
@@ -92,7 +93,7 @@ Button.defaultProps = {
   handleFunction: () => {},
   edgeType: 'round',
   isLoading: false,
-  loadingType: 'basic'
+  loadingType: 'none'
 };
 
 export default Button;
