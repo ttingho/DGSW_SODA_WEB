@@ -9,7 +9,7 @@ import { inject, observer } from 'mobx-react';
 
 const cx = classNames.bind(style);
 
-const NavBar = ({ pageType, url, store, history }) => {  
+const NavBar = ({ pageType, url, store, history }) => {
   const { modal } = store.dialog;
 
   const [adminAuth, setAdminAuth] = useState(false);
@@ -49,6 +49,10 @@ const NavBar = ({ pageType, url, store, history }) => {
   
         return;
       }
+    }
+
+    if (propUrl === history.location.pathname) {
+      return;
     }
     
     history.push(propUrl);
