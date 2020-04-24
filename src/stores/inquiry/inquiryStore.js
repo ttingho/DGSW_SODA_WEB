@@ -3,7 +3,7 @@ import { autobind } from 'core-decorators';
 import inquiryRepository from './inquiryRepository';
 
 @autobind
-class questionStore {
+class inquiryStore {
   @observable inquiry = {};
   @observable answer = {};
   @observable isComplate = 0;
@@ -242,4 +242,4 @@ class questionStore {
   }
 }
 
-export default questionStore;
+export default inquiryStore;
