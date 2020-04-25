@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import defaultProfileImage from '../../../assets/image/panda.jpg';
 import facebookLogo from '../../../assets/image/994EAB4F5D2565432F.png';
 import Pagination from 'components/Common/Pagination';
+import { FaFacebookF } from 'react-icons/fa';
 
 // eslint-disable-next-line react/prop-types
 const BambooItem = ({ item }) => {
@@ -16,8 +17,8 @@ const BambooItem = ({ item }) => {
   // eslint-disable-next-line react/prop-types
   const { contents, joinDate, allowDate, picture, name, profileImage } = item;
 
-  const joinDateFormat = moment(joinDate).format('YYYY-MM-DD HH:mm:ss');
-  const allowDateFormat =  moment(allowDate).format('YYYY-MM-DD HH:mm:ss');
+  const joinDateFormat = moment(joinDate).format('YYYY-MM-DD HH:mm');
+  const allowDateFormat =  moment(allowDate).format('YYYY-MM-DD HH:mm');
 
   const handleBambooImage = useCallback(async () => {
     // 프로필 이미지 설정
@@ -69,21 +70,21 @@ const BambooItem = ({ item }) => {
           </div>
         </div>
         <div className="BambooCard-Top-JoinDateStyle">
-          작성날짜 :
+          제보 :
           {
             joinDateFormat
           }
         </div>
         <div className="BambooCard-Top-AllowDateStyle">
-          승인날짜 :
+          승인 :
           {
             allowDateFormat
           }
         </div>
-        <a className="BambooCard-Top-FacebookLink" href="https://www.facebook.com/dgswbambooforest/">
-          <img className="BambooCard-Top-FacebookLinkImage" src={facebookLogo}/>
-        </a>
-        <div>
+        <div  className="BambooCard-Top-FacebookLink">
+          <a href="https://www.facebook.com/dgswbambooforest/">
+            <FaFacebookF className="BambooCard-Top-FacebookLinkImage"/>
+          </a>
         </div>
       </div>
       <div className="BambooCard-Contents">
