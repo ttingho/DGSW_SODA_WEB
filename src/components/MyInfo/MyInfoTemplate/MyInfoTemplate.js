@@ -22,6 +22,7 @@ const MyInfoTemplate = ({ userInfo, handleLogout }) => {
             <ImageIcon
               src={ImageSrc(profileImage, PROFILE_DEFAULT)}
               alt={'img'}
+              customClass={'MyInfoTemplate-wrap-line1-imageWrap-img'}
               onErrorFunc={event => event.target.src = PROFILE_DEFAULT}
               observer={profileImage}
             />
@@ -41,23 +42,15 @@ const MyInfoTemplate = ({ userInfo, handleLogout }) => {
           </div>
         </div>
         <div className={cx('MyInfoTemplate-wrap-line3')}>
-          <div className={cx('MyInfoTemplate-wrap-line3-nickName')}>
-            닉네임<span>{nickName}</span>
-          </div>
-          <button className={cx('MyInfoTemplate-wrap-line3-btn')}>
-            닉네임 변경
-          </button>
-        </div>
-        <div className={cx('MyInfoTemplate-wrap-line4')}>
-          <div className={cx('MyInfoTemplate-wrap-line4-email')}>
+          <div className={cx('MyInfoTemplate-wrap-line3-email')}>
             이메일<span>{email}</span>
           </div>
-          <button className={cx('MyInfoTemplate-wrap-line4-btn')}>
+          <button className={cx('MyInfoTemplate-wrap-line3-btn')}>
             이메일 변경
           </button>
         </div>
-        <div className={cx('MyInfoTemplate-wrap-line5')}>
-          <button className={cx('MyInfoTemplate-wrap-line5-btn')}>
+        <div className={cx('MyInfoTemplate-wrap-line4')}>
+          <button className={cx('MyInfoTemplate-wrap-line4-btn')}>
             비밀번호 변경
           </button>
         </div>
