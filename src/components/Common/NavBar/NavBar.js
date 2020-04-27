@@ -74,7 +74,7 @@ const NavBar = ({ pageType, url, store, history }) => {
       return (
         <div className={cx('NavBar-bottom-wrap-content')}>
           <div className={cx('NavBar-bottom-wrap-content-btns')}>
-            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry'})} onClick={() => handleUrl('/inquiry')}>문의</button>
+            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry' || url === 'inquiry-detail'})} onClick={() => handleUrl('/inquiry')}>문의</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-write'})} onClick={() => handleUrl('/inquiry-write')}>문의하기</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-admin'})} onClick={() => handleUrl('/inquiry-admin')}>어드민</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo'})} onClick={() => handleUrl('/bamboo')}>대나무 숲</button>

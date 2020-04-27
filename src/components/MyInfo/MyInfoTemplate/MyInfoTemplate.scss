@@ -4,8 +4,10 @@
 $imageSize: 120px;
 
 @mixin fixedSize($width, $height) {
+  width: $width;
   min-width: $width;
   max-width: $width;
+  height: $height;
   min-height: $height;
   max-height: $height;
 }
@@ -71,9 +73,8 @@ $imageSize: 120px;
         overflow: hidden;
         cursor: pointer;
   
-        .isDefault {
-          width: 100%;
-          height: 100%;
+        &-img {
+          object-fit: cover !important;
         }
   
         &-iconWrap {
@@ -128,22 +129,6 @@ $imageSize: 120px;
       align-items: center;
       @include infoStyle1();
 
-      &-nickName {
-        >span {
-          @include infoStyle2();
-        }
-      }
-      &-btn {
-        @include modifyBtn();
-      }
-    }
-    &-line4 {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      @include infoStyle1();
-
       &-email {
         >span {
           @include infoStyle2();
@@ -153,7 +138,7 @@ $imageSize: 120px;
         @include modifyBtn();
       }
     }
-    &-line5 {
+    &-line4 {
       width: 100%;
       display: flex;
       justify-content: flex-end;
