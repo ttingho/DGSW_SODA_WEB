@@ -14,7 +14,7 @@ const BambooTemplate = ({ children }) => {
 };
 
 BambooTemplate.propTypes = {
-  
+  children: PropTypes.any
 };
 
 export default BambooTemplate;

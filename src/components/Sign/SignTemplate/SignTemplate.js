@@ -28,7 +28,7 @@ const SignTemplate = ({ children, signType, changeSign, history }) => {
           {children}
         </div>
         <div className={cx('SignTemplate-left-otherBtn')}>
-          <span className={cx('SignTemplate-left-otherBtn-guest')} onClick={() => history.push('/bamboo')}>게스트 로그인</span>
+          <span className={cx('SignTemplate-left-otherBtn-guest')} onClick={() => history.push('/')}>게스트 로그인</span>
           <Button
             customStyle={{width: '210px', height: '55px', fontSize: size.s5}}
             edgeType={'round'}

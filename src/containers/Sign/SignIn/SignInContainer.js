@@ -54,7 +54,7 @@ const SignInContainer = ({
           
           setIsLoading(false);
 
-          history.push('/bamboo');
+          history.push('/');
         }
       })
       .catch(error => {

@@ -96,7 +96,7 @@ const BambooContainer = ({ store }) => {
   );
 };
 
-BambooContainer.proTypes = {
+BambooContainer.propTypes = {
   store: ProTypes.object.isRequired,
 };
 
