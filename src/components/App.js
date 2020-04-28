@@ -11,18 +11,6 @@ function App() {
         <Route
           exact
           path='/'
-          render={() => <Pages.Home/>}
-        />
-        <Route
-          path='/sign'
-          component={() => <Pages.Sign/>}
-        />
-        <Route
-          path='/intro'
-          render={() => <Pages.Intro/>}>
-        </Route>
-        <Route
-          path='/bamboo'
           render={() => <Pages.Bamboo/>}
         />
         <Route
@@ -33,6 +21,15 @@ function App() {
           path='/bamboo-admin'
           render={() => <Pages.BambooAdmin/>}
         />
+        <Route
+          path='/sign'
+          component={() => <Pages.Sign/>}
+        />
+        <Route
+          path='/intro'
+          render={() => <Pages.Intro/>}>
+        </Route>
+        
         <Route
           path='/team-building'
           render={() => <Pages.TeamBuilding/>}
