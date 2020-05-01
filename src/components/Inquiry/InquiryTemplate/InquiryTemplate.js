@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import style from './InquiryTemplate.scss';
 import { IoIosArrowDown } from 'react-icons/io';
+import TokenVerification from 'lib/Token/TokenVerification';
 import PageLoading from 'components/Common/PageLoading';
 
 const cx = classnames.bind(style);
@@ -23,6 +24,9 @@ const InquiryTemplate = ({
 
   /* 카테고리를 눌렀는지 true false */
   const [isClickedCategory, setIsClickedCategory] = useState(false);
+
+  /* 토큰 유무 */
+  const token = TokenVerification();
 
   const clickCategory = (category) => {
     handleCategory(category);
@@ -56,7 +60,7 @@ const InquiryTemplate = ({
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '소다 버그 신고'})} onClick={() => clickCategory('소다 버그 신고')}>소다 버그 신고</li>
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '관리자 문의'})} onClick={() => clickCategory('관리자 문의')}>관리자 문의</li>
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '기타 문의'})} onClick={() => clickCategory('기타 문의')}>기타 문의</li>
-                  {isAdmin ? <></>
+                  {isAdmin || token === 'empty' ? <></>
                     : <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '내가 작성한 문의'})} onClick={() => clickCategory('내가 작성한 문의')}>내가 작성한 문의</li>
                   }
                 </ul>
