@@ -82,7 +82,7 @@ const BambooWriteTemplate = ({
         <Button appearance={'secondary'} edgeType={'round'} customStyle={customStyle} handleFunction={handlePostRequest}>대나무 제보하기</Button>
       </div>
       <div className={cx('BambooWriteTemplate-contents')}>
-        <ExampleCard profileSrc={profileSrc} name={name} contentsObj={contentsObj} images={imgBase64} />
+        <ExampleCard profileSrc={profileSrc} name={name} contentsObj={contentsObj} images={images} imgBase64={imgBase64} handleImageCancel={handleImageCancel} />
       </div>
       <div className={cx('BambooWriteTemplate-footer')}>
         <span className={cx('BambooWriteTemplate-footer-title')}>참고</span>

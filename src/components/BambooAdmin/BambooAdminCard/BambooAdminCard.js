@@ -32,7 +32,7 @@ const BambooAdminCard = ({ item, isLoading, handleRequestBambooPost }) => {
 
   useEffect(() => {
     handleImages();
-  }, []);
+  }, [item.picture]);
 
   return (
     <div className={cx('BambooAdminCard')}>

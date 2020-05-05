@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
+import { MdClose, MdArrowBack, MdArrowForward } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './Pagination.scss';
 
 const cx = classNames.bind(style);
 
-const Pagination = ({ images }) => {
+const Pagination = ({ images, editImages, paginationType, deleteFunction }) => {
   const [imageIndex, setImageIndex] = useState(0);
-  
+
   const handleIndex = prop => {
     if (prop < 0 || prop >= images.length) return;
 
@@ -22,8 +23,15 @@ const Pagination = ({ images }) => {
           <></> :
           <div className={cx('Pagination', { 'Pagination-single': images.length === 1 }, { 'Pagination-multiple': images.length > 1 })}>
             <div className={cx('Pagination-image')} style={{ backgroundImage: `url(${images[imageIndex]})` }}>
-              <FaArrowCircleLeft onClick={() => handleIndex(imageIndex - 1)} className={cx('Pagination-image-icon', { 'Pagination-image-hidden': imageIndex === 0 })} />
-              <FaArrowCircleRight onClick={() => handleIndex(imageIndex + 1)} className={cx('Pagination-image-icon', { 'Pagination-image-hidden': imageIndex === (images.length - 1) })} />
+              <div className={cx('Pagination-image-iconWrap', { 'Pagination-image-hidden': imageIndex === 0 })} onClick={() => handleIndex(imageIndex - 1)}>
+                <MdArrowBack className={cx('Pagination-image-iconWrap-icon')} />
+              </div>
+              <div className={cx('Pagination-image-iconWrap', { 'Pagination-image-hidden': imageIndex === (images.length - 1) })} onClick={() => handleIndex(imageIndex + 1)}>
+                <MdArrowForward className={cx('Pagination-image-iconWrap-icon')} />
+              </div>
+              <div className={cx('Pagination-image-delBtn', { 'Pagination-image-hidden': paginationType !== 'modify' })} onClick={() => deleteFunction(editImages[imageIndex].idx)}>
+                <MdClose className={cx('Pagination-image-delBtn-icon')} />
+              </div>
             </div>
             {
               images.length === 1 ?
@@ -43,7 +51,18 @@ const Pagination = ({ images }) => {
 };
 
 Pagination.propTypes = {
-  images: PropTypes.array
+  images: PropTypes.array,
+  editImages: PropTypes.array,
+  paginationType: PropTypes.oneOf([
+    'basic',
+    'modify'
+  ]),
+  deleteFunction: PropTypes.func
+};
+
+Pagination.defaultProps = {
+  paginationType: 'basic',
+  deleteFunction: () => {}
 };
 
 export default Pagination;
