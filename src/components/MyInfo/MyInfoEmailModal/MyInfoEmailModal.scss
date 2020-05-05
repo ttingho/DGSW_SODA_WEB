@@ -1,0 +1,75 @@
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+.MyInfoEmailModalTemplate {
+  width: 600px;
+  height: 300px;
+  z-index: 3;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &-over {
+    position: fixed;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.55);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  &-closeButtonDiv {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: -30px;
+
+    &-closeButton {
+      margin-right: 10px;
+      width: 30px;
+      height: 30px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-contentsDiv {
+    display: flex;
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    &-title {
+      margin-top: -15px;
+      font-size: 24px;
+    }
+
+    &-emailDiv {
+      &-emailBox {
+        width: 350px;
+        height: 50px;
+        border-radius: 5px;
+        border: 1px solid $gray_1;
+        outline: 0px;
+        font-size: 16px;
+        padding-left: 15px;
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+      }
+    }
+
+    &-emailButtonDiv {
+
+    }
+  }
+}

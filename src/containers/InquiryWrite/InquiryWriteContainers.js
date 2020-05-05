@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import SecureLS from 'secure-ls';
+import { Prompt } from 'react-router';
 import { inject, observer } from 'mobx-react';
 import TokenVerification from 'lib/Token/TokenVerification';
 import { withRouter } from 'react-router-dom';
@@ -17,6 +18,8 @@ const InquiryWriteContainers = ({ store, history }) => {
   const [imgBase64, setImgBase64] = useState([]);
   const [imageContents, setImageContents] = useState('업로드 된 이미지');
 
+  const useComponentDidMount = func => useEffect(func, []);
+
   const { modal } = store.dialog;
   const { uploadImage } = store.upload;
   const { requestInquiryWrite } = store.inquiry;
@@ -26,6 +29,33 @@ const InquiryWriteContainers = ({ store, history }) => {
   const userInfo = ls.get('user-info');
 
   const token = TokenVerification();
+
+  // Prompt 제어 state
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
+
+  const navigate = path => {
+    history.push(path);
+  };
+
+  const handleBlockedNavigation = nextLocation => {
+    if (!isConfirmed) {  
+      modal({
+        modalType: 'basic',
+        title: 'Warning!',
+        contents: '작성된 내용이 사라질 수 있습니다. 이동하시겠습니까?',
+        confirmFunc: async () => {
+          await setIsConfirmed(true);
+
+          await navigate(nextLocation.pathname);
+        }
+      });
+
+      return false;
+    }
+
+    return true;
+  };
 
   // 프리뷰 이미지 url 설정 함수
   const handlImageBase64 = async () => {
@@ -244,12 +274,24 @@ const InquiryWriteContainers = ({ store, history }) => {
           await modal({
             title: 'Error!',
             stateType: 'error',
-            contents: '홀리 쉣 서버 에러네요 조금만 기다려 주세요. (__)'
+            contents: '서버 에러! 조금만 기다려 주세요. (__)'
           });
 
           return;
         }
       });
+  };
+
+  const useComponentWillMount = func => {
+    const willMount = useRef(true);
+  
+    if (willMount.current) {
+      func();
+    }
+  
+    useComponentDidMount(() => {
+      willMount.current = false;
+    });
   };
   
   const setMemberInfo = async () => {
@@ -270,19 +312,33 @@ const InquiryWriteContainers = ({ store, history }) => {
     setMemberInfo();
   }, []);
 
+  useComponentWillMount(() => {
+    if (handleBlockedNavigation) {
+      window.onbeforeunload = () => true;
+    } else {
+      window.onbeforeunload = undefined;
+    }
+  });
+
   return (
-    <QuestionTemplate
-      contentsObj={GroupingState('contents', contents, setContents)}
-      titleObj={GroupingState('title', title, setTitle)}
-      categoryObj={GroupingState('category', category, setCategory)}
-      handleQuestionWrite={handleQuestionWrite}
-      imageContents={imageContents}
-      handleImageChange={handleImageChange}
-      images={images}
-      imgBase64={imgBase64}
-      handleImageCancel={handleImageCancel}
-      goBackFunction={goBackFunction}
-    />
+    <>
+      <Prompt
+        when={true}
+        message={handleBlockedNavigation}
+      />
+      <QuestionTemplate
+        contentsObj={GroupingState('contents', contents, setContents)}
+        titleObj={GroupingState('title', title, setTitle)}
+        categoryObj={GroupingState('category', category, setCategory)}
+        handleQuestionWrite={handleQuestionWrite}
+        imageContents={imageContents}
+        handleImageChange={handleImageChange}
+        images={images}
+        imgBase64={imgBase64}
+        handleImageCancel={handleImageCancel}
+        goBackFunction={goBackFunction}
+      />
+    </>
   );
 };
 
