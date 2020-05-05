@@ -10,9 +10,9 @@ import ImageIcon from 'components/Common/ImageIcon';
 
 const cx = classNames.bind(style);
 
-const MyInfoTemplate = ({ userInfo, handleLogout }) => {
-  const { displayName, nickName, email, profileImage } = userInfo;
-  console.log(userInfo);
+const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals}) => {
+  const { displayName, email, profileImage } = userInfo;
+  const { setIsEmailModal, setIsPwModal } = isSetModals;
 
   return (
     <div className={cx('MyInfoTemplate')}>
@@ -45,12 +45,12 @@ const MyInfoTemplate = ({ userInfo, handleLogout }) => {
           <div className={cx('MyInfoTemplate-wrap-line3-email')}>
             이메일<span>{email}</span>
           </div>
-          <button className={cx('MyInfoTemplate-wrap-line3-btn')}>
+          <button className={cx('MyInfoTemplate-wrap-line3-btn')} onClick={() => setIsEmailModal(true)}>
             이메일 변경
           </button>
         </div>
         <div className={cx('MyInfoTemplate-wrap-line4')}>
-          <button className={cx('MyInfoTemplate-wrap-line4-btn')}>
+          <button className={cx('MyInfoTemplate-wrap-line4-btn')} onClick={() => setIsPwModal(true)}>
             비밀번호 변경
           </button>
         </div>
@@ -61,7 +61,8 @@ const MyInfoTemplate = ({ userInfo, handleLogout }) => {
 
 MyInfoTemplate.propTypes = {
   userInfo: PropTypes.object,
-  handleLogout: PropTypes.func
+  handleLogout: PropTypes.func,
+  isSetModals: PropTypes.object,
 };
 
 export default MyInfoTemplate;
