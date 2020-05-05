@@ -64,6 +64,7 @@ $width_size: 735px;
     flex-direction: row;
     font-size: $font_size_1;
     font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    user-select: none;
     &-title {
       color: $gray_4;
       margin-right: 1%;

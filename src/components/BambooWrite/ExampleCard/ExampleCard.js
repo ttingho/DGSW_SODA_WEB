@@ -9,7 +9,7 @@ import Pagination from 'components/Common/Pagination';
 
 const cx = classNames.bind(style);
 
-const ExampleCard = ({ profileSrc, name, contentsObj, images }) => {
+const ExampleCard = ({ profileSrc, name, contentsObj, images, imgBase64, handleImageCancel }) => {
   const { contents, setContents } = contentsObj;
 
   return (
@@ -31,7 +31,7 @@ const ExampleCard = ({ profileSrc, name, contentsObj, images }) => {
         </div>
       </div>
       <div className={cx('ExampleCard-images')}>
-        <Pagination images={images} />
+        <Pagination images={imgBase64} editImages={images} paginationType={'modify'} deleteFunction={handleImageCancel} />
       </div>
       <TextareaAutosize
         value={contents}
@@ -47,7 +47,9 @@ ExampleCard.propTypes = {
   profileSrc: PropTypes.string,
   name: PropTypes.string,
   contentsObj: PropTypes.object,
-  images: PropTypes.array
+  images: PropTypes.array,
+  imgBase64: PropTypes.array,
+  handleImageCancel: PropTypes.func
 };
 
 export default ExampleCard;

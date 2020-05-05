@@ -8,8 +8,11 @@ import { withRouter } from 'react-router-dom';
 import usePending from 'lib/HookState/usePending';
 import RefreshToken from 'lib/Token/RefreshToken';
 import BambooAdminCard from 'components/BambooAdmin/BambooAdminCard';
+import useStores from 'lib/HookState/useStore';
 
-const BambooAdmin = ({ store, history }) => {
+const BambooAdmin = observer(({ history }) => {
+  const { store } = useStores();
+
   const { modal } = store.dialog;
 
   const { pendingList, getPendingList, requestBambooPost } = store.admin;
@@ -125,11 +128,11 @@ const BambooAdmin = ({ store, history }) => {
       }
     </BambooAdminTemplate>
   );
-};
+});
 
 BambooAdmin.propTypes = {
   store: PropTypes.object,
   history: PropTypes.object
 };
 
-export default inject('store')(observer(withRouter(BambooAdmin)));
+export default withRouter(BambooAdmin);
