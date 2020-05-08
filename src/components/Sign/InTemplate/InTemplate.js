@@ -11,7 +11,7 @@ const { size } = typography;
 
 const cx = classNames.bind(style);
 
-const InTemplate = ({ signType, idObj, pwObj, keepLoginObj, isLoading, requestSignIn }) => {
+const InTemplate = ({ signType, changeSign, idObj, pwObj, keepLoginObj, isLoading, requestSignIn }) => {
   const { id, setId } = idObj;
   const { pw, setPw } = pwObj;
   const { keepLogin, setKeepLogin } = keepLoginObj;
@@ -32,14 +32,17 @@ const InTemplate = ({ signType, idObj, pwObj, keepLoginObj, isLoading, requestSi
         placeholder={'비밀번호'}
         handleEnterFunc={requestSignIn}
       />
-      <div className={cx('InTemplate-loginKeep')}>
-        <span onClick={() => setKeepLogin(!keepLogin)}>로그인 유지</span>
-        <div className={cx('InTemplate-loginKeep-box')} onClick={() => setKeepLogin(!keepLogin)}>
-          <MdDone size={18} className={cx('InTemplate-loginKeep-box-icon', {'InTemplate-loginKeep-box-icon-hidden': !keepLogin})}/>
+      <div className={cx('InTemplate-subFunc')}>
+        <span className={cx('InTemplate-subFunc-toSignUp')} onClick={() => changeSign()}>회원가입 하기</span>
+        <div className={cx('InTemplate-subFunc-loginKeep')}>
+          <span onClick={() => setKeepLogin(!keepLogin)}>로그인 유지</span>
+          <div className={cx('InTemplate-subFunc-loginKeep-box')} onClick={() => setKeepLogin(!keepLogin)}>
+            <MdDone size={16} className={cx('InTemplate-subFunc-loginKeep-box-icon', {'InTemplate-subFunc-loginKeep-box-icon-hidden': !keepLogin})}/>
+          </div>
         </div>
-      </div>    
+      </div>
       <Button
-        customStyle={{width: '500px', height: '65px', fontSize: size.s6}}
+        customStyle={{width: '200px', height: '40px', fontSize: size.s2}}
         edgeType={'round'}
         appearance={'primary'}
         isLoading={isLoading}
@@ -47,16 +50,17 @@ const InTemplate = ({ signType, idObj, pwObj, keepLoginObj, isLoading, requestSi
       >
         로그인  
       </Button>      
-      <div className={cx('InTemplate-find')}>
+      {/* <div className={cx('InTemplate-find')}>
         <span className={cx('InTemplate-find-id')}>아이디 찾기</span>
         <span className={cx('InTemplate-find-pw')}>비밀번호 찾기</span>
-      </div>
+      </div> */}
     </div>
   );
 };
 
 InTemplate.propTypes = {
   signType: PropTypes.bool,
+  changeSign: PropTypes.func,
   idObj: PropTypes.object,
   pwObj: PropTypes.object,
   keepLoginObj: PropTypes.object,

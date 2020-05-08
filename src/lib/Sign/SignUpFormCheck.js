@@ -35,9 +35,9 @@ const SignUpFormCheck = (data, pageType) => {
       };
     }
   } else if (pageType === 2) {
-    const { email, nickName, name, isCheckedEmail } = data;
+    const { email, name, isCheckedEmail } = data;
 
-    if (!(!!email && !!nickName && !!name)) {
+    if (!(!!email && !!name)) {
       return {
         isFormCheck: false,
         text: '양식이 비어있습니다.',
@@ -49,25 +49,26 @@ const SignUpFormCheck = (data, pageType) => {
         text: '이메일 형식을 지켜주세요.',
         type: 'warning'
       };
-    } else if (!(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{2,12}$/).test(nickName)) {
-      return {
-        isFormCheck: false,
-        text: '닉네임 형식을 지켜주세요.',
-        type: 'warning'
-      };
     } else if (!(/^[a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ]{2,12}$/).test(name)) {
       return {
         isFormCheck: false,
         text: '이름 형식을 지켜주세요.',
         type: 'warning'
       };
-    } else if (isCheckedEmail !== true) {
-      return {
-        isFormCheck: false,
-        text: '이메일을 검증 해주세요.',
-        type: 'warning'
-      };
-    }
+    } 
+    // else if (!(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{2,12}$/).test(nickName)) {
+    //   return {
+    //     isFormCheck: false,
+    //     text: '닉네임 형식을 지켜주세요.',
+    //     type: 'warning'
+    //   };
+    // } else if (isCheckedEmail !== true) {
+    //   return {
+    //     isFormCheck: false,
+    //     text: '이메일을 검증 해주세요.',
+    //     type: 'warning'
+    //   };
+    // }
   }
 
   return {

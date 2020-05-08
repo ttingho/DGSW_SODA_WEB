@@ -2,8 +2,8 @@
 @import 'styles/color/color_scheme.scss';
 
 .InTemplate {
-  width: 500px;
-  height: 550px;
+  width: 350px;
+  height: 280px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -22,34 +22,51 @@
     margin-top: 20px;
   }
 
-  &-loginKeep {
-    width: 150px;
-    height: 30px;
+  &-subFunc {
+    width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    align-self: flex-end;
 
-    &>span {
-      color: $soda_primary;
-      font-size: $font_size_4;
+    &-toSignUp {
+      color: $gray_2;
+      font-size: $font_size_2;
       font-family: $NOTO_SANS_KR_REGULAR;
       cursor: pointer;
     }
-    &-box {
-      width: 25px;
-      height: 25px;
-      border: 1px solid $soda_primary;
+    &-toSignUp:hover {
+      text-decoration: underline;
+    }
+    &-loginKeep {
+      width: 150px;
+      height: 30px;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
-      cursor: pointer;
-
-      &-icon {
+      align-self: flex-end;
+  
+      &>span {
         color: $soda_primary;
-        
-        &-hidden {
-          display: none;
+        font-size: $font_size_2;
+        font-family: $NOTO_SANS_KR_REGULAR;
+        cursor: pointer;
+      }
+      &-box {
+        width: 20px;
+        height: 20px;
+        border: 1px solid $soda_primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-left: 10px;
+  
+        &-icon {
+          color: $soda_primary;
+          
+          &-hidden {
+            display: none;
+          }
         }
       }
     }

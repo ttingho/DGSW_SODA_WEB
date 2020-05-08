@@ -56,57 +56,77 @@ $imageSize: 120px;
 
     &-line1 {
       width: 100%;
-      height: 120px;
+      height: 160px;
       position: relative;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
 
-      &-imageWrap {
-        @include fixedSize($imageSize, $imageSize);
+      &-top {
+        width: 100%;
+        height: 120px;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        border-radius: 100%;
-        border: 2px solid $shadow;
-        overflow: hidden;
-        cursor: pointer;
-  
-        &-img {
-          object-fit: cover !important;
-        }
-  
-        &-iconWrap {
-          position: absolute;
+
+        &-imageWrap {
+          @include fixedSize($imageSize, $imageSize);
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 30px;
-          height: 30px;
-          bottom: 4%;
-          left: 12%;
-          background-color: $white;
-          border: 1px solid $shadow;
           border-radius: 100%;
+          border: 1px solid $shadow;
+          overflow: hidden;
           cursor: pointer;
-  
-          &>.icon {
-            color: $gray_4;
-            width: 20px;
-            height: 20px;
+    
+          &-img {
+            // object-fit: cover !important;
+          }
+    
+          &-iconWrap {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            bottom: 28%;
+            left: 12%;
+            background-color: $white;
+            border: 1px solid $shadow;
+            border-radius: 100%;
+            cursor: pointer;
+    
+            &>.icon {
+              color: $gray_4;
+              width: 20px;
+              height: 20px;
+            }
+          }
+    
+          &>input {
+            display: none;
           }
         }
-  
-        &>input {
-          display: none;
+        &-logout {
+          font-size: $font_size_2;
+          font-family: $NOTO_SANS_KR_MEDIUM;
+          color: $soda_primary;
+          cursor: pointer;
         }
       }
-      &-logout {
-        font-size: $font_size_2;
-        font-family: $NOTO_SANS_KR_MEDIUM;
-        color: $soda_primary;
-        cursor: pointer;
+      &-bottom {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        &-btn {
+          @include modifyBtn();
+          margin-left: 10px;
+          margin-top: 16px;
+        }
       }
     }
     &-line2 {
