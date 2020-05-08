@@ -24,7 +24,7 @@ const MyInfoContainer = ({ history }) => {
 
     ls.removeAll();
 
-    history.push('/sign');
+    history.goBack(1);
   };
 
   const isSetModals = {

@@ -11,7 +11,9 @@ import Image1 from 'assets/image/intro/intro_image1.png';
 import Image2 from 'assets/image/intro/intro_image2.png';
 import Panda from 'assets/image/intro/panda.png';
 import Feed from 'assets/image/intro/soda_feed.png';
+import Write from 'assets/image/intro/soda_write.png';
 import Inquiry from 'assets/image/intro/soda_inquiry.png';
+import Inquiry_Write from 'assets/image/intro/soda_inquiry_write.png';
 import Member1 from 'assets/image/intro/member_intro1.png';
 import Member2 from 'assets/image/intro/member_intro2.png';
 import Member3 from 'assets/image/intro/member_intro3.png';
@@ -99,38 +101,62 @@ const Intro = ({ history }) => {
           </div>
           <div className={cx('Intro-page3-wrap-right')} data-aos='fade-left'>
             <img className={cx('Intro-page3-wrap-right-feed')} src={Feed} />
-            <img className={cx('Intro-page3-wrap-right-inquiry')} src={Inquiry} />
+            <img className={cx('Intro-page3-wrap-right-inquiry')} src={Write} />
           </div>
         </div>
       </div>
       <div className={cx('Intro-page4')}>
         <div className={cx('Intro-page4-wrap')}>
-          <div className={cx('Intro-page4-wrap-top')}>
-            <div className={cx('Intro-page4-wrap-top-subtitle')}>
+          <div className={cx('Intro-page4-wrap-left')} data-aos='fade-right'>
+            <img className={cx('Intro-page4-wrap-left-feed')} src={Inquiry} />
+            <img className={cx('Intro-page4-wrap-left-inquiry')} src={Inquiry_Write} />
+          </div>
+          <div className={cx('Intro-page4-wrap-right')} data-aos='fade-left'>
+            <div className={cx('Intro-page4-wrap-right-subtitle')}>
+              <span>고객센터?</span>
+              <span>QnA</span>
+            </div>
+            <div className={cx('Intro-page4-wrap-right-content')}>
+              저희는 원활한 서비스 운영을 하며, SODA 개발자 및 운영자와 소통할 수 있는 공간을 만들었습니다.
+              <br/>
+              해당 서비스는 SODA 서비스 관련 문의, 개발과 관련된 내용 등을 다양한 카테고리에 맞게 물어볼 수 있습니다.
+              <br/>
+              SODA 개발자 및 운영자에게 서비스 관련 문의나 궁금한 것을 카테고리에 따라 물어보고 답변을 들어보세요!
+            </div>
+            <div className={cx('Intro-page4-wrap-right-inquiry')}  onClick={() => history.push('/inquiry')}>
+              <span>고객센터</span>&nbsp;보러가기
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={cx('Intro-page5')}>
+        <div className={cx('Intro-page5-wrap')}>
+          <div className={cx('Intro-page5-wrap-top')}>
+            <div className={cx('Intro-page5-wrap-top-subtitle')} data-aos='fade-left'>
               <span>DEVELOPER</span>
               <span>개발자 소개</span>
             </div>
           </div>
-          <div className={cx('Intro-page4-wrap-bottom')}>
-            <div className={cx('Intro-page4-wrap-bottom-member')} data-aos='fade-up'>
-              <img className={cx('Intro-page4-wrap-bottom-member-img')} src={Member1} />
-              <div className={cx('Intro-page4-wrap-bottom-member-info')}>
+          <div className={cx('Intro-page5-wrap-bottom')}>
+            <div className={cx('Intro-page5-wrap-bottom-member')} data-aos='fade-up'>
+              <img className={cx('Intro-page5-wrap-bottom-member-img')} src={Member1} />
+              <div className={cx('Intro-page5-wrap-bottom-member-info')}>
                 <span>추명호</span>
                 <span>웹 프런트 개발</span>
                 <span>디자인</span>
               </div>
             </div>
-            <div className={cx('Intro-page4-wrap-bottom-member')} data-aos='fade-up' data-aos-delay='200'>
-              <img className={cx('Intro-page4-wrap-bottom-member-img')} src={Member2} />
-              <div className={cx('Intro-page4-wrap-bottom-member-info')}>
+            <div className={cx('Intro-page5-wrap-bottom-member')} data-aos='fade-up' data-aos-delay='200'>
+              <img className={cx('Intro-page5-wrap-bottom-member-img')} src={Member2} />
+              <div className={cx('Intro-page5-wrap-bottom-member-info')}>
                 <span>오해성</span>
                 <span>웹 프런트 개발</span>
                 <span>서버 개발</span>
               </div>
             </div>
-            <div className={cx('Intro-page4-wrap-bottom-member')} data-aos='fade-up' data-aos-delay='400'>
-              <img className={cx('Intro-page4-wrap-bottom-member-img')} src={Member3} />
-              <div className={cx('Intro-page4-wrap-bottom-member-info')}>
+            <div className={cx('Intro-page5-wrap-bottom-member')} data-aos='fade-up' data-aos-delay='400'>
+              <img className={cx('Intro-page5-wrap-bottom-member-img')} src={Member3} />
+              <div className={cx('Intro-page5-wrap-bottom-member-info')}>
                 <span>최석준</span>
                 <span>웹 프런트 개발</span>
               </div>

@@ -63,8 +63,8 @@ SignInput.propTypes = {
 
 SignInput.defaultProps = {
   customStyle: {
-    width: '500px',
-    height: '60px',
+    width: '350px',
+    height: '50px',
     margin: '0'
   },
   customClass: '',

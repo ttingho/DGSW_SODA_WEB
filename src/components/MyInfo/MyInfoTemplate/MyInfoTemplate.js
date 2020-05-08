@@ -18,24 +18,31 @@ const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals}) => {
     <div className={cx('MyInfoTemplate')}>
       <div className={cx('MyInfoTemplate-wrap')}>
         <div className={cx('MyInfoTemplate-wrap-line1')}>
-          <label className={cx('MyInfoTemplate-wrap-line1-imageWrap')} htmlFor="imgInput">
-            <ImageIcon
-              src={ImageSrc(profileImage, PROFILE_DEFAULT)}
-              alt={'img'}
-              customClass={'MyInfoTemplate-wrap-line1-imageWrap-img'}
-              onErrorFunc={event => event.target.src = PROFILE_DEFAULT}
-              observer={profileImage}
-            />
-            <label
-              className={cx('MyInfoTemplate-wrap-line1-imageWrap-iconWrap')}
-              htmlFor="imgInput"
-            >
-              <MdCameraAlt className="icon"/>
+          <div className={cx('MyInfoTemplate-wrap-line1-top')}>
+            <label className={cx('MyInfoTemplate-wrap-line1-top-imageWrap')} htmlFor="imgInput">
+              <ImageIcon
+                src={ImageSrc(profileImage, PROFILE_DEFAULT)}
+                alt={'img'}
+                customClass={'MyInfoTemplate-wrap-line1-top-imageWrap-img'}
+                onErrorFunc={event => event.target.src = PROFILE_DEFAULT}
+                observer={profileImage}
+              />
+              <label
+                className={cx('MyInfoTemplate-wrap-line1-top-imageWrap-iconWrap')}
+                htmlFor="imgInput"
+              >
+                <MdCameraAlt className="icon"/>
+              </label>
+              <input id="imgInput" type="file" onChange={e => {}} accept="image/*"/>
             </label>
-            <input id="imgInput" type="file" onChange={e => {}} accept="image/*"/>
-          </label>
-          <span className={cx('MyInfoTemplate-wrap-line1-logout')} onClick={() => handleLogout()}>로그아웃</span>
-        </div>
+            <span className={cx('MyInfoTemplate-wrap-line1-top-logout')} onClick={() => handleLogout()}>로그아웃</span>
+          </div>
+          <div className={cx('MyInfoTemplate-wrap-line1-bottom')}>
+            <button className={cx('MyInfoTemplate-wrap-line1-bottom-btn')} onClick={() => {}}>
+              프로필 사진 변경
+            </button>
+          </div>
+        </div>        
         <div className={cx('MyInfoTemplate-wrap-line2')}>
           <div className={cx('MyInfoTemplate-wrap-line2-name')}>
             이름<span>{displayName}</span>

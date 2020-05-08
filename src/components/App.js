@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import * as Pages from '../pages';
 import Modal from 'containers/Common/Modal';
+import SignModal from 'containers/Sign';
 import TokenVerification from 'lib/Token/TokenVerification';
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
         <Redirect to='/notfound' />
       </Switch>
       <Modal />
+      <SignModal />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import sha512 from 'js-sha512';
 import UpTemplate from 'components/Sign/UpTemplate';
@@ -6,6 +6,7 @@ import SignUpFormCheck from 'lib/Sign/SignUpFormCheck';
 
 const SignUpContainer = ({
   signType,
+  isCertified,
   changeSign,
   idObj,
   idCheckObj,
@@ -14,8 +15,9 @@ const SignUpContainer = ({
   isRightPwObj,
   nameObj,
   emailObj,
+  emailCodeObj,
   // phoneObj,
-  nickNameObj,
+  // nickNameObj,
   profileImageObj,
   isCheckedEmailObj,
   pageObj,
@@ -24,6 +26,8 @@ const SignUpContainer = ({
   handleSignUp,
   handleIdCheck,
   handleEmail,
+  handleEmailCode,
+  // handleCertification,
   uploadImage,
 }) => {
   const { id } = idObj;
@@ -31,12 +35,13 @@ const SignUpContainer = ({
   const { checkPw } = checkPwObj;
   const { name } = nameObj;
   const { email } = emailObj;
+  const { emailCode, setEmailCode } = emailCodeObj;
   // const { phone } = phoneObj;
-  const { nickName } = nickNameObj;
+  // const { nickName } = nickNameObj;
   const { profileImage } = profileImageObj;
   const { page, setPage } = pageObj;
   const { idCheck, setIdCheck } = idCheckObj;
-  const { isCheckedEmail } = isCheckedEmailObj;
+  const { isCheckedEmail, setIsCheckedEmail } = isCheckedEmailObj;
   const { isRightPw, setIsRightPw } = isRightPwObj;
 
   /* 서버에 실질적으로 보낼 profileImage */
@@ -52,16 +57,47 @@ const SignUpContainer = ({
     name,
     email,
     // phone,
-    nickName,
+    // nickName,
     idCheck,
     isRightPw,
     isCheckedEmail
   };
 
-  const handleNextPage = pageType => {
+  const handleCertification = async() => {
+    let data = {
+      code: emailCode,
+      email: email
+    };
+
+    await handleEmailCode(data)
+      .then((response) => {
+        setIsCheckedEmail(true);
+      }).catch((error) => {
+        const { status } = error.response.data;
+
+        if (status === 400) {
+          modal({
+            title: 'Warning!',
+            stateType: 'warning',
+            contents: '코드를 입력해주세요.'
+          });
+          return;
+        } 
+        if (status === 403) {
+          modal({
+            title: 'Warning!',
+            stateType: 'warning',
+            contents: '올바른 검증 코드를 입력해주세요.'
+          });
+          return;
+        }
+      });
+  };
+
+  const handleNextPage = useCallback(async pageType => {
     const { isFormCheck, type, text  } = SignUpFormCheck(userObj, page);
     
-    if (isFormCheck === false) {
+    if (isFormCheck === false) {  // page1과 2는 이곳을 통해 처리가 됨.
       modal({
         title: 'Warning!',
         stateType: type,
@@ -69,9 +105,48 @@ const SignUpContainer = ({
       });
       return;
     }
+
+    if (pageType === 3) { // page 3으로 가려고 할 때
+      await handleSendEmail();
+      setPage(pageType);
+      return;
+    }
+    if (pageType === 4) { // page 4로 가려고 할 때
+      let data = {
+        code: emailCode,
+        email: email
+      };
+  
+      await handleEmailCode(data)
+        .then((response) => { // 인증 성공 시 다음 페이지, 이메일 인증 여부 추가
+          setPage(pageType);
+          setIsCheckedEmail(true);
+        }).catch((error) => { // 실패 시 사유 모달 띄우기
+          const { status } = error.response.data;
+  
+          if (status === 400) {
+            modal({
+              title: 'Warning!',
+              stateType: 'warning',
+              contents: '코드를 입력해주세요.'
+            });
+            return;
+          } 
+          if (status === 403) {
+            modal({
+              title: 'Warning!',
+              stateType: 'warning',
+              contents: '올바른 검증 코드를 입력해주세요.'
+            });
+            return;
+          }
+        });
+
+      return;
+    }
     
     setPage(pageType);
-  };
+  }, [userObj, page, isCheckedEmail]);
 
   
 
@@ -113,7 +188,10 @@ const SignUpContainer = ({
     }
   };
 
-  const handleEmailModal = async() => {
+  const handleSendEmail = async() => {
+    setEmailCode('');  // 이메일 인증 코드 초기화
+    setIsCheckedEmail(false);  // 이메일 인증 여부 해제
+
     if (email === '') {
       modal({
         title: 'Warning!',
@@ -136,9 +214,9 @@ const SignUpContainer = ({
     
     await handleEmail(data)
       .then((response) => {
-        if (response.status === 200) {
-          setIsEmailModal(true);
-        }
+        // if (response.status === 200) {
+        //   setIsEmailModal(true);
+        // }
       }).catch((error) => {
         const { status } = error.response.data;
 
@@ -192,22 +270,6 @@ const SignUpContainer = ({
   };
 
   const requestSignUp = async () => {
-    if (nickName === '') {
-      modal({
-        title: 'Warning!',
-        stateType: 'warning',
-        contents: '닉네임을 입력해주세요.'
-      });
-      return;
-    } else if (!(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{2,12}$/).test(nickName)) {
-      modal({
-        title: 'Warning!',
-        stateType: 'warning',
-        contents: '닉네임 형식을 지켜주세요.'
-      });
-      return;
-    }
-
     if (profileImage === null) {  // 기본 프로필 이미지 일때
       const data = {
         memberId: id,
@@ -215,14 +277,15 @@ const SignUpContainer = ({
         name: name,
         // phone: phone,
         email: email,
-        // profileImage: {
-        //   uploadName: null,
-        //   type: null
-        // },
-        nickName: nickName,
+        profileImage: {
+          uploadName: null,
+          type: null
+        },
+        // nickName: nickName,
         certification: isCheckedEmail,
         consent: true
       };
+      console.log(data);
 
       setIsLoading(true);
 
@@ -297,7 +360,7 @@ const SignUpContainer = ({
         name: name,
         email: email,
         profileImage: picture,
-        nickName: nickName,
+        // nickName: nickName,
         certification: isCheckedEmail,
         consent: true
       };
@@ -342,22 +405,25 @@ const SignUpContainer = ({
     <>
       <UpTemplate
         signType={signType}
+        changeSign={changeSign}
         idObj={idObj}
         pwObj={pwObj}
         checkPwObj={checkPwObj}
         nameObj={nameObj}
         emailObj={emailObj}
+        emailCodeObj={emailCodeObj}
         // phoneObj={phoneObj}
-        nickNameObj={nickNameObj}
+        // nickNameObj={nickNameObj}
         profileImageObj={profileImageObj}
         isCheckedEmailObj={isCheckedEmailObj}
         pageObj={pageObj}
         idCheck={idCheck}
         isRightPw={isRightPw}
         handleNextPage={handleNextPage}
-        handleEmailModal={handleEmailModal}
+        handleSendEmail={handleSendEmail}
         handleFocusOutId={handleFocusOutId}
         handleCheckPw={handleCheckPw}
+        handleCertification={handleCertification}
         requestSignUp={requestSignUp}
       />
     </>
@@ -366,6 +432,7 @@ const SignUpContainer = ({
 
 SignUpContainer.propTypes = {
   signType: PropTypes.bool,
+  isCertified: PropTypes.bool,
   changeSign: PropTypes.func,
   idObj: PropTypes.object,
   idCheckObj: PropTypes.object,
@@ -374,8 +441,9 @@ SignUpContainer.propTypes = {
   isRightPwObj: PropTypes.object,
   nameObj: PropTypes.object,
   emailObj: PropTypes.object,
+  emailCodeObj: PropTypes.object,
   // phoneObj: PropTypes.object,
-  nickNameObj: PropTypes.object,
+  // nickNameObj: PropTypes.object,
   profileImageObj: PropTypes.object,
   isCheckedEmailObj: PropTypes.object,
   pageObj: PropTypes.object,
@@ -384,6 +452,8 @@ SignUpContainer.propTypes = {
   handleSignUp: PropTypes.func,
   handleIdCheck: PropTypes.func,
   handleEmail: PropTypes.func,
+  handleCertification: PropTypes.func,
+  handleEmailCode:PropTypes.func,
   uploadImage: PropTypes.func,
 };
 

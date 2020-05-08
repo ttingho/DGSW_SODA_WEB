@@ -11,6 +11,7 @@ const cx = classNames.bind(style);
 
 const NavBar = ({ pageType, url, store, history }) => {
   const { modal } = store.dialog;
+  const { handleIsSignModal } = store.sign;
 
   const [adminAuth, setAdminAuth] = useState(false);
 
@@ -94,7 +95,7 @@ const NavBar = ({ pageType, url, store, history }) => {
 
     ls.removeAll();
 
-    history.push('/sign');
+    history.push('/');
   };
 
   useEffect(() => {
@@ -117,16 +118,16 @@ const NavBar = ({ pageType, url, store, history }) => {
             </div>
             <div className={cx('NavBar-top-wrap-content')}>
               <div className={cx('NavBar-top-wrap-content-btns')}>
-                <button className={cx('NavBar-top-wrap-content-btns-login')}
+                {/* <button className={cx('NavBar-top-wrap-content-btns-login')}
                   onClick={() => handleLogout()}
                 >
                   {token !== 'empty' ?
                     '로그아웃' : <></>
                   }
-                </button>
+                </button> */}
                 <button className={cx('NavBar-top-wrap-content-btns-login', {'NavBar-top-wrap-content-btns-login-inquiry': pageType === 'inquiry'})}
                   onClick={() => {
-                    if (token === 'empty') history.push('/sign');
+                    if (token === 'empty') handleIsSignModal(true);
                     else history.push('/myinfo');
                   }}
                 >
