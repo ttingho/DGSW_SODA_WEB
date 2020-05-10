@@ -82,7 +82,7 @@ const BambooItem = ({ item }) => {
           }
         </div>
         <div  className="BambooCard-Top-FacebookLink">
-          <a href="https://www.facebook.com/dgswbambooforest/">
+          <a href="https://www.facebook.com/dgswbambooforest/" target="blank">
             <FaFacebookF className="BambooCard-Top-FacebookLinkImage"/>
           </a>
         </div>

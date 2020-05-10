@@ -7,13 +7,9 @@ import GroupingState from 'lib/HookState/GroupingState';
 
 const MyInfoEmailModalContainer = ({ store, setIsEmailModal }) => {
   const { modifyMemberInfo } = store.member;
+  const { getMyInfo } = store.member;
   const { modal } = store.dialog;
   const [email, setEmail] = useState('');
-
-  const profileImage = {
-    type: null,
-    uploadName: null,
-  };
 
   const ls = new SecureLS({ encodingType: 'aes' });
   const userInfo = ls.get('user-info');
@@ -39,7 +35,6 @@ const MyInfoEmailModalContainer = ({ store, setIsEmailModal }) => {
 
     let data = {
       email,
-      profileImage,
     };
 
     await modifyMemberInfo(data).
@@ -48,7 +43,10 @@ const MyInfoEmailModalContainer = ({ store, setIsEmailModal }) => {
           title: 'Success!',
           stateType: 'success',
           contents: '이메일이 성공적으로 변경 되었습니다!',
-          closeFunc: () => setIsEmailModal(false)
+          closeFunc: () => { 
+            setIsEmailModal(false);
+            getMyInfo();
+          }
         });
       })
       .catch(async (error) => {

@@ -10,10 +10,10 @@ import ImageIcon from 'components/Common/ImageIcon';
 
 const cx = classNames.bind(style);
 
-const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals}) => {
+const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals, handleImageChange, setBaseProfileImage}) => {
   const { displayName, email, profileImage } = userInfo;
   const { setIsEmailModal, setIsPwModal } = isSetModals;
-
+  
   return (
     <div className={cx('MyInfoTemplate')}>
       <div className={cx('MyInfoTemplate-wrap')}>
@@ -33,13 +33,13 @@ const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals}) => {
               >
                 <MdCameraAlt className="icon"/>
               </label>
-              <input id="imgInput" type="file" onChange={e => {}} accept="image/*"/>
+              <input id="imgInput" type="file" onChange={handleImageChange} accept="image/*" multiple={'multiple'}/>
             </label>
             <span className={cx('MyInfoTemplate-wrap-line1-top-logout')} onClick={() => handleLogout()}>로그아웃</span>
           </div>
           <div className={cx('MyInfoTemplate-wrap-line1-bottom')}>
-            <button className={cx('MyInfoTemplate-wrap-line1-bottom-btn')} onClick={() => {}}>
-              프로필 사진 변경
+            <button className={cx('MyInfoTemplate-wrap-line1-bottom-btn')} onClick={() => setBaseProfileImage()}>
+              기본 이미지로 설정
             </button>
           </div>
         </div>        
@@ -70,6 +70,8 @@ MyInfoTemplate.propTypes = {
   userInfo: PropTypes.object,
   handleLogout: PropTypes.func,
   isSetModals: PropTypes.object,
+  handleImageChange: PropTypes.func,
+  setBaseProfileImage: PropTypes.func
 };
 
 export default MyInfoTemplate;
