@@ -285,7 +285,6 @@ const SignUpContainer = ({
         certification: isCheckedEmail,
         consent: true
       };
-      console.log(data);
 
       setIsLoading(true);
 

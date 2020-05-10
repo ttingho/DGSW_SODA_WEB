@@ -31,7 +31,12 @@ const ImageIcon = ({ src, alt, width, height, margin, onErrorFunc, customClass, 
     img.onload = () => {
       if (width || height) return;
 
-      if (img.width < img.height) {
+      if (img.width === img.height) {
+        if (isMounted.current) {
+          setImgHeight('100%');
+          setImgWidth('100%');
+        }
+      } else if (img.width < img.height) {
         if (isMounted.current) {
           setImgHeight('auto');
           setImgWidth('100%');

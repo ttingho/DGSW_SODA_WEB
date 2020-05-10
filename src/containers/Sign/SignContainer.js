@@ -15,12 +15,6 @@ const SignContainer = ({ store, history }) => {
   const { uploadImage } = store.upload;
   const { modal } = store.dialog;
 
-  useEffect(() => {
-    if (TokenVerification() !== 'empty') {
-      history.goBack(1);
-    }
-  }, []);
-
   /* Sign Inputs */
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');

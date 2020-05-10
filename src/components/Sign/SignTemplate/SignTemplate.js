@@ -13,12 +13,6 @@ const cx = classnames.bind(style);
 const { size } = typography;
 
 const SignTemplate = ({ isModal, handleIsSignModal, children, page, signType, changeSign, history }) => {
-  useEffect(() => {
-    if (TokenVerification() !== 'empty') {
-      history.goBack(1);
-    }
-  }, []);
-
   return (
     <>
       <div className={cx('SignTemplate-over', {'SignTemplate-hidden': !isModal})} onClick={() => handleIsSignModal(false)}/>
