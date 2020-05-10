@@ -20,13 +20,9 @@ const InquiryWriteTemplate = ({
   imgBase64,
   goBackFunction,
 }) => {
-  console.log(imgBase64);
-  
   const { contents, setContents } = contentsObj;
   const { title, setTitle } = titleObj;
   const { category, setCategory } = categoryObj;
-
-  const [isImage, setIsImage] = useState(false);
 
   const handleCategory = (e) => {
     setCategory(e.target.value);
@@ -37,10 +33,10 @@ const InquiryWriteTemplate = ({
       <div className={cx('QuestionWriteTemplate-contentsTopBox')}>
         <select className={cx('QuestionWriteTemplate-contentsTopBox-categoryBox')} value={category} onChange={handleCategory}>
           <option value={'NotSelect'}>카테고리 유형을 선택해 주세요!</option>
-          <option value={'대숲 버그 신고'}>대숲 서비스 관련 버그 신고</option>
-          <option value={'소다 버그 신고'}>소다 서비스 관련 버그 신고</option>
-          <option value={'관리자 문의'}>관리자한테 궁금 한거</option>
-          <option value={'기타 문의'}>기타</option>
+          <option value={'서비스 버그 신고'}>서비스 버그 신고</option>
+          <option value={'관리자 문의'}>관리자 문의</option>
+          <option value={'개발자 QnA'}>개발자 QnA</option>
+          <option value={'대소고 QnA'}>대소고 QnA</option>
         </select>
         <div className={cx('QuestionWriteTemplate-contentsTopBox-uploadButtonDiv')}>
           <label className={cx('QuestionWriteTemplate-contentsTopBox-uploadButtonDiv-label')} htmlFor={'image_upload'}>사진 업로드</label>
@@ -59,7 +55,7 @@ const InquiryWriteTemplate = ({
         </div>
         <div className={cx('QuestionWriteTemplate-contentsBox-imageList')}>
           {
-            images && <Pagination images={imgBase64}/>
+            images && <Pagination images={imgBase64} editImages={images} paginationType={'modify'} deleteFunction={handleImageCancel}/>
           }
         </div>
         <div className={cx('QuestionWriteTemplate-contentsBox-contents')}>

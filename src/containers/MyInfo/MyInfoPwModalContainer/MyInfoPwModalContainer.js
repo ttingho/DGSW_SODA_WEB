@@ -17,11 +17,6 @@ const MyInfoPwModalContainer = ({ store, setIsPwModal }) => {
   const [checkPwAgain, setCheckPwAgain] = useState('');
   const [isCheckPw, setIsCheckPw] = useState(false);
 
-  const profileImage = {
-    type: null,
-    uploadName: null,
-  };
-
   const handleModifyPw = async () => {
 
     if (!isPwValidate) {
@@ -44,7 +39,6 @@ const MyInfoPwModalContainer = ({ store, setIsPwModal }) => {
 
     let data = {
       pw: sha512(checkPwAgain),
-      profileImage
     };
 
     await modifyMemberInfo(data).

@@ -17,6 +17,7 @@ const InquiryWriteContainers = ({ store, history }) => {
   const [images, setImages] = useState([]);
   const [imgBase64, setImgBase64] = useState([]);
   const [imageContents, setImageContents] = useState('업로드 된 이미지');
+  const [isUploadInquiry, setIsUploadInquiry] = useState(true);
 
   const useComponentDidMount = func => useEffect(func, []);
 
@@ -98,6 +99,10 @@ const InquiryWriteContainers = ({ store, history }) => {
     if (images.length === 0) {
       setImageContents('업로드된 이미지');
 
+      setImages([]);
+
+      setImgBase64([]);
+
       return;
     }
 
@@ -108,6 +113,8 @@ const InquiryWriteContainers = ({ store, history }) => {
     if (images.length > 1) {
       setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
     }
+
+    await handlImageBase64();
   };
 
   // images url 값 설정
@@ -254,7 +261,10 @@ const InquiryWriteContainers = ({ store, history }) => {
           title: 'Success!',
           stateType: 'success',
           contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.',
-          closeFunc: () => history.goBack(1)
+          closeFunc: () => { 
+            setIsUploadInquiry(false);
+            history.goBack(1); 
+          }
         });
       })
       .catch(async (error) => {
@@ -322,10 +332,11 @@ const InquiryWriteContainers = ({ store, history }) => {
 
   return (
     <>
-      <Prompt
-        when={true}
-        message={handleBlockedNavigation}
-      />
+      {
+        isUploadInquiry
+          ? <Prompt when={true} message={handleBlockedNavigation}/>
+          : <></>
+      }
       <QuestionTemplate
         contentsObj={GroupingState('contents', contents, setContents)}
         titleObj={GroupingState('title', title, setTitle)}
