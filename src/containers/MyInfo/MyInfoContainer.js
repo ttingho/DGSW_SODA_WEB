@@ -215,6 +215,7 @@ const MyInfoContainer = ({ store, history }) => {
         handleLogout={handleLogout}
         isSetModals={isSetModals}
         handleImageChange={handleImageChange}
+        setBaseProfileImage={setBaseProfileImage}
       />
       {
         isEmailModal
