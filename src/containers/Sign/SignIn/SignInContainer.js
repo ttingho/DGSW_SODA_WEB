@@ -53,8 +53,6 @@ const SignInContainer = ({
             sessionStorage.setItem('soda-reToken', response.data.refreshToken);
           }
 
-          // const ls = new SecureLS({ encodingType: 'aes' }); // user info 저장
-          // ls.set('user-info', response.data.member);  // user-info라는 이름으로 저장
           await getMyInfo();
           
           setIsLoading(false);
@@ -66,9 +64,7 @@ const SignInContainer = ({
         }
       })
       .catch(error => {
-        setIsLoading(false);
-
-        console.log(error);
+        setIsLoading(false);        
 
         const { status } = error.response.data;
 

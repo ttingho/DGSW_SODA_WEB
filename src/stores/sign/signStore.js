@@ -14,7 +14,6 @@ class signStore {
 
   @action
   handleIsCertified (bool) {
-    console.log(bool);
     this.isCertified = bool;
   }
 
@@ -67,7 +66,6 @@ class signStore {
   async handleEmail (request) {
     try {
       this.isCertified = false;   // 인증 확인 초기화
-      console.log('handleEmail');
       const response = await signRepository.handleEmail(request);
 
       return new Promise((resolve, reject) => {
@@ -84,7 +82,6 @@ class signStore {
   async handleEmailCode (request) {
     try {
       const response = await signRepository.handleEmailCode(request);
-      console.log('handleEmailCode');
       this.isCertified = true;   // 인증 확인 초기화
       
       return new Promise((resolve, reject) => {

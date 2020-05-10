@@ -6,9 +6,11 @@ const ImageSrc = (src, defaultSrc) => {
     const isNull1 = src.indexOf('false/null'); // 사용자가 회원가입 후 프로필을 설정하지 않았을때 디폴트 사진 처리
     const isNull2 = src.indexOf('apinull'); // 사용자가 회원가입 후 프로필을 설정하지 않았을때 디폴트 사진 처리
     const isNull3 = src.indexOf('api/null'); // 사용자가 회원가입 후 프로필을 설정하지 않았을때 디폴트 사진 처리
+    const isNull4 = src.indexOf('null.null'); // 사용자가 회원가입 후 프로필을 설정하지 않았을때 디폴트 사진 처리
     const insUndefined = src.indexOf('undefined');  // undefined 예외처리
+    
 
-    if (insUndefined === -1 && isNull1 === -1 && isNull2 === -1 && isNull3 === -1) {
+    if (insUndefined === -1 && isNull1 === -1 && isNull2 === -1 && isNull3 === -1 && isNull4 === -1) {
       return src;
     } else {
       return defaultSrc;  
