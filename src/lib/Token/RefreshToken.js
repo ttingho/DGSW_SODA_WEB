@@ -3,6 +3,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { SERVER } from 'config/config.json';
 import TokenVerification from './TokenVerification';
+import { useLocation } from 'react-router-dom';
 
 // 토큰 만료시 재발급하는 로직입니다.
 const RefreshToken = async (modal, tokenStatus, requestFunction) => {
@@ -34,8 +35,11 @@ const RefreshToken = async (modal, tokenStatus, requestFunction) => {
       const ls = new SecureLS({ encodingType: 'aes' });
     
       ls.removeAll();
+
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      let path = useLocation().pathname;
     
-      location.href = '/sign';
+      location.href = `'/${path}`;
     };
 
     modal({
@@ -47,7 +51,7 @@ const RefreshToken = async (modal, tokenStatus, requestFunction) => {
   };
 
   if (tokenStatus === 410 && current_time > decode.exp) {
-    await axios.post(`${SERVER}/token`, { refreshToken })
+    await axios.post(`${SERVER}/token/refresh`, { refreshToken })
       .then(async response => {
         await setToken(response);
       })
