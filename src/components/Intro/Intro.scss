@@ -104,9 +104,11 @@
         color: $black;
 
         &-subtitle {
+          display: flex;
+          align-items: center;
+          height: 60px;
           font-family: $NOTO_SANS_KR_BOLD;
           font-size: $font_size_7;
-          margin-bottom: 20px;
         }
         &-content {
           line-height: 60px;
@@ -184,6 +186,73 @@
     }
   }
   &-page4 {
+    @include pageStyle(450px, $gray_0);
+
+    &-wrap {
+      @include wrapStyle();
+
+      &-left {
+        width: 30%;
+        @include flexStyle(column, space-evenly, center);
+
+        &-feed {
+          width: 265px;
+          box-shadow: 0 0 10px 0 $shadow;
+          transform: rotate(-6deg);
+          margin-right: 60px;
+        }
+        &-inquiry {
+          width: 265px;
+          box-shadow: 0 0 10px 0 $shadow;
+          transform: rotate(6deg);
+          margin-left: 60px;
+        }
+      }
+      &-right {
+        @include flexStyle(column, center, flex-end);
+        width: 70%;
+        color: $black;
+        font-family: $NOTO_SANS_KR_REGULAR;
+        font-size: $font_size_3;
+
+        &-subtitle {
+          @include flexStyle(row, flex-start, center);
+          height: 60px;
+          font-size: $font_size_7;
+          font-family: $NOTO_SANS_KR_BOLD;
+
+          >span:nth-child(2) {
+            font-size: $font_size_6;
+            font-family: $CAFE24_OH_SQUARE;
+            margin-left: 12px;
+            margin-top: 6px;
+            color: $soda_primary;
+          }
+        }
+        &-content {
+          line-height: 60px;
+          text-align: right;
+        }
+        &-inquiry {
+          @include flexStyle(row, center, center);
+          width: 150px;
+          height: 30px;
+          border-radius: 5px;
+          background-color: $white;
+          font-size: $font_size_3;
+          font-family: $NOTO_SANS_KR_BOLD;
+          color: $black;
+          margin-top: 25px;
+          cursor: pointer;
+
+          >span {
+            color: $soda_primary;
+          }
+        }
+      }
+    }
+  }
+  &-page5 {
     @include pageStyle(500px, $white);
 
     &-wrap {

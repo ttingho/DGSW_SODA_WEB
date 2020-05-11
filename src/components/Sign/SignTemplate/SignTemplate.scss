@@ -3,13 +3,49 @@
 @import 'styles/color/color_scheme.scss';
 
 .SignTemplate {
-  width: 100%;
-  height: 100%;
+  width: 900px;
+  height: 500px;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  // position: relative;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background-color: $white;
+  border-radius: 5px;
+
+  &-hidden {
+    display: none;
+  }
+  &-up {
+    height: 600px;
+  }
+  &-close {
+    width: 34px;
+    height: 34px;
+    color: $gray_4;
+    position: absolute;
+    right: 0;
+    margin: 4px 4px 0 0;
+    cursor: pointer;
+  }
+  &-over {
+    position: fixed;
+    z-index: 2;
+    background-color: rgba($color: $shadow, $alpha: 0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
   
-  &-left {
-    width: 920px;
-    min-width: 920px;
+  &-wrap {
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -17,12 +53,20 @@
     align-items: center;
     background-color: $white;
     user-select: none;
+    border-radius: 5px;
 
     &-title {
-      font-size: 40px;
+      font-size: $font_size_7;
       font-family: $NOTO_SANS_KR_MEDIUM;
       color: $gray_4;
-  
+      margin-bottom: 20px;
+
+      &-up {
+        margin-bottom: 40px;
+      }
+      &-page4 {
+        margin-bottom: 0px;
+      }
       &>span {
         color: $soda_primary;
       }

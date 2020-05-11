@@ -7,10 +7,14 @@ import InTemplate from 'components/Sign/InTemplate';
 
 const SignInContainer = ({
   signType,
+  changeSign,
   idObj,
   pwObj,
   keepLoginObj,
   handleSignIn,
+  handleIsSignModal,
+  handleResetInputValue,
+  getMyInfo,
   modal,
   history
 }) => {
@@ -49,16 +53,18 @@ const SignInContainer = ({
             sessionStorage.setItem('soda-reToken', response.data.refreshToken);
           }
 
-          const ls = new SecureLS({ encodingType: 'aes' }); // user info 저장
-          ls.set('user-info', response.data.member);  // user-info라는 이름으로 저장
+          await getMyInfo();
           
           setIsLoading(false);
+          handleResetInputValue();
+
+          handleIsSignModal(false);
 
           history.push('/');
         }
       })
       .catch(error => {
-        setIsLoading(false);
+        setIsLoading(false);        
 
         const { status } = error.response.data;
 
@@ -95,6 +101,7 @@ const SignInContainer = ({
     <>
       <InTemplate
         signType={signType}
+        changeSign={changeSign}
         idObj={idObj}
         pwObj={pwObj}
         keepLoginObj={keepLoginObj}
@@ -107,10 +114,14 @@ const SignInContainer = ({
 
 SignInContainer.propTypes = {
   signType: PropTypes.bool,
+  changeSign: PropTypes.func,
   idObj: PropTypes.object,
   pwObj: PropTypes.object,
   keepLoginObj: PropTypes.object,
   handleSignIn: PropTypes.func,
+  handleIsSignModal: PropTypes.func,
+  handleResetInputValue: PropTypes.func,
+  getMyInfo: PropTypes.func,
   modal: PropTypes.func,
   history: PropTypes.object
 };

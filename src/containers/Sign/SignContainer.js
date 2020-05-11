@@ -10,15 +10,10 @@ import EmailModalContainer from 'containers/Sign/SignUp/EmailModal';
 import GroupingState from 'lib/HookState/GroupingState';
 
 const SignContainer = ({ store, history }) => {
-  const { handleSignIn, handleSignUp, handleIdCheck, handleEmail, handleEmailCode } = store.sign;
+  const { isModal, isCertified, handleSignIn, handleSignUp, handleIdCheck, handleEmail, handleEmailCode, handleisCertified, handleIsSignModal } = store.sign;
+  const { getMyInfo } = store.member;
   const { uploadImage } = store.upload;
   const { modal } = store.dialog;
-
-  useEffect(() => {
-    if (TokenVerification() !== 'empty') {
-      history.goBack(1);
-    }
-  }, []);
 
   /* Sign Inputs */
   const [id, setId] = useState('');
@@ -27,7 +22,6 @@ const SignContainer = ({ store, history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [nickName, setNickName] = useState('');
   const [profileImage, setProfileImage] = useState(null);
 
   /* id check 
@@ -50,7 +44,7 @@ const SignContainer = ({ store, history }) => {
   const [signType, setSignType] = useState(true);
 
   /* 회원가입 페이지 이동
-  1: id, pw 2: name, phone, email 3: profileImage, nickName */
+  1: id, pw 2: name, email 3: emailCheck 4: profileImage */
   const [page, setPage] = useState(1);
 
   const handleResetInputValue = () => {
@@ -61,7 +55,6 @@ const SignContainer = ({ store, history }) => {
     setProfileImage(null);
     setEmail('');
     setPhone('');
-    setNickName('');
     setIsCheckedEmail(false);
     setIdCheck(0);
     setIsRightPw(0);
@@ -73,19 +66,55 @@ const SignContainer = ({ store, history }) => {
     setSignType(!signType);
   };
 
+  // const handleCertification = async() => {
+  //   let data = {
+  //     code: emailCode,
+  //     email: email
+  //   };
+
+  //   await handleEmailCode(data)
+  //     .then((response) => {
+  //       setIsCheckedEmail(true);
+  //     }).catch((error) => {
+  //       const { status } = error.response.data;
+
+  //       if (status === 400) {
+  //         modal({
+  //           title: 'Warning!',
+  //           stateType: 'warning',
+  //           contents: '코드를 입력해주세요.'
+  //         });
+  //         return;
+  //       } 
+  //       if (status === 403) {
+  //         modal({
+  //           title: 'Warning!',
+  //           stateType: 'warning',
+  //           contents: '올바른 검증 코드를 입력해주세요.'
+  //         });
+  //         return;
+  //       }
+  //     });
+  // };
+
   return (
     <>
-      <SignTemplate signType={signType} changeSign={changeSign}>
+      <SignTemplate isModal={isModal} handleIsSignModal={handleIsSignModal} signType={signType} changeSign={changeSign} page={page}>
         <SignInContainer
           signType={signType}
+          changeSign={changeSign}
           idObj={GroupingState('id', id, setId)}
           pwObj={GroupingState('pw', pw, setPw)}
           keepLoginObj={GroupingState('keepLogin', keepLogin, setKeepLogin)}
           handleSignIn={handleSignIn}
+          handleIsSignModal={handleIsSignModal}
+          handleResetInputValue={handleResetInputValue}
+          getMyInfo={getMyInfo}
           modal={modal}
         />  
         <SignUpContainer
           signType={signType}
+          isCertified={isCertified}
           changeSign={changeSign}
           idObj={GroupingState('id', id, setId)}
           idCheckObj={GroupingState('idCheck', idCheck, setIdCheck)}
@@ -94,8 +123,8 @@ const SignContainer = ({ store, history }) => {
           isRightPwObj={GroupingState('isRightPw', isRightPw, setIsRightPw)}
           nameObj={GroupingState('name', name, setName)}
           emailObj={GroupingState('email', email, setEmail)}
+          emailCodeObj={GroupingState('emailCode', emailCode, setEmailCode)}
           phoneObj={GroupingState('phone', phone, setPhone)}
-          nickNameObj={GroupingState('nickName', nickName, setNickName)}
           profileImageObj={GroupingState('profileImage', profileImage, setProfileImage)}
           isCheckedEmailObj={GroupingState('isCheckedEmail', isCheckedEmail, setIsCheckedEmail)}
           pageObj={GroupingState('page', page, setPage)}
@@ -104,6 +133,8 @@ const SignContainer = ({ store, history }) => {
           handleSignUp={handleSignUp}
           handleIdCheck={handleIdCheck}
           handleEmail={handleEmail}
+          // handleCertification={handleCertification}
+          handleEmailCode={handleEmailCode}
           uploadImage={uploadImage}
         />
       </SignTemplate>

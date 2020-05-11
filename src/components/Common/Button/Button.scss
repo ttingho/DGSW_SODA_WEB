@@ -5,7 +5,7 @@ $background_color_transparent: 0.85;
 
 $outline_color: rgba($soda_primary, $background_color_transparent);
 $outline_secondary_color: rgba($bamboo_primary, $background_color_transparent);
-$outline_tertiary_color: rgba($soda_primary, $background_color_transparent);
+$outline_tertiary_color: rgba($gray_2, $background_color_transparent);
 $outline_red_color: rgba($error, $background_color_transparent);
 
 @mixin buttonBasic ($font_color, $background_color) {
@@ -76,8 +76,8 @@ $outline_red_color: rgba($error, $background_color_transparent);
 
   // Tertiary Btn
   &-tertiary {
-    @include buttonBasic($white, rgba($soda_primary, $background_color_transparent));
-    @include buttonEvent($soda_primary);
+    @include buttonBasic($white, rgba($gray_2, $background_color_transparent));
+    @include buttonEvent($gray_2);
   }
 
   &-red {

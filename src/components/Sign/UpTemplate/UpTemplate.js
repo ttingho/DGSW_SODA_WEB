@@ -8,6 +8,7 @@ import style from './UpTemplate.scss';
 import SignInput from 'components/Common/SignInput';
 import ImageIcon from 'components/Common/ImageIcon';
 import ImageSrc from 'lib/Profile/ImageSrc';
+import Button from 'components/Common/Button';
 import { typography } from 'styles/typography/typography_scheme';
 import { MdCameraAlt, MdCheck, MdClose } from 'react-icons/md';
 import PROFILE_DEFAULT from 'assets/image/profile/profile.svg';
@@ -26,22 +27,25 @@ const LightTooltip = withStyles(theme => ({
 
 const UpTemplate = ({
   signType,
+  changeSign,
   idObj,
   pwObj,
   checkPwObj,
   nameObj,
   emailObj,
+  emailCodeObj,
   // phoneObj,
-  nickNameObj,
+  // nickNameObj,
   profileImageObj,
   isCheckedEmailObj,
   pageObj,
   idCheck,
   isRightPw,
   handleNextPage,
-  handleEmailModal,
+  // handleEmailModal,
   handleFocusOutId,
   handleCheckPw,
+  handleCertification,
   requestSignUp
 }) => {
   const { id, setId } = idObj;
@@ -49,8 +53,9 @@ const UpTemplate = ({
   const { checkPw, setCheckPw } = checkPwObj;
   const { name, setName } = nameObj;
   const { email, setEmail } = emailObj;
+  const { emailCode, setEmailCode } = emailCodeObj;
   // const { phone, setPhone } = phoneObj;
-  const { nickName, setNickName } = nickNameObj;
+  // const { nickName, setNickName } = nickNameObj;
   const { profileImage, setProfileImage } = profileImageObj;
   const { isCheckedEmail } = isCheckedEmailObj;
   const { page, setPage } = pageObj;
@@ -118,18 +123,20 @@ const UpTemplate = ({
               }
             </div>
           </div>
-          <LightTooltip placement='top-start' title='비밀번호: 알파벳, 숫자, 특수문자, 7글자 ~ 20글자'>
-            <div>
-              <SignInput
-                inputType={'password'}
-                value={pw}
-                setValue={setPw}
-                placeholder={'비밀번호'}
-                handleFocusOut={handleCheckPw}
-                customStyle={{margin: '0 0 20px 0'}}
-              />
-            </div>
-          </LightTooltip>
+          <div className={cx('UpTemplate-page1-pwWrap')}>
+            <LightTooltip placement='top-start' title='비밀번호: 알파벳, 숫자, 특수문자, 7글자 ~ 20글자'>
+              <div>
+                <SignInput
+                  inputType={'password'}
+                  value={pw}
+                  setValue={setPw}
+                  placeholder={'비밀번호'}
+                  handleFocusOut={handleCheckPw}
+                  customStyle={{margin: '0 0 20px 0'}}
+                />
+              </div>
+            </LightTooltip>
+          </div>
           <div className={cx('UpTemplate-page1-checkPwWrap')}>
             <SignInput
               inputType={'password'}
@@ -137,7 +144,7 @@ const UpTemplate = ({
               setValue={setCheckPw}
               placeholder={'비밀번호 확인'}
               handleFocusOut={handleCheckPw}
-              customStyle={{margin: '20px 0 0 0'}}
+              // customStyle={{margin: '20px 0 0 0'}}
             />
             <div className={cx('UpTemplate-page1-checkPwWrap-checkPw')}>
               {isRightPw === 0 
@@ -162,8 +169,27 @@ const UpTemplate = ({
               {/* <button>아이디 체크</button> */}
             </div>
           </div>
-          
-          <button className={cx('UpTemplate-page1-nextBtn')} onClick={() => handleNextPage(2)}>다음</button>
+          <div className={cx('UpTemplate-page1-btns')}>
+            <Button
+              customStyle={{width: '150px', height: '40px', fontSize: size.s2}}
+              edgeType={'round'}
+              appearance={'tertiary'}
+              // isLoading={isLoading}
+              handleFunction={changeSign}
+            >
+              로그인
+            </Button>
+            <Button
+              customStyle={{width: '150px', height: '40px', fontSize: size.s2}}
+              edgeType={'round'}
+              appearance={'primary'}
+              // isLoading={isLoading}
+              handleFunction={() => handleNextPage(2)}
+            >
+              다음
+            </Button>
+          </div>
+          {/* <button className={cx('UpTemplate-page1-nextBtn')} onClick={() => handleNextPage(2)}>다음</button> */}
         </div>
       );
     } else if (page === 2) {
@@ -179,7 +205,7 @@ const UpTemplate = ({
               />
             </div>
           </LightTooltip>
-          <LightTooltip placement='top-start' title='닉네임: 한글, 영문, 숫자, 2글자 ~ 12글자'>
+          {/* <LightTooltip placement='top-start' title='닉네임: 한글, 영문, 숫자, 2글자 ~ 12글자'>
             <div>
               <SignInput
                 value={nickName}
@@ -187,7 +213,7 @@ const UpTemplate = ({
                 placeholder={'닉네임'}
               />
             </div>
-          </LightTooltip>
+          </LightTooltip> */}
           {/* <LightTooltip placement='top-start' title='전화번호: 숫자만 사용'>
             <div>
               <SignInput
@@ -210,7 +236,7 @@ const UpTemplate = ({
                 />
               </div>
             </LightTooltip>
-            <div className={cx('UpTemplate-page2-emailWrap-emailCheck', {'UpTemplate-page2-emailWrap-emailChecked': isCheckedEmail})}>
+            {/* <div className={cx('UpTemplate-page2-emailWrap-emailCheck', {'UpTemplate-page2-emailWrap-emailChecked': isCheckedEmail})}>
               {
                 isCheckedEmail ? 
                   <>
@@ -223,18 +249,34 @@ const UpTemplate = ({
                     <button onClick={() => handleEmailModal()}>이메일 검증</button>
                   </>
               }
-            </div>
+            </div> */}
           </div>
-          <div className={cx('UpTemplate-page2-btn')}>
-            <button className={cx('UpTemplate-page2-btn-prevBtn')} onClick={() => setPage(1)}>이전</button>
-            <button className={cx('UpTemplate-page2-btn-nextBtn')} onClick={() => handleNextPage(3)}>다음</button>
+          <div className={cx('UpTemplate-page2-btns')}>
+            <Button
+              customStyle={{width: '150px', height: '40px', fontSize: size.s2}}
+              edgeType={'round'}
+              appearance={'tertiary'}
+              handleFunction={() => setPage(1)}
+            >
+              이전
+            </Button>
+            <Button
+              customStyle={{width: '150px', height: '40px', fontSize: size.s2}}
+              edgeType={'round'}
+              appearance={'primary'}
+              handleFunction={() => handleNextPage(3)}
+            >
+              다음
+            </Button>
+            {/* <button className={cx('UpTemplate-page2-btn-prevBtn')} onClick={() => setPage(1)}>이전</button>
+            <button className={cx('UpTemplate-page2-btn-nextBtn')} onClick={() => handleNextPage(3)}>다음</button> */}
           </div>
         </div>
       );
     } else if (page === 3) {
       return (
         <div className={cx('UpTemplate-page3')}>
-          <div className={cx('UpTemplate-page3-profileWrap')}>
+          {/* <div className={cx('UpTemplate-page3-profileWrap')}>
             <div className={cx('UpTemplate-page3-profileWrap-header')}>
               <span className={cx('UpTemplate-page3-profileWrap-header-title')}>내 프로필</span>
               <span className={cx('UpTemplate-page3-profileWrap-header-subTitle')}>미설정시 기본 이미지로 됩니다.</span>
@@ -261,10 +303,80 @@ const UpTemplate = ({
             >
               기본 이미지
             </button>
+          </div> */}
+          <SignInput
+            value={emailCode}
+            setValue={setEmailCode}
+            placeholder={'검증 코드'}
+          />
+          <div className={cx('UpTemplate-page3-btns')}>
+            <Button
+              customStyle={{width: '150px', height: '40px', fontSize: size.s2}}
+              edgeType={'round'}
+              appearance={'tertiary'}
+              handleFunction={() => setPage(2)}
+            >
+              이전
+            </Button>
+            <Button
+              customStyle={{width: '150px', height: '40px', fontSize: size.s2}}
+              edgeType={'round'}
+              appearance={'primary'}
+              handleFunction={() => handleNextPage(4)}
+            >
+              다음
+            </Button>
           </div>
-          <div className={cx('UpTemplate-page3-btn')}>
-            <button className={cx('UpTemplate-page3-btn-prevBtn')} onClick={() => setPage(2)}>이전</button>
-            <button className={cx('UpTemplate-page3-btn-signUp')} onClick={() => requestSignUp()}>회원가입</button>
+        </div>
+      );
+    } else if (page === 4) {
+      return (
+        <div className={cx('UpTemplate-page4')}>
+          <div className={cx('UpTemplate-page4-profileWrap')}>
+            <div className={cx('UpTemplate-page4-profileWrap-header')}>
+              <span className={cx('UpTemplate-page4-profileWrap-header-title')}>프로필 설정</span>
+              <span className={cx('UpTemplate-page4-profileWrap-header-subTitle')}>미 선택시 기본 이미지로 설정됩니다.</span>
+            </div>
+            <LightTooltip placement='right-start' title='카메라 아이콘 또는 사진 클릭 시 사진 변경'>
+              <label className={cx('UpTemplate-page4-profileWrap-imageWrap')} htmlFor="imgInput">
+                <ImageIcon
+                  src={imgBase64}
+                  alt={'img'}
+                  observer={imgBase64}
+                />
+                <label
+                  className={cx('UpTemplate-page4-profileWrap-imageWrap-iconWrap')}
+                  htmlFor="imgInput"
+                >
+                  <MdCameraAlt className="icon"/>
+                </label>
+                <input id="imgInput" type="file" onChange={e => handleChangeFile(e)} accept="image/*"/>
+              </label>
+            </LightTooltip>
+            <button
+              className={cx('UpTemplate-page4-profileWrap-default')}
+              onClick={() => {setImgBase64(PROFILE_DEFAULT); setProfileImage(null);}}
+            >
+              기본 이미지
+            </button>
+          </div>
+          <div className={cx('UpTemplate-page4-btns')}>
+            <Button
+              customStyle={{width: '150px', height: '40px', fontSize: size.s2}}
+              edgeType={'round'}
+              appearance={'tertiary'}
+              handleFunction={() => setPage(3)}
+            >
+              이전
+            </Button>
+            <Button
+              customStyle={{width: '150px', height: '40px', fontSize: size.s2}}
+              edgeType={'round'}
+              appearance={'primary'}
+              handleFunction={() => requestSignUp()}
+            >
+              회원가입
+            </Button>
           </div>
         </div>
       );
@@ -280,13 +392,15 @@ const UpTemplate = ({
 
 UpTemplate.propTypes = {
   signType: PropTypes.bool,
+  changeSign: PropTypes.func,
   idObj: PropTypes.object,
   pwObj: PropTypes.object,
   checkPwObj: PropTypes.object,
   nameObj: PropTypes.object,
   emailObj: PropTypes.object,
+  emailCodeObj: PropTypes.object,
   // phoneObj: PropTypes.object,
-  nickNameObj: PropTypes.object,
+  // nickNameObj: PropTypes.object,
   profileImageObj: PropTypes.object,
   isCheckedEmailObj: PropTypes.object,
   pageObj: PropTypes.object,
@@ -296,6 +410,7 @@ UpTemplate.propTypes = {
   handleEmailModal: PropTypes.func,
   handleFocusOutId: PropTypes.func,
   handleCheckPw: PropTypes.func,
+  handleCertification: PropTypes.func,
   requestSignUp: PropTypes.func
 };
 

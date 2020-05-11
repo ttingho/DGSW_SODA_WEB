@@ -7,6 +7,7 @@ class inquiryStore {
   @observable inquiry = {};
   @observable answer = {};
   @observable isComplate = 0;
+  @observable isAdminInquiry = false;
 
   @observable category = '전체';
   @observable pageIndex = 1;
@@ -26,6 +27,11 @@ class inquiryStore {
   handleCategory (category) {
     this.category = category;
     this.initialPageIndex = 1;
+  }
+
+  @action
+  handleIsAdminInquiry (bool) {
+    this.isAdminInquiry = bool;
   }
 
   @action
