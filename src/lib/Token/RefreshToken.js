@@ -1,12 +1,12 @@
 import SecureLS from 'secure-ls';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { SERVER } from 'config/config.json';
 import TokenVerification from './TokenVerification';
+import { useLocation } from 'react-router-dom';
 
 // 토큰 만료시 재발급하는 로직입니다.
-const RefreshToken = async (modal, tokenStatus, requestFunction, { history }) => {
+const RefreshToken = async (modal, tokenStatus, requestFunction) => {
   const current_time = new Date().getTime() / 1000;
   
   const refreshToken = TokenVerification() === 'localT' ? localStorage.getItem('soda-reToken') : sessionStorage.getItem('soda-reToken');
@@ -35,9 +35,11 @@ const RefreshToken = async (modal, tokenStatus, requestFunction, { history }) =>
       const ls = new SecureLS({ encodingType: 'aes' });
     
       ls.removeAll();
+
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      let path = useLocation().pathname;
     
-      history.push('/');
-      // location.href = '/sign';
+      location.href = `'/${path}`;
     };
 
     modal({
@@ -68,4 +70,4 @@ const RefreshToken = async (modal, tokenStatus, requestFunction, { history }) =>
   return;
 };
 
-export default withRouter(RefreshToken);
+export default RefreshToken;
