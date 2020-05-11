@@ -9,6 +9,7 @@ import InquiryDetailTemplate from 'components/InquiryDetail/InquiryDetailTemplat
 import usePending from 'lib/HookState/usePending';
 import PageLoading from 'components/Common/PageLoading';
 import useStores from 'lib/HookState/useStore';
+import RefreshToken from 'lib/Token/RefreshToken';
 
 const InquiryDetail = observer(({ history }) => {
   const blank_pattern = /^\s+|\s+$/g;
@@ -74,6 +75,19 @@ const InquiryDetail = observer(({ history }) => {
       .then(response => {
         setInquiryTitle(response.data.question.title);
         setInquiryContents(response.data.question.contents);
+      })
+      .catch(error => {
+        const { status } = error.response;
+
+        if (status === 410) {
+          RefreshToken(modal, status, () => {
+            getInquiryDetail(idx)
+              .then(response => {
+                setInquiryTitle(response.data.question.title);
+                setInquiryContents(response.data.question.contents);
+              });
+          });
+        }
       });
   };
 
