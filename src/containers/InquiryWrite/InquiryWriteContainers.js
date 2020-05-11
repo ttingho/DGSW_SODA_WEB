@@ -207,6 +207,20 @@ const InquiryWriteContainers = ({ store, history }) => {
             
             return true;
           }
+
+          if (status === 410) {
+            RefreshToken(modal, status, () => {
+              uploadImage(formData)
+                .then(response => {
+                  const data = {
+                    uploadName: response.data.imgs[0].fileName,
+                    type: response.data.imgs[0].fileType
+                  };
+
+                  picture = [...picture, data];
+                });
+            });
+          }
         });
     }
 
@@ -278,6 +292,12 @@ const InquiryWriteContainers = ({ store, history }) => {
           });
 
           return;
+        }
+
+        if (status === 410) {
+          RefreshToken(modal, status, () => {
+            requestInquiryWrite(data);
+          });
         }
 
         if (status === 500) {

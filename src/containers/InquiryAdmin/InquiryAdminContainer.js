@@ -7,6 +7,7 @@ import InquiryTemplate from 'components/Inquiry/InquiryTemplate';
 import InquiryItem from 'components/Inquiry/InquiryItem';
 import IndexItem from 'components/Inquiry/IndexItem';
 import usePending from 'lib/HookState/usePending';
+import RefreshToken from 'lib/Token/RefreshToken';
 
 const InquiryAdminContainer = ({ store, history }) => {
   const { 
@@ -50,6 +51,20 @@ const InquiryAdminContainer = ({ store, history }) => {
             setItemList(response.question.map((data, index) => {
               return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
             }));
+          })
+          .catch(error => {
+            const { status } = error.response;
+
+            if (status === 410) {
+              RefreshToken(modal, status, () => {
+                getAdminInquiry(10, pageIndex)
+                  .then((response) => {
+                    setItemList(response.question.map((data, index) => {
+                      return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
+                    }));
+                  });
+              });
+            }
           });
       } else {  // 카테고리 별 조회
         await getAdminCategoryInquiry(10, pageIndex)
@@ -57,6 +72,20 @@ const InquiryAdminContainer = ({ store, history }) => {
             setItemList(response.question.map((data, index) => {
               return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
             }));
+          })
+          .catch(error => {
+            const { status } = error.response;
+
+            if (status === 410) {
+              RefreshToken(modal, status, () => {
+                getAdminCategoryInquiry(10, pageIndex)
+                  .then((response) => {
+                    setItemList(response.question.map((data, index) => {
+                      return <InquiryItem item={data} handleDetail={handleDetail} key={index}/>;
+                    }));
+                  });
+              });
+            }
           });
       }
     }
