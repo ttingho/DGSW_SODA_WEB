@@ -19,9 +19,9 @@ const RefreshToken = async (modal, tokenStatus, requestFunction) => {
     const { data } = response.data;
 
     if (TokenVerification() === 'localT') {
-      localStorage.setItem('soda-token', data);
+      localStorage.setItem('soda-token', data.token);
     } else {
-      sessionStorage.setItem('soda-token', data);
+      sessionStorage.setItem('soda-token', data.token);
     }
   };
 
