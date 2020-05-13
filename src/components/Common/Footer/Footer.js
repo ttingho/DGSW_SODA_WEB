@@ -32,11 +32,18 @@ const Footer = ({ history }) => {
         <div className={cx('Footer-wrap-right')}>
           <span className={cx('Footer-wrap-right-team')} onClick={() => history.push('/intro')}>팀 소개</span>
           <span className={cx('Footer-wrap-right-inquiry')} onClick={() => history.push('/inquiry')}>문의하기</span>
-          <span className={cx('Footer-wrap-right-sign')} onClick={() => goSignUp()  }>회원가입</span>
-          <span className={cx('Footer-wrap-right-gitHub')} onClick={() => location.href='https://github.com/DGSW-takeUP'}>
+          {/* <span className={cx('Footer-wrap-right-sign')} onClick={() => goSignUp()  }>회원가입</span> */}
+          {/* <span className={cx('Footer-wrap-right-gitHub')} onClick={() => location.href='https://github.com/DGSW-takeUP'}>
             <FaGithub size={18} style={{marginRight: '4px'}}/>
             GitHub
-          </span>
+          </span> */}
+          <a className={cx('Footer-wrap-right-gitHub')}
+            href='https://github.com/DGSW-takeUP'
+            target='blank'
+          >
+            <FaGithub size={18} style={{marginRight: '4px'}}/>
+            GitHub
+          </a>
         </div>
       </div>
     </div>

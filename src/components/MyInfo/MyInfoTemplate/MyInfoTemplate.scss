@@ -1,7 +1,7 @@
 @import 'styles/color/color_scheme.scss';
 @import 'styles/typography/typography_scheme.scss';
 
-$imageSize: 120px;
+$imageSize: 100px;
 
 @mixin fixedSize($width, $height) {
   width: $width;
@@ -59,16 +59,16 @@ $imageSize: 120px;
       height: 160px;
       position: relative;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       margin-bottom: 30px;
 
-      &-top {
-        width: 100%;
-        height: 120px;
+      &-left {
+        width: 150px;
+        height: 100%;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        justify-content: space-around;
         align-items: center;
 
         &-imageWrap {
@@ -81,19 +81,15 @@ $imageSize: 120px;
           overflow: hidden;
           cursor: pointer;
     
-          &-img {
-            // object-fit: cover !important;
-          }
-    
           &-iconWrap {
             position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 30px;
-            height: 30px;
-            bottom: 28%;
-            left: 12%;
+            width: 28px;
+            height: 28px;
+            bottom: 35%;
+            left: 13.5%;
             background-color: $white;
             border: 1px solid $shadow;
             border-radius: 100%;
@@ -101,8 +97,8 @@ $imageSize: 120px;
     
             &>.icon {
               color: $gray_4;
-              width: 20px;
-              height: 20px;
+              width: 18px;
+              height: 18px;
             }
           }
     
@@ -110,23 +106,15 @@ $imageSize: 120px;
             display: none;
           }
         }
-        &-logout {
-          font-size: $font_size_2;
-          font-family: $NOTO_SANS_KR_MEDIUM;
-          color: $soda_primary;
-          cursor: pointer;
+        &-profileBtn {
+          @include modifyBtn();
         }
       }
-      &-bottom {
-        width: 100%;
-        display: flex;
-        align-items: center;
-
-        &-btn {
-          @include modifyBtn();
-          margin-left: 10px;
-          margin-top: 16px;
-        }
+      &-logoutBtn {
+        font-size: $font_size_2;
+        font-family: $NOTO_SANS_KR_MEDIUM;
+        color: $soda_primary;
+        cursor: pointer;
       }
     }
     &-line2 {

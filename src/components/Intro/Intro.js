@@ -117,11 +117,11 @@ const Intro = ({ history }) => {
               <span>QnA</span>
             </div>
             <div className={cx('Intro-page4-wrap-right-content')}>
-              저희는 원활한 서비스 운영을 하며, SODA 개발자 및 운영자와 소통할 수 있는 공간을 만들었습니다.
+              저희는 원활한 서비스 운영을 위해, SODA 개발자 및 운영자와 소통할 수 있는 공간을 만들었습니다.
               <br/>
-              해당 서비스는 SODA 서비스 관련 문의, 개발과 관련된 내용 등을 다양한 카테고리에 맞게 물어볼 수 있습니다.
+              해당 서비스는 SODA 서비스 관련 문의, 개발과 관련된 내용 등 다양한 카테고리에 맞게 물어볼 수 있습니다.
               <br/>
-              SODA 개발자 및 운영자에게 서비스 관련 문의나 궁금한 것을 카테고리에 따라 물어보고 답변을 들어보세요!
+              SODA 개발자 및 운영자에게 서비스 관련 문의나 궁금한 것을 고객센터를 통해 물어보고 답변을 들어보세요!
             </div>
             <div className={cx('Intro-page4-wrap-right-inquiry')}  onClick={() => history.push('/inquiry')}>
               <span>고객센터</span>&nbsp;보러가기

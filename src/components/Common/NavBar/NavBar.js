@@ -10,8 +10,11 @@ import { inject, observer } from 'mobx-react';
 const cx = classNames.bind(style);
 
 const NavBar = ({ pageType, url, store, history }) => {
+  const { isAdminInquiry } = store.inquiry;
   const { modal } = store.dialog;
   const { handleIsSignModal } = store.sign;
+
+  console.log(isAdminInquiry); // isAdminInquiry로 어드민 문의 상세조회, 일반 문의 상세조회 구별
 
   const [adminAuth, setAdminAuth] = useState(false);
 
@@ -19,8 +22,8 @@ const NavBar = ({ pageType, url, store, history }) => {
 
   const userInfo = ls.get('user-info');
 
-  const token = TokenVerification();
-
+  const token = TokenVerification(); console.log(userInfo);
+  
   const setUserInfo = () => {
     if (token === 'empty' && !userInfo) {
       setAdminAuth(false);
@@ -85,22 +88,13 @@ const NavBar = ({ pageType, url, store, history }) => {
     }
   };
 
-  const handleLogout = () => {    // 임시
-    localStorage.removeItem('soda-token');
-    localStorage.removeItem('soda-reToken');
-    sessionStorage.removeItem('soda-token');
-    sessionStorage.removeItem('soda-reToken');
-    
-    const ls = new SecureLS({ encodingType: 'aes' });
-
-    ls.removeAll();
-
-    history.push('/');
-  };
-
   useEffect(() => {
     setUserInfo();
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [history]);
 
   return (
     <>
@@ -109,7 +103,7 @@ const NavBar = ({ pageType, url, store, history }) => {
           <div className={cx('NavBar-top-wrap')}>
             <div className={cx('NavBar-top-wrap-header', {'NavBar-top-wrap-header-inquiry': pageType === 'inquiry'})}>
               <div className={cx('NavBar-top-wrap-header-title')}>
-                <span onClick={() => history.push('/')}>SODA</span> 
+                <span onClick={() => pageType === 'inquiry'? history.push('/inquiry') : history.push('/')}>SODA</span> 
                 {pageType === 'bamboo'
                   ? <span className={cx('NavBar-top-wrap-header-title-bamboo')}>대나무 숲</span>
                   : <span className={cx('NavBar-top-wrap-header-title-inquiry')}>고객센터</span>
@@ -118,18 +112,11 @@ const NavBar = ({ pageType, url, store, history }) => {
             </div>
             <div className={cx('NavBar-top-wrap-content')}>
               <div className={cx('NavBar-top-wrap-content-btns')}>
-                {/* <button className={cx('NavBar-top-wrap-content-btns-login')}
-                  onClick={() => handleLogout()}
-                >
-                  {token !== 'empty' ?
-                    '로그아웃' : <></>
-                  }
-                </button> */}
                 <button className={cx('NavBar-top-wrap-content-btns-login', {'NavBar-top-wrap-content-btns-login-inquiry': pageType === 'inquiry'})}
-                  onClick={() => {
-                    if (token === 'empty') handleIsSignModal(true);
-                    else history.push('/myinfo');
-                  }}
+                  onClick={() => 
+                    token === 'empty' ? handleIsSignModal(true) 
+                      : history.push('/myinfo')
+                  }
                 >
                   {token === 'empty' ?
                     '로그인'

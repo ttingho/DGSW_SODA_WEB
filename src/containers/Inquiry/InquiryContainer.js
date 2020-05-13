@@ -17,7 +17,8 @@ const InquiryContainer = ({ store, history }) => {
     getInquiry,
     getCategoryInquiry,
     getMyInquiry,
-    totalPage
+    totalPage,
+    handleIsAdminInquiry
   } = store.inquiry;
 
   const { modal } = store.dialog;
@@ -38,7 +39,7 @@ const InquiryContainer = ({ store, history }) => {
     handlePageIndex(pageIndex - 1);
   };
 
-  const handleDetail = idx => {
+  const handleDetail = (idx, isComplate) => {
     if (token === 'empty') {
       modal({
         title: 'Warning!',
@@ -49,6 +50,11 @@ const InquiryContainer = ({ store, history }) => {
       return;
     }
     localStorage.setItem('inquiry_idx', idx);
+
+    /* 문의 상세조회 시 네비바에서 문의, 어드민 각각 볼드 처리를 위함임 */
+    if (isComplate === 1) handleIsAdminInquiry(true); // 답변 된 문의면 true
+    else handleIsAdminInquiry(false); // 답변 안 된 문의면 false
+
     history.push('/inquiry-detail');
   };
 

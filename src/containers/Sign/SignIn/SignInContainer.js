@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import sha512 from 'js-sha512';
 import SecureLS from 'secure-ls';
 import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import InTemplate from 'components/Sign/InTemplate';
 
 const SignInContainer = ({
@@ -19,6 +20,7 @@ const SignInContainer = ({
   history
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  let path = useLocation().pathname;
 
   const requestSignIn = () => {
     const { id } = idObj;
@@ -60,12 +62,17 @@ const SignInContainer = ({
 
           handleIsSignModal(false);
 
-          history.push('/');
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          
+          console.log(path);
+          
+          // history.push(`'${path}'`);
+          history.push(path);
         }
       })
       .catch(error => {
         setIsLoading(false);        
-
+        console.log(error);
         const { status } = error.response.data;
 
         localStorage.removeItem('soda-token');
