@@ -18,30 +18,28 @@ const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals, handleImageChange
     <div className={cx('MyInfoTemplate')}>
       <div className={cx('MyInfoTemplate-wrap')}>
         <div className={cx('MyInfoTemplate-wrap-line1')}>
-          <div className={cx('MyInfoTemplate-wrap-line1-top')}>
-            <label className={cx('MyInfoTemplate-wrap-line1-top-imageWrap')} htmlFor="imgInput">
+          <div className={cx('MyInfoTemplate-wrap-line1-left')}>
+            <label className={cx('MyInfoTemplate-wrap-line1-left-imageWrap')} htmlFor="imgInput">
               <ImageIcon
                 src={ImageSrc(profileImage, PROFILE_DEFAULT)}
                 alt={'img'}
-                customClass={'MyInfoTemplate-wrap-line1-top-imageWrap-img'}
+                customClass={'MyInfoTemplate-wrap-line1-left-imageWrap-img'}
                 onErrorFunc={event => event.target.src = PROFILE_DEFAULT}
                 observer={profileImage}
               />
               <label
-                className={cx('MyInfoTemplate-wrap-line1-top-imageWrap-iconWrap')}
+                className={cx('MyInfoTemplate-wrap-line1-left-imageWrap-iconWrap')}
                 htmlFor="imgInput"
               >
                 <MdCameraAlt className="icon"/>
               </label>
               <input id="imgInput" type="file" onChange={handleImageChange} accept="image/*" multiple={'multiple'}/>
-            </label>
-            <span className={cx('MyInfoTemplate-wrap-line1-top-logout')} onClick={() => handleLogout()}>로그아웃</span>
-          </div>
-          <div className={cx('MyInfoTemplate-wrap-line1-bottom')}>
-            <button className={cx('MyInfoTemplate-wrap-line1-bottom-btn')} onClick={() => setBaseProfileImage()}>
+            </label>            
+            <button className={cx('MyInfoTemplate-wrap-line1-left-profileBtn')} onClick={() => setBaseProfileImage()}>
               기본 이미지로 설정
             </button>
           </div>
+          <span className={cx('MyInfoTemplate-wrap-line1-logoutBtn')} onClick={() => handleLogout()}>로그아웃</span>
         </div>        
         <div className={cx('MyInfoTemplate-wrap-line2')}>
           <div className={cx('MyInfoTemplate-wrap-line2-name')}>

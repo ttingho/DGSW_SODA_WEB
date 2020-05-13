@@ -8,13 +8,13 @@ const cx = classnames.bind(style);
 
 const InquiryItem = ({ item, handleDetail }) => {
   const { idx, title, contents, memberId, category, joinDate, isComplate } = item;
-
+  
   return (
     <div className={cx('InquiryItem')}>
       <div className={cx('InquiryItem-left')}>
         <div className={cx('InquiryItem-left-front')}>Q.</div>
         <div className={cx('InquiryItem-left-title')}>
-          <span onClick={() => handleDetail(idx)}>{title}</span>
+          <span onClick={() => handleDetail(idx, isComplate)}>{title}</span>
         </div>
         {/* <div className={cx('InquiryItem-left-content')}>
           <span>{contents}</span>
