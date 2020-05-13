@@ -48,7 +48,7 @@ const InquiryDetail = observer(({ history }) => {
       setInquiryTitle(inquiry.title);
       setInquiryContents(inquiry.contents);
 
-      if (inquiry.picture && inquiry.picture.length !== 0) {
+      if (inquiry.picture) {
         const list  = [];
 
         for (let i = 0; i < inquiry.picture.length; i++) {
@@ -56,7 +56,11 @@ const InquiryDetail = observer(({ history }) => {
         }
 
         setImages(list);
+
+        return;
       }
+
+      setImages([]);
     }
     
     if (answer !== null) {
@@ -72,20 +76,12 @@ const InquiryDetail = observer(({ history }) => {
 
   const requestInitialData = async () => {
     await getInquiryDetail(idx)
-      .then(response => {
-        setInquiryTitle(response.data.question.title);
-        setInquiryContents(response.data.question.contents);
-      })
       .catch(error => {
         const { status } = error.response;
 
         if (status === 410) {
           RefreshToken(modal, status, () => {
-            getInquiryDetail(idx)
-              .then(response => {
-                setInquiryTitle(response.data.question.title);
-                setInquiryContents(response.data.question.contents);
-              });
+            getInquiryDetail(idx);
           });
         }
       });
@@ -440,17 +436,7 @@ const InquiryDetail = observer(({ history }) => {
   const [isLoading, getData] = usePending(requestInitialData);
 
   useEffect(() => {
-    var isEmpty = function(value){
-      if( value == '' || value == null || value == undefined || ( value != null && typeof value == 'object' && !Object.keys(value).length ) ){
-        return true;
-      }else{
-        return false;
-      }
-    };
-
-    if (!isEmpty(inquiry) || !isEmpty(answer)) {
-      handleInitialState();
-    }
+    handleInitialState();
   }, [inquiry, answer, isComplate]);
 
   useEffect(() => {
