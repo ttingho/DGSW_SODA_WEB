@@ -61,10 +61,6 @@ const SignInContainer = ({
           handleResetInputValue();
 
           handleIsSignModal(false);
-
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          
-          console.log(path);
           
           // history.push(`'${path}'`);
           history.push(path);
@@ -72,7 +68,7 @@ const SignInContainer = ({
       })
       .catch(error => {
         setIsLoading(false);        
-        console.log(error);
+        
         const { status } = error.response.data;
 
         localStorage.removeItem('soda-token');
