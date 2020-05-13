@@ -23,10 +23,6 @@ function App() {
           render={() => <Pages.BambooAdmin/>}
         />
         <Route
-          path='/sign'
-          component={() => <Pages.Sign/>}
-        />
-        <Route
           path='/intro'
           render={() => <Pages.Intro/>}>
         </Route>

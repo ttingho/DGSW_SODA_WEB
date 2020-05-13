@@ -14,7 +14,7 @@ const NavBar = ({ pageType, url, store, history }) => {
   const { modal } = store.dialog;
   const { handleIsSignModal } = store.sign;
 
-  console.log(isAdminInquiry); // isAdminInquiry로 어드민 문의 상세조회, 일반 문의 상세조회 구별
+  // console.log(isAdminInquiry); // isAdminInquiry로 어드민 문의 상세조회, 일반 문의 상세조회 구별
 
   const [adminAuth, setAdminAuth] = useState(false);
 
@@ -22,7 +22,7 @@ const NavBar = ({ pageType, url, store, history }) => {
 
   const userInfo = ls.get('user-info');
 
-  const token = TokenVerification(); console.log(userInfo);
+  const token = TokenVerification();
   
   const setUserInfo = () => {
     if (token === 'empty' && !userInfo) {
