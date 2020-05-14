@@ -1,24 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { observer, inject } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import SecureLS from 'secure-ls';
-import { inject, observer } from 'mobx-react';
+import PROFILE_DEFAULT from 'assets/image/profile/profile.svg';
+import ImageSrc from 'lib/Profile/ImageSrc';
+import useStores from 'lib/HookState/useStore';
 import MyInfoTemplate from 'components/MyInfo/MyInfoTemplate';
 import MyInfoEmailModalContainer from './MyInfoEmailModalContainer.js';
 import MyInfoPwModalContainer from './MyInfoPwModalContainer';
 
-const MyInfoContainer = ({ store, history }) => {
+const MyInfoContainer = observer(({ history }) => {
   const [isEmailModal, setIsEmailModal] = useState(false);
   const [isPwModal, setIsPwModal] = useState(false);
   const [image, setImage] = useState([]);
+
+  const { store } = useStores();
+
   const { modal } = store.dialog;
 
   const { uploadImage } = store.upload;
-  const { modifyMemberInfo, getMyInfo } = store.member;
+  const { getMyInfo, userProfileImage, modifyMemberInfo } = store.member;
 
   const ls = new SecureLS({ encodingType: 'aes' });
-
   const userInfo = ls.get('user-info');
+  const src = userInfo.profileImage;
+
+  const [imgSrc, setImgSrc] = useState(ImageSrc(src, PROFILE_DEFAULT));
+
+  async function fetchData() {
+    await getMyInfo();
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
+  useEffect(() => {   // 프로필 수정 후 이미지만 새로 적용이 안되어 Store로 따로 처리    
+    setImgSrc(ImageSrc(userProfileImage, PROFILE_DEFAULT));
+  }, [userProfileImage]);
+
+  const handleImageError = useCallback(e => {
+    setImgSrc(PROFILE_DEFAULT);
+  }, []);
 
   const handleImageSetting = async imageFile => {
     const file = image;
@@ -108,8 +132,8 @@ const MyInfoContainer = ({ store, history }) => {
           stateType: 'success',
           contents: '프로필 사진 수정 성공!', 
           closeFunc: () => { 
-            getMyInfo();
-            history.push('/myinfo');
+            // getMyInfo();
+            // history.push('/myinfo');
           }
         });
       }).catch(async error => {
@@ -199,7 +223,6 @@ const MyInfoContainer = ({ store, history }) => {
     const ls = new SecureLS({ encodingType: 'aes' });
 
     ls.removeAll();
-
     history.goBack(1);
   };
 
@@ -212,9 +235,11 @@ const MyInfoContainer = ({ store, history }) => {
     <>
       <MyInfoTemplate 
         userInfo={userInfo}
+        src={imgSrc}
         handleLogout={handleLogout}
         isSetModals={isSetModals}
         handleImageChange={handleImageChange}
+        handleImageError={handleImageError}
         setBaseProfileImage={setBaseProfileImage}
       />
       {
@@ -226,11 +251,12 @@ const MyInfoContainer = ({ store, history }) => {
       }
     </>
   );
-};
+});
 
 MyInfoContainer.propTypes = {
   history: PropTypes.object,
-  store: PropTypes.object
+  // store: PropTypes.object
 };
 
-export default inject('store')(observer(withRouter(MyInfoContainer)));
+// export default inject('store')(observer(withRouter(MyInfoContainer)));
+export default withRouter(MyInfoContainer);

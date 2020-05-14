@@ -45,7 +45,7 @@ const MyInfoEmailModalContainer = ({ store, setIsEmailModal }) => {
           contents: '이메일이 성공적으로 변경 되었습니다!',
           closeFunc: () => { 
             setIsEmailModal(false);
-            getMyInfo();
+            // getMyInfo();
           }
         });
       })
