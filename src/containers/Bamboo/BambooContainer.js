@@ -59,22 +59,18 @@ const BambooContainer = ({ store }) => {
   // observer API 설정
   const setObserver = () => {
     let observer;
-	  // eslint-disable-next-line no-mixed-spaces-and-tabs
-	  if (target) {
-		  observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
+    if (target) {
+      observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
       observer.observe(target);
-	  }
+    }
     return () => observer && observer.disconnect();
-  }
+  };
 
 
   useEffect(() => {
     handleBamboo();
-  }, []);
-
-  useEffect(() => {
     setObserver();
-  });
+  }, []);
 
   useEffect(() => {
     getMoreBambooFeeds();
