@@ -19,6 +19,8 @@ const InquiryAdminContainer = ({ store, history }) => {
     totalPage
   } = store.inquiry;
 
+  const { modal } = store.dialog;
+
   const ls = new SecureLS({ encodingType: 'aes' });
   const { auth } = ls.get('user-info');  // 어드민인지 사용자인지
 

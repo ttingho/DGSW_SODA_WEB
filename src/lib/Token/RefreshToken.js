@@ -16,12 +16,12 @@ const RefreshToken = async (modal, tokenStatus, requestFunction) => {
   const decode = jwt.decode(token);
 
   const setToken = (response) => {
-    const { data } = response.data;
+    const { token } = response.data.data;
 
     if (TokenVerification() === 'localT') {
-      localStorage.setItem('soda-token', data.token);
+      localStorage.setItem('soda-token', token);
     } else {
-      sessionStorage.setItem('soda-token', data.token);
+      sessionStorage.setItem('soda-token', token);
     }
   };
 
