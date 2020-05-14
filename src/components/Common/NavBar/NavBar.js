@@ -14,8 +14,6 @@ const NavBar = ({ pageType, url, store, history }) => {
   const { modal } = store.dialog;
   const { handleIsSignModal } = store.sign;
 
-  // console.log(isAdminInquiry); // isAdminInquiry로 어드민 문의 상세조회, 일반 문의 상세조회 구별
-
   const [adminAuth, setAdminAuth] = useState(false);
 
   const ls = new SecureLS({ encodingType: 'aes' });
@@ -78,9 +76,9 @@ const NavBar = ({ pageType, url, store, history }) => {
       return (
         <div className={cx('NavBar-bottom-wrap-content')}>
           <div className={cx('NavBar-bottom-wrap-content-btns')}>
-            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry' || (url === 'inquiry-detail' && adminAuth === false)})} onClick={() => handleUrl('/inquiry')}>문의</button>
+            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry' || (url === 'inquiry-detail' && isAdminInquiry === false)})} onClick={() => handleUrl('/inquiry')}>문의</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-write'})} onClick={() => handleUrl('/inquiry-write')}>문의하기</button>
-            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-admin' || (url === 'inquiry-detail' && adminAuth === true)})} onClick={() => handleUrl('/inquiry-admin')}>어드민</button>
+            <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'inquiry-admin' || (url === 'inquiry-detail' && isAdminInquiry === true)})} onClick={() => handleUrl('/inquiry-admin')}>어드민</button>
             <button className={cx('NavBar-bottom-wrap-content-btns-button', {'NavBar-clicked': url === 'bamboo'})} onClick={() => handleUrl('/')}>대나무 숲</button>
           </div>
         </div>
