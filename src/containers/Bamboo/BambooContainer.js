@@ -69,8 +69,11 @@ const BambooContainer = ({ store }) => {
 
   useEffect(() => {
     handleBamboo();
-    setObserver();
   }, []);
+
+  useEffect(() => {
+    setObserver();
+  });
 
   useEffect(() => {
     getMoreBambooFeeds();
