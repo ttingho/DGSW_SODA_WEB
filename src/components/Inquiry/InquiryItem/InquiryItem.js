@@ -14,7 +14,7 @@ const InquiryItem = ({ item, handleDetail }) => {
       <div className={cx('InquiryItem-left')}>
         <div className={cx('InquiryItem-left-front')}>Q.</div>
         <div className={cx('InquiryItem-left-title')}>
-          <span onClick={() => handleDetail(idx, isComplate)}>{title}</span>
+          <span onClick={() => handleDetail(idx)}>{title}</span>
         </div>
         {/* <div className={cx('InquiryItem-left-content')}>
           <span>{contents}</span>

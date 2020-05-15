@@ -10,7 +10,7 @@ import ImageIcon from 'components/Common/ImageIcon';
 
 const cx = classNames.bind(style);
 
-const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals, handleImageChange, setBaseProfileImage}) => {
+const MyInfoTemplate = ({ userInfo, src, handleLogout, isSetModals, handleImageChange, handleImageError, setBaseProfileImage}) => {
   const { displayName, email, profileImage } = userInfo;
   const { setIsEmailModal, setIsPwModal } = isSetModals;
   
@@ -21,11 +21,11 @@ const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals, handleImageChange
           <div className={cx('MyInfoTemplate-wrap-line1-left')}>
             <label className={cx('MyInfoTemplate-wrap-line1-left-imageWrap')} htmlFor="imgInput">
               <ImageIcon
-                src={ImageSrc(profileImage, PROFILE_DEFAULT)}
+                src={src}
                 alt={'img'}
                 customClass={'MyInfoTemplate-wrap-line1-left-imageWrap-img'}
-                onErrorFunc={event => event.target.src = PROFILE_DEFAULT}
-                observer={profileImage}
+                onErrorFunc={() => handleImageError()}
+                observer={src}
               />
               <label
                 className={cx('MyInfoTemplate-wrap-line1-left-imageWrap-iconWrap')}
@@ -66,9 +66,11 @@ const MyInfoTemplate = ({ userInfo, handleLogout, isSetModals, handleImageChange
 
 MyInfoTemplate.propTypes = {
   userInfo: PropTypes.object,
+  src: PropTypes.string,
   handleLogout: PropTypes.func,
   isSetModals: PropTypes.object,
   handleImageChange: PropTypes.func,
+  handleImageError: PropTypes.func,
   setBaseProfileImage: PropTypes.func
 };
 
