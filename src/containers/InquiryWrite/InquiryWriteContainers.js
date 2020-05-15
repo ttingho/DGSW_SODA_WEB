@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SecureLS from 'secure-ls';
 import { Prompt } from 'react-router';
 import { inject, observer } from 'mobx-react';
+import RefreshToken from 'lib/Token/RefreshToken';
 import TokenVerification from 'lib/Token/TokenVerification';
 import { withRouter } from 'react-router-dom';
 import QuestionTemplate from 'components/InquiryWrite/InquiryWriteTemplate';
