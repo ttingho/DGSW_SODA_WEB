@@ -16,10 +16,17 @@
     border-bottom: 2px solid $shadow;
     padding-bottom: 18.5px;
 
-    >span {
+    &-title {
       font-size: $font_size_6;
       font-family: $NOTO_SANS_KR_REGULAR;
       color: $black;
+
+      &-subTitle {
+        margin-left: 12px;
+        font-size: $font_size_2;
+        font-family: $NOTO_SANS_KR_REGULAR;
+        color: $gray_3;
+      }
     }
 
     &-category {
