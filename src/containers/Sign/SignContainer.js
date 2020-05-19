@@ -66,6 +66,10 @@ const SignContainer = ({ store, history }) => {
     setSignType(!signType);
   };
 
+  useEffect(() => { // sign modal on/off 시 reset value
+    handleResetInputValue();
+  }, [isModal]);
+
   // const handleCertification = async() => {
   //   let data = {
   //     code: emailCode,
