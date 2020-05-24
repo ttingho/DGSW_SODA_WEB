@@ -26,8 +26,8 @@ const Footer = ({ history }) => {
     <div className={cx('Footer')}>
       <div className={cx('Footer-wrap')}>
         <div className={cx('Footer-wrap-left')}>
-          <span className={cx('Footer-wrap-left-version')}>version S.0514</span>
-          <span className={cx('Footer-wrap-left-copyright')}>ⓒ TakeUp</span>
+          <span className={cx('Footer-wrap-left-version')}>version S.0415</span>
+          <span className={cx('Footer-wrap-left-copyright')}>ⓒ takeUP</span>
         </div>
         <div className={cx('Footer-wrap-right')}>
           <span className={cx('Footer-wrap-right-team')} onClick={() => history.push('/intro')}>팀 소개</span>
