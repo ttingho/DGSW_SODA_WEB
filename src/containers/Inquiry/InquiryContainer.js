@@ -25,7 +25,6 @@ const InquiryContainer = ({ store, history }) => {
 
   const [itemList, setItemList] = useState([]);
   const [indexItemList, setIndexItemList] = useState([]);
-  const token = TokenVerification();
   
   const handlePage = page => {
     handlePageIndex(page);
@@ -39,8 +38,8 @@ const InquiryContainer = ({ store, history }) => {
     handlePageIndex(pageIndex - 1);
   };
 
-  const handleDetail = (idx, isComplate) => {
-    if (token === 'empty') {
+  const handleDetail = idx => {
+    if (TokenVerification() === 'empty') {  // 상세조회 시 토큰 유무 검사
       modal({
         title: 'Warning!',
         stateType: 'warning',
@@ -50,10 +49,9 @@ const InquiryContainer = ({ store, history }) => {
       return;
     }
     localStorage.setItem('inquiry_idx', idx);
-
+    
     /* 문의 상세조회 시 네비바에서 문의, 어드민 각각 볼드 처리를 위함임 */
-    if (isComplate === 1) handleIsAdminInquiry(true); // 답변 된 문의면 true
-    else handleIsAdminInquiry(false); // 답변 안 된 문의면 false
+    handleIsAdminInquiry(false); // 답변 된 일반 문의면 false
 
     history.push('/inquiry-detail');
   };

@@ -62,7 +62,6 @@ const SignInContainer = ({
 
           handleIsSignModal(false);
           
-          // history.push(`'${path}'`);
           history.push(path);
         }
       })

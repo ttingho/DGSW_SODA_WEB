@@ -16,6 +16,7 @@ const InquiryAdminContainer = ({ store, history }) => {
     handlePageIndex,
     getAdminInquiry,
     getAdminCategoryInquiry,
+    handleIsAdminInquiry,
     totalPage
   } = store.inquiry;
 
@@ -42,6 +43,10 @@ const InquiryAdminContainer = ({ store, history }) => {
 
   const handleDetail = idx => {
     localStorage.setItem('inquiry_idx', idx);
+    
+    /* 문의 상세조회 시 네비바에서 문의, 어드민 각각 볼드 처리를 위함임 */
+    handleIsAdminInquiry(true); // 답변 안 된 어드민 문의면 true
+
     history.push('/inquiry-detail');
   };
 
