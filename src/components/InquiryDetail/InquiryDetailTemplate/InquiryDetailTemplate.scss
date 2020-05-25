@@ -9,6 +9,7 @@ $card_width_size: 735px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: $black;
 
   &-QuestionCatgory {
     width: $card_width_size;
@@ -145,6 +146,13 @@ $card_width_size: 735px;
         width: 100%;
         margin-bottom: 30px;
       }
+
+      &-Contents {
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        font-size: $font_size_2;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
     }
   }
 
@@ -247,14 +255,17 @@ $card_width_size: 735px;
 
     &-ContentsBox {
       width: 100%;
-      height: 100%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       padding: 25px;
       margin: auto;
-      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
-      font-size: $font_size_2;
+      &-Contents {
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        font-size: $font_size_2;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
     }
   }
 
@@ -281,6 +292,7 @@ $card_width_size: 735px;
     resize: none;
     font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
     font-size: $font_size_2;
+    z-index: 1;
     &::-webkit-scrollbar {
       display: none;
     }

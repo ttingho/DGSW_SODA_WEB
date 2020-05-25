@@ -39,6 +39,7 @@ const ExampleCard = ({ profileSrc, name, contentsObj, images, imgBase64, handleI
         className={cx('ExampleCard-contents')}
         placeholder={'여기에 당신의 대나무(이야기)를 적어주세요!'}
       />
+      <span className={cx('ExampleCard-count', { 'ExampleCard-count-allow': (contents.length !== 0 && contents.length <= 1000) }, { 'ExampleCard-count-deny': contents.length > 1000 })}>{contents.length} / 1000</span>
     </div>
   );
 };

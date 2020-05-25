@@ -16,6 +16,7 @@
   width: 100%;
   min-height: 200px;
   box-shadow: 0 0 8px 0 $shadow;
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -110,7 +111,7 @@
     resize: none;
     outline: none;
     font-size: $font_size_1;
-    font-family: NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+    font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
     color: $black;
     z-index: 1;
     &::-webkit-scrollbar {
@@ -122,5 +123,20 @@
     &:focus::-webkit-input-placeholder {color:transparent;}
     &:focus::-moz-placeholder {color:transparent;}
     &:-moz-placeholder {color:transparent;}
+  }
+  &-count {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: $font_size_1;
+    font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    color: $gray_2;
+    z-index: 2;
+    &-allow {
+      color: $bamboo_primary;
+    }
+    &-deny {
+      color: $error;
+    }
   }
 }
