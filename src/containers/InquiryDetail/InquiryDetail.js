@@ -124,6 +124,16 @@ const InquiryDetail = observer(({ history }) => {
       return;
     }
 
+    if (answerContents.length > 1000) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: `1000자 이내로 입력해주세요! (현재 글자 수 : ${answerContents.length})`
+      });
+
+      return;
+    }
+
     if (answerTitle.replace( blank_pattern, '' ) === '' || answerContents.replace( blank_pattern, '' ) === '') {
       modal({
         title: 'Warning!',
@@ -201,6 +211,16 @@ const InquiryDetail = observer(({ history }) => {
       return;
     }
 
+    if (inquiryContents.length > 1000) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: `1000자 이내로 입력해주세요! (현재 글자 수 : ${inquiryContents.length})`
+      });
+
+      return;
+    }
+
     if (inquiryTitle.replace( blank_pattern, '' ) === '' || inquiryContents.replace( blank_pattern, '' ) === '') {
       modal({
         title: 'Warning!',
@@ -272,6 +292,16 @@ const InquiryDetail = observer(({ history }) => {
         title: 'Warning!',
         stateType: 'warning',
         contents: '입력 칸이 비워있습니다.'
+      });
+
+      return;
+    }
+
+    if (answerContents.length > 1000) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: `1000자 이내로 입력해주세요! (현재 글자 수 : ${answerContents.length})`
       });
 
       return;

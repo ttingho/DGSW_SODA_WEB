@@ -350,6 +350,16 @@ const BambooWrite = ({ store, history }) => {
       return;
     }
 
+    if (contents.length > 1000) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '대나무(이야기)를 1000자 이내로 입력해주세요!'
+      });
+
+      return;
+    }
+
     if (contents.replace( blank_pattern, '' ) === '') {
       modal({
         title: 'Warning!',
@@ -412,10 +422,15 @@ const BambooWrite = ({ store, history }) => {
           await modal({
             title: 'Success!',
             stateType: 'success',
-            contents: '대나무(이야기)를 제보했습니다.(관리자 승인을 기다려주세요!)'
-          });
+            contents: '대나무(이야기)를 제보했습니다.(관리자 승인을 기다려주세요!)',
+            closeFunc: async () => {
+              handleInitialState();
 
-          await handleInitialState();
+              await setIsConfirmed(true);
+
+              await navigate('/');
+            }
+          });
         })
         .catch(async error => {
           const { status } = error.response;

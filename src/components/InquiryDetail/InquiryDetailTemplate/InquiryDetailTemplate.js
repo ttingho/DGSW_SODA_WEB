@@ -7,6 +7,7 @@ import Pagination from 'components/Common/Pagination';
 import moment from 'moment';
 import Button from 'components/Common/Button';
 import { typography } from 'styles/typography/typography_scheme.js';
+import { TextareaAutosize } from '@material-ui/core';
 
 const cx = classNames.bind(style);
 
@@ -113,10 +114,15 @@ const InquiryDetailTemplate = ({
           </div>
           {
             isInquiryType === 'MODIFY' ?
-              <textarea value={inquiryContents} onChange={event => setInquiryContents(event.target.value)} type={'text'} placeholder={'답변 내용'} className={cx('InquiryDetailTemplate-textarea')} /> :
-              <span className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox-Contents')}>
+              <TextareaAutosize
+                value={inquiryContents}
+                onChange={event => setInquiryContents(event.target.value)}
+                placeholder={'답변 내용'}
+                className={cx('InquiryDetailTemplate-textarea')}
+              /> :
+              <pre className={cx('InquiryDetailTemplate-QuestionCardDiv-ContentsBox-Contents')}>
                 {question.contents}
-              </span>
+              </pre>
           }
         </div>
         <div className={cx('InquiryDetailTemplate-QuestionCardDiv-ProfileBox')}>
@@ -128,118 +134,121 @@ const InquiryDetailTemplate = ({
           </span>
         </div>
       </div>
-      <div>
-        <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv')}>
-          {
-            userType === 0 ?
-              <>
-                <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox')}>
-                  <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-icon')}>A.</span>
-                  {
-                    isAnswerType === 'MODIFY' || !isComplate ?
-                      <input value={answerTitle} onChange={event => setAnswerTitle(event.target.value)} type={'text'} placeholder={'제목'} className={cx('InquiryDetailTemplate-input')} /> :
-                      <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-Title')}>{answer.title}</span>
-                  }
-                  {
-                    !isComplate ?
-                      <Button loadingType={'text'} handleFunction={handleAnswer} customStyle={btnStyle}>작성하기</Button> :
-                      isAnswerType === 'MODIFY' && isComplate ?
-                        <Button handleFunction={handlePutAnswer} loadingType={'text'} customStyle={btnStyle}>수정하기</Button> :
-                        <></>
-                  }
+      <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv')}>
+        {
+          userType === 0 ?
+            <>
+              <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox')}>
+                <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-icon')}>A.</span>
+                {
+                  isAnswerType === 'MODIFY' || !isComplate ?
+                    <input value={answerTitle} onChange={event => setAnswerTitle(event.target.value)} type={'text'} placeholder={'제목'} className={cx('InquiryDetailTemplate-input')} /> :
+                    <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-Title')}>{answer.title}</span>
+                }
+                {
+                  !isComplate ?
+                    <Button loadingType={'text'} handleFunction={handleAnswer} customStyle={btnStyle}>작성하기</Button> :
+                    isAnswerType === 'MODIFY' && isComplate ?
+                      <Button handleFunction={handlePutAnswer} loadingType={'text'} customStyle={btnStyle}>수정하기</Button> :
+                      <></>
+                }
+                {
+                  isComplate ?
+                    <MdMoreVert className={cx('InquiryDetailTemplate-menuIcon')} onClick={() => handleIsMore('answer')} /> :
+                    <></>
+                }
+                <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox', { 'InquiryDetailTemplate-hidden': !isAnswerMore })}>
                   {
                     isComplate ?
-                      <MdMoreVert className={cx('InquiryDetailTemplate-menuIcon')} onClick={() => handleIsMore('answer')} /> :
+                      <>
+                        <span
+                          className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-child1')}
+                          onClick={() => {
+                            if (isAnswerType === 'READ_ONLY') handleIsType('answer', 'MODIFY');
+
+                            if (isAnswerType === 'MODIFY') handleIsType('answer', 'READ_ONLY');
+                          }}
+                        >
+                          {
+                            isAnswerType === 'READ_ONLY' ?
+                              '수정하기' :
+                              'Read Only'
+                          }
+                        </span>
+                        <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-line')} />
+                        <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-child2')} onClick={handleDeleteAnswer}>삭제하기</span>
+                      </> :
                       <></>
                   }
-                  <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox', { 'InquiryDetailTemplate-hidden': !isAnswerMore })}>
-                    {
-                      isComplate ?
-                        <>
-                          <span
-                            className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-child1')}
-                            onClick={() => {
-                              if (isAnswerType === 'READ_ONLY') handleIsType('answer', 'MODIFY');
-
-                              if (isAnswerType === 'MODIFY') handleIsType('answer', 'READ_ONLY');
-                            }}
-                          >
-                            {
-                              isAnswerType === 'READ_ONLY' ?
-                                '수정하기' :
-                                'Read Only'
-                            }
-                          </span>
-                          <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-line')} />
-                          <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-menuBox-child2')} onClick={handleDeleteAnswer}>삭제하기</span>
-                        </> :
-                        <></>
-                    }
-                  </div>
                 </div>
-                <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ContentsBox')}>
+              </div>
+              <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ContentsBox')}>
+                {
+                  isAnswerType === 'MODIFY' || isComplate === 0 ?
+                    <TextareaAutosize
+                      value={answerContents}
+                      onChange={event => setAnswerContents(event.target.value)}
+                      placeholder={'답변 내용'}
+                      className={cx('InquiryDetailTemplate-textarea')}
+                    /> :
+                    <pre className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ContentsBox-Contents')}>{answer.contents}</pre>
+                }
+              </div>
+              <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox')}>
+                <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-MemberId')}>
                   {
-                    isAnswerType === 'MODIFY' || isComplate === 0 ?
-                      <textarea value={answerContents} onChange={event => setAnswerContents(event.target.value)} type={'text'} placeholder={'답변 내용'} className={cx('InquiryDetailTemplate-textarea')} /> :
-                      <span>{answer.contents}</span>
+                    isComplate === 1 && answer !== null ?
+                      '작성자 : ' + answer.memberId :
+                      '작성자 : ' + memberId
                   }
-                </div>
-                <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox')}>
-                  <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-MemberId')}>
-                    {
-                      isComplate === 1 && answer !== null ?
-                        '작성자 : ' + answer.memberId :
-                        '작성자 : ' + memberId
-                    }
-                  </span>
-                  <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-Date')}>
-                    {
-                      isComplate === 1 && answer !== null ?
-                        '작성날짜 : ' + moment.parseZone(answer.joinDate).format('YYYY-MM-DD HH:mm:ss') :
-                        '작성날짜 : ' + moment().format('YYYY-MM-DD HH:mm:ss')
-                    }
-                  </span>
-                </div>
-              </> :
-              <>
-                <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox')}>
-                  <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-icon')}>A.</span>
-                  <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-Title')}>
-                    {
-                      answer !== null ?
-                        answer.title :
-                        '답변 대기 중'
-                    }
-                  </span>
-                </div>
-                <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ContentsBox')}>
-                  <span>
-                    {
-                      answer !== null ?
-                        answer.contents :
-                        '관리자로부터 작성된 답변이 없습니다. (조금만 기다려주세요!)'
-                    }
-                  </span>
-                </div>
-                <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox')}>
-                  <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-MemberId')}>
-                    {
-                      answer !== null ?
-                        '작성자 : ' + answer.memberId :
-                        '작성자 : 미정'
-                    }
-                  </span>
-                  <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-Date')}>
-                    {
-                      answer !== null ?
-                        '작성날짜 : ' + moment.parseZone(answer.joinDate).format('YYYY-MM-DD HH:mm:ss') :
-                        '작성날짜 : 진행 중'
-                    }
-                  </span>
-                </div>
-              </>
-          }
-        </div>
+                </span>
+                <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-Date')}>
+                  {
+                    isComplate === 1 && answer !== null ?
+                      '작성날짜 : ' + moment.parseZone(answer.joinDate).format('YYYY-MM-DD HH:mm:ss') :
+                      '작성날짜 : ' + moment().format('YYYY-MM-DD HH:mm:ss')
+                  }
+                </span>
+              </div>
+            </> :
+            <>
+              <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox')}>
+                <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-icon')}>A.</span>
+                <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-TitleBox-Title')}>
+                  {
+                    answer !== null ?
+                      answer.title :
+                      '답변 대기 중'
+                  }
+                </span>
+              </div>
+              <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ContentsBox')}>
+                <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ContentsBox-Contents')}>
+                  {
+                    answer !== null ?
+                      answer.contents :
+                      '관리자로부터 작성된 답변이 없습니다. (조금만 기다려주세요!)'
+                  }
+                </span>
+              </div>
+              <div className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox')}>
+                <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-MemberId')}>
+                  {
+                    answer !== null ?
+                      '작성자 : ' + answer.memberId :
+                      '작성자 : 미정'
+                  }
+                </span>
+                <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-Date')}>
+                  {
+                    answer !== null ?
+                      '작성날짜 : ' + moment.parseZone(answer.joinDate).format('YYYY-MM-DD HH:mm:ss') :
+                      '작성날짜 : 진행 중'
+                  }
+                </span>
+              </div>
+            </>
+        }
       </div>
     </div>
   );
