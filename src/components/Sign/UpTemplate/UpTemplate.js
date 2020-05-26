@@ -276,34 +276,9 @@ const UpTemplate = ({
     } else if (page === 3) {
       return (
         <div className={cx('UpTemplate-page3')}>
-          {/* <div className={cx('UpTemplate-page3-profileWrap')}>
-            <div className={cx('UpTemplate-page3-profileWrap-header')}>
-              <span className={cx('UpTemplate-page3-profileWrap-header-title')}>내 프로필</span>
-              <span className={cx('UpTemplate-page3-profileWrap-header-subTitle')}>미설정시 기본 이미지로 됩니다.</span>
-            </div>
-            <LightTooltip placement='right-start' title='카메라 아이콘 또는 사진 클릭 시 사진 변경'>
-              <label className={cx('UpTemplate-page3-profileWrap-imageWrap')} htmlFor="imgInput">
-                <ImageIcon
-                  src={imgBase64}
-                  alt={'img'}
-                  observer={imgBase64}
-                />
-                <label
-                  className={cx('UpTemplate-page3-profileWrap-imageWrap-iconWrap')}
-                  htmlFor="imgInput"
-                >
-                  <MdCameraAlt className="icon"/>
-                </label>
-                <input id="imgInput" type="file" onChange={e => handleChangeFile(e)} accept="image/*"/>
-              </label>
-            </LightTooltip>
-            <button
-              className={cx('UpTemplate-page3-profileWrap-default')}
-              onClick={() => {setImgBase64(PROFILE_DEFAULT); setProfileImage(null);}}
-            >
-              기본 이미지
-            </button>
-          </div> */}
+          <span className={cx('UpTemplate-page3-title')}>
+            이메일 인증코드 <span>발송 완료!</span>
+          </span>
           <SignInput
             value={emailCode}
             setValue={setEmailCode}
