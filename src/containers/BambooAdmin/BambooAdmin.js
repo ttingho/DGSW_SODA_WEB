@@ -15,7 +15,7 @@ const BambooAdmin = observer(({ history }) => {
 
   const { modal } = store.dialog;
 
-  const { pendingList, getPendingList, requestBambooPost } = store.admin;
+  const { pendingList, selectIndex, getPendingList, requestBambooPost } = store.admin;
 
   const ls = new SecureLS({ encodingType: 'aes' });
 
@@ -38,7 +38,7 @@ const BambooAdmin = observer(({ history }) => {
       });
   };
 
-  const handleRequestBambooPost = (isAllow, idx) => {
+  const handleRequestBambooPost = (isAllow, idx, index) => {
     setIsLoading(true);
 
     const data = {
@@ -46,7 +46,7 @@ const BambooAdmin = observer(({ history }) => {
       isAllow
     };
 
-    requestBambooPost(data)
+    requestBambooPost(data, index)
       .then(response => {
         setIsLoading(false);
 
@@ -100,10 +100,10 @@ const BambooAdmin = observer(({ history }) => {
   useEffect(() => {
     if (pendingList) {
       setPendingItemList(pendingList.map((data, index) => {
-        return <BambooAdminCard key={index} item={data} isLoading={isLoading} handleRequestBambooPost={handleRequestBambooPost} />;
+        return <BambooAdminCard key={index} index={index} selectIndex={selectIndex} item={data} isLoading={isLoading} handleRequestBambooPost={handleRequestBambooPost} />;
       }));
     }
-  }, [pendingList, isLoading]);
+  }, [pendingList, isLoading, selectIndex]);
 
   useEffect(() => {
     if (token === 'empty' || (userInfo === null || userInfo.auth !== 0)) {

@@ -10,7 +10,7 @@ import DEFAULT_PROFILE from 'assets/image/panda.jpg';
 
 const cx = classNames.bind(style);
 
-const BambooAdminCard = ({ item, isLoading, handleRequestBambooPost }) => {
+const BambooAdminCard = ({ index, selectIndex, item, isLoading, handleRequestBambooPost }) => {
   const customStyle = {
     width: '15%',
     height: '60%'
@@ -61,14 +61,16 @@ const BambooAdminCard = ({ item, isLoading, handleRequestBambooPost }) => {
         </p>
       </div>
       <div className={cx('BambooAdminCard-footer')}>
-        <Button isLoading={isLoading} appearance={'secondary'} customStyle={customStyle} handleFunction={() => handleRequestBambooPost(1, item.idx)}>승인</Button>
-        <Button isLoading={isLoading} appearance={'red'} customStyle={customStyle} handleFunction={() => handleRequestBambooPost(0, item.idx)}>취소</Button>
+        <Button isLoading={isLoading} loadingType={selectIndex === index ? 'basic' : 'none'} appearance={'secondary'} customStyle={customStyle} handleFunction={() => handleRequestBambooPost(1, item.idx, index)}>승인</Button>
+        <Button isLoading={isLoading} loadingType={selectIndex === index ? 'basic' : 'none'} appearance={'red'} customStyle={customStyle} handleFunction={() => handleRequestBambooPost(0, item.idx, index)}>취소</Button>
       </div>
     </div>
   );
 };
 
 BambooAdminCard.propTypes = {
+  index: PropTypes.number,
+  selectIndex: PropTypes.number,
   item: PropTypes.object,
   isLoading: PropTypes.bool,
   handleRequestBambooPost: PropTypes.func

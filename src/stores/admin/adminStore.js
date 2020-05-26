@@ -5,6 +5,7 @@ import adminRepository from './adminRepository';
 @autobind
 class adminStore {
   @observable pendingList = [];
+  @observable selectIndex = 0;
 
   @action
   async getPendingList () {
@@ -24,8 +25,10 @@ class adminStore {
   }
 
   @action
-  async requestBambooPost (request) {
+  async requestBambooPost (request, index) {
     try {
+      this.selectIndex = index;
+
       const response = await adminRepository.requestBambooPost(request);
 
       await this.getPendingList();
