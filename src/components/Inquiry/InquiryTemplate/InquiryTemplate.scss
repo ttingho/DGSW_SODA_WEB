@@ -15,6 +15,8 @@
     font-family: $NOTO_SANS_KR_REGULAR;
     border-bottom: 2px solid $shadow;
     padding-bottom: 18.5px;
+    user-select: none;
+    -webkit-user-select: none;
 
     &-title {
       font-size: $font_size_6;
@@ -31,7 +33,6 @@
 
     &-category {
       position: relative;
-      // width: 100px;
       height: 40px;
       display: flex;
       align-items: center;

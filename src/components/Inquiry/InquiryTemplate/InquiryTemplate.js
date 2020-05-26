@@ -51,7 +51,7 @@ const InquiryTemplate = ({
                 <span className={cx('InquiryTemplate-header-title-subTitle')}>
                   {
                     category === '전체' ? '전체 문의를 조회 합니다.'
-                      : category === '서비스 문의' ? '서비스와 관련된 문의를 조회 합니다.'
+                      : category === '서비스 버그 신고' ? '서비스 버그와 관련된 문의를 조회 합니다.'
                         : category === '관리자 문의' ? '관리자와 관련된 문의를 조회 합니다.'
                           : category === '개발자 QnA' ? '개발과 관련된 문의를 조회 합니다.'
                             : category === '대소고 QnA' ? '대소고와 관련된 문의를 조회 합니다.'
@@ -68,7 +68,7 @@ const InquiryTemplate = ({
                 </button>
                 <ul className={cx('InquiryTemplate-header-category-ul', {'InquiryTemplate-header-category-ul-hidden': !isClickedCategory})}>
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '전체'})} onClick={() => clickCategory('전체')}>전체</li>
-                  <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '서비스 문의'})} onClick={() => clickCategory('서비스 문의')}>서비스 문의</li>
+                  <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '서비스 버그 신고'})} onClick={() => clickCategory('서비스 버그 신고')}>서비스 버그 신고</li>
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '관리자 문의'})} onClick={() => clickCategory('관리자 문의')}>관리자 문의</li>
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '개발자 QnA'})} onClick={() => clickCategory('개발자 QnA')}>개발자 QnA</li>
                   <li className={cx('InquiryTemplate-header-category-ul-li', {'InquiryTemplate-header-category-ul-li-clicked': category === '대소고 QnA'})} onClick={() => clickCategory('대소고 QnA')}>대소고 QnA</li>
