@@ -99,6 +99,12 @@
     align-items: center;
     justify-content: center;
 
+    &-contentsLength {
+      margin: auto 30px auto auto;
+      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+      color: $soda_primary;
+    }
+
     &-imageList {
       width: 100%;
     }

@@ -13,16 +13,16 @@ const InquiryWriteTemplate = ({
   contentsObj,
   categoryObj,
   handleQuestionWrite,
-  imageContents,
   handleImageChange,
   images,
   handleImageCancel,
   imgBase64,
-  goBackFunction,
+  contentsSet
 }) => {
   const { contents, setContents } = contentsObj;
   const { title, setTitle } = titleObj;
   const { category, setCategory } = categoryObj;
+  const [contentsLength, setContentsLength] = useState(0);
 
   const handleCategory = (e) => {
     setCategory(e.target.value);
@@ -59,8 +59,9 @@ const InquiryWriteTemplate = ({
           }
         </div>
         <div className={cx('QuestionWriteTemplate-contentsBox-contents')}>
-          <textarea className={cx('QuestionWriteTemplate-contentsBox-contents-text')} placeholder={'문의 내용은 여기 작성 해주세요...'} value={contents} onChange={event => setContents(event.target.value)}/>
+          <textarea className={cx('QuestionWriteTemplate-contentsBox-contents-text')} placeholder={'문의 내용은 여기 작성 해주세요...'} value={contents} onChange={event => { contentsSet(event), setContentsLength(event.target.value.length);}}/>
         </div>
+        <div  className={cx('QuestionWriteTemplate-contentsBox-contentsLength')}>{contentsLength}/1000</div>
       </div>
       <div className={cx('QuestionWriteTemplate-guideDiv')}>
         <span className={cx('QuestionWriteTemplate-guideDiv-title')}>참고:</span>
@@ -82,7 +83,8 @@ InquiryWriteTemplate.propTypes = {
   category: PropTypes.string,
   handleCategory: PropTypes.func,
   goBackFunction: PropTypes.func,
-  imgBase64: PropTypes.array
+  imgBase64: PropTypes.array,
+  contentsSet: PropTypes.func
 };
 
 export default InquiryWriteTemplate;
