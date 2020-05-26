@@ -18,9 +18,11 @@ const InquiryWriteContainers = ({ store, history }) => {
   const [images, setImages] = useState([]);
   const [imgBase64, setImgBase64] = useState([]);
   const [imageContents, setImageContents] = useState('업로드 된 이미지');
-  const [isUploadInquiry, setIsUploadInquiry] = useState(true);
 
   const useComponentDidMount = func => useEffect(func, []);
+
+  // Prompt 제어 state
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   const { modal } = store.dialog;
   const { uploadImage } = store.upload;
@@ -32,9 +34,20 @@ const InquiryWriteContainers = ({ store, history }) => {
 
   const token = TokenVerification();
 
-  // Prompt 제어 state
-  const [isConfirmed, setIsConfirmed] = useState(false);
 
+  const contentsSet = async (e) => {
+    if (1000 < e.target.value.length) {
+      modal({
+        modalType: 'basic',
+        title: 'Warning!',
+        contents: '내용은 1000자 이내로 작성해주세요.'
+      });
+
+      return;
+    }
+
+    setContents(e.target.value);
+  };
 
   const navigate = path => {
     history.push(path);
@@ -272,13 +285,15 @@ const InquiryWriteContainers = ({ store, history }) => {
 
     await requestInquiryWrite(data).
       then(async (response) => {
+        setIsUploadInquiry(false);
         await modal({
           title: 'Success!',
           stateType: 'success',
           contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.',
-          closeFunc: () => { 
-            setIsUploadInquiry(false);
-            history.goBack(1); 
+          closeFunc: async () => {
+            await setIsConfirmed(true);
+
+            await navigate('/inquiry');
           }
         });
       })
@@ -290,6 +305,16 @@ const InquiryWriteContainers = ({ store, history }) => {
             title: 'Error!',
             stateType: 'error',
             contents: '양식이 맞지 않아요!'
+          });
+
+          return;
+        }
+
+        if (status === 413) {
+          await modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '내용이 너무 많아요!'
           });
 
           return;
@@ -353,11 +378,7 @@ const InquiryWriteContainers = ({ store, history }) => {
 
   return (
     <>
-      {
-        isUploadInquiry
-          ? <Prompt when={true} message={handleBlockedNavigation}/>
-          : <></>
-      }
+      <Prompt when={true} message={handleBlockedNavigation}/>
       <QuestionTemplate
         contentsObj={GroupingState('contents', contents, setContents)}
         titleObj={GroupingState('title', title, setTitle)}
@@ -369,6 +390,7 @@ const InquiryWriteContainers = ({ store, history }) => {
         imgBase64={imgBase64}
         handleImageCancel={handleImageCancel}
         goBackFunction={goBackFunction}
+        contentsSet={contentsSet}
       />
     </>
   );
