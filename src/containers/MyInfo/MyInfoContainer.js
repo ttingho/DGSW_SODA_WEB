@@ -223,7 +223,7 @@ const MyInfoContainer = observer(({ history }) => {
     const ls = new SecureLS({ encodingType: 'aes' });
 
     ls.removeAll();
-    history.goBack(1);
+    history.push('/');
   };
 
   const isSetModals = {

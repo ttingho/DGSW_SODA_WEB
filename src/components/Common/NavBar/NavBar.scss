@@ -32,9 +32,9 @@ $profile_img_size: 55px;
       min-width: 1100px;
       height: 100%;
       display: flex;
+      justify-content: space-between;
   
       &-header {
-        width: 120px;
         height: 100%;
         display: flex;
         justify-content: flex-start;
@@ -51,13 +51,13 @@ $profile_img_size: 55px;
 
           >span:nth-child(1) {
             cursor: pointer;
-            // margin-right: 4px;
           }
           >span:nth-child(2) {
             align-self: flex-end;
-            font-size: $font_size_1;
+            font-size: $font_size_2;
             font-family: $NOTO_SANS_KR_REGULAR;
             margin-bottom: 4px;
+            margin-left: 8px;
           }
 
           &-bamboo {
@@ -73,7 +73,7 @@ $profile_img_size: 55px;
         }
       }
       &-content {
-        width: 980px;
+        width: 900px;
         height: 100%;
         display: flex;
         justify-content: flex-end;
