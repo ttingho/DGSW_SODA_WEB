@@ -90,9 +90,11 @@ const BambooItem = ({ item }) => {
       <div className="BambooCard-Contents">
         <Pagination images={images} />
         <div className="BambooCard-FontStyle">
-          {
-            contents
-          }
+          <pre className="BambooCard-FontStyle">
+            {
+              contents
+            }
+          </pre>
         </div>
       </div>
     </div>
