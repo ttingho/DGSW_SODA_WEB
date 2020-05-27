@@ -49,6 +49,20 @@ const InquiryWriteContainers = ({ store, history }) => {
     setContents(e.target.value);
   };
 
+  const titleSet = async (e) => {
+    if (50 < e.target.value.length) {
+      modal({
+        modalType: 'basic',
+        title: 'Warning!',
+        contents: '내용은 1000자 이내로 작성해주세요.'
+      });
+
+      return;
+    }
+
+    setTitle(e.target.value);
+  };
+
   const navigate = path => {
     history.push(path);
   };
@@ -391,6 +405,7 @@ const InquiryWriteContainers = ({ store, history }) => {
         handleImageCancel={handleImageCancel}
         goBackFunction={goBackFunction}
         contentsSet={contentsSet}
+        titleSet={titleSet}
       />
     </>
   );

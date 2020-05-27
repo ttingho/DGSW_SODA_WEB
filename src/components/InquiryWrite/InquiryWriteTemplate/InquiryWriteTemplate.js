@@ -17,11 +17,13 @@ const InquiryWriteTemplate = ({
   images,
   handleImageCancel,
   imgBase64,
-  contentsSet
+  contentsSet,
+  titleSet
 }) => {
   const { contents, setContents } = contentsObj;
   const { title, setTitle } = titleObj;
   const { category, setCategory } = categoryObj;
+  const [titleLength, setTitleLength] = useState(0);
   const [contentsLength, setContentsLength] = useState(0);
 
   const handleCategory = (e) => {
@@ -50,7 +52,10 @@ const InquiryWriteTemplate = ({
             <span className={cx('QuestionWriteTemplate-contentsBox-titleBox-qIconDiv-qIcon')}>Q</span>
           </div>
           <div className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv')}>
-            <input value={title} onChange={event => setTitle(event.target.value)} className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv-title')} type={'text'} placeholder={'문의 제목은 여기 작성 해주세요...'}/>
+            <input  className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv-title')} type={'text'} placeholder={'문의 제목은 여기 작성 해주세요...'} value={title} onChange={event => { titleSet(event); setTitleLength(event.target.value.length);}}/>
+          </div>
+          <div className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleLength' , {'QuestionWriteTemplate-contentsBox-colorStyle': titleLength > 0})}>
+            {titleLength}/50
           </div>
         </div>
         <div className={cx('QuestionWriteTemplate-contentsBox-imageList')}>
@@ -61,7 +66,7 @@ const InquiryWriteTemplate = ({
         <div className={cx('QuestionWriteTemplate-contentsBox-contents')}>
           <textarea className={cx('QuestionWriteTemplate-contentsBox-contents-text')} placeholder={'문의 내용은 여기 작성 해주세요...'} value={contents} onChange={event => { contentsSet(event), setContentsLength(event.target.value.length);}}/>
         </div>
-        <div  className={cx('QuestionWriteTemplate-contentsBox-contentsLength', {'QuestionWriteTemplate-contentsBox-colorStyle': contentsLength > 0})}>{contentsLength}/1000</div>
+        <div className={cx('QuestionWriteTemplate-contentsBox-contentsLength', {'QuestionWriteTemplate-contentsBox-colorStyle': contentsLength > 0})}>{contentsLength}/1000</div>
       </div>
       <div className={cx('QuestionWriteTemplate-guideDiv')}>
         <span className={cx('QuestionWriteTemplate-guideDiv-title')}>참고:</span>
@@ -84,7 +89,8 @@ InquiryWriteTemplate.propTypes = {
   handleCategory: PropTypes.func,
   goBackFunction: PropTypes.func,
   imgBase64: PropTypes.array,
-  contentsSet: PropTypes.func
+  contentsSet: PropTypes.func,
+  titleSet: PropTypes.func
 };
 
 export default InquiryWriteTemplate;
