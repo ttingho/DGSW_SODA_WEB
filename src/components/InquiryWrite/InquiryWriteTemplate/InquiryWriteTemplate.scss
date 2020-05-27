@@ -107,7 +107,7 @@
     }
 
     &-colorStyle { 
-      color: $soda_primary;
+      color: $soda_primary !important;
     }
 
     &-imageList {
@@ -123,12 +123,19 @@
       align-items: center;
       justify-content: center;
 
+      &-titleLength {
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+        font-size: 12px;
+        color: $gray_3;
+        margin-right: 10px;
+      }
+
       &-titleDiv {
         width: 600px;
         height: 60px;
-        margin: auto 60px auto auto;
+        margin: auto 60px auto 10px;
         &-title {
-          width: 600px;
+          width: 500px;
           height: 60px;
           margin-right: 0px;
           border: none;
@@ -142,7 +149,7 @@
         display: flex;
         width: 30px;
         height: 30px;
-        justify-content: center;
+        // justify-content: center;
         align-items: center;
 
         &-qIcon {
