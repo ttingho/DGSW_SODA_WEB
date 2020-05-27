@@ -1,5 +1,5 @@
 import React from 'react';
-import { FB_APP_ID_TEST } from 'config/config.json';
+import { FB_APP_ID } from 'config/config.json';
 import { MdInsertPhoto, MdClose } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
@@ -55,7 +55,7 @@ const BambooWriteTemplate = ({
             }}}
         />
         <FacebookLogin
-          appId={FB_APP_ID_TEST}
+          appId={FB_APP_ID}
           autoLoad={false}
           fields='name, email, picture'
           callback={handleFaceBookLogin}
