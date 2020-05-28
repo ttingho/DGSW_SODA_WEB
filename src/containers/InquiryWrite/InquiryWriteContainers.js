@@ -299,7 +299,6 @@ const InquiryWriteContainers = ({ store, history }) => {
 
     await requestInquiryWrite(data).
       then(async (response) => {
-        setIsUploadInquiry(false);
         await modal({
           title: 'Success!',
           stateType: 'success',
