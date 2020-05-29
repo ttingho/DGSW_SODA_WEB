@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './InquiryDetailTemplate.scss';
 import Pagination from 'components/Common/Pagination';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import Button from 'components/Common/Button';
 import { typography } from 'styles/typography/typography_scheme.js';
 import { TextareaAutosize } from '@material-ui/core';
@@ -130,7 +130,7 @@ const InquiryDetailTemplate = ({
             {'작성자 : ' + question.memberId}
           </span>
           <span className={cx('InquiryDetailTemplate-QuestionCardDiv-ProfileBox-Date')}>
-            {'작성날짜 : ' + moment.parseZone(question.joinDate).format('YYYY-MM-DD HH:mm:ss')}
+            {'작성날짜 : ' + moment.tz(question.joinDate, 'Asia/Seoul').format('YYYY-MM-DD HH:mm:ss')}
           </span>
         </div>
       </div>
@@ -205,8 +205,8 @@ const InquiryDetailTemplate = ({
                 <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-Date')}>
                   {
                     isComplate === 1 && answer !== null ?
-                      '작성날짜 : ' + moment.parseZone(answer.joinDate).format('YYYY-MM-DD HH:mm:ss') :
-                      '작성날짜 : ' + moment().format('YYYY-MM-DD HH:mm:ss')
+                      '작성날짜 : ' + moment.tz(answer.joinDate, 'Asia/Seoul').format('YYYY-MM-DD HH:mm:ss') :
+                      '작성날짜 : ' + moment.tz(new Date(), 'Asia/Seoul').format('YYYY-MM-DD HH:mm:ss')
                   }
                 </span>
               </div>
@@ -242,7 +242,7 @@ const InquiryDetailTemplate = ({
                 <span className={cx('InquiryDetailTemplate-AnswerContentsCardDiv-ProfileBox-Date')}>
                   {
                     answer !== null ?
-                      '작성날짜 : ' + moment.parseZone(answer.joinDate).format('YYYY-MM-DD HH:mm:ss') :
+                      '작성날짜 : ' + moment.tz(answer.joinDate, 'Asia/Seoul').format('YYYY-MM-DD HH:mm:ss') :
                       '작성날짜 : 진행 중'
                   }
                 </span>
