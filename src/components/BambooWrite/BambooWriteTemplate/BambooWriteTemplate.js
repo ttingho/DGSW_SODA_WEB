@@ -1,6 +1,6 @@
 import React from 'react';
 import { FB_APP_ID } from 'config/config.json';
-import { MdInsertPhoto, MdClose } from 'react-icons/md';
+import { FaFacebookF } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import style from './BambooWriteTemplate.scss';
@@ -18,10 +18,7 @@ const BambooWriteTemplate = ({
   contentsObj,
   images,
   imgBase64,
-  imageContents,
-  handleIsUpload,
   handleImageCancel,
-  isUpload,
   isType,
   handleIsType,
   handleImageChange,
@@ -35,7 +32,7 @@ const BambooWriteTemplate = ({
   };
 
   const radioContents = <span className={cx('radioContents')}>
-    실명 <span className={cx('radioContents-gray')}>(FaceBook 로그인 필요)</span>
+    실명 <span className={cx('radioContents-contents')}><div className={cx('radioContents-contents-fbWrap')}><FaFacebookF className={cx('radioContents-contents-fbWrap-icon')} /></div>With Facebook</span>
   </span>; 
 
   return (

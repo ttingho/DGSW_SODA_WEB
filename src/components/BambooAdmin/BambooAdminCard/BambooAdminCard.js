@@ -32,7 +32,7 @@ const BambooAdminCard = ({ index, selectIndex, item, isLoading, handleRequestBam
 
   useEffect(() => {
     handleImages();
-  }, [item.picture]);
+  }, [item]);
 
   return (
     <div className={cx('BambooAdminCard')}>
@@ -50,7 +50,7 @@ const BambooAdminCard = ({ index, selectIndex, item, isLoading, handleRequestBam
       </div>
       <div className={cx('BambooAdminCard-contents-images')}>
         {
-          images.length === 0 ?
+          item.picture === null ?
             <></> :
             <Pagination images={images} />
         }

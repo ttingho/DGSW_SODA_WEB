@@ -74,3 +74,33 @@ $width_size: 735px;
     }
   }
 }
+
+.radioContents {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  &-contents {
+    width: 80%;
+    color: $facebook;
+    font-family: $NOTO_SANS_KR_BOLD, $NOTO_SANS_BOLD;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    &-fbWrap {
+      width: $font_size_4;
+      height: $font_size_4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $facebook;
+      border-radius: 50%;
+      &-icon {
+        font-size: $font_size_1;
+        color: $white;
+      }
+    }
+  }
+}
