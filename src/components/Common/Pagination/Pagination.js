@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 import { MdClose, MdArrowBack, MdArrowForward } from 'react-icons/md';
 import PropTypes from 'prop-types';
@@ -16,6 +16,20 @@ const Pagination = ({ images, editImages, paginationType, deleteFunction }) => {
     setImageIndex(prop);
   };
 
+  const handleCancelImage = async () => {
+    const idx = editImages[imageIndex].idx;
+
+    await deleteFunction(idx);
+
+    if (editImages.length === 0 || imageIndex === 0) {
+      setImageIndex(0);
+
+      return;
+    }
+
+    setImageIndex(idx - 1);
+  };
+
   return (
     <>
       {
@@ -29,7 +43,7 @@ const Pagination = ({ images, editImages, paginationType, deleteFunction }) => {
               <div className={cx('Pagination-image-iconWrap', { 'Pagination-image-hidden': imageIndex === (images.length - 1) })} onClick={() => handleIndex(imageIndex + 1)}>
                 <MdArrowForward className={cx('Pagination-image-iconWrap-icon')} />
               </div>
-              <div className={cx('Pagination-image-delBtn', { 'Pagination-image-hidden': paginationType !== 'modify' })} onClick={() => deleteFunction(editImages[imageIndex].idx)}>
+              <div className={cx('Pagination-image-delBtn', { 'Pagination-image-hidden': paginationType !== 'modify' })} onClick={handleCancelImage}>
                 <MdClose className={cx('Pagination-image-delBtn-icon')} />
               </div>
             </div>

@@ -21,14 +21,14 @@ const BambooWrite = ({ store, history }) => {
 
   const [images, setImages] = useState([]);
   const [imgBase64, setImgBase64] = useState([]);
-  const [imageContents, setImageContents] = useState('업로드된 이미지');
+  // const [imageContents, setImageContents] = useState('업로드된 이미지');
   const [imageSize, setImageSize] = useState(0);
 
   // 익명 타입 : anonymous, 실명 타입 : realname, 기본값 : empty
   const [isType, setIsType] = useState('anonymous');
 
   // 업로드 박스 핸들링 타입
-  const [isUpload, setIsUpload] = useState(false);
+  // const [isUpload, setIsUpload] = useState(false);
 
   // Prompt 제어 state
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -80,7 +80,7 @@ const BambooWrite = ({ store, history }) => {
     setImgBase64([]);
     setIsType('anonymous');
     setImageSize(0);
-    setImageContents('업로드된 이미지');
+    // setImageContents('업로드된 이미지');
   };
 
   const handleIsType = event => {
@@ -136,32 +136,32 @@ const BambooWrite = ({ store, history }) => {
       fileList.push(file);
     }
 
-    if (images.length === 0) {
-      setImageContents('업로드된 이미지');
+    // if (images.length === 0) {
+    //   setImageContents('업로드된 이미지');
 
-      return;
-    }
+    //   return;
+    // }
 
-    if (images.length > 1) {
-      setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
-    }
+    // if (images.length > 1) {
+    //   setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
+    // }
 
-    if (images.length === 1) {
-      setImageContents(images[0].name);
-    }
+    // if (images.length === 1) {
+    //   setImageContents(images[0].name);
+    // }
 
     setImages(fileList);
 
     handleArrangeFiles();
   };
 
-  const handleIsUpload = event => {
-    if (images.length === 0 && !isUpload) return;
+  // const handleIsUpload = event => {
+  //   if (images.length === 0 && !isUpload) return;
 
-    event.preventDefault();
+  //   event.preventDefault();
 
-    if (event.target === event.currentTarget) setIsUpload(!isUpload);
-  };
+  //   if (event.target === event.currentTarget) setIsUpload(!isUpload);
+  // };
 
   const handleImageCancel = async canceledIdx => {
     await images.some(data => {
@@ -177,7 +177,7 @@ const BambooWrite = ({ store, history }) => {
     });
 
     if (images.length === 0) {
-      setImageContents('업로드된 이미지');
+      // setImageContents('업로드된 이미지');
 
       setImages([]);
 
@@ -186,13 +186,13 @@ const BambooWrite = ({ store, history }) => {
       return;
     }
 
-    if (images.length > 1) {
-      setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
-    }
+    // if (images.length > 1) {
+    //   setImageContents(`${images[0].name} 외 ${images.length - 1}장`);
+    // }
 
-    if (images.length === 1) {
-      setImageContents(images[0].name);
-    }
+    // if (images.length === 1) {
+    //   setImageContents(images[0].name);
+    // }
 
     await handleArrangeFiles();
 
@@ -200,11 +200,11 @@ const BambooWrite = ({ store, history }) => {
 
     await handlImageBase64();
 
-    setIsUpload(false);
+    // setIsUpload(false);
   };
 
   const handleImageChange = event => {
-    setIsUpload(false);
+    // setIsUpload(false);
 
     let imageFiles;
 
@@ -495,10 +495,7 @@ const BambooWrite = ({ store, history }) => {
         contentsObj={GroupingState('contents', contents, setContents)}
         images={images}
         imgBase64={imgBase64}
-        imageContents={imageContents}
-        handleIsUpload={handleIsUpload}
         handleImageCancel={handleImageCancel}
-        isUpload={isUpload}
         isType={isType}
         handleIsType={handleIsType}
         handleImageChange={handleImageChange}
