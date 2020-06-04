@@ -76,18 +76,22 @@ $width_size: 735px;
 }
 
 .radioContents {
-  width: 160px;
+  width: 220px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
   &-contents {
-    width: 80%;
+    width: 82%;
+    height: 60%;
+    border: 1px solid $facebook;
+    border-radius: 5px;
     color: $facebook;
     font-family: $NOTO_SANS_KR_BOLD, $NOTO_SANS_BOLD;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-direction: row;
     &-fbWrap {
       width: $font_size_4;
