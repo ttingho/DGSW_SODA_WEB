@@ -32,7 +32,7 @@ const BambooWriteTemplate = ({
   };
 
   const radioContents = <span className={cx('radioContents')}>
-    실명 <span className={cx('radioContents-contents')}><div className={cx('radioContents-contents-fbWrap')}><FaFacebookF className={cx('radioContents-contents-fbWrap-icon')} /></div>With Facebook</span>
+    실명 <span className={cx('radioContents-contents')}><div className={cx('radioContents-contents-fbWrap')}><FaFacebookF className={cx('radioContents-contents-fbWrap-icon')} /></div>Login With Facebook</span>
   </span>; 
 
   return (
@@ -53,7 +53,7 @@ const BambooWriteTemplate = ({
         />
         <FacebookLogin
           appId={FB_APP_ID}
-          autoLoad={false}
+          autoLoad={true}
           fields='name, email, picture'
           callback={handleFaceBookLogin}
           render={renderProps => (
