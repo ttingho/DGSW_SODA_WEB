@@ -222,6 +222,12 @@ const BambooWrite = ({ store, history }) => {
   const handleFaceBookLogin = response => {
     if (response.status === 'connected') return;
 
+    if (response.status === 'unknown') {
+      setIsType('anonymous');
+
+      return;
+    }
+
     setName(response.name);
     
     setProfileSrc(response.picture.data.url);
