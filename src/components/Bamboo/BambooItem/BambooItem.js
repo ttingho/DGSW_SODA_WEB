@@ -4,7 +4,6 @@ import 'containers/Bamboo/BambooContainer';
 import './BambooItem.scss';
 import PropTypes from 'prop-types';
 import defaultProfileImage from '../../../assets/image/panda.jpg';
-import facebookLogo from '../../../assets/image/994EAB4F5D2565432F.png';
 import Pagination from 'components/Common/Pagination';
 import { FaFacebookF } from 'react-icons/fa';
 
@@ -15,7 +14,10 @@ const BambooItem = ({ item }) => {
   const [names, setNames] = useState([]);
 
   // eslint-disable-next-line react/prop-types
-  const { contents, joinDate, allowDate, picture, name, profileImage } = item;
+  const { count, joinDate, allowDate, picture, name, profileImage } = item;
+  console.log(count);
+  
+  let { contents } = item;
 
   const joinDateFormat = moment(joinDate).format('YYYY-MM-DD HH:mm');
   const allowDateFormat =  moment(allowDate).format('YYYY-MM-DD HH:mm');
@@ -95,6 +97,9 @@ const BambooItem = ({ item }) => {
               contents
             }
           </pre>
+        </div>
+        <div className="BambooCard-countFont">
+          #대소고_대숲_{count}번째 이야기
         </div>
       </div>
     </div>
