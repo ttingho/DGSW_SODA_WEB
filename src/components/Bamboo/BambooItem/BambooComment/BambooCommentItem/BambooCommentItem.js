@@ -6,12 +6,15 @@ import moment from 'moment';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import TokenVerification from 'lib/Token/TokenVerification';
 import SecureLS from 'secure-ls';
+import ImageIcon from 'components/Common/ImageIcon';
+import ImageSrc from 'lib/Profile/ImageSrc';
+import DEFAULT_PROFILE from 'assets/image/profile/profile.svg';
 
 const cx = classnames.bind(style);
 
 const BambooCommentItem = ({ item, deleteComment }) => {
 
-  const { idx, bambooIdx, memberId, contents, isUpdate, writeDate } = item;
+  const { idx, bambooIdx, memberId, contents, isUpdate, writeDate, profileImage } = item;
 
   const [isMine, setIsMine] = useState(false);
   const [isDeleteButton, setIsDeleteButton] = useState(false);
@@ -43,11 +46,11 @@ const BambooCommentItem = ({ item, deleteComment }) => {
   return (
     <div className={cx('BambooCommentItem')}>
       <div className={cx('BambooCommentItem-profileImageDiv')}>
-        <div>
-          {
-
-          }
-        </div>
+        <ImageIcon
+          src={ImageSrc(profileImage, DEFAULT_PROFILE)}
+          alt={'profileImage'}
+          onErrorFunc={event => event.target.src = DEFAULT_PROFILE}
+        />
       </div>
       <div className={cx('BambooCommentItem-contentsDiv')}>
         <div className={cx('BambooCommentItem-contentsDiv-memberId')}>
