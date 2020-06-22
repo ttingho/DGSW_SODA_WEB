@@ -299,7 +299,7 @@ const InquiryWriteContainers = ({ store, history }) => {
 
     await requestInquiryWrite(data).
       then(async (response) => {
-        await modal({
+        modal({
           title: 'Success!',
           stateType: 'success',
           contents: '문의가 성공적으로 업로드 되었습니다! 관리자의 답변을 기다려 주세요.',
@@ -314,7 +314,7 @@ const InquiryWriteContainers = ({ store, history }) => {
         const { status } = error.response;
 
         if (status === 400) {
-          await modal({
+          modal({
             title: 'Error!',
             stateType: 'error',
             contents: '양식이 맞지 않아요!'
@@ -324,7 +324,7 @@ const InquiryWriteContainers = ({ store, history }) => {
         }
 
         if (status === 413) {
-          await modal({
+          modal({
             title: 'Error!',
             stateType: 'error',
             contents: '내용이 너무 많아요!'
@@ -340,7 +340,7 @@ const InquiryWriteContainers = ({ store, history }) => {
         }
 
         if (status === 500) {
-          await modal({
+          modal({
             title: 'Error!',
             stateType: 'error',
             contents: '서버 에러! 조금만 기다려 주세요. (__)'

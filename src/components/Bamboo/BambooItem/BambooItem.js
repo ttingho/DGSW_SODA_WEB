@@ -4,18 +4,18 @@ import 'containers/Bamboo/BambooContainer';
 import './BambooItem.scss';
 import PropTypes from 'prop-types';
 import defaultProfileImage from '../../../assets/image/panda.jpg';
-import facebookLogo from '../../../assets/image/994EAB4F5D2565432F.png';
 import Pagination from 'components/Common/Pagination';
+import BammbooCommentTemplate from 'components/Bamboo/BambooItem/BambooComment/BambooCommentTemplate';
 import { FaFacebookF } from 'react-icons/fa';
 
 // eslint-disable-next-line react/prop-types
-const BambooItem = ({ item }) => {
+const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, getMoreComment, commentData }) => {
   const [profileImages, setProfileImages] = useState([]);
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
 
   // eslint-disable-next-line react/prop-types
-  const { contents, joinDate, allowDate, picture, name, profileImage } = item;
+  const { idx, contents, count, joinDate, allowDate, picture, name, profileImage } = item;
 
   const joinDateFormat = moment(joinDate).format('YYYY-MM-DD HH:mm');
   const allowDateFormat =  moment(allowDate).format('YYYY-MM-DD HH:mm');
@@ -23,7 +23,7 @@ const BambooItem = ({ item }) => {
   const handleBambooImage = useCallback(async () => {
     // 프로필 이미지 설정
     if (profileImage) {
-      setProfileImages(<img className="BambooCard-Top-Profile-ProfileImage" src={profileImage}/>);  
+      setProfileImages(<img className="BambooCard-Top-Profile-ProfileImage" src={profileImage}/>);
     } else {
       setProfileImages(<img className="BambooCard-Top-Profile-ProfileImage" src={defaultProfileImage}/>);  
     }
@@ -96,13 +96,45 @@ const BambooItem = ({ item }) => {
             }
           </pre>
         </div>
+        <div className="BambooCard-countFont">
+          #대소고_대숲_{count}번째 이야기
+        </div>
+      </div>
+      <div className="BambooCard-commentDiv">
+        <div className="BambooCard-commentDiv-contentsBox">
+          <div className="BambooCard-commentDiv-contentsBox-profileImageDiv">
+            
+          </div>
+          <div className="BambooCard-commentDiv-contentsBox-inputDiv">
+            <input className="BambooCard-commentDiv-contentsBox-inputDiv-input" type={'text'} value={comment} onChange={commentSet}/>
+          </div>
+          <div className="BambooCard-commentDiv-contentsBox-writeButtonDiv">
+            <button className="BambooCard-commentDiv-contentsBox-writeButtonDiv-button"  onClick={() => writeBambooComment(idx)}>작성</button>
+          </div>
+        </div>
+      </div>
+      {
+        isShowComment ?  
+          <BammbooCommentTemplate>
+            {
+              commentData
+            }
+          </BammbooCommentTemplate>
+          : <></>
+      }
+      <div className="BambooCard-commentDiv-commentShowButtonDiv">
+        <p className="BambooCard-commentDiv-commentShowButtonDiv-fontStyle" onClick={() => getMoreComment(idx)}>
+          댓글 보기
+        </p>
       </div>
     </div>
   );
 };
 
 BambooItem.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.object,
+  commentObj: PropTypes.object,
+  writeBambooComment: PropTypes.func,
 };
 
 export default BambooItem;

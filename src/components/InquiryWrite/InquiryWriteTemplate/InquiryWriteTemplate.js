@@ -52,7 +52,7 @@ const InquiryWriteTemplate = ({
             <span className={cx('QuestionWriteTemplate-contentsBox-titleBox-qIconDiv-qIcon')}>Q</span>
           </div>
           <div className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv')}>
-            <input  className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv-title')} type={'text'} placeholder={'문의 제목은 여기 작성 해주세요...'} value={title} onChange={event => { titleSet(event); setTitleLength(event.target.value.length);}}/>
+            <input className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleDiv-title')} type={'text'} placeholder={'문의 제목은 여기 작성 해주세요...'} value={title} onChange={event => { titleSet(event); setTitleLength(event.target.value.length);}}/>
           </div>
           <div className={cx('QuestionWriteTemplate-contentsBox-titleBox-titleLength' , {'QuestionWriteTemplate-contentsBox-colorStyle': titleLength > 0})}>
             {titleLength}/50
