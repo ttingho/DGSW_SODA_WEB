@@ -47,8 +47,12 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        border: 1px solid black;
+        border: 1px solid $gray_3;
         margin-top: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
       }
 
       &-inputDiv {

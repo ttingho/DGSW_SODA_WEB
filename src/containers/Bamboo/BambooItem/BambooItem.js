@@ -10,7 +10,7 @@ const page = 1;
 let limit = 0;
 let bambooIdx = 0;
 
-const BambooItem = ({ item, store }) => {
+const BambooItem = ({ item, store, userProfile, handleImageError }) => {
   const [comment, setComment] = useState('');
   const [isShowComment, setIsShowComment] = useState(false);
   const [commentData, setCommentData] = useState([]);
@@ -137,6 +137,8 @@ const BambooItem = ({ item, store }) => {
         getMoreComment={getMoreComment}
         commentData={commentData}
         deleteComment={deleteComment}
+        userProfile={userProfile}
+        handleImageError={handleImageError}
       />
     </>
   );
@@ -144,7 +146,9 @@ const BambooItem = ({ item, store }) => {
 
 BambooItem.propTypes = {
   item: PropTypes.object,
-  store: PropTypes.object
+  store: PropTypes.object,
+  userProfile: PropTypes.string,
+  handleImageError: PropTypes.func
 };
 
 export default inject('store')(observer(BambooItem));
