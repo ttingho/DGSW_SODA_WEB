@@ -6,9 +6,16 @@ import style from './BambooCommentTemplate.scss';
 const cx = classnames.bind(style);
 
 const BambooCommentTemplate = ({ children }) => {
+
   return (
     <div className={cx('BambooCommentTemplate')}>
-      {children}
+      {
+        children.length === 0 ?
+          <div className={cx('BambooCommentTemplate-notFoundComment')}>
+            댓글이 없습니다.
+          </div>
+          :<>{children}</>
+      }
     </div>
   );
 };

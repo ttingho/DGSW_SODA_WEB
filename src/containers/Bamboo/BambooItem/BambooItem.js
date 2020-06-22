@@ -8,29 +8,49 @@ import SecureLS from 'secure-ls';
 
 const page = 1;
 let limit = 0;
+let bambooIdx = 0;
 
 const BambooItem = ({ item, store }) => {
   const [comment, setComment] = useState('');
   const [isShowComment, setIsShowComment] = useState(false);
   const [commentData, setCommentData] = useState([]);
-  const [isMine, setIsMine] = useState(false);
 
-  const { postBambooComment, getBambooComment } = store.bamboo;
+  const { postBambooComment, getBambooComment, deleteBambooComment } = store.bamboo;
   const { modal } = store.dialog;
-
   const getMoreComment = async (idx) => {
     setIsShowComment(true);
     limit += 5;
+    
     const data = await getBambooComment(page, limit, idx);
 
-    setCommentData(data.data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed}/>));
+    setCommentData(data.data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>));
   };
 
   const getComment = async (idx) => {
     limit += 1;
     const data = await getBambooComment(page, limit, idx);
 
-    setCommentData(data.data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed}/>));
+    setCommentData(data.data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>));
+  };
+
+  const deleteComment = async (commentIdx, bambooIdx) => {
+    await deleteBambooComment(commentIdx).
+      then(response => {
+        getComment(bambooIdx);
+      })
+      .catch(error => {
+        const { status } = error.response;
+
+        if (status === 500) {
+          modal({
+            title: 'Error!',
+            stateType: 'error',
+            contents: '서버 에러! 조금만 기다려 주세요. (__)'
+          });
+
+          return;
+        }
+      });
   };
 
   const commentSet = (event) => {
@@ -106,21 +126,6 @@ const BambooItem = ({ item, store }) => {
       });
   };
 
-  const setUpdateButton = async () => {
-    const ls = new SecureLS({ encodingType: 'aes' });
-
-    const userInfo = ls.get('user-info');
-  
-    const token = TokenVerification();
-    console.log((userInfo));
-    
-
-  };
-
-  useEffect(() => {
-    setUpdateButton();
-  }, []);
-
   return (
     <>
       <BambooItemComponent 
@@ -131,7 +136,7 @@ const BambooItem = ({ item, store }) => {
         isShowComment={isShowComment}
         getMoreComment={getMoreComment}
         commentData={commentData}
-        isMine={isMine}
+        deleteComment={deleteComment}
       />
     </>
   );

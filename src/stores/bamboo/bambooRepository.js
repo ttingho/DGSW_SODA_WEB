@@ -27,6 +27,22 @@ class bambooRepository {
     }
   }
 
+  async deleteBambooComment (idx) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.delete(`${SERVER}/bamboo/comment?commentIdx=${idx}`,{
+        headers: {
+          'x-access-token': token
+        }
+      });
+      
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getBambooComment (page, limit, bambooIdx) {
     try {
       const { data } = await axios.get(`${SERVER}/bamboo/comment?page=${page}&limit=${limit}&bambooIdx=${bambooIdx}`);

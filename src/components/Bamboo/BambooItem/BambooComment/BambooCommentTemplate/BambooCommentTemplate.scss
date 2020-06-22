@@ -1,5 +1,18 @@
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+
 .BambooCommentTemplate {
   width: 100%;
   min-height: 200px;
   margin-bottom: 20px;
+
+  &-notFoundComment {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+    width: 100%;
+    font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+    height: 100%;
+  }
 }

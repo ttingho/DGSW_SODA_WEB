@@ -37,6 +37,21 @@ class bambooStore {
   }
 
   @action
+  async deleteBambooComment (idx) {
+    try {
+      const response = await bambooRepository.deleteBambooComment(idx);
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action
   async getBambooComment (page, limit, bambooIdx) {
     try {
       const response = await bambooRepository.getBambooComment(page, limit, bambooIdx);

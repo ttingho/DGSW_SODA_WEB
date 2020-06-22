@@ -1,14 +1,42 @@
-import React from 'react';
+import React , { useState, useEffect }from 'react';
 import classnames from 'classnames/bind';
 import style from './BambooCommentItem.scss';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { FiMoreHorizontal } from 'react-icons/fi';
+import TokenVerification from 'lib/Token/TokenVerification';
+import SecureLS from 'secure-ls';
 
 const cx = classnames.bind(style);
 
-const BambooCommentItem = ({ item }) => {
+const BambooCommentItem = ({ item, deleteComment }) => {
 
-  const { idx, memberId, contents, isUpdate, writeDate } = item;
+  const { idx, bambooIdx, memberId, contents, isUpdate, writeDate } = item;
+
+  const [isMine, setIsMine] = useState(false);
+  const [isDeleteButton, setIsDeleteButton] = useState(false);
+
+  const setUpdateButton = async () => {
+    const ls = new SecureLS({ encodingType: 'aes' });
+
+    const userInfo = ls.get('user-info');
+    
+    if (userInfo.memberId === memberId) {
+      setIsMine(true);
+    }
+  };
+
+  const handleDeleteButton = async () => {
+    if (isDeleteButton) {
+      setIsDeleteButton(false);
+    } else {
+      setIsDeleteButton(true);
+    }
+  };
+
+  useEffect(() => {
+    setUpdateButton();
+  }, []);
 
   const writeDateFormat = moment(writeDate).format('MM-DD hh:mm');
 
@@ -40,6 +68,20 @@ const BambooCommentItem = ({ item }) => {
             '  (수정됨)'
             : <></>
         }
+        {
+          isMine ?
+            <div className={cx('BambooCommentItem-updateButtonDiv')}>
+              <FiMoreHorizontal className={cx('BambooCommentItem-updateButtonDiv-icon')} onClick={() => handleDeleteButton()}/>
+            </div>
+            : <></>
+        }
+        {
+          isDeleteButton ? 
+            <div className={cx('BambooCommentItem-deleteButtonDiv')}>
+              <button className={cx('BambooCommentItem-deleteButtonDiv-button')} onClick={() => deleteComment(idx, bambooIdx)}>삭제 하기</button>
+            </div>
+            : <></>
+        }
       </div>
     </div>
   );
@@ -47,6 +89,7 @@ const BambooCommentItem = ({ item }) => {
 
 BambooCommentItem.propTypes = {
   item: PropTypes.object,
+  deleteComment: PropTypes.func
 };
 
 export default BambooCommentItem;
