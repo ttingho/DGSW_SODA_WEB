@@ -4,6 +4,9 @@ import BambooTemplate from 'components/Bamboo/BambooTemplate';
 import BambooItem from 'containers/Bamboo/BambooItem';
 import './Load.scss';
 import useStores from 'lib/HookState/useStore';
+import SecureLS from 'secure-ls';
+import DEFAULT_PROFILE from 'assets/image/profile/profile.svg';
+import ImageSrc from 'lib/Profile/ImageSrc';
 
 const page = 1;
 let limit = 5;
@@ -12,11 +15,22 @@ const BambooContainer = observer(()=> {
   const { store } = useStores();
 
   const { getBambooFeed } = store.bamboo;
+  const { getMyInfo } = store.member;
 
   const [feeds, setFeeds] = useState([]);
   const [target, setTarget] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isObserver, setIsObserver] = useState(true);
+
+  const ls = new SecureLS({ encodingType: 'aes' });
+  const userInfo = ls.get('user-info');
+  const src = userInfo.profileImage;
+
+  const [userProfile, setUserProfile] = useState(ImageSrc(src, DEFAULT_PROFILE));
+
+  const handleImageError = useCallback(e => {
+    setUserProfile(DEFAULT_PROFILE);
+  }, []);
 
   // 초기 데이터 설정
   const handleBamboo =  useCallback(async () => {
@@ -47,7 +61,7 @@ const BambooContainer = observer(()=> {
         setIsObserver(false);
       }
 
-      setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+      setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} item={feed} userProfile={userProfile} handleImageError={handleImageError}/>));
     }
   };
 
@@ -62,6 +76,7 @@ const BambooContainer = observer(()=> {
 
   useEffect(() => {
     handleBamboo();
+    getMyInfo();
   }, []);
 
   useEffect(() => {

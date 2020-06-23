@@ -6,14 +6,15 @@ import PropTypes from 'prop-types';
 import defaultProfileImage from '../../../assets/image/panda.jpg';
 import Pagination from 'components/Common/Pagination';
 import BammbooCommentTemplate from 'components/Bamboo/BambooItem/BambooComment/BambooCommentTemplate';
-import { FaFacebookF } from 'react-icons/fa';
+import { FaFacebookF } from 'react-icons/fa'; 
+import ImageIcon from 'components/Common/ImageIcon';
 
 // eslint-disable-next-line react/prop-types
-const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, getMoreComment, commentData }) => {
+const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, getMoreComment, commentData, userProfile, handleImageError }) => {
   const [profileImages, setProfileImages] = useState([]);
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
-
+  console.log(userProfile);
   // eslint-disable-next-line react/prop-types
   const { idx, contents, count, joinDate, allowDate, picture, name, profileImage } = item;
 
@@ -103,7 +104,11 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
       <div className="BambooCard-commentDiv">
         <div className="BambooCard-commentDiv-contentsBox">
           <div className="BambooCard-commentDiv-contentsBox-profileImageDiv">
-            
+            <ImageIcon
+              src={userProfile}
+              onErrorFunc={handleImageError}
+              observer={userProfile}
+            />
           </div>
           <div className="BambooCard-commentDiv-contentsBox-inputDiv">
             <input className="BambooCard-commentDiv-contentsBox-inputDiv-input" type={'text'} value={comment} onChange={commentSet}/>
@@ -135,6 +140,8 @@ BambooItem.propTypes = {
   item: PropTypes.object,
   commentObj: PropTypes.object,
   writeBambooComment: PropTypes.func,
+  userProfile: PropTypes.string,
+  handleImageError: PropTypes.func
 };
 
 export default BambooItem;
