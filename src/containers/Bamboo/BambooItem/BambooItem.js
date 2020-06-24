@@ -10,7 +10,7 @@ const page = 1;
 let limit = 0;
 let bambooIdx = 0;
 
-const BambooItem = ({ item, store, userProfile, handleImageError }) => {
+const BambooItem = ({ token, item, store, userProfile, handleImageError }) => {
   const [comment, setComment] = useState('');
   const [isShowComment, setIsShowComment] = useState(false);
   const [commentData, setCommentData] = useState([]);
@@ -129,6 +129,7 @@ const BambooItem = ({ item, store, userProfile, handleImageError }) => {
   return (
     <>
       <BambooItemComponent 
+        token={token}
         item={item}
         comment={comment} 
         commentSet={commentSet} 
@@ -145,6 +146,7 @@ const BambooItem = ({ item, store, userProfile, handleImageError }) => {
 };
 
 BambooItem.propTypes = {
+  token: PropTypes.any,
   item: PropTypes.object,
   store: PropTypes.object,
   userProfile: PropTypes.string,
