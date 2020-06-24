@@ -14,16 +14,17 @@ const cx = classnames.bind(style);
 
 const BambooCommentItem = ({ item, deleteComment }) => {
 
+  const ls = new SecureLS({ encodingType: 'aes' });
+
+  const userInfo = ls.get('user-info');
+  
   const { idx, bambooIdx, memberId, contents, isUpdate, writeDate, profileImage } = item;
 
   const [isMine, setIsMine] = useState(false);
   const [isDeleteButton, setIsDeleteButton] = useState(false);
 
   const setUpdateButton = async () => {
-    const ls = new SecureLS({ encodingType: 'aes' });
-
-    const userInfo = ls.get('user-info');
-    
+    console.log(userInfo);
     if (userInfo.memberId === memberId) {
       setIsMine(true);
     }
@@ -39,7 +40,7 @@ const BambooCommentItem = ({ item, deleteComment }) => {
 
   useEffect(() => {
     setUpdateButton();
-  }, []);
+  }, [userInfo]);
 
   const writeDateFormat = moment(writeDate).format('MM-DD hh:mm');
 

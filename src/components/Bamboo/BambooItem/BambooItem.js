@@ -57,7 +57,7 @@ const BambooItem = ({ token, item, comment, writeBambooComment, commentSet, isSh
 
   useEffect(() => {
     handleBambooImage();
-  }, [userProfile]);
+  }, []);
   
   return (
     <div className="BambooCard">

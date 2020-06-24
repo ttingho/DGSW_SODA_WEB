@@ -8,7 +8,6 @@ import SecureLS from 'secure-ls';
 
 const page = 1;
 let limit = 0;
-let bambooIdx = 0;
 
 const BambooItem = ({ token, item, store, userProfile, handleImageError }) => {
   const [comment, setComment] = useState('');

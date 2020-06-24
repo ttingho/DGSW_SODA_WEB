@@ -41,7 +41,7 @@ const BambooContainer = observer(()=> {
     
     const bambooInfo = data.bamboo;
 
-    setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+    setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} token={token} item={feed} userProfile={userProfile} handleImageError={handleImageError}/>));
   }, []);
 
   // 2초 텀 두기
@@ -98,9 +98,9 @@ const BambooContainer = observer(()=> {
       fetchData();
       console.log('src:', src);
       setUserProfile(ImageSrc(src, DEFAULT_PROFILE));
+      console.log('test: ', userProfile);
     }
-    console.log('token: ', token);
-  }, [token, src]);
+  }, [token, src, userProfileImage]);
 
   useEffect(() => {
     let observer;
