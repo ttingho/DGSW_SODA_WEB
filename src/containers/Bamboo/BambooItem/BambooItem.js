@@ -1,21 +1,54 @@
-import React , { useState, useEffect }from 'react';
+import React , { useState, useCallback, useEffect }from 'react';
 import { inject,observer } from 'mobx-react';
 import BambooItemComponent from 'components/Bamboo/BambooItem';
 import PropTypes from 'prop-types';
 import BambooCommentItem from 'components/Bamboo/BambooItem/BambooComment/BambooCommentItem';
-import TokenVerification from 'lib/Token/TokenVerification';
 import SecureLS from 'secure-ls';
+import DEFAULT_PROFILE from 'assets/image/profile/profile.svg';
+import ImageSrc from 'lib/Profile/ImageSrc';
+import TokenVerification from 'lib/Token/TokenVerification';
 
 const page = 1;
 let limit = 0;
 
-const BambooItem = ({ token, item, store, userProfile, handleImageError }) => {
+const BambooItem = ({ item, store }) => {
   const [comment, setComment] = useState('');
   const [isShowComment, setIsShowComment] = useState(false);
   const [commentData, setCommentData] = useState([]);
 
   const { postBambooComment, getBambooComment, deleteBambooComment } = store.bamboo;
   const { modal } = store.dialog;
+  const { getMyInfo } = store.member;
+  const { isModal } = store.sign; // 로그인 후 사용자 프로필을 가져오기 위함 (* sign의 isModal)
+
+  const ls = new SecureLS({ encodingType: 'aes' });
+  const userInfo = ls.get('user-info');
+  const src = userInfo.profileImage;
+  const token = TokenVerification();
+  const [userProfile, setUserProfile] = useState(ImageSrc(src, DEFAULT_PROFILE));
+
+  const handleImageError = useCallback(e => {
+    setUserProfile(DEFAULT_PROFILE);
+  }, []);
+
+  async function fetchData() {
+    await getMyInfo();
+  }
+  
+  useEffect(() => {
+    if (token === 'empty') {
+      localStorage.removeItem('soda-token');
+      localStorage.removeItem('soda-reToken');
+      sessionStorage.removeItem('soda-token');
+      sessionStorage.removeItem('soda-reToken');
+      ls.removeAll();
+      setUserProfile(DEFAULT_PROFILE);
+    } else {
+      fetchData();
+      setUserProfile(ImageSrc(src, DEFAULT_PROFILE));
+    }
+  }, [isModal]);
+
   const getMoreComment = async (idx) => {
     setIsShowComment(true);
     limit += 5;
@@ -145,11 +178,8 @@ const BambooItem = ({ token, item, store, userProfile, handleImageError }) => {
 };
 
 BambooItem.propTypes = {
-  token: PropTypes.any,
   item: PropTypes.object,
   store: PropTypes.object,
-  userProfile: PropTypes.string,
-  handleImageError: PropTypes.func
 };
 
 export default inject('store')(observer(BambooItem));

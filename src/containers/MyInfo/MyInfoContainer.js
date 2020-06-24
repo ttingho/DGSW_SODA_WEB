@@ -188,7 +188,6 @@ const MyInfoContainer = observer(({ history }) => {
 
     await uploadImage(formData)
       .then(response => {
-        console.log(response);
         const data = {
           uploadName: response.data.imgs[0].fileName,
           type: response.data.imgs[0].fileType
@@ -199,7 +198,6 @@ const MyInfoContainer = observer(({ history }) => {
         picture = [...picture, data];
 
       }).catch(error => {
-        console.log(error);
         const { status } = error.response;
 
         if(status === 400){

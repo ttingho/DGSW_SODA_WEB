@@ -18,22 +18,11 @@ const BambooContainer = observer(()=> {
   const { getBambooFeed } = store.bamboo;
   const { getMyInfo, userProfileImage } = store.member;
   const { isModal } = store.sign;
-  const token = TokenVerification();
 
   const [feeds, setFeeds] = useState([]);
   const [target, setTarget] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isObserver, setIsObserver] = useState(true);
-
-  const ls = new SecureLS({ encodingType: 'aes' });
-  const userInfo = ls.get('user-info');
-  const src = userInfo.profileImage;
-
-  const [userProfile, setUserProfile] = useState(DEFAULT_PROFILE);
-
-  const handleImageError = useCallback(e => {
-    setUserProfile(DEFAULT_PROFILE);
-  }, []);
 
   // 초기 데이터 설정
   const handleBamboo =  useCallback(async () => {
@@ -41,7 +30,7 @@ const BambooContainer = observer(()=> {
     
     const bambooInfo = data.bamboo;
 
-    setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} token={token} item={feed} userProfile={userProfile} handleImageError={handleImageError}/>));
+    setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
   }, []);
 
   // 2초 텀 두기
@@ -64,7 +53,7 @@ const BambooContainer = observer(()=> {
         setIsObserver(false);
       }
 
-      setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} token={token} item={feed} userProfile={userProfile} handleImageError={handleImageError}/>));
+      setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
     }
   };
 
@@ -77,30 +66,9 @@ const BambooContainer = observer(()=> {
     }
   };
 
-  async function fetchData() {
-    await getMyInfo();
-  }
-
   useEffect(() => {
     handleBamboo();
   }, []);
-
-  useEffect(() => {
-    if (token === 'empty') {
-      localStorage.removeItem('soda-token');
-      localStorage.removeItem('soda-reToken');
-      sessionStorage.removeItem('soda-token');
-      sessionStorage.removeItem('soda-reToken');
-      ls.removeAll();
-      setUserProfile(DEFAULT_PROFILE);
-      console.log('no token');
-    } else {
-      fetchData();
-      console.log('src:', src);
-      setUserProfile(ImageSrc(src, DEFAULT_PROFILE));
-      console.log('test: ', userProfile);
-    }
-  }, [token, src, userProfileImage]);
 
   useEffect(() => {
     let observer;

@@ -10,11 +10,10 @@ import { FaFacebookF } from 'react-icons/fa';
 import ImageIcon from 'components/Common/ImageIcon';
 
 // eslint-disable-next-line react/prop-types
-const BambooItem = ({ token, item, comment, writeBambooComment, commentSet, isShowComment, getMoreComment, commentData, userProfile, handleImageError }) => {
+const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, getMoreComment, commentData, userProfile, handleImageError }) => {
   const [profileImages, setProfileImages] = useState([]);
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
-  console.log('profile: ', userProfile);
   
   // eslint-disable-next-line react/prop-types
   const { idx, contents, count, joinDate, allowDate, picture, name, profileImage } = item;
@@ -138,7 +137,6 @@ const BambooItem = ({ token, item, comment, writeBambooComment, commentSet, isSh
 };
 
 BambooItem.propTypes = {
-  token: PropTypes.any,
   item: PropTypes.object,
   commentObj: PropTypes.object,
   writeBambooComment: PropTypes.func,
