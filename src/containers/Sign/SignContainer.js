@@ -70,37 +70,6 @@ const SignContainer = ({ store, history }) => {
     handleResetInputValue();
   }, [isModal]);
 
-  // const handleCertification = async() => {
-  //   let data = {
-  //     code: emailCode,
-  //     email: email
-  //   };
-
-  //   await handleEmailCode(data)
-  //     .then((response) => {
-  //       setIsCheckedEmail(true);
-  //     }).catch((error) => {
-  //       const { status } = error.response.data;
-
-  //       if (status === 400) {
-  //         modal({
-  //           title: 'Warning!',
-  //           stateType: 'warning',
-  //           contents: '코드를 입력해주세요.'
-  //         });
-  //         return;
-  //       } 
-  //       if (status === 403) {
-  //         modal({
-  //           title: 'Warning!',
-  //           stateType: 'warning',
-  //           contents: '올바른 검증 코드를 입력해주세요.'
-  //         });
-  //         return;
-  //       }
-  //     });
-  // };
-
   return (
     <>
       <SignTemplate isModal={isModal} handleIsSignModal={handleIsSignModal} signType={signType} changeSign={changeSign} page={page}>
