@@ -12,7 +12,7 @@ class memberStore {
     try {
       const response = await memberRepository.getMyInfo();
       this.userProfileImage = response.data.member.profileImage;
-
+      console.log('userProfileImage');
       const ls = new SecureLS({ encodingType: 'aes' });
       ls.set('user-info', response.data.member);
       
