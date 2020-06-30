@@ -98,7 +98,7 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
           </pre>
         </div>
         <div className="BambooCard-countFont">
-          #대소고_대숲_{count}번째 이야기
+          #대소고_대숲_{count + 1}번째 이야기
         </div>
       </div>
       <div className="BambooCard-commentDiv">

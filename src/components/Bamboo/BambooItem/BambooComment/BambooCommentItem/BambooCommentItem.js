@@ -26,6 +26,8 @@ const BambooCommentItem = ({ item, deleteComment }) => {
   const setUpdateButton = async () => {
     if (userInfo.memberId === memberId) {
       setIsMine(true);
+    } else if (userInfo.auth === 0) {
+      setIsMine(true);
     }
   };
 
