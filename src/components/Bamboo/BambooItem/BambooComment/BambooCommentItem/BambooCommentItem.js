@@ -43,7 +43,7 @@ const BambooCommentItem = ({ item, deleteComment }) => {
     setUpdateButton();
   }, [userInfo]);
 
-  const writeDateFormat = moment(writeDate).format('MM-DD hh:mm');
+  const writeDateFormat = moment(writeDate).format('MM-DD HH:mm');
 
   return (
     <div className={cx('BambooCommentItem')}>
