@@ -336,56 +336,6 @@ const BambooWrite = ({ store, history }) => {
     
     const { picture, isUploadError } = await handleImageFormData();
 
-    if (isType === 'empty') {
-      modal({
-        title: 'Warning!',
-        stateType: 'warning',
-        contents: '게시물 타입을 지정해 주세요!'
-      });
-
-      return;
-    }
-
-    if (contents.length === 0) {
-      modal({
-        title: 'Warning!',
-        stateType: 'warning',
-        contents: '대나무(이야기)가 비어있습니다!'
-      });
-
-      return;
-    }
-
-    if (contents.length > 1000) {
-      modal({
-        title: 'Warning!',
-        stateType: 'warning',
-        contents: '대나무(이야기)를 1000자 이내로 입력해주세요!'
-      });
-
-      return;
-    }
-
-    if (contents.replace( blank_pattern, '' ) === '') {
-      modal({
-        title: 'Warning!',
-        stateType: 'warning',
-        contents: '공백만 입력되었습니다.'
-      });
-
-      return;
-    }
-
-    if (imageSize > maxImageSize) {
-      modal({
-        title: 'Warning!',
-        stateType: 'warning',
-        contents: '이미지 파일 크기를 지켜주세요! (총 4MB 이하로 업로드 가능)'
-      });
-
-      return;
-    }
-
     if (isType === 'anonymous') {
       if (images.length === 0) {
         data = {
@@ -464,6 +414,64 @@ const BambooWrite = ({ store, history }) => {
     }
   };
 
+  const clickRequestPost = () => {
+    if (isType === 'empty') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '게시물 타입을 지정해 주세요!'
+      });
+
+      return;
+    }
+
+    if (contents.length === 0) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '대나무(이야기)가 비어있습니다!'
+      });
+
+      return;
+    }
+
+    if (contents.length > 1000) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '대나무(이야기)를 1000자 이내로 입력해주세요!'
+      });
+
+      return;
+    }
+
+    if (contents.replace( blank_pattern, '' ) === '') {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '공백만 입력되었습니다.'
+      });
+
+      return;
+    }
+
+    if (imageSize > maxImageSize) {
+      modal({
+        title: 'Warning!',
+        stateType: 'warning',
+        contents: '이미지 파일 크기를 지켜주세요! (총 4MB 이하로 업로드 가능)'
+      });
+
+      return;
+    }
+
+    modal({
+      title: '대나무를 제보 할 것인가요?',
+      contents: '관리자 승인 후 보여질 예정입니다.',
+      confirmFunc: handlePostRequest
+    });
+  };
+
   useComponentWillMount(() => {
     if (handleBlockedNavigation) {
       window.onbeforeunload = () => true;
@@ -506,7 +514,7 @@ const BambooWrite = ({ store, history }) => {
         handleIsType={handleIsType}
         handleImageChange={handleImageChange}
         handleFaceBookLogin={handleFaceBookLogin}
-        handlePostRequest={handlePostRequest}
+        handlePostRequest={clickRequestPost}
       />
     </>
   );
