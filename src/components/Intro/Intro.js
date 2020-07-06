@@ -75,9 +75,6 @@ const Intro = ({ history }) => {
               <br/>
               현재는 3인이 모여서 개발을 진행하고 있으며, 각자 자신의 역할을 열심히 수행하고 있습니다.
             </div>
-            <div className={cx('Intro-page2-wrap-right-detail')}>
-              <span>자세한 내용 보기</span>
-            </div>
           </div>
         </div>
       </div>
