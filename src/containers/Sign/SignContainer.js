@@ -68,6 +68,7 @@ const SignContainer = ({ store, history }) => {
 
   useEffect(() => { // sign modal on/off 시 reset value
     handleResetInputValue();
+    setSignType(true);
   }, [isModal]);
 
   return (
