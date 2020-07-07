@@ -107,8 +107,8 @@ const SignUpContainer = ({
     }
 
     if (pageType === 3) { // page 3으로 가려고 할 때
-      await handleSendEmail();
-      setPage(pageType);
+      await handleSendEmail(pageType);
+      // setPage(pageType);
       return;
     }
     if (pageType === 4) { // page 4로 가려고 할 때
@@ -188,7 +188,7 @@ const SignUpContainer = ({
     }
   };
 
-  const handleSendEmail = async() => {
+  const handleSendEmail = async(pageType) => {
     setEmailCode('');  // 이메일 인증 코드 초기화
     setIsCheckedEmail(false);  // 이메일 인증 여부 해제
 
@@ -214,9 +214,9 @@ const SignUpContainer = ({
     
     await handleEmail(data)
       .then((response) => {
-        // if (response.status === 200) {
-        //   setIsEmailModal(true);
-        // }
+        if (response.status === 200) {
+          setPage(pageType);
+        }
       }).catch((error) => {
         const { status } = error.response.data;
 
