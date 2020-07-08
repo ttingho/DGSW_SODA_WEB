@@ -4,12 +4,15 @@ import bambooRepository from './bambooRepository';
 
 @autobind
 class bambooStore {
+  @observable bambooList = [];
   @observable bambooInfo = [];
   @observable bambooComment = [];
 
   @action async getBambooFeed(page, limit) {
     try {
-      let { data } = await bambooRepository.getBambooFeed(page, limit);
+      const { data } = await bambooRepository.getBambooFeed(page, limit);
+
+      this.bambooList = data.bamboo;
 
       return new Promise((resolve, reject) => {
         resolve(data);

@@ -8,13 +8,18 @@ import Pagination from 'components/Common/Pagination';
 import BammbooCommentTemplate from 'components/Bamboo/BambooItem/BambooComment/BambooCommentTemplate';
 import { FaFacebookF } from 'react-icons/fa'; 
 import ImageIcon from 'components/Common/ImageIcon';
+import { MdClear } from 'react-icons/md';
+import SecureLS from 'secure-ls';
 
 // eslint-disable-next-line react/prop-types
-const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, getMoreComment, commentData, userProfile, handleImageError }) => {
+const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, isShowCloseComment, setIsShowComment, getMoreComment, initialCommentData, commentData, userProfile, handleImageError, handleCloseComment, handleDeletePost }) => {
   const [profileImages, setProfileImages] = useState([]);
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
-  
+
+  const ls = new SecureLS({ encodingType: 'aes' });
+  const userInfo = ls.get('user-info');
+
   // eslint-disable-next-line react/prop-types
   const { idx, contents, count, joinDate, allowDate, picture, name, profileImage } = item;
 
@@ -24,9 +29,9 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
   const handleBambooImage = useCallback(async () => {
     // 프로필 이미지 설정
     if (profileImage) {
-      setProfileImages(<img className="BambooCard-Top-Profile-ProfileImage" src={profileImage}/>);
+      setProfileImages(<img className="BambooCard-Top-ProfileImage" src={profileImage}/>);
     } else {
-      setProfileImages(<img className="BambooCard-Top-Profile-ProfileImage" src={defaultProfileImage}/>);  
+      setProfileImages(<img className="BambooCard-Top-ProfileImage" src={defaultProfileImage}/>);  
     }
 
     if (picture && picture.length !== 0) {
@@ -41,13 +46,13 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
 
     if (name) {
       setNames(
-        <div className="BambooCard-Top-Profile-ProfileName">
+        <div className="BambooCard-Top-profileContentsWrap-ProfileName">
           {name}
         </div>
       );
     } else {
       setNames(
-        <div className="BambooCard-Top-Profile-ProfileName">
+        <div className="BambooCard-Top-profileContentsWrap-ProfileName">
           익명의 판다
         </div>
       );
@@ -56,37 +61,44 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
 
   useEffect(() => {
     handleBambooImage();
+
+    initialCommentData(idx);
   }, []);
   
   return (
     <div className="BambooCard">
       <div className="BambooCard-Top">
-        <div className="BambooCard-Profile">
-          {profileImages}
-          {
-            names
-          }
-          <div className="BambooCard-Top-Profile-Subject">
+        {profileImages}
+        <div className="BambooCard-Top-profileContentsWrap">
+          {names}
+          <div className="BambooCard-Top-profileContentsWrap-Subject">
               대나무 숲
           </div>
         </div>
-        <div className="BambooCard-Top-JoinDateStyle">
-          제보 :
-          {
-            joinDateFormat
-          }
+        <div className="BambooCard-Top-dateWrap">
+          <div className="BambooCard-Top-dateWrap-JoinDateStyle">
+            제보 :
+            {
+              joinDateFormat
+            }
+          </div>
+          <div className="BambooCard-Top-dateWrap-AllowDateStyle">
+            승인 :
+            {
+              allowDateFormat
+            }
+          </div>
         </div>
-        <div className="BambooCard-Top-AllowDateStyle">
-          승인 :
-          {
-            allowDateFormat
-          }
-        </div>
-        <div  className="BambooCard-Top-FacebookLink">
-          <a href="https://www.facebook.com/dgswbambooforest/" target="blank">
-            <FaFacebookF className="BambooCard-Top-FacebookLinkImage"/>
-          </a>
-        </div>
+        <a className="BambooCard-Top-FacebookLink" href="https://www.facebook.com/dgswbambooforest/" target="blank">
+          <FaFacebookF className="BambooCard-Top-FacebookLinkImage"/>
+        </a>
+        {
+          userInfo.auth === 0 ?
+            <span className="BambooCard-Top-DeleteBtn" onClick={handleDeletePost}>
+              <MdClear />
+            </span> :
+            <></>
+        }
       </div>
       <div className="BambooCard-Contents">
         <Pagination images={images} />
@@ -128,9 +140,24 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
           : <></>
       }
       <div className="BambooCard-commentDiv-commentShowButtonDiv">
-        <p className="BambooCard-commentDiv-commentShowButtonDiv-fontStyle" onClick={() => getMoreComment(idx)}>
-          댓글 보기
-        </p>
+        {
+          commentData.length === 0 ?
+            <p className="BambooCard-commentDiv-empty">
+              댓글이 없습니다.
+            </p> :
+            isShowCloseComment ?
+              <p className="BambooCard-commentDiv-closeBtn" onClick={handleCloseComment}>
+                댓글 닫기
+              </p> :
+              <p className="BambooCard-commentDiv-commentShowButtonDiv-fontStyle" onClick={() => {
+                setIsShowComment(true);
+                
+                getMoreComment(idx);
+              }}>
+                댓글 보기
+              </p>
+        }
+        
       </div>
     </div>
   );
@@ -138,7 +165,7 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
 
 BambooItem.propTypes = {
   item: PropTypes.object,
-  commentObj: PropTypes.object,
+  commentData: PropTypes.array,
   writeBambooComment: PropTypes.func,
   userProfile: PropTypes.string,
   handleImageError: PropTypes.func

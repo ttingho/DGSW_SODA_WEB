@@ -9,14 +9,16 @@ import ImageSrc from 'lib/Profile/ImageSrc';
 import TokenVerification from 'lib/Token/TokenVerification';
 
 const page = 1;
-let limit = 0;
 
 const BambooItem = ({ item, store }) => {
   const [comment, setComment] = useState('');
   const [isShowComment, setIsShowComment] = useState(false);
+  const [isShowCloseComment, setIsShowCloseComment] = useState(false);
   const [commentData, setCommentData] = useState([]);
+  const [limit, setLimit] = useState(5);
 
-  const { postBambooComment, getBambooComment, deleteBambooComment } = store.bamboo;
+  const { postBambooComment, getBambooComment, deleteBambooComment, getBambooFeed } = store.bamboo;
+  const { deleteBambooPost } = store.admin;
   const { modal } = store.dialog;
   const { getMyInfo } = store.member;
   const { isModal } = store.sign; // 로그인 후 사용자 프로필을 가져오기 위함 (* sign의 isModal)
@@ -27,6 +29,12 @@ const BambooItem = ({ item, store }) => {
   const token = TokenVerification();
   const [userProfile, setUserProfile] = useState(ImageSrc(src, DEFAULT_PROFILE));
 
+  const handleCloseComment = () => {
+    setIsShowCloseComment(false);
+
+    setIsShowComment(false);
+  };
+
   const handleImageError = useCallback(e => {
     setUserProfile(DEFAULT_PROFILE);
   }, []);
@@ -34,41 +42,33 @@ const BambooItem = ({ item, store }) => {
   async function fetchData() {
     await getMyInfo();
   }
-  
-  useEffect(() => {
-    if (token === 'empty') {
-      localStorage.removeItem('soda-token');
-      localStorage.removeItem('soda-reToken');
-      sessionStorage.removeItem('soda-token');
-      sessionStorage.removeItem('soda-reToken');
-      ls.removeAll();
-      setUserProfile(DEFAULT_PROFILE);
-    } else {
-      fetchData();
-      setUserProfile(ImageSrc(src, DEFAULT_PROFILE));
-    }
-  }, [isModal]);
 
-  const getMoreComment = async (idx) => {
-    setIsShowComment(true);
-    limit += 5;
-    
-    const data = await getBambooComment(page, limit, idx);
+  const initialCommentData = async (idx) => {
+    const { data } = await getBambooComment(page, 5, idx);
 
-    setCommentData(data.data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>));
+    const commentList = data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>);
+
+    setCommentData(commentList);
   };
 
-  const getComment = async (idx) => {
-    limit += 1;
-    const data = await getBambooComment(page, limit, idx);
+  const getMoreComment = async (idx) => {
+    const { data } = await getBambooComment(page, limit, idx);
 
-    setCommentData(data.data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>));
+    const nextData = await getBambooComment(page, limit + 5, idx);
+
+    const commentList = data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>);
+
+    if (nextData.data.comments.length === commentList.length) setIsShowCloseComment(true);
+
+    setCommentData(commentList);
+
+    setLimit(limit + 5);
   };
 
   const deleteComment = async (commentIdx, bambooIdx) => {
     await deleteBambooComment(commentIdx).
-      then(response => {
-        getComment(bambooIdx);
+      then(async response => {
+        await initialCommentData(bambooIdx);
       })
       .catch(error => {
         const { status } = error.response;
@@ -130,7 +130,8 @@ const BambooItem = ({ item, store }) => {
 
     await postBambooComment(data).
       then(async(response) => {
-        await getComment(idx);
+        await getMoreComment(idx);
+        setIsShowCloseComment(false);
         setComment('');
       })
       .catch((error) => {
@@ -158,6 +159,72 @@ const BambooItem = ({ item, store }) => {
       });
   };
 
+  const handleDeletePost = () => {
+    modal({
+      title: '게시글을 삭제하시겠습니까?',
+      contents: '삭제하시면 되돌릴 수 없습니다..',
+      confirmFunc: async () => {
+        await deleteBambooPost(item.idx)
+          .then(async response => {
+            await getBambooFeed(1, 5);
+
+            window.scrollTo(0, 0);
+
+            modal({
+              title: 'Success!',
+              stateType: 'success',
+              contents: '게시글 삭제에 성공하였습니다.'
+            });
+          })
+          .catch(error => {
+            const { status } = error.response;
+
+            if (status === 403) {
+              modal({
+                title: 'Error!',
+                stateType: 'error',
+                contents: '권한 없음!'
+              });
+
+              return;
+            }
+
+            if (status === 500) {
+              modal({
+                title: 'Error!',
+                stateType: 'error',
+                contents: '서버 에러!'
+              });
+
+              return;
+            }
+          });
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (token === 'empty') {
+      localStorage.removeItem('soda-token');
+      localStorage.removeItem('soda-reToken');
+      sessionStorage.removeItem('soda-token');
+      sessionStorage.removeItem('soda-reToken');
+      ls.removeAll();
+      setUserProfile(DEFAULT_PROFILE);
+    } else {
+      fetchData();
+      setUserProfile(ImageSrc(src, DEFAULT_PROFILE));
+    }
+  }, [isModal]);
+
+  useEffect(() => {
+    if (commentData.length === 0) {
+      setIsShowCloseComment(false);
+      
+      setIsShowComment(false);
+    }
+  }, [commentData]);
+
   return (
     <>
       <BambooItemComponent 
@@ -167,11 +234,16 @@ const BambooItem = ({ item, store }) => {
         commentSet={commentSet} 
         writeBambooComment={writeBambooComment}
         isShowComment={isShowComment}
+        isShowCloseComment={isShowCloseComment}
+        setIsShowComment={setIsShowComment}
+        initialCommentData={initialCommentData}
         getMoreComment={getMoreComment}
         commentData={commentData}
         deleteComment={deleteComment}
         userProfile={userProfile}
         handleImageError={handleImageError}
+        handleCloseComment={handleCloseComment}
+        handleDeletePost={handleDeletePost}
       />
     </>
   );

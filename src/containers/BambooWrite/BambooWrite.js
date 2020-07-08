@@ -395,7 +395,7 @@ const BambooWrite = ({ store, history }) => {
             await modal({
               title: 'Error!',
               stateType: 'error',
-              contents: '대나무가 국산이 아니네요. (양식이 올바르지 않습니다.)'
+              contents: '양식이 올바르지 않습니다..'
             });
 
             return;
@@ -405,7 +405,7 @@ const BambooWrite = ({ store, history }) => {
             await modal({
               title: 'Error!',
               stateType: 'error',
-              contents: '대나무가 상했어요..ㅠㅠ 기다려주세요!'
+              contents: '서버에 문제가 생겼습니다..'
             });
 
             return;
@@ -429,7 +429,7 @@ const BambooWrite = ({ store, history }) => {
       modal({
         title: 'Warning!',
         stateType: 'warning',
-        contents: '대나무(이야기)가 비어있습니다!'
+        contents: '내용이 비어있습니다!'
       });
 
       return;
