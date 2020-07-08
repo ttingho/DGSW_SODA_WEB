@@ -8,6 +8,7 @@ import SecureLS from 'secure-ls';
 import DEFAULT_PROFILE from 'assets/image/profile/profile.svg';
 import ImageSrc from 'lib/Profile/ImageSrc';
 import TokenVerification from 'lib/Token/TokenVerification';
+import BambooLoading from 'components/Bamboo/BambooLoading';
 
 const page = 1;
 let limit = 5;
@@ -15,7 +16,7 @@ let limit = 5;
 const BambooContainer = observer(()=> {
   const { store } = useStores();
 
-  const { getBambooFeed } = store.bamboo;
+  const { getBambooFeed, bambooList } = store.bamboo;
   const { getMyInfo, userProfileImage } = store.member;
   const { isModal } = store.sign;
 
@@ -26,11 +27,9 @@ const BambooContainer = observer(()=> {
 
   // 초기 데이터 설정
   const handleBamboo =  useCallback(async () => {
-    const data = await getBambooFeed(page, limit);
+    await getBambooFeed(page, limit);
     
-    const bambooInfo = data.bamboo;
-
-    setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+    setFeeds(bambooList.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
   }, []);
 
   // 2초 텀 두기
@@ -44,16 +43,15 @@ const BambooContainer = observer(()=> {
     if (isObserver) {
       // delay
       await fetch(2000);
-      const data = await getBambooFeed(page, limit);
-      const bambooInfo = data.bamboo;
+      const { bamboo } = await getBambooFeed(page, limit);
       
       // 마지막 게시물 조회가 끝났을경우
-      if (limit > bambooInfo.length) {
+      if (limit > bamboo.length) {
 
         setIsObserver(false);
       }
 
-      setFeeds(bambooInfo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+      setFeeds(bamboo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
     }
   };
 
@@ -83,6 +81,10 @@ const BambooContainer = observer(()=> {
     getMoreBambooFeeds();
   }, [isLoading]);
 
+  useEffect(() => {
+    setFeeds(bambooList.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+  }, [bambooList]);
+
   return (
     <>
       <BambooTemplate>
@@ -91,7 +93,7 @@ const BambooContainer = observer(()=> {
         }
         <div className={'Loading'} ref={setTarget}>
           {
-            isLoading && isObserver && 'Loading...'
+            isLoading && isObserver && <BambooLoading />
           }
         </div>
       </BambooTemplate>

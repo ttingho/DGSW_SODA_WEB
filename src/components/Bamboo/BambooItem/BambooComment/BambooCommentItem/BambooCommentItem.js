@@ -17,7 +17,7 @@ const BambooCommentItem = ({ item, deleteComment }) => {
   const ls = new SecureLS({ encodingType: 'aes' });
 
   const userInfo = ls.get('user-info');
-  
+
   const { idx, bambooIdx, memberId, contents, isUpdate, writeDate, profileImage } = item;
 
   const [isMine, setIsMine] = useState(false);

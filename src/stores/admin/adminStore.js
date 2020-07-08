@@ -1,6 +1,7 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
 import adminRepository from './adminRepository';
+import bambooStore from '../bamboo/bambooStore';
 
 @autobind
 class adminStore {
@@ -32,6 +33,21 @@ class adminStore {
       const response = await adminRepository.requestBambooPost(request);
 
       await this.getPendingList();
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  }
+
+  @action
+  async deleteBambooPost (idx) {
+    try {
+      const response = await adminRepository.deleteBambooPost(idx);
 
       return new Promise((resolve, reject) => {
         resolve(response);

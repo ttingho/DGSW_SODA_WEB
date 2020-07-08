@@ -45,7 +45,7 @@ const BambooAdminCard = ({ index, selectIndex, item, isLoading, handleRequestBam
           <span className={cx('BambooAdminCard-header-info-title')}>대나무숲</span>
         </div>
         <div className={cx('BambooAdminCard-header-time')}>
-          <span className={cx('BambooAdminCard-header-time-apply')}>제보 : {moment.parseZone(item.joinDate).format('YYYY.MM.DD HH:mm')}</span>
+          <span className={cx('BambooAdminCard-header-time-apply')}>제보 : {moment(item.joinDate).format('YYYY.MM.DD HH:mm')}</span>
         </div>
       </div>
       <div className={cx('BambooAdminCard-contents-images')}>

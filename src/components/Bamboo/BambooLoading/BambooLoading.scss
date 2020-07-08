@@ -1,0 +1,43 @@
+@import 'styles/color/color_scheme.scss';
+@import 'styles/typography/typography_scheme.scss';
+
+.BambooLoading {
+  &-span {
+    color: $gray_0;
+    font-family: $NOTO_SANS_BOLD;
+    font-size: $font_size_5;
+    user-select: none;
+    animation: animate 1s linear infinite;
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+    &:nth-child(2) {
+      animation-delay: .1s;
+    }
+    &:nth-child(3) {
+      animation-delay: .2s;
+    }
+    &:nth-child(4) {
+      animation-delay: .3s;
+    }
+    &:nth-child(5) {
+      animation-delay: .4s;
+    }
+    &:nth-child(6) {
+      animation-delay: .5s;
+    }
+    &:nth-child(7) {
+      animation-delay: .6s;
+    }
+  }
+}
+
+@keyframes animate {
+  0%, 100% {
+    color: rgba($color: $gray_0, $alpha: .8);
+  }
+
+  25%, 75% {
+    color: $gray_1;
+  }
+}

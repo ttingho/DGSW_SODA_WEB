@@ -34,6 +34,22 @@ class adminRepository {
       throw error;
     }
   }
+
+  async deleteBambooPost (idx) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+
+    try {
+      const { data } = await axios.delete(`${SERVER}/admin?idx=${idx}`, {
+        headers: {
+          'x-access-token': token
+        }
+      });
+      
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new adminRepository();

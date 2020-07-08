@@ -23,8 +23,8 @@ const ExampleCard = ({ profileSrc, name, contentsObj, images, imgBase64, handleI
           <span className={cx('ExampleCard-header-info-title')}>대나무숲</span>
         </div>
         <div className={cx('ExampleCard-header-time')}>
-          <span className={cx('ExampleCard-header-time-apply')}>제보 : 2020.03.19 03:32</span>
-          <span className={cx('ExampleCard-header-time-allowed')}>승인 : 2020.03.19 03:32</span>
+          <span className={cx('ExampleCard-header-time-apply')}>제보 : yyyy.MM.dd HH:mm</span>
+          <span className={cx('ExampleCard-header-time-allowed')}>승인 : yyyy.MM.dd HH:mm</span>
         </div>
         <div className={cx('ExampleCard-header-facebook')}>
           <FaFacebookF className={cx('ExampleCard-header-facebook-icon')} />

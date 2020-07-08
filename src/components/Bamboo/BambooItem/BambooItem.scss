@@ -19,6 +19,18 @@
     margin-top: 20px;
     margin-bottom: 10px;
 
+    &-empty {
+      color: $gray_3;
+      font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+    }
+
+    &-closeBtn {
+      color: $error;
+      font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+      cursor: pointer;
+      user-select: none;
+    }
+
     &-commentShowButtonDiv {
       display: flex;
       align-items: center;
@@ -29,6 +41,7 @@
       
       &-fontStyle {
         cursor: pointer;
+        user-select: none;
         color: $facebook;
         font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
       }
@@ -47,7 +60,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        border: 1px solid $gray_3;
+        // border: 1px solid $gray_3;
         margin-top: 25px;
         display: flex;
         justify-content: center;
@@ -56,9 +69,9 @@
       }
 
       &-inputDiv {
-        width: 550px;
+        width: 520px;
         height: 40px;
-        margin-left: 10px;
+        margin-left: 25px;
         margin-top: 25px;
 
         &-input {
@@ -67,17 +80,22 @@
           outline: 0px;
           font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
           border: 1px solid $gray_3;
-          background-color: #f8f9fa;
+          // background-color: #f8f9fa;
           padding-left: 10px;
           border-radius: 5px;
           font-size: 15px;
+          animation-duration: 0.3s;
+
+          &:focus {
+            border-color: $bamboo_primary;
+          }
         }
       }
 
       &-writeButtonDiv {
         width: 70px;
         height: 40px;
-        margin-left: 10px;
+        margin-left: 25px;
         margin-top: 25px;
 
         &-button {
@@ -209,67 +227,85 @@
   &-Top {
     width: 750px;
     height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
     border-bottom: 1px solid $gray_1;
-
-    &-AllowDateStyle {
-      margin: -40px 0px 0px 550px;
-      font-size: $font_size_1;
-      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
-      color: #afb7c2;
+    &-ProfileImage {
+      width: 40px;
+      height: 40px;
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 50%;
+      margin: auto 0 auto 3%;
     }
-      
-    &-JoinDateStyle {
-      margin: -20px 0px 0px 550px;
-      font-size: $font_size_1;
-      font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
-      color: #afb7c2;
+    &-profileContentsWrap {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      margin: auto auto auto 2%;
+      &-ProfileName {
+        font-size: $font_size_2;
+        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+      }
+      &-Subject {
+        font-size: $font_size_1;
+        color: #49d277;
+        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_KR_REGULAR;
+        margin-top: 3%;
+      }
     }
-
-    &-FacebookLinkImage {
-      margin: 7px 0px 0px 7px;
-      width: 20px;
-      height: 20px;
-      color: white;
-      border: none;
+    &-dateWrap {
+      margin: auto 2% auto auto;
+      &-AllowDateStyle {
+        font-size: $font_size_1;
+        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+        color: #afb7c2;
+      }
+        
+      &-JoinDateStyle {
+        font-size: $font_size_1;
+        font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+        color: #afb7c2;
+      }
     }
-
     &-FacebookLink {
-      margin: -14px 0px 0px 695px;
       width: 35px;
       height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border-radius: 50%;
       background-color: $facebook;
       border: none;
       cursor: pointer;
       outline: 0;
+      margin: auto 3% auto 0;
     }
-
-    &-Profile {
-      width: 300px;
-      height: 80px;
-      border: 1px solid #484848;
-
-      &-ProfileImage {
-        width: 40px;
-        height: 40px;
-        max-width: 100%;
-        max-height: 100%;
-        border-radius: 50%;
-        margin: 15px 0px 0px 25px;
-      }
-  
-      &-ProfileName {
-        margin: -45px 0px 0px 80px;
-        font-size: $font_size_2;
-        font-family: $NOTO_SANS_KR_THIN, $NOTO_SANS_MEDIUM;
-        font-weight: bold;
-      }
-
-      &-Subject {
-        margin: 5px 0px 0px 80px;
-        font-size: $font_size_1;
-        color: #49d277;
-        font-family: $NOTO_SANS_KR_MEDIUM, $NOTO_SANS_MEDIUM;
+    &-FacebookLinkImage {
+      width: 20px;
+      height: 20px;
+      color: white;
+      border: none;
+    }
+    &-DeleteBtn {
+      width: $font_size_7;
+      height: $font_size_7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto 3% auto 0;
+      font-size: $font_size_5;
+      color: $error;
+      border: 1px solid $error;
+      border-radius: 50%;
+      cursor: pointer;
+      transition-duration: .2s;
+      &:hover {
+        color: $white;
+        background-color: $error;
       }
     }
   }
