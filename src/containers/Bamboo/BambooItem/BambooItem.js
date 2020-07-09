@@ -86,11 +86,11 @@ const BambooItem = ({ item, store }) => {
   };
 
   const commentSet = (event) => {
-    if (event.target.value.length > 100) {
+    if (event.target.value.length > 500) {
       modal({
         modalType: 'basic',
         title: 'Warning!',
-        contents: '내용은 100자 이내로 작성해주세요.'
+        contents: '내용은 500자 이내로 작성해주세요.'
       });
 
       return;
