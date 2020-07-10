@@ -123,7 +123,7 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
             />
           </div>
           <div className="BambooCard-commentDiv-contentsBox-inputDiv">
-            <input className="BambooCard-commentDiv-contentsBox-inputDiv-input" type={'text'} value={comment} onChange={commentSet}/>
+            <input className="BambooCard-commentDiv-contentsBox-inputDiv-input" type={'text'} value={comment} onChange={commentSet} autoComplete={'off'}/>
           </div>
           <div className="BambooCard-commentDiv-contentsBox-writeButtonDiv">
             <button className="BambooCard-commentDiv-contentsBox-writeButtonDiv-button"  onClick={() => writeBambooComment(idx)}>작성</button>
