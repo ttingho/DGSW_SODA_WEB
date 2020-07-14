@@ -9,7 +9,7 @@ const SignUpFormCheck = (data, pageType) => {
         text: '양식이 비어있습니다.',
         type: 'warning'
       };
-    } else if (!(/^[a-zA-Z0-9]{4,20}$/).test(id)) {
+    } else if (!(/^[a-zA-Z0-9]{6,20}$/).test(id)) {
       return {
         isFormCheck: false,
         text: '아이디 형식을 지켜주세요.',

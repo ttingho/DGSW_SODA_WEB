@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import sha512 from 'js-sha512';
 import SecureLS from 'secure-ls';
-import { withRouter } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import InTemplate from 'components/Sign/InTemplate';
 
 const SignInContainer = ({
@@ -16,11 +15,11 @@ const SignInContainer = ({
   handleIsSignModal,
   handleResetInputValue,
   getMyInfo,
-  modal,
-  history
+  modal
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   let path = useLocation().pathname;
+  let history = useHistory();
 
   const requestSignIn = () => {
     const { id } = idObj;
@@ -124,8 +123,7 @@ SignInContainer.propTypes = {
   handleIsSignModal: PropTypes.func,
   handleResetInputValue: PropTypes.func,
   getMyInfo: PropTypes.func,
-  modal: PropTypes.func,
-  history: PropTypes.object
+  modal: PropTypes.func
 };
 
 export default withRouter(SignInContainer);
