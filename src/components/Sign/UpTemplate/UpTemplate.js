@@ -92,7 +92,7 @@ const UpTemplate = ({
       return (
         <div className={cx('UpTemplate-page1')}>
           <div className={cx('UpTemplate-page1-idWrap')}>
-            <LightTooltip placement='top-start' title='아이디: 알파벳과 숫자, 4글자 ~ 20글자'>
+            <LightTooltip placement='top-start' title='아이디: 알파벳과 숫자, 6글자 ~ 20글자'>
               <div>
                 <SignInput
                   value={id}
