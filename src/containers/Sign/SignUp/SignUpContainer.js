@@ -38,7 +38,7 @@ const SignUpContainer = ({
   const { emailCode, setEmailCode } = emailCodeObj;
   // const { phone } = phoneObj;
   // const { nickName } = nickNameObj;
-  const { profileImage } = profileImageObj;
+  const { profileImage, setProfileImage } = profileImageObj;
   const { page, setPage } = pageObj;
   const { idCheck, setIdCheck } = idCheckObj;
   const { isCheckedEmail, setIsCheckedEmail } = isCheckedEmailObj;
@@ -116,10 +116,20 @@ const SignUpContainer = ({
         code: emailCode,
         email: email
       };
-  
-      await handleEmailCode(data)
+
+      let clicked = true; // 중복 클릭 방지 boolean
+
+      if (clicked) {
+        clicked = false;
+
+        setTimeout(() => {  // 클릭 2초후 다시 요청 가능
+          clicked = true;
+        }, 2000);
+        
+        await handleEmailCode(data)
         .then((response) => { // 인증 성공 시 다음 페이지, 이메일 인증 여부 추가
           setPage(pageType);
+          setProfileImage(null);
           setIsCheckedEmail(true);
         }).catch((error) => { // 실패 시 사유 모달 띄우기
           const { status } = error.response.data;
@@ -141,6 +151,16 @@ const SignUpContainer = ({
             return;
           }
         });
+      } else {
+        modal({
+          title: 'Warning!',
+          stateType: 'warning',
+          contents: '잠시후에 재시도 해주세요.'
+        });
+        
+        return;
+      }
+  
 
       return;
     }
