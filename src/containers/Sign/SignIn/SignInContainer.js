@@ -126,4 +126,4 @@ SignInContainer.propTypes = {
   modal: PropTypes.func
 };
 
-export default withRouter(SignInContainer);
+export default SignInContainer;

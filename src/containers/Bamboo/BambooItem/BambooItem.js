@@ -45,8 +45,16 @@ const BambooItem = ({ item, store }) => {
 
   const initialCommentData = async (idx) => {
     const { data } = await getBambooComment(page, 5, idx);
+    const sortedComments = data.comments;
 
-    const commentList = data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>);
+    sortedComments.sort((a, b) => { // 오래된 시간 순으로 정렬
+      let aTime = new Date(a.writeDate);
+      let bTime = new Date(b.writeDate);
+
+      return aTime - bTime;
+    });
+    
+    const commentList = sortedComments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>);
 
     setCommentData(commentList);
   };
@@ -56,7 +64,16 @@ const BambooItem = ({ item, store }) => {
 
     const nextData = await getBambooComment(page, limit + 5, idx);
 
-    const commentList = data.comments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>);
+    const sortedComments = data.comments;
+
+    sortedComments.sort((a, b) => { // 오래된 시간 순으로 정렬
+      let aTime = new Date(a.writeDate);
+      let bTime = new Date(b.writeDate);
+
+      return aTime - bTime;
+    });
+
+    const commentList = sortedComments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>);
 
     if (nextData.data.comments.length === commentList.length) setIsShowCloseComment(true);
 
