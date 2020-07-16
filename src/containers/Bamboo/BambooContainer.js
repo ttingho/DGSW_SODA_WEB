@@ -29,7 +29,7 @@ const BambooContainer = observer(()=> {
   const handleBamboo =  useCallback(async () => {
     await getBambooFeed(page, limit);
     
-    setFeeds(bambooList.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+    setFeeds(bambooList.map((feed) => <BambooItem key={feed.idx} item={feed} postLimit={limit}/>));
   }, []);
 
   // 2초 텀 두기
@@ -51,7 +51,7 @@ const BambooContainer = observer(()=> {
         setIsObserver(false);
       }
 
-      setFeeds(bamboo.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+      setFeeds(bamboo.map((feed) => <BambooItem key={feed.idx} item={feed} postLimit={limit}/>));
     }
   };
 
