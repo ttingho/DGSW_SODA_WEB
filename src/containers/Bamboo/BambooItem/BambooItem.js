@@ -16,8 +16,9 @@ const BambooItem = ({ item, store }) => {
   const [isShowCloseComment, setIsShowCloseComment] = useState(false);
   const [commentData, setCommentData] = useState([]);
   const [limit, setLimit] = useState(5);
+  const [isEmpathy, setIsEmpathy] = useState('none');
 
-  const { postBambooComment, getBambooComment, deleteBambooComment, getBambooFeed } = store.bamboo;
+  const { requestEmpathy, postBambooComment, getBambooComment, deleteBambooComment, getBambooFeed } = store.bamboo;
   const { deleteBambooPost } = store.admin;
   const { modal } = store.dialog;
   const { getMyInfo } = store.member;
@@ -183,7 +184,7 @@ const BambooItem = ({ item, store }) => {
       confirmFunc: async () => {
         await deleteBambooPost(item.idx)
           .then(async response => {
-            await getBambooFeed(1, 5);
+            await getBambooFeed(page, 5);
 
             window.scrollTo(0, 0);
 
@@ -220,6 +221,37 @@ const BambooItem = ({ item, store }) => {
     });
   };
 
+  const handleEmpathyDataSet = () => {
+    setIsEmpathy('none');
+
+    if (item.empathy === null || userInfo === null) return;
+
+    for(const index in item.empathy.empathyData) {
+      if (item.empathy.empathyData[index].memberId === userInfo.memberId) {
+        setIsEmpathy(item.empathy.empathyData[index].empathyType);
+
+        return;
+      }
+    }
+  };
+
+  const handleRequestEmpathy = async type => {
+    if (userInfo === null) return;
+
+    const request = {
+      bambooIdx: item.idx,
+      empathyType: type
+    };
+
+    await requestEmpathy(request)
+      .then(async response => {
+        await getBambooFeed(page, limit);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
     if (token === 'empty') {
       localStorage.removeItem('soda-token');
@@ -242,6 +274,10 @@ const BambooItem = ({ item, store }) => {
     }
   }, [commentData]);
 
+  useEffect(() => {
+    handleEmpathyDataSet();
+  }, [item.empathy]);
+
   return (
     <>
       <BambooItemComponent 
@@ -252,6 +288,7 @@ const BambooItem = ({ item, store }) => {
         writeBambooComment={writeBambooComment}
         isShowComment={isShowComment}
         isShowCloseComment={isShowCloseComment}
+        isEmpathy={isEmpathy}
         setIsShowComment={setIsShowComment}
         initialCommentData={initialCommentData}
         getMoreComment={getMoreComment}
@@ -261,6 +298,7 @@ const BambooItem = ({ item, store }) => {
         handleImageError={handleImageError}
         handleCloseComment={handleCloseComment}
         handleDeletePost={handleDeletePost}
+        handleRequestEmpathy={handleRequestEmpathy}
       />
     </>
   );
