@@ -10,7 +10,7 @@ import TokenVerification from 'lib/Token/TokenVerification';
 
 const page = 1;
 
-const BambooItem = ({ item, store }) => {
+const BambooItem = ({ item, postLimit, store }) => {
   const [comment, setComment] = useState('');
   const [isShowComment, setIsShowComment] = useState(false);
   const [isShowCloseComment, setIsShowCloseComment] = useState(false);
@@ -106,7 +106,7 @@ const BambooItem = ({ item, store }) => {
   const commentSet = (event) => {
     if (event.target.value.length > 500) {
       modal({
-        modalType: 'basic',
+        stateType: 'basic',
         title: 'Warning!',
         contents: '내용은 500자 이내로 작성해주세요.'
       });
@@ -121,8 +121,10 @@ const BambooItem = ({ item, store }) => {
     const token = TokenVerification();
 
     if (token === 'empty') {
+      console.log('object');
+
       await modal({
-        modalType: 'basic',
+        stateType: 'warning',
         title: 'Warning!',
         contents: '로그인 후 작성 가능합니다.'
       });
@@ -133,7 +135,7 @@ const BambooItem = ({ item, store }) => {
 
     if (comment.length === 0) {
       await modal({
-        modalType: 'basic',
+        stateType: 'warning',
         title: 'Warning!',
         contents: '내용을 작성해주세요.'
       });
@@ -224,7 +226,7 @@ const BambooItem = ({ item, store }) => {
   const handleEmpathyDataSet = () => {
     setIsEmpathy('none');
 
-    if (item.empathy === null || userInfo === null) return;
+    if (item.empathy === null || userInfo === null || token === 'empty') return;
 
     for(const index in item.empathy.empathyData) {
       if (item.empathy.empathyData[index].memberId === userInfo.memberId) {
@@ -236,7 +238,13 @@ const BambooItem = ({ item, store }) => {
   };
 
   const handleRequestEmpathy = async type => {
-    if (userInfo === null) return;
+    if (userInfo === null || token === 'empty') {
+      modal({
+        title: 'Warning',
+        stateType: 'warning',
+        contents: '로그인 후 공감을 시도해 주세요.'
+      });
+    }
 
     const request = {
       bambooIdx: item.idx,
@@ -245,7 +253,7 @@ const BambooItem = ({ item, store }) => {
 
     await requestEmpathy(request)
       .then(async response => {
-        await getBambooFeed(page, limit);
+        await getBambooFeed(page, postLimit);
       })
       .catch(error => {
         console.error(error);
@@ -306,6 +314,7 @@ const BambooItem = ({ item, store }) => {
 
 BambooItem.propTypes = {
   item: PropTypes.object,
+  postLimit: PropTypes.number,
   store: PropTypes.object,
 };
 

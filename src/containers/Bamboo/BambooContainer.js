@@ -11,7 +11,6 @@ import TokenVerification from 'lib/Token/TokenVerification';
 import BambooLoading from 'components/Bamboo/BambooLoading';
 
 const page = 1;
-let limit = 5;
 
 const BambooContainer = observer(()=> {
   const { store } = useStores();
@@ -24,6 +23,7 @@ const BambooContainer = observer(()=> {
   const [target, setTarget] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isObserver, setIsObserver] = useState(true);
+  const [limit, setLimit] = useState(5);
 
   // 초기 데이터 설정
   const handleBamboo =  useCallback(async () => {
@@ -34,7 +34,7 @@ const BambooContainer = observer(()=> {
 
   // 2초 텀 두기
   const fetch = (delay) => new Promise(res => setTimeout(function(){ 
-    limit += 5;
+    setLimit(limit + 5);
     res(setIsLoading(false));
   }, delay));
 
@@ -82,7 +82,7 @@ const BambooContainer = observer(()=> {
   }, [isLoading]);
 
   useEffect(() => {
-    setFeeds(bambooList.map((feed) => <BambooItem key={feed.idx} item={feed}/>));
+    setFeeds(bambooList.map((feed) => <BambooItem key={feed.idx} item={feed} postLimit={limit} />));
   }, [bambooList]);
 
   return (
