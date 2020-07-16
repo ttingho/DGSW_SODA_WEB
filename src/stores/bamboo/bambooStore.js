@@ -72,9 +72,9 @@ class bambooStore {
   }
 
   @action
-  async postBambooComment (request) {
+  async requestEmpathy (request) {
     try {
-      const response = await bambooRepository.postBambooComment(request);
+      const response = await bambooRepository.requestEmpathy(request);
 
       return new Promise((resolve, reject) => {
         resolve(response);

@@ -54,10 +54,26 @@ class bambooRepository {
   }
 
   async postBambooComment (request) {
-
     const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+    
     try {
       const { data } = await axios.post(`${SERVER}/bamboo/comment`, request, {
+        headers: {
+          'x-access-token': token
+        }
+      });
+      
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async requestEmpathy (request) {
+    const token = TokenVerification() === 'localT' ? localStorage.getItem('soda-token') : sessionStorage.getItem('soda-token');
+    
+    try {
+      const { data } = await axios.post(`${SERVER}/bamboo/empathy`, request, {
         headers: {
           'x-access-token': token
         }

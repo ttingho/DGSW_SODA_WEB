@@ -1,4 +1,3 @@
-
 @import 'styles/color/color_scheme.scss';
 @import 'styles/typography/typography_scheme.scss';
 
@@ -51,64 +50,76 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       width: 700px;
       height: 100%;
       margin-top: 15px;
       border-top: 1px solid $gray_2;
 
-      &-profileImageDiv {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        // border: 1px solid $gray_3;
-        margin-top: 25px;
+      &-empathy {
+        width: 100%;
+        height: 60px;
         display: flex;
-        justify-content: center;
         align-items: center;
-        overflow: hidden;
+        justify-content: flex-start;
       }
 
-      &-inputDiv {
-        width: 520px;
-        height: 40px;
-        margin-left: 25px;
-        margin-top: 25px;
+      &-commentInputWrap {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
 
-        &-input {
-          width: 100%;
-          height: 100%;
-          outline: 0px;
-          font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
-          border: 1px solid $gray_3;
-          // background-color: #f8f9fa;
-          padding-left: 10px;
-          border-radius: 5px;
-          font-size: 15px;
-          animation-duration: 0.3s;
-
-          &:focus {
-            border-color: $bamboo_primary;
+        &-profileImageDiv {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+        }
+  
+        &-inputDiv {
+          width: 520px;
+          height: 40px;
+          margin-left: 25px;
+  
+          &-input {
+            width: 100%;
+            height: 100%;
+            outline: 0px;
+            font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+            border: 1px solid $gray_3;
+            padding-left: 10px;
+            border-radius: 5px;
+            font-size: 15px;
+            animation-duration: 0.3s;
+  
+            &:focus {
+              border-color: $bamboo_primary;
+            }
           }
         }
-      }
-
-      &-writeButtonDiv {
-        width: 70px;
-        height: 40px;
-        margin-left: 25px;
-        margin-top: 25px;
-
-        &-button {
-          width: 100%;
-          height: 100%;
-          border: 0px;
-          outline: 0px;
-          font-size: 13px;
-          color: white;
-          background-color: $bamboo_primary;
-          border-radius: 5px;
-          cursor: pointer;
-          font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+  
+        &-writeButtonDiv {
+          width: 70px;
+          height: 40px;
+          margin-left: 25px;
+  
+          &-button {
+            width: 100%;
+            height: 100%;
+            border: 0px;
+            outline: 0px;
+            font-size: 13px;
+            color: white;
+            background-color: $bamboo_primary;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: $NOTO_SANS_KR_REGULAR, $NOTO_SANS_REGULAR;
+          }
         }
       }
     }

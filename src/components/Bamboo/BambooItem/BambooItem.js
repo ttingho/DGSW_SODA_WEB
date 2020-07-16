@@ -1,4 +1,4 @@
-import React, { Component, useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import moment from 'moment';
 import 'containers/Bamboo/BambooContainer';
 import './BambooItem.scss';
@@ -10,9 +10,18 @@ import { FaFacebookF } from 'react-icons/fa';
 import ImageIcon from 'components/Common/ImageIcon';
 import { MdClear } from 'react-icons/md';
 import SecureLS from 'secure-ls';
+import {
+  FaRegGrinBeam, // like
+  FaRegGrinHearts, // love
+  FaRegGrinSquintTears, // funny
+  FaRegSurprise, // cool
+  FaRegSadCry, // sad
+  FaRegAngry // angry
+} from 'react-icons/fa';
+import BambooEmpathy from '../BambooEmpathy';
 
 // eslint-disable-next-line react/prop-types
-const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, isShowCloseComment, setIsShowComment, getMoreComment, initialCommentData, commentData, userProfile, handleImageError, handleCloseComment, handleDeletePost }) => {
+const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, isShowCloseComment, isEmpathy, setIsShowComment, getMoreComment, initialCommentData, commentData, userProfile, handleImageError, handleCloseComment, handleDeletePost, handleRequestEmpathy }) => {
   const [profileImages, setProfileImages] = useState([]);
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
@@ -115,18 +124,28 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
       </div>
       <div className="BambooCard-commentDiv">
         <div className="BambooCard-commentDiv-contentsBox">
-          <div className="BambooCard-commentDiv-contentsBox-profileImageDiv">
-            <ImageIcon
-              src={userProfile}
-              onErrorFunc={handleImageError}
-              observer={userProfile}
-            />
+          <div className="BambooCard-commentDiv-contentsBox-empathy">
+            <BambooEmpathy EmpathyIcon={FaRegGrinBeam} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyLike} empathyType={'like'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('like')} />
+            <BambooEmpathy EmpathyIcon={FaRegGrinHearts} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyLove} empathyType={'love'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('love')} />
+            <BambooEmpathy EmpathyIcon={FaRegGrinSquintTears} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyFunny} empathyType={'funny'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('funny')} />
+            <BambooEmpathy EmpathyIcon={FaRegSurprise} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyCool} empathyType={'cool'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('cool')} />
+            <BambooEmpathy EmpathyIcon={FaRegSadCry} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathySad} empathyType={'sad'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('sad')} />
+            <BambooEmpathy EmpathyIcon={FaRegAngry} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyAngry} empathyType={'angry'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('angry')} />
           </div>
-          <div className="BambooCard-commentDiv-contentsBox-inputDiv">
-            <input className="BambooCard-commentDiv-contentsBox-inputDiv-input" type={'text'} value={comment} onChange={commentSet} autoComplete={'off'}/>
-          </div>
-          <div className="BambooCard-commentDiv-contentsBox-writeButtonDiv">
-            <button className="BambooCard-commentDiv-contentsBox-writeButtonDiv-button"  onClick={() => writeBambooComment(idx)}>작성</button>
+          <div className="BambooCard-commentDiv-contentsBox-commentInputWrap">
+            <div className="BambooCard-commentDiv-contentsBox-commentInputWrap-profileImageDiv">
+              <ImageIcon
+                src={userProfile}
+                onErrorFunc={handleImageError}
+                observer={userProfile}
+              />
+            </div>
+            <div className="BambooCard-commentDiv-contentsBox-commentInputWrap-inputDiv">
+              <input className="BambooCard-commentDiv-contentsBox-commentInputWrap-inputDiv-input" type={'text'} value={comment} onChange={commentSet} autoComplete={'off'}/>
+            </div>
+            <div className="BambooCard-commentDiv-contentsBox-commentInputWrap-writeButtonDiv">
+              <button className="BambooCard-commentDiv-contentsBox-commentInputWrap-writeButtonDiv-button"  onClick={() => writeBambooComment(idx)}>작성</button>
+            </div>
           </div>
         </div>
       </div>
@@ -168,7 +187,8 @@ BambooItem.propTypes = {
   commentData: PropTypes.array,
   writeBambooComment: PropTypes.func,
   userProfile: PropTypes.string,
-  handleImageError: PropTypes.func
+  handleImageError: PropTypes.func,
+  handleRequestEmpathy: PropTypes.func
 };
 
 export default BambooItem;
