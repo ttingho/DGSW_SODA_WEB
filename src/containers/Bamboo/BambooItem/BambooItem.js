@@ -18,6 +18,9 @@ const BambooItem = ({ item, postLimit, store }) => {
   const [limit, setLimit] = useState(5);
   const [isEmpathy, setIsEmpathy] = useState('none');
 
+  /* 댓글 정렬 state */
+  const [sortCategory, setSortCategory] = useState('최신 댓글 순');
+
   const { requestEmpathy, postBambooComment, getBambooComment, deleteBambooComment, getBambooFeed } = store.bamboo;
   const { deleteBambooPost } = store.admin;
   const { modal } = store.dialog;
@@ -44,35 +47,53 @@ const BambooItem = ({ item, postLimit, store }) => {
     await getMyInfo();
   }
 
-  const initialCommentData = async (idx) => {
+  const initialCommentData = useCallback(async (idx) => {
     const { data } = await getBambooComment(page, 5, idx);
     const sortedComments = data.comments;
 
-    sortedComments.sort((a, b) => { // 오래된 시간 순으로 정렬
-      let aTime = new Date(a.writeDate);
-      let bTime = new Date(b.writeDate);
-
-      return aTime - bTime;
-    });
+    if (sortCategory === '최신 댓글 순') {
+      sortedComments.sort((a, b) => { // 최신 댓글 순으로 정렬
+        let aTime = new Date(a.writeDate);
+        let bTime = new Date(b.writeDate);
+  
+        return bTime - aTime;
+      });  
+    } else {
+      sortedComments.sort((a, b) => { // 오래된 댓글 순으로 정렬
+        let aTime = new Date(a.writeDate);
+        let bTime = new Date(b.writeDate);
+  
+        return aTime - bTime;
+      });
+    }
     
     const commentList = sortedComments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>);
 
     setCommentData(commentList);
-  };
+  }, [sortCategory]);
 
-  const getMoreComment = async (idx) => {
+  const getMoreComment = useCallback(async (idx) => {
     const { data } = await getBambooComment(page, limit, idx);
 
     const nextData = await getBambooComment(page, limit + 5, idx);
 
     const sortedComments = data.comments;
 
-    sortedComments.sort((a, b) => { // 오래된 시간 순으로 정렬
-      let aTime = new Date(a.writeDate);
-      let bTime = new Date(b.writeDate);
-
-      return aTime - bTime;
-    });
+    if (sortCategory === '최신 댓글 순') {
+      sortedComments.sort((a, b) => { // 최신 댓글 순으로 정렬
+        let aTime = new Date(a.writeDate);
+        let bTime = new Date(b.writeDate);
+  
+        return bTime - aTime;
+      });  
+    } else {
+      sortedComments.sort((a, b) => { // 오래된 댓글 순으로 정렬
+        let aTime = new Date(a.writeDate);
+        let bTime = new Date(b.writeDate);
+  
+        return aTime - bTime;
+      });
+    }
 
     const commentList = sortedComments.map((feed) => <BambooCommentItem key={feed.idx} item={feed} deleteComment={deleteComment}/>);
 
@@ -81,7 +102,7 @@ const BambooItem = ({ item, postLimit, store }) => {
     setCommentData(commentList);
 
     setLimit(limit + 5);
-  };
+  }, [sortCategory, limit]);
 
   const deleteComment = async (commentIdx, bambooIdx) => {
     await deleteBambooComment(commentIdx).
@@ -293,6 +314,7 @@ const BambooItem = ({ item, postLimit, store }) => {
         item={item}
         comment={comment} 
         commentSet={commentSet} 
+        sortCategoryObj={{sortCategory, setSortCategory}}
         writeBambooComment={writeBambooComment}
         isShowComment={isShowComment}
         isShowCloseComment={isShowCloseComment}
