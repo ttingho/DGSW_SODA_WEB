@@ -1,12 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import moment from 'moment';
+import classnames from 'classnames';
 import 'containers/Bamboo/BambooContainer';
-import './BambooItem.scss';
+import style from './BambooItem.scss';
 import PropTypes from 'prop-types';
 import defaultProfileImage from '../../../assets/image/panda.jpg';
 import Pagination from 'components/Common/Pagination';
 import BammbooCommentTemplate from 'components/Bamboo/BambooItem/BambooComment/BambooCommentTemplate';
 import { FaFacebookF } from 'react-icons/fa'; 
+import { IoIosArrowDown } from 'react-icons/io';
 import ImageIcon from 'components/Common/ImageIcon';
 import { MdClear } from 'react-icons/md';
 import SecureLS from 'secure-ls';
@@ -20,11 +22,22 @@ import {
 } from 'react-icons/fa';
 import BambooEmpathy from '../BambooEmpathy';
 
+const cx = classnames.bind(style);
+
 // eslint-disable-next-line react/prop-types
-const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComment, isShowCloseComment, isEmpathy, setIsShowComment, getMoreComment, initialCommentData, commentData, userProfile, handleImageError, handleCloseComment, handleDeletePost, handleRequestEmpathy }) => {
+const BambooItem = ({ item, comment, writeBambooComment, commentSet, sortCategoryObj, isShowComment, isShowCloseComment, isEmpathy, setIsShowComment, getMoreComment, initialCommentData, commentData, userProfile, handleImageError, handleCloseComment, handleDeletePost, handleRequestEmpathy }) => {
   const [profileImages, setProfileImages] = useState([]);
   const [images, setImages] = useState([]);
   const [names, setNames] = useState([]);
+  const { sortCategory, setSortCategory } = sortCategoryObj;
+
+  /* 정렬 카테고리를 눌렀는지 true false */
+  const [isClickedSortCategory, setIsClickedSortCategory] = useState(false);
+
+  const handleCategory = useCallback(category => {
+    setSortCategory(category);
+    setIsClickedSortCategory(false);
+  }, []);
 
   const ls = new SecureLS({ encodingType: 'aes' });
   const userInfo = ls.get('user-info');
@@ -72,7 +85,7 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
     handleBambooImage();
 
     initialCommentData(idx);
-  }, []);
+  }, [sortCategory]);
   
   return (
     <div className="BambooCard">
@@ -124,13 +137,27 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
       </div>
       <div className="BambooCard-commentDiv">
         <div className="BambooCard-commentDiv-contentsBox">
-          <div className="BambooCard-commentDiv-contentsBox-empathy">
-            <BambooEmpathy EmpathyIcon={FaRegGrinBeam} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyLike} empathyType={'like'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('like')} />
-            <BambooEmpathy EmpathyIcon={FaRegGrinHearts} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyLove} empathyType={'love'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('love')} />
-            <BambooEmpathy EmpathyIcon={FaRegGrinSquintTears} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyFunny} empathyType={'funny'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('funny')} />
-            <BambooEmpathy EmpathyIcon={FaRegSurprise} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyCool} empathyType={'cool'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('cool')} />
-            <BambooEmpathy EmpathyIcon={FaRegSadCry} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathySad} empathyType={'sad'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('sad')} />
-            <BambooEmpathy EmpathyIcon={FaRegAngry} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyAngry} empathyType={'angry'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('angry')} />
+          <div className="BambooCard-commentDiv-contentsBox-top">
+            <div className="BambooCard-commentDiv-contentsBox-top-empathy">
+              <BambooEmpathy EmpathyIcon={FaRegGrinBeam} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyLike} empathyType={'like'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('like')} />
+              <BambooEmpathy EmpathyIcon={FaRegGrinHearts} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyLove} empathyType={'love'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('love')} />
+              <BambooEmpathy EmpathyIcon={FaRegGrinSquintTears} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyFunny} empathyType={'funny'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('funny')} />
+              <BambooEmpathy EmpathyIcon={FaRegSurprise} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyCool} empathyType={'cool'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('cool')} />
+              <BambooEmpathy EmpathyIcon={FaRegSadCry} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathySad} empathyType={'sad'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('sad')} />
+              <BambooEmpathy EmpathyIcon={FaRegAngry} empathyCount={item.empathy === null ? 0 : item.empathy.empathyCount.empathyAngry} empathyType={'angry'} isEmpathy={isEmpathy} handleFunc={() => handleRequestEmpathy('angry')} />
+            </div>
+            <div className="BambooCard-commentDiv-contentsBox-top-sortCategory">
+              <button className={cx('BambooCard-commentDiv-contentsBox-top-sortCategory-btn')} 
+                onClick={() => setIsClickedSortCategory(!isClickedSortCategory)}
+              >
+                {sortCategory}
+                <IoIosArrowDown className="down_icon"/>
+              </button>
+              <ul className={cx('BambooCard-commentDiv-contentsBox-top-sortCategory-ul', {'BambooCard-commentDiv-contentsBox-top-sortCategory-ul-hidden': !isClickedSortCategory})}>
+                <li className={cx('BambooCard-commentDiv-contentsBox-top-sortCategory-ul-li', {'BambooCard-commentDiv-contentsBox-top-sortCategory-ul-li-clicked': sortCategory === '최신 댓글 순'})} onClick={() => handleCategory('최신 댓글 순')}>최신 댓글 순</li>
+                <li className={cx('BambooCard-commentDiv-contentsBox-top-sortCategory-ul-li', {'BambooCard-commentDiv-contentsBox-top-sortCategory-ul-li-clicked': sortCategory === '오래된 댓글 순'})} onClick={() => handleCategory('오래된 댓글 순')}>오래된 댓글 순</li>
+              </ul>
+            </div>
           </div>
           <div className="BambooCard-commentDiv-contentsBox-commentInputWrap">
             <div className="BambooCard-commentDiv-contentsBox-commentInputWrap-profileImageDiv">
@@ -184,6 +211,7 @@ const BambooItem = ({ item, comment, writeBambooComment, commentSet, isShowComme
 
 BambooItem.propTypes = {
   item: PropTypes.object,
+  sortCategoryObj: PropTypes.object,
   commentData: PropTypes.array,
   writeBambooComment: PropTypes.func,
   userProfile: PropTypes.string,

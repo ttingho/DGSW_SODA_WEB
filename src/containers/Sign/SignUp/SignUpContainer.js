@@ -127,30 +127,30 @@ const SignUpContainer = ({
         }, 2000);
         
         await handleEmailCode(data)
-        .then((response) => { // 인증 성공 시 다음 페이지, 이메일 인증 여부 추가
-          setPage(pageType);
-          setProfileImage(null);
-          setIsCheckedEmail(true);
-        }).catch((error) => { // 실패 시 사유 모달 띄우기
-          const { status } = error.response.data;
-  
-          if (status === 400) {
-            modal({
-              title: 'Warning!',
-              stateType: 'warning',
-              contents: '코드를 입력해주세요.'
-            });
-            return;
-          } 
-          if (status === 403) {
-            modal({
-              title: 'Warning!',
-              stateType: 'warning',
-              contents: '올바른 검증 코드를 입력해주세요.'
-            });
-            return;
-          }
-        });
+          .then((response) => { // 인증 성공 시 다음 페이지, 이메일 인증 여부 추가
+            setPage(pageType);
+            setProfileImage(null);
+            setIsCheckedEmail(true);
+          }).catch((error) => { // 실패 시 사유 모달 띄우기
+            const { status } = error.response.data;
+    
+            if (status === 400) {
+              modal({
+                title: 'Warning!',
+                stateType: 'warning',
+                contents: '코드를 입력해주세요.'
+              });
+              return;
+            } 
+            if (status === 403) {
+              modal({
+                title: 'Warning!',
+                stateType: 'warning',
+                contents: '올바른 검증 코드를 입력해주세요.'
+              });
+              return;
+            }
+          });
       } else {
         modal({
           title: 'Warning!',
